@@ -28,7 +28,7 @@ Now you should have two directories:
 
 In order to use our controller you need to create a symbolic link:
 
-ln ~/workspace/cig/src ~/workspace/gvgai/controllers
+ln -s ~/workspace/cig/src/ ~/workspace/gvgai/src/controllers/cig
 
 Create an eclipse project:
 
