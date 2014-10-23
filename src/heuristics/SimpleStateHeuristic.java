@@ -1,12 +1,12 @@
 package controllers.cig.heuristics;
 
-import core.game.Observation;
-import core.game.StateObservation;
-import ontology.Types;
-import tools.Vector2d;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import ontology.Types;
+import tools.Vector2d;
+import core.game.Observation;
+import core.game.StateObservation;
 
 /**
  * Created with IntelliJ IDEA.

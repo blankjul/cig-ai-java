@@ -12,57 +12,71 @@ import core.game.StateObservation;
  */
 public class TreeNode {
 
-	private StateObservation fatherStateObs;
+	// father node, if null it's the root
+	protected TreeNode father;
 
-	private Types.ACTIONS nextAction;
+	// state observation. if it's ones advanced we need not to do it again!
+	protected StateObservation stateObs;
 
-	private StateObservation myStateObs = null;
+	// this is the action of the root node that brings us to this tree node
+	// by using this we need no traversal to the root again!
+	protected Types.ACTIONS rootAction;
 
-	public TreeNode(StateObservation so, Types.ACTIONS action) {
-		this.fatherStateObs = so;
-		this.nextAction = action;
+	/**
+	 * A tree node is defined by using ONLY the state observation
+	 * 
+	 * @param stateObs
+	 *            observation of this node!
+	 */
+	public TreeNode(StateObservation stateObs) {
+		this.father = null;
+		this.stateObs = stateObs;
+	}
+
+	/**
+	 * If the node is not a root it's good to know the father. Always use this
+	 * constructor!
+	 * 
+	 * @param father
+	 *            father tree node.
+	 */
+	public TreeNode(StateObservation stateObs, TreeNode father) {
+		this(stateObs);
+		this.father = father;
 	}
 
 	/**
 	 * Create a list of all possible children that could be created from this
-	 * state. There is no copy of the last state for wasting no time. This
-	 * should be done later when we simulate the next step!
+	 * state.
 	 * 
 	 * @return list of all possible children states
 	 */
 	public LinkedList<TreeNode> getChildren() {
+		// create result list and reserve memory for the temporary state object
 		LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
-		for (Types.ACTIONS action : fatherStateObs.getAvailableActions()) {
-			nodes.add(new TreeNode(fatherStateObs, action));
+		StateObservation tmpStateObs;
+		// for each possible action
+		for (Types.ACTIONS action : stateObs.getAvailableActions()) {
+			// create the next state
+			tmpStateObs = stateObs.copy();
+			tmpStateObs.advance(action);
+
+			TreeNode n = new TreeNode(tmpStateObs, this);
+			// set the correct action from the root. if it's the root set action
+			// else just inheritate
+			n.rootAction = (this.father == null) ? action : this.rootAction;
+			nodes.add(n);
 		}
+		tmpStateObs = null;
 		return nodes;
 	}
 
-	
-	/**
-	 * This method is used to calculate the next state observation lazy.
-	 * That means only if we need actually the state of this node after doing the action
-	 * there is done a copy and called the advance method.
-	 * @return StateObservation after executing nextAction.
-	 */
 	public StateObservation getObservation() {
-		if (myStateObs == null) {
-			myStateObs = fatherStateObs.copy();
-			myStateObs.advance(nextAction);
-			return myStateObs;
-		}
-		return myStateObs;
+		return stateObs;
 	}
-	
-	
-	/**
-	 * Just a getter method.
-	 * @return nextAction that should be executed.
-	 */
-	public Types.ACTIONS getNextAction() {
-		return nextAction;
+
+	public Types.ACTIONS getRootAction() {
+		return rootAction;
 	}
-	
-	
 
 }

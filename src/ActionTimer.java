@@ -12,23 +12,21 @@ import tools.ElapsedCpuTimer;
 public class ActionTimer {
 
 	// variable for defining a safety time limit
-	public int timeRemainingLimit = 3;
+	public int timeRemainingLimit = 1;
 
 	// multiplicator of the average time
-	public double timeAvgMultiplicator = 1.4;
-
-	// accumulated time
-	protected double acumTime;
-
+	public double timeAvgMultiplicator = 2;
+	
 	// number of iterations
-	protected int numIters = 0;
-
-	// timer for the start and stop method.
-	protected ElapsedCpuTimer tmpTimer;
+	protected int iteration = 0;
 
 	// timer for the act method. is need for the remaining time
-	protected ElapsedCpuTimer actTimer;
+	protected ElapsedCpuTimer cpuTimer;
 
+	// timer for the act method. is need for the remaining time
+	protected double startTime;
+		
+		
 	/**
 	 * This is the constructor for the Timer object. The elapsedTimer that is
 	 * given to the act method of the controller is needed to get the remaining
@@ -36,20 +34,14 @@ public class ActionTimer {
 	 * 
 	 * @param elapsedTimer
 	 */
-	ActionTimer(ElapsedCpuTimer elapsedTimer) {
-		tmpTimer = null;
-		actTimer = elapsedTimer;
-		acumTime = 0;
-		numIters = 0;
+	ActionTimer(ElapsedCpuTimer cpuTimer) {
+		this.cpuTimer = cpuTimer;
+		this.startTime = getRemaining();
+		iteration = 0;
 	}
 
-	void start() {
-		tmpTimer = new ElapsedCpuTimer();
-	}
-
-	void stop() {
-		++this.numIters;
-		this.acumTime += (this.tmpTimer.elapsedMillis());
+	void addIteration() {
+		++this.iteration;
 	}
 
 	/**
@@ -58,14 +50,14 @@ public class ActionTimer {
 	 * @return average time or zero if there were no iterations.
 	 */
 	double getAVG() {
-		return (numIters != 0) ? acumTime / (double) numIters : 0;
+		return (iteration != 0) ? (startTime - getRemaining()) / (double) iteration : 0;
 	}
 
 	/**
 	 * @return remaining time for all further iteration.
 	 */
 	double getRemaining() {
-		return actTimer.remainingTimeMillis();
+		return cpuTimer.remainingTimeMillis();
 	}
 
 	/**
@@ -86,7 +78,7 @@ public class ActionTimer {
 	 */
 	String status() {
 		return "Remaining Time: " + getRemaining() + " | Iterations: "
-				+ this.numIters + " | Average Time: " + getAVG();
+				+ this.iteration + " | Average Time: " + getAVG();
 	}
 
 }
