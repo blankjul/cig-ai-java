@@ -1,5 +1,8 @@
 package controllers.cig;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import ontology.Types;
 import tools.ElapsedCpuTimer;
@@ -9,52 +12,47 @@ import core.player.AbstractPlayer;
 
 public class Agent extends AbstractPlayer {
 
-
 	protected ActionTimer timer;
 
-	public Agent(StateObservation so, ElapsedCpuTimer elapsedTimer) {}
+	public Agent(StateObservation so, ElapsedCpuTimer elapsedTimer) {
+	}
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		// Initialize the timer for all iterations that are made
-		timer = new ActionTimer(elapsedTimer);
+		timer = new ActionTimer(elapsedTimer); // Initialize the timer for all
+												// iterations that are made
+		Types.ACTIONS action = null; // The action we will finally be executed
 
-		// The action we will finally be executed
-		Types.ACTIONS bestAction = null;
-
-		// copy of our state object
-		StateObservation stCopy = null;
+		Queue<TreeNode> queue = new LinkedList<TreeNode>(); // all elements that
+															// will be iterated
+		TreeNode root = new TreeNode(stateObs, Types.ACTIONS.ACTION_NIL);
+		queue.addAll(root.getChildren());
 
 		// initialize the values for the heuristic
 		double maxQ = Double.NEGATIVE_INFINITY;
 		SimpleStateHeuristic heuristic = new SimpleStateHeuristic(stateObs);
 
-		// search for the next best action
-		for (Types.ACTIONS action : stateObs.getAvailableActions()) {
+		// check whether we've enough time and there is a next tree node to
+		// check.
+		while (timer.isTimeLeft() && !queue.isEmpty()) {
+			timer.start();
 
-			// check whether we've enough time for a next iteration.
-			if (timer.isTimeLeft()) {
-				timer.start();
-				
-				stCopy = stateObs.copy();
-				stCopy.advance(action);
-				double Q = heuristic.evaluateState(stCopy);
+			TreeNode node = queue.poll();
+			StateObservation stCopy = node.getObservation();
 
-				if (Q > maxQ) {
-					maxQ = Q;
-					bestAction = action;
-				}
+			double Q = heuristic.evaluateState(stCopy);
 
-				
-				timer.stop();
+			if (Q > maxQ) {
+				maxQ = Q;
+				action = node.getNextAction();
 			}
 
+			timer.stop();
 		}
 
 		System.out.println(timer.status());
-		return bestAction;
+		return action;
 
 	}
-
 }
