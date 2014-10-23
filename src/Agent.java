@@ -1,6 +1,5 @@
 package controllers.cig;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -12,7 +11,7 @@ import core.player.AbstractPlayer;
 
 public class Agent extends AbstractPlayer {
 
-	protected ActionTimer timer;
+	protected ActionTimer timer = null;
 
 	public Agent(StateObservation so, ElapsedCpuTimer elapsedTimer) {
 	}
@@ -20,12 +19,10 @@ public class Agent extends AbstractPlayer {
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		timer = new ActionTimer(elapsedTimer); // Initialize the timer for all
-												// iterations that are made
+		timer = new ActionTimer(elapsedTimer); // Initialize the timer
 		Types.ACTIONS action = null; // The action we will finally be executed
 
-		Queue<TreeNode> queue = new LinkedList<TreeNode>(); // all elements that
-															// will be iterated
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		TreeNode root = new TreeNode(stateObs, Types.ACTIONS.ACTION_NIL);
 		queue.addAll(root.getChildren());
 
@@ -33,8 +30,7 @@ public class Agent extends AbstractPlayer {
 		double maxQ = Double.NEGATIVE_INFINITY;
 		SimpleStateHeuristic heuristic = new SimpleStateHeuristic(stateObs);
 
-		// check whether we've enough time and there is a next tree node to
-		// check.
+		// check whether there is time and we've further tree nodes
 		while (timer.isTimeLeft() && !queue.isEmpty()) {
 			timer.start();
 
@@ -47,6 +43,8 @@ public class Agent extends AbstractPlayer {
 				maxQ = Q;
 				action = node.getNextAction();
 			}
+			
+			queue.addAll(node.getChildren());
 
 			timer.stop();
 		}

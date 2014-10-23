@@ -16,9 +16,6 @@ public class TreeNode {
 
 	private Types.ACTIONS nextAction;
 
-	
-
-
 	private StateObservation myStateObs = null;
 
 	public TreeNode(StateObservation so, Types.ACTIONS action) {
