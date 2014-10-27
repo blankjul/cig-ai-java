@@ -27,9 +27,12 @@ Now you should have two directories:
 
 
 In order to use our controller you need to create a symbolic link:
-
+Linux:
 ln -s ~/workspace/cig/src/ ~/workspace/gvgai/src/controllers/cig
 
+Windows:
+cd workspace
+mklinkg /j "gvgai\src\controller\cig" "cig\src"
 Create an eclipse project:
 
 File -> New -> Java-Project with the name gvgai.
