@@ -1,13 +1,13 @@
-package controllers.cig;
+package emergence_HR;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 import ontology.Types;
 import tools.ElapsedCpuTimer;
-import controllers.cig.heuristics.SimpleStateHeuristic;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
+import emergence_HR.heuristics.SimpleStateHeuristic;
 
 public class Agent extends AbstractPlayer {
 

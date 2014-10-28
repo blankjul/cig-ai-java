@@ -1,4 +1,5 @@
-package controllers.cig.heuristics;
+package emergence_HR.heuristics;
+
 
 import core.game.StateObservation;
 

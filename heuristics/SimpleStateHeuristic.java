@@ -1,4 +1,4 @@
-package controllers.cig.heuristics;
+package emergence_HR.heuristics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
