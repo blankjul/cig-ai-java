@@ -72,15 +72,14 @@ public class RuleDeduction {
 		while (// timer.isTimeLeft() &&
 		!queue.isEmpty()) {
 
+			printNodes(queue);
+			
 			final RuleNode node = queue.poll();
 
-			printNodes(queue);
-
-			if (node.stateObs.getAvatarPosition().equals(v)) {
+			if (node.stateObs.getAvatarPosition().equals(v) || node.stateObs.isGameOver()) {
 				System.out.println("yEAHH got collision");
 				return;
 			}
-
 			queue.addAll(node.getChildren());
 
 		}
@@ -88,11 +87,12 @@ public class RuleDeduction {
 	}
 
 	public void printNodes(Queue<RuleNode> queue) {
-		final int MAX = 5;
+		final int MAX = 4;
 		int i = 0;
 		for (RuleNode n : queue) {
 			System.out.println(n);
-			if (i==MAX) break;
+			if (i>=MAX) break;
+			++i;
 		}
 		System.out.println("------- TOP  ---------------");
 		RuleNode top = queue.peek();

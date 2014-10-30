@@ -63,6 +63,7 @@ public class RuleNode {
 	}
 
 	public double getHeuristic() {
+		if (stateObs.isGameOver() && stateObs.getGameWinner() == Types.WINNER.PLAYER_WINS) return Double.MIN_VALUE;
 		return getDistance(stateObs.getAvatarPosition(), dest);
 	}
 
