@@ -7,31 +7,33 @@ import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
-import emergence_HR.heuristics.PortalHeuristic;
+import emergence_HR.heuristics.SimpleStateHeuristic;
 
 public class Agent extends AbstractPlayer {
 
 	final private boolean VERBOSE = true;
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-		LevelInfo.print(stateObs);
 	}
 
+	
+	
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		Types.ACTIONS action = null; // The action we will finally be executed
+		
+		Types.ACTIONS action = null;           // The action we will finally be executed
 
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		TreeNode root = new TreeNode(stateObs);
 		queue.addAll(root.getChildren());
 
 		// initialize the values for the heuristic
-		PortalHeuristic heuristic = new PortalHeuristic(stateObs);
+		double maxQ = Double.NEGATIVE_INFINITY;
+		SimpleStateHeuristic heuristic = new SimpleStateHeuristic(stateObs);
 
-		ActionTimer timer = new ActionTimer(elapsedTimer); // Initialize the
-															// timer
-
+		ActionTimer timer = new ActionTimer(elapsedTimer); // Initialize the timer
+		
 		// check whether there is time and we've further tree nodes
 		while (timer.isTimeLeft() && !queue.isEmpty()) {
 
@@ -44,13 +46,12 @@ public class Agent extends AbstractPlayer {
 				action = node.getRootAction();
 			}
 			queue.addAll(node.getChildren());
-
+			
+			
 			timer.addIteration();
 		}
 
-		if (VERBOSE)
-			System.out.println(timer.status());
-		
+		if (VERBOSE) System.out.println(timer.status());
 		return action;
 
 	}
