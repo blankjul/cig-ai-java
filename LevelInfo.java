@@ -52,7 +52,7 @@ public class LevelInfo {
 			ArrayList<Observation> lObs = list[i];
 			// all observation of this list have the same group
 			// so just take the nearest that means the first!
-			if (!lObs.isEmpty()) System.out.print("Category: " + lObs.get(0).category + " -> ");
+			if (!lObs.isEmpty()) System.out.print("Category: " + lObs.get(0).itype + " -> ");
 			for (int j = 0; j < lObs.size(); j++) {
 				Observation obs = lObs.get(j);
 				System.out.printf("[%s,%s], ", obs.position.x, obs.position.y);
