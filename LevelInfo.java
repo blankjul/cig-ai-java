@@ -1,10 +1,12 @@
 package emergence_HR;
 
 import java.util.ArrayList;
+import java.util.Queue;
 
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
+import emergence_HR.nodes.Node;
 
 public class LevelInfo {
 
@@ -62,4 +64,17 @@ public class LevelInfo {
 		System.out.println();
 	}
 
+	public static void printNodes(Queue<Node> queue) {
+		final int MAX = 4;
+		int i = 0;
+		for (Node n : queue) {
+			System.out.println(n);
+			if (i>=MAX) break;
+			++i;
+		}
+		System.out.println("size: " + queue.size());
+		System.out.println("\n-----------------------------");
+
+	}
+	
 }
