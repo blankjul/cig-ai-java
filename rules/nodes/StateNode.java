@@ -1,4 +1,4 @@
-package emergence_HR;
+package emergence_HR.rules.nodes;
 
 import java.util.LinkedList;
 
@@ -10,39 +10,18 @@ import core.game.StateObservation;
  * to simulate next steps of a node. This has the consequence that there are
  * always father and children states.
  */
-public class TreeNode {
-
-	// father node, if null it's the root
-	protected TreeNode father;
-
-	// state observation. if it's ones advanced we need not to do it again!
-	protected StateObservation stateObs;
+public class StateNode extends Node {
 
 	// this is the action of the root node that brings us to this tree node
 	// by using this we need no traversal to the root again!
 	protected Types.ACTIONS rootAction;
 
-	/**
-	 * A tree node is defined by using ONLY the state observation
-	 * 
-	 * @param stateObs
-	 *            observation of this node!
-	 */
-	public TreeNode(StateObservation stateObs) {
-		this.father = null;
-		this.stateObs = stateObs;
+	public StateNode(StateObservation stateObs) {
+		super(stateObs);
 	}
 
-	/**
-	 * If the node is not a root it's good to know the father. Always use this
-	 * constructor!
-	 * 
-	 * @param father
-	 *            father tree node.
-	 */
-	public TreeNode(StateObservation stateObs, TreeNode father) {
-		this(stateObs);
-		this.father = father;
+	public StateNode(StateObservation stateObs, Node father) {
+		super(stateObs, father);
 	}
 
 	/**
@@ -51,9 +30,9 @@ public class TreeNode {
 	 * 
 	 * @return list of all possible children states
 	 */
-	public LinkedList<TreeNode> getChildren() {
+	public LinkedList<StateNode> getChildren() {
 		// create result list and reserve memory for the temporary state object
-		LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
+		LinkedList<StateNode> nodes = new LinkedList<StateNode>();
 		StateObservation tmpStateObs;
 		// for each possible action
 		for (Types.ACTIONS action : stateObs.getAvailableActions()) {
@@ -61,7 +40,7 @@ public class TreeNode {
 			tmpStateObs = stateObs.copy();
 			tmpStateObs.advance(action);
 
-			TreeNode n = new TreeNode(tmpStateObs, this);
+			StateNode n = new StateNode(tmpStateObs, this);
 			// set the correct action from the root. if it's the root set action
 			// else just inheritate
 			n.rootAction = (this.father == null) ? action : this.rootAction;
@@ -70,6 +49,8 @@ public class TreeNode {
 		tmpStateObs = null;
 		return nodes;
 	}
+
+
 
 	public StateObservation getObservation() {
 		return stateObs;

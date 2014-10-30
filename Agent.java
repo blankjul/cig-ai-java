@@ -8,36 +8,40 @@ import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence_HR.heuristics.SimpleStateHeuristic;
+import emergence_HR.rules.RuleDeduction;
+import emergence_HR.rules.RuleDeduction.RuleType;
+import emergence_HR.rules.nodes.StateNode;
 
 public class Agent extends AbstractPlayer {
 
-	final private boolean VERBOSE = true;
+	final private boolean VERBOSE = false;
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+		LevelInfo.print(stateObs);
 	}
 
-	
-	
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		
-		Types.ACTIONS action = null;           // The action we will finally be executed
+		ActionTimer timer = new ActionTimer(elapsedTimer);
 
-		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		TreeNode root = new TreeNode(stateObs);
+		RuleDeduction rd = new RuleDeduction();
+		rd.explore(RuleType.AVATAR_PORTAL, stateObs, timer);
+
+		Types.ACTIONS action = null; // The action we will finally be executed
+
+		Queue<StateNode> queue = new LinkedList<StateNode>();
+		StateNode root = new StateNode(stateObs);
 		queue.addAll(root.getChildren());
 
 		// initialize the values for the heuristic
 		double maxQ = Double.NEGATIVE_INFINITY;
 		SimpleStateHeuristic heuristic = new SimpleStateHeuristic(stateObs);
 
-		ActionTimer timer = new ActionTimer(elapsedTimer); // Initialize the timer
-		
 		// check whether there is time and we've further tree nodes
 		while (timer.isTimeLeft() && !queue.isEmpty()) {
 
-			TreeNode node = queue.poll();
+			StateNode node = queue.poll();
 			StateObservation stCopy = node.getObservation();
 
 			double Q = heuristic.evaluateState(stCopy);
@@ -46,12 +50,13 @@ public class Agent extends AbstractPlayer {
 				action = node.getRootAction();
 			}
 			queue.addAll(node.getChildren());
-			
-			
+
 			timer.addIteration();
 		}
 
-		if (VERBOSE) System.out.println(timer.status());
+		if (VERBOSE)
+			System.out.println(timer.status());
+		System.out.println(action);
 		return action;
 
 	}

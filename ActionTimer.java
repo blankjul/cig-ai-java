@@ -66,7 +66,7 @@ public class ActionTimer {
 	 * 
 	 * @return if there is enough time for a further iteration.
 	 */
-	boolean isTimeLeft() {
+	public boolean isTimeLeft() {
 		return getRemaining() >= timeAvgMultiplicator * getAVG()
 				&& getRemaining() > timeRemainingLimit;
 	}
