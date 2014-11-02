@@ -22,53 +22,70 @@ public class TreeNodeRandom extends TreeNode{
 	//which action you used to get to the actual Node
 	protected Types.ACTIONS action;
 	
+	//this is the TreeNodeRandom father, when you work with this class
+	//be sure to use this father node
+	protected TreeNodeRandom fatherTNR;
+	
 	//store the positionsof the avatar in this path
-	ArrayList<Vector2d> positions;
+	ArrayList<Vector2d> positions = new ArrayList<Vector2d>();
 	
 	public TreeNodeRandom(StateObservation stateObs) {
 		super(stateObs);
 		this.action = null;
-		positions.add(stateObs.getAvatarPosition());
-		// TODO Auto-generated constructor stub
+		this.fatherTNR = null;
+		this.positions.add(stateObs.getAvatarPosition());
 	}
 	
 	public TreeNodeRandom(StateObservation stateObs, TreeNodeRandom father, Types.ACTIONS action) {
 		this(stateObs);
-		this.father = father;
+		this.fatherTNR = father;
 		this.action = action;
 		
 	}
 
 	/**
 	 * this is a overloaded function to compute a defined number of
-	 * randomly chosen children
+	 * randomly chosen children, the forbidden Actions are cant
+	 * be picked
 	 * @param children
 	 * @return
 	 */
-	public LinkedList<TreeNodeRandom> getChildren(int children){
+	public LinkedList<TreeNodeRandom> getChildren(int children, ArrayList<Types.ACTIONS> forbidden_actions){
 		// create result list and reserve memory for the temporary state object
 		LinkedList<TreeNodeRandom> nodes = new LinkedList<TreeNodeRandom>();
 		StateObservation tmpStateObs;
-		int available_actions = stateObs.getAvailableActions().size();
+		ArrayList<Types.ACTIONS> actions = stateObs.getAvailableActions();		
+		//for debugging only
+		
 		//debug
 		//System.out.println("available Actions: " + stateObs.getAvailableActions().toString() + "numberOFACTIONS: " + available_actions);
-		int[] index_list= new int[children];
+		//System.out.println("1 name: " + stateObs.getAvailableActions().get(0).name() + "   key: " + stateObs.getAvailableActions().get(0).getKey().toString());
+		//System.out.println("2 name: " + stateObs.getAvailableActions().get(1).name() + "   key: " + stateObs.getAvailableActions().get(1).getKey().toString());
+		
+		//delete the forbidden indexes
+		if(forbidden_actions != null){
+			actions.removeAll(forbidden_actions);
+		}
+		
+		//generate the number of available actions except the forbidden ones
+		int available_actions = actions.size();
 		
 		//not so many children available
 		children = (children > available_actions) ? available_actions : children;
-		//String string = "";
-		//generate random indexes for the actions
-		for(int i = 0; i < children; i++){
-			index_list[i] = (int) (Math.random() * available_actions);
-			//string += index_list[i];
+		
+		//just generate the defined number of children
+		while(children < actions.size()){
+			int delete = (int) (Math.random() * available_actions);
+			actions.remove(delete);
+			available_actions--;
 		}
-		//System.out.println("index List" + string);
+		
 		//generate children nodes
-		for(int i = 0; i < children; i++){
-			ACTIONS action = stateObs.getAvailableActions().get(index_list[i]);
+		for(Types.ACTIONS action : actions){
+
 			tmpStateObs = stateObs.copy();
 			tmpStateObs.advance(action);
-			System.out.println("position: " + stateObs.getAvatarPosition().toString());
+			//System.out.println("position: " + stateObs.getAvatarPosition().toString());
 			TreeNodeRandom n = new TreeNodeRandom(tmpStateObs, this, action);
 			// set the correct action from the root. if it's the root set action
 			// else just inheritate
@@ -83,8 +100,8 @@ public class TreeNodeRandom extends TreeNode{
 	 * method to get the father of the actual Node
 	 * @return
 	 */
-	public TreeNode getFather(){
-		return this.father;
+	public TreeNodeRandom getFather(){
+		return this.fatherTNR;
 	}
 	
 	/**
@@ -96,4 +113,17 @@ public class TreeNodeRandom extends TreeNode{
 		return this.action;
 	}
 	
+	/**
+	 * this method casts a LinkedList with TreeNode's in it to a list
+	 * with TreeNodeRandom's in it
+	 * @param treeNode
+	 * @return
+	 */
+	public static LinkedList<TreeNodeRandom> castToSubclass(LinkedList<TreeNode> treeNode){
+		LinkedList<TreeNodeRandom> treeNodeRandom = null;
+		for(TreeNode node: treeNode){
+			treeNodeRandom.add((TreeNodeRandom) node);
+		}
+		return treeNodeRandom;
+	}
 }
