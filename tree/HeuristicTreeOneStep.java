@@ -1,21 +1,19 @@
 package emergence_HR.tree;
 
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 
 import emergence_HR.ActionTimer;
 import emergence_HR.heuristics.StateHeuristic;
 
 /**
  * This strategy uses the given heuristic and just look for the next best step.
- * Normally there should not be any time problems
+ * Normally there should not be any time problems.
+ * 
  */
 public class HeuristicTreeOneStep extends HeuristicTree {
 
 	public HeuristicTreeOneStep(Node root, StateHeuristic heuristic) {
 		super(root, heuristic);
-		queue = new PriorityQueue<Node>(11, new NodeComparator());
-		queue.add(root);
 	}
 
 	public void expand(ActionTimer timer) {

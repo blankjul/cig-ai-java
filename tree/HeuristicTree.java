@@ -1,10 +1,7 @@
 package emergence_HR.tree;
 
-import java.util.PriorityQueue;
-
 import ontology.Types;
 import ontology.Types.ACTIONS;
-
 import emergence_HR.heuristics.StateHeuristic;
 
 /**
@@ -32,8 +29,6 @@ abstract public class HeuristicTree extends ATree {
 	public HeuristicTree(Node root, StateHeuristic heuristic) {
 		super(root);
 		this.heuristic = heuristic;
-		queue = new PriorityQueue<Node>(11, new NodeComparator());
-		queue.add(root);
 	}
 
 	/**

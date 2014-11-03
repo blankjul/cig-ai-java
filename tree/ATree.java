@@ -1,11 +1,9 @@
 package emergence_HR.tree;
 
 import java.util.LinkedList;
-import java.util.Queue;
-
-import core.game.StateObservation;
 
 import ontology.Types;
+import core.game.StateObservation;
 import emergence_HR.ActionTimer;
 import emergence_HR.heuristics.StateHeuristic;
 
@@ -22,8 +20,6 @@ import emergence_HR.heuristics.StateHeuristic;
 abstract public class ATree {
 
 	public Node root;
-
-	public Queue<Node> queue;
 
 	public StateHeuristic heuristic;
 
