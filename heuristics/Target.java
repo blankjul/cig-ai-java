@@ -79,7 +79,7 @@ public class Target {
 	 * Print all needed information to specify a target.
 	 */
 	public String toString() {
-		return String.format("type:%s, id:%s", type.getClass().getSimpleName(),
+		return String.format("type:%s, id:%s", type.toString(),
 				index);
 	}
 

@@ -28,7 +28,7 @@ public class TargetFactory {
 
 	
 	/**
-	 * Returns all the nps as a target object
+	 * Returns all the NPCs as a target object
 	 */
 	public static ArrayList<Target> getNPC(StateObservation stateObs) {
 		Vector2d avatarPosition = stateObs.getAvatarPosition();
@@ -36,6 +36,7 @@ public class TargetFactory {
 		// add all npcs
 		ArrayList<Observation>[] npcPositions = stateObs
 				.getNPCPositions(avatarPosition);
+		if (npcPositions == null) return targetList;
 		for (int i = 0; i < npcPositions.length; i++) {
 			targetList.add(new Target(Type.NPC, i));
 		}
@@ -52,6 +53,7 @@ public class TargetFactory {
 		// add all resources
 		ArrayList<Observation>[] resourcesPositions = stateObs
 				.getPortalsPositions(avatarPosition);
+		if (resourcesPositions == null) return targetList;
 		for (int i = 0; i < resourcesPositions.length; i++) {
 			targetList.add(new Target(Type.Resources, i));
 		}
@@ -69,6 +71,7 @@ public class TargetFactory {
 		// add all portals
 		ArrayList<Observation>[] portalPositions = stateObs
 				.getPortalsPositions(avatarPosition);
+		if (portalPositions == null) return targetList;
 		for (int i = 0; i < portalPositions.length; i++) {
 			targetList.add(new Target(Type.Portals, i));
 		}

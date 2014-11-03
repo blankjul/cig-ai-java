@@ -1,20 +1,10 @@
 package emergence_HR;
 
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.Queue;
-
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
-import emergence_HR.heuristics.StateHeuristic;
-import emergence_HR.heuristics.Target;
-import emergence_HR.heuristics.TargetFactory;
-import emergence_HR.heuristics.TargetHeuristic;
-import emergence_HR.nodes.Node;
-import emergence_HR.nodes.NodeComparator;
-import emergence_HR.nodes.NodeTree;
+import emergence_HR.heuristics.HeuristicEnsemble;
 
 public class Agent extends AbstractPlayer {
 
@@ -27,33 +17,36 @@ public class Agent extends AbstractPlayer {
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		
-		
-		// The action we will finally be executed
-		Types.ACTIONS action = Types.ACTIONS.ACTION_NIL;
-
-		// the current heuristic that is used
-		ArrayList<Target> l = TargetFactory.getPortals(stateObs);
-		Target t = l.get(0);
-		
-		StateHeuristic heuristic = new TargetHeuristic(t);
-
-
-		Node root = new Node(stateObs);
-		NodeTree tree = new NodeTree(root, heuristic);
+		HeuristicEnsemble he = HeuristicEnsemble.getInstance(stateObs);
 
 		// initialize the values for the heuristic and the timer
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 
-		action = tree.expand(timer);
-
+		// search for the best heuristic!
+		he.calculate(timer);
+		
 		if (VERBOSE) {
-			LevelInfo.printNodes(tree.queue);
+			// LevelInfo.printNodes(tree.queue);
+			System.out.println(he.toString());
 			System.out.println(timer.status());
+			System.out.println("------------------------------------------");
 		}
 
-		//return action;
-		return Types.ACTIONS.ACTION_NIL;
+		// The action we will finally be executed
+		Types.ACTIONS action = Types.ACTIONS.ACTION_NIL;
+		return action;
+
+		/*
+		 * ArrayList<Target> l = TargetFactory.getPortals(stateObs); Target t =
+		 * l.get(0);
+		 * 
+		 * StateHeuristic heuristic = new TargetHeuristic(t);
+		 * 
+		 * Node root = new Node(stateObs); NodeTree tree = new NodeTree(root,
+		 * heuristic);
+		 * 
+		 * action = tree.expand(timer);
+		 */
 
 	}
 }

@@ -17,7 +17,7 @@ public class TargetHeuristic extends StateHeuristic {
 	}
 
 	public String toString() {
-		return String.format("%s", getClass().getSimpleName());
+		return String.format("%s, %s", getClass().getSimpleName(), target );
 	}
 
 	@Override

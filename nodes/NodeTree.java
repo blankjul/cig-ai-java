@@ -25,6 +25,7 @@ public class NodeTree {
 	private int score = 0;
 
 	public NodeTree(Node root, StateHeuristic heuristic) {
+		this.heuristic = heuristic;
 		this.root = root;
 		this.root.setHeuristic(heuristic);
 		this.root.level = 0;
@@ -42,7 +43,7 @@ public class NodeTree {
 		// check whether there is time and we've further tree nodes
 		while (timer.isTimeLeft() && !queue.isEmpty()) {
 
-			LevelInfo.printNodes(queue);
+			//LevelInfo.printNodes(queue);
 
 			// get the first node
 			Node node = queue.poll();
@@ -54,7 +55,18 @@ public class NodeTree {
 			}
 
 			LinkedList<Node> children = node.getChildren();
-			for (Node child : children) score += child.stateObs.getGameScore();
+			for (Node child : children) {
+
+				// update the performance of the tree
+				Types.WINNER w = child.stateObs.getGameWinner();
+				if (w == Types.WINNER.PLAYER_WINS) {
+					score += 100;
+				} else if (w == Types.WINNER.PLAYER_LOSES) {
+					score -= 100;
+				}
+				score += child.stateObs.getGameScore();
+
+			}
 			queue.addAll(children);
 
 			timer.addIteration();
@@ -64,6 +76,11 @@ public class NodeTree {
 
 	}
 
+	/**
+	 * Returns the score of the tree!
+	 * 
+	 * @return
+	 */
 	public double getScore() {
 		return score;
 	}
