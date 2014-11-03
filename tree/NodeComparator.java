@@ -1,4 +1,4 @@
-package emergence_HR.nodes;
+package emergence_HR.tree;
 
 import java.util.Comparator;
 

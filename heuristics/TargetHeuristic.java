@@ -2,6 +2,7 @@ package emergence_HR.heuristics;
 
 import tools.Vector2d;
 import core.game.StateObservation;
+import emergence_HR.target.Target;
 
 /**
  * This a a heuristic that aims to one target. If the avatar is very near to
@@ -17,7 +18,7 @@ public class TargetHeuristic extends StateHeuristic {
 	}
 
 	public String toString() {
-		return String.format("%s, %s", getClass().getSimpleName(), target );
+		return String.format("%s, %s", getClass().getSimpleName(), target);
 	}
 
 	@Override

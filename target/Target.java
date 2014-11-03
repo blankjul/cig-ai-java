@@ -1,4 +1,4 @@
-package emergence_HR.heuristics;
+package emergence_HR.target;
 
 import java.util.ArrayList;
 

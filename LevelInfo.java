@@ -6,7 +6,7 @@ import java.util.Queue;
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
-import emergence_HR.nodes.Node;
+import emergence_HR.tree.Node;
 
 public class LevelInfo {
 

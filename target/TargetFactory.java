@@ -1,11 +1,11 @@
-package emergence_HR.heuristics;
+package emergence_HR.target;
 
 import java.util.ArrayList;
 
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
-import emergence_HR.heuristics.Target.Type;
+import emergence_HR.target.Target.Type;
 
 public class TargetFactory {
 
