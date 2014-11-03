@@ -6,7 +6,6 @@ import java.util.Queue;
 
 import ontology.Types;
 import emergence_HR.ActionTimer;
-import emergence_HR.LevelInfo;
 import emergence_HR.heuristics.StateHeuristic;
 
 /**
@@ -43,7 +42,7 @@ public class NodeTree {
 		// check whether there is time and we've further tree nodes
 		while (timer.isTimeLeft() && !queue.isEmpty()) {
 
-			//LevelInfo.printNodes(queue);
+			// LevelInfo.printNodes(queue);
 
 			// get the first node
 			Node node = queue.poll();

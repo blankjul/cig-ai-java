@@ -21,8 +21,15 @@ public class HeuristicEnsemble {
 	
 	private int index = 0;
 	
+	StateObservation stateObs;
+	
 	// private constructor
 	private HeuristicEnsemble(StateObservation stateObs) {
+		this.stateObs = stateObs;
+		reset();
+	}
+	
+	public void reset() {
 		ArrayList<Target> targets = TargetFactory.getAllTargets(stateObs);
 		for (Target target : targets) {
 			NodeTree tree = new NodeTree(new Node(stateObs), new TargetHeuristic(target));
@@ -30,11 +37,28 @@ public class HeuristicEnsemble {
 		}
 	}
 	
-	public void calculate(ActionTimer timer) {
+	public boolean calculate(ActionTimer timer) {
+		if (pool.size() == 0) {
+			reset();
+			return false;
+		}
 		NodeTree tree = pool.get(index % pool.size());
 		tree.expand(timer);
+		return true;
 	}
 
+	public StateHeuristic getTOP() {
+		double maxScore = Double.MIN_VALUE;
+		StateHeuristic heur = null;
+		
+		for (NodeTree tree : pool) {
+			if (tree.getScore() > maxScore) {
+				maxScore = tree.getScore();
+				heur = tree.heuristic;
+			}
+		}
+		return heur;
+	}
 	
 	/**
 	 * Factory method
