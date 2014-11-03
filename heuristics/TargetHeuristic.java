@@ -31,7 +31,7 @@ public class TargetHeuristic extends StateHeuristic {
 		if (distance == 0)
 			return Double.MAX_VALUE;
 
-		return 1000 / distance;
+		return 100000 / distance;
 	}
 
 }

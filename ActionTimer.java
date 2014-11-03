@@ -40,7 +40,7 @@ public class ActionTimer {
 		iteration = 0;
 	}
 
-	void addIteration() {
+	public void addIteration() {
 		++this.iteration;
 	}
 
@@ -66,7 +66,7 @@ public class ActionTimer {
 	 * 
 	 * @return if there is enough time for a further iteration.
 	 */
-	boolean isTimeLeft() {
+	public boolean isTimeLeft() {
 		return getRemaining() >= timeAvgMultiplicator * getAVG()
 				&& getRemaining() > timeRemainingLimit;
 	}

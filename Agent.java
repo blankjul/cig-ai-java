@@ -10,9 +10,11 @@ import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence_HR.heuristics.StateHeuristic;
 import emergence_HR.heuristics.Target;
+import emergence_HR.heuristics.TargetFactory;
 import emergence_HR.heuristics.TargetHeuristic;
 import emergence_HR.nodes.Node;
 import emergence_HR.nodes.NodeComparator;
+import emergence_HR.nodes.NodeTree;
 
 public class Agent extends AbstractPlayer {
 
@@ -25,50 +27,33 @@ public class Agent extends AbstractPlayer {
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
+		
+		
 		// The action we will finally be executed
 		Types.ACTIONS action = Types.ACTIONS.ACTION_NIL;
-		
-		double bestHeuristic = Double.MAX_VALUE;
 
 		// the current heuristic that is used
-		ArrayList<Target> l = Target.getPortals(stateObs);
+		ArrayList<Target> l = TargetFactory.getPortals(stateObs);
 		Target t = l.get(0);
+		
 		StateHeuristic heuristic = new TargetHeuristic(t);
 
-		// queue for all the following nodes and set the heuristic
-		final Queue<Node> queue = new PriorityQueue<Node>(11,
-				new NodeComparator());
 
 		Node root = new Node(stateObs);
-		root.setHeuristic(heuristic);
-		root.level = 0;
-		queue.add(root);
+		NodeTree tree = new NodeTree(root, heuristic);
 
 		// initialize the values for the heuristic and the timer
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 
-		// check whether there is time and we've further tree nodes
-		while (timer.isTimeLeft() && !queue.isEmpty()) {
+		action = tree.expand(timer);
 
-			// get the first node 
-			Node node = queue.poll();
-
-			// look if we have a subtree with a really good heuristic
-			if (node.getHeuristic() < bestHeuristic) {
-				bestHeuristic = node.getHeuristic();
-				action = node.getRootAction();
-			}
-
-		
-			//LevelInfo.printNodes(queue);
-
-			timer.addIteration();
+		if (VERBOSE) {
+			LevelInfo.printNodes(tree.queue);
+			System.out.println(timer.status());
 		}
 
-		if (VERBOSE)
-			System.out.println(timer.status());
-
-		return action;
+		//return action;
+		return Types.ACTIONS.ACTION_NIL;
 
 	}
 }

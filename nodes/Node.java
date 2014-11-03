@@ -65,7 +65,7 @@ public class Node {
 
 			Node n = new Node(tmpStateObs);
 			// set the correct action from the root. if it's the root set action
-			// else just inheritate
+			// else just inherit
 			n.rootAction = (this.father == null) ? action : this.rootAction;
 			n.father = this;
 			n.stateHeuristic = this.stateHeuristic;
