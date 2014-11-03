@@ -5,19 +5,16 @@ import tools.Vector2d;
 import core.game.StateObservation;
 
 /**
- * That is the main type of heuristics. all that are created and used should
- * inherit from this class.
- * 
+ * Main type of heuristic is the StateHeuristic. Every idea that is heuristic
+ * based should inherit from this class. The method evaluateState returns if we
+ * did win or lose, the most positive or negative value because this should be
+ * equal for all heuristics.
  */
-public abstract class StateHeuristic {
+public abstract class AHeuristic {
 
-	Vector2d avatarPosition;
+	// the position of the avatar
+	protected Vector2d avatarPosition;
 
-	
-	
-	public StateHeuristic() {
-
-	}
 
 	/**
 	 * Method that must be overridden by children classes.
@@ -26,7 +23,6 @@ public abstract class StateHeuristic {
 	 */
 	abstract protected double getRank(StateObservation stateObs);
 
-	
 	/**
 	 * This method returns the value if the heuristic. for every heuristic if
 	 * the game is not finished it looks for the abstract method getRank()
@@ -38,9 +34,9 @@ public abstract class StateHeuristic {
 
 		Types.WINNER w = stateObs.getGameWinner();
 		if (w == Types.WINNER.PLAYER_WINS) {
-			return Double.MAX_VALUE;
+			return Double.POSITIVE_INFINITY;
 		} else if (w == Types.WINNER.PLAYER_LOSES) {
-			return Double.MIN_VALUE;
+			return Double.NEGATIVE_INFINITY;
 
 			// if we are not winning or loosing
 		} else {
@@ -48,11 +44,14 @@ public abstract class StateHeuristic {
 			return getRank(stateObs);
 		}
 	}
-	
+
 	/**
 	 * Calculates the Manhattan distance to one object!
-	 * @param from the source
-	 * @param to destination
+	 * 
+	 * @param from
+	 *            the source
+	 * @param to
+	 *            destination
 	 * @return Manhattan distance
 	 */
 	public double distance(Vector2d from, Vector2d to) {

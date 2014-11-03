@@ -12,7 +12,7 @@ import tools.ElapsedCpuTimer;
 public class ActionTimer {
 
 	// variable for defining a safety time limit
-	public int timeRemainingLimit = 1;
+	public int timeRemainingLimit = 3;
 
 	// multiplicator of the average time
 	public double timeAvgMultiplicator = 2;

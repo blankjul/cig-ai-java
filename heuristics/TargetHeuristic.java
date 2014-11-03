@@ -9,7 +9,7 @@ import emergence_HR.target.Target;
  * that target we will hopefully get points!
  * 
  */
-public class TargetHeuristic extends StateHeuristic {
+public class TargetHeuristic extends AHeuristic {
 
 	public Target target;
 
@@ -17,10 +17,7 @@ public class TargetHeuristic extends StateHeuristic {
 		this.target = t;
 	}
 
-	public String toString() {
-		return String.format("%s, %s", getClass().getSimpleName(), target);
-	}
-
+	
 	@Override
 	protected double getRank(StateObservation stateObs) {
 		// get the position of the target
@@ -30,9 +27,14 @@ public class TargetHeuristic extends StateHeuristic {
 		double distance = distance(avatarPosition, targetPos);
 
 		if (distance == 0)
-			return Double.MAX_VALUE;
+			return Double.POSITIVE_INFINITY;
 
 		return 100000 / distance;
 	}
+	
+	public String toString() {
+		return String.format("%s, %s", getClass().getSimpleName(), target);
+	}
+
 
 }

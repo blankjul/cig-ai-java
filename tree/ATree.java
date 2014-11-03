@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import ontology.Types;
 import core.game.StateObservation;
 import emergence_HR.ActionTimer;
-import emergence_HR.heuristics.StateHeuristic;
+import emergence_HR.heuristics.AHeuristic;
 
 /**
  * This is an abstract tree that has several attributes that should be needed by
@@ -21,7 +21,7 @@ abstract public class ATree {
 
 	public Node root;
 
-	public StateHeuristic heuristic;
+	public AHeuristic heuristic;
 
 	private double score;
 
@@ -43,7 +43,7 @@ abstract public class ATree {
 	abstract public Types.ACTIONS action();
 
 	/**
-	 * Get the score from the current tree that uses the given stratagy
+	 * Get the score from the current tree that uses the given strategy
 	 */
 	public double getScore() {
 		return score;

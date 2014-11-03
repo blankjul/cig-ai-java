@@ -8,6 +8,9 @@ import java.util.Comparator;
  * 
  */
 public class NodeComparator implements Comparator<Node> {
+	
+	
+	
 	public int compare(Node firstNode, Node secondNode) {
 		if (firstNode.getHeuristic() < secondNode.getHeuristic()) {
 			return 1;

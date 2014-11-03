@@ -2,7 +2,7 @@ package emergence_HR.tree;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
-import emergence_HR.heuristics.StateHeuristic;
+import emergence_HR.heuristics.AHeuristic;
 
 /**
  * This is also an abstract class that adds the feature of a heuristic to the
@@ -11,7 +11,7 @@ import emergence_HR.heuristics.StateHeuristic;
  */
 abstract public class HeuristicTree extends ATree {
 
-	protected StateHeuristic heuristic;
+	protected AHeuristic heuristic;
 
 	/**
 	 * action that is returned by the action(). It has to be PROOVED that the
@@ -26,7 +26,7 @@ abstract public class HeuristicTree extends ATree {
 	 * @param root
 	 * @param heuristic
 	 */
-	public HeuristicTree(Node root, StateHeuristic heuristic) {
+	public HeuristicTree(Node root, AHeuristic heuristic) {
 		super(root);
 		this.heuristic = heuristic;
 	}
@@ -34,7 +34,7 @@ abstract public class HeuristicTree extends ATree {
 	/**
 	 * @return heuristic that is used
 	 */
-	public StateHeuristic getHeuristic() {
+	public AHeuristic getHeuristic() {
 		return heuristic;
 	}
 
@@ -43,7 +43,7 @@ abstract public class HeuristicTree extends ATree {
 	 * 
 	 * @param heuristic
 	 */
-	public void setHeuristic(StateHeuristic heuristic) {
+	public void setHeuristic(AHeuristic heuristic) {
 		this.heuristic = heuristic;
 	}
 

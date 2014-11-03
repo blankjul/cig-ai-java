@@ -15,11 +15,12 @@ import emergence_HR.tree.ATree;
  */
 public class HeuristicEnsemble {
 
+	public ArrayList<ATree> pool = new ArrayList<ATree>();
+	
 	// singleton instance
 	private static HeuristicEnsemble instance = null;
 
-	ArrayList<ATree> pool = new ArrayList<ATree>();
-
+	// index that should be expanded on this calcuation
 	private int index = 0;
 
 	StateObservation stateObs;
@@ -49,9 +50,9 @@ public class HeuristicEnsemble {
 		return true;
 	}
 
-	public StateHeuristic getTOP() {
+	public AHeuristic getTOP() {
 		double maxScore = Double.MIN_VALUE;
-		StateHeuristic heur = null;
+		AHeuristic heur = null;
 
 		for (ATree tree : pool) {
 			if (tree.getScore() > maxScore) {

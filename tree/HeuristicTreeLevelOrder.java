@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import emergence_HR.ActionTimer;
-import emergence_HR.heuristics.StateHeuristic;
+import emergence_HR.heuristics.AHeuristic;
 
 /**
  * This strategy uses the given heuristic and just look for the best step in level order.
@@ -15,7 +15,7 @@ import emergence_HR.heuristics.StateHeuristic;
  */
 public class HeuristicTreeLevelOrder extends HeuristicTree {
 
-	public HeuristicTreeLevelOrder(Node root, StateHeuristic heuristic) {
+	public HeuristicTreeLevelOrder(Node root, AHeuristic heuristic) {
 		super(root, heuristic);
 	}
 

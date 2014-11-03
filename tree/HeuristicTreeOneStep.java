@@ -3,7 +3,7 @@ package emergence_HR.tree;
 import java.util.LinkedList;
 
 import emergence_HR.ActionTimer;
-import emergence_HR.heuristics.StateHeuristic;
+import emergence_HR.heuristics.AHeuristic;
 
 /**
  * This strategy uses the given heuristic and just look for the next best step.
@@ -12,7 +12,7 @@ import emergence_HR.heuristics.StateHeuristic;
  */
 public class HeuristicTreeOneStep extends HeuristicTree {
 
-	public HeuristicTreeOneStep(Node root, StateHeuristic heuristic) {
+	public HeuristicTreeOneStep(Node root, AHeuristic heuristic) {
 		super(root, heuristic);
 	}
 
@@ -23,14 +23,11 @@ public class HeuristicTreeOneStep extends HeuristicTree {
 		LinkedList<Node> children = getChildren(root);
 
 		// check whether there is time and we've further tree nodes
-		while (timer.isTimeLeft() && !children.isEmpty()) {
-
-			for (Node child : children) {
-				double score = heuristic.evaluateState(child.stateObs);
-				if (score > bestHeuristic) {
-					bestHeuristic = score;
-					action = child.getRootAction();
-				}
+		for (Node child : children) {
+			double score = heuristic.evaluateState(child.stateObs);
+			if (score > bestHeuristic) {
+				bestHeuristic = score;
+				action = child.getRootAction();
 			}
 			timer.addIteration();
 		}
