@@ -9,7 +9,7 @@ import emergence_HR.heuristics.AHeuristic;
  * game tree. Every game node gets a heuristic value that should be used to find
  * a good solution and iterate through the tree!
  */
-abstract public class HeuristicTree extends ATree {
+abstract public class AHeuristicTree extends ATree {
 
 	protected AHeuristic heuristic;
 
@@ -26,7 +26,7 @@ abstract public class HeuristicTree extends ATree {
 	 * @param root
 	 * @param heuristic
 	 */
-	public HeuristicTree(Node root, AHeuristic heuristic) {
+	public AHeuristicTree(Node root, AHeuristic heuristic) {
 		super(root);
 		this.heuristic = heuristic;
 	}

@@ -6,7 +6,7 @@ import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence_HR.heuristics.SimpleStateHeuristic;
 import emergence_HR.heuristics.AHeuristic;
-import emergence_HR.tree.HeuristicTree;
+import emergence_HR.tree.AHeuristicTree;
 import emergence_HR.tree.HeuristicTreeOneStep;
 import emergence_HR.tree.Node;
 
@@ -25,7 +25,7 @@ public class Agent extends AbstractPlayer {
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		HeuristicTree gameTree = new HeuristicTreeOneStep(
+		AHeuristicTree gameTree = new HeuristicTreeOneStep(
 				new Node(stateObs), heuristic);
 
 		ActionTimer timer = new ActionTimer(elapsedTimer);

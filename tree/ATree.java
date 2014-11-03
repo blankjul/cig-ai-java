@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import ontology.Types;
 import core.game.StateObservation;
 import emergence_HR.ActionTimer;
-import emergence_HR.heuristics.AHeuristic;
 
 /**
  * This is an abstract tree that has several attributes that should be needed by
@@ -20,8 +19,6 @@ import emergence_HR.heuristics.AHeuristic;
 abstract public class ATree {
 
 	public Node root;
-
-	public AHeuristic heuristic;
 
 	private double score;
 
@@ -79,7 +76,7 @@ abstract public class ATree {
 			child.father = node;
 			child.lastAction = action;
 			child.level = node.level + 1;
-			
+
 			nodes.add(child);
 		}
 		tmpStateObs = null;

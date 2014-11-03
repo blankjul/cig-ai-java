@@ -6,6 +6,7 @@ import core.game.StateObservation;
 import emergence_HR.ActionTimer;
 import emergence_HR.target.ATarget;
 import emergence_HR.target.TargetFactory;
+import emergence_HR.tree.AHeuristicTree;
 import emergence_HR.tree.ATree;
 import emergence_HR.tree.HeuristicTreeLevelOrder;
 import emergence_HR.tree.Node;
@@ -17,7 +18,7 @@ import emergence_HR.tree.Node;
  */
 public class HeuristicEnsemble {
 
-	public ArrayList<ATree> pool = new ArrayList<ATree>();
+	public ArrayList<AHeuristicTree> pool = new ArrayList<AHeuristicTree>();
 
 	// singleton instance
 	private static HeuristicEnsemble instance = null;
@@ -34,9 +35,11 @@ public class HeuristicEnsemble {
 	}
 
 	public void reset() {
+		pool.clear();
 		ArrayList<ATarget> targets = TargetFactory.getAllTargets(stateObs);
 		for (ATarget target : targets) {
-			ATree tree = new HeuristicTreeLevelOrder(new Node(stateObs), new TargetHeuristic(target));
+			AHeuristicTree tree = new HeuristicTreeLevelOrder(new Node(stateObs),
+					new TargetHeuristic(target));
 			pool.add(tree);
 		}
 	}
@@ -55,10 +58,10 @@ public class HeuristicEnsemble {
 		double maxScore = Double.MIN_VALUE;
 		AHeuristic heur = null;
 
-		for (ATree tree : pool) {
+		for (AHeuristicTree tree : pool) {
 			if (tree.getScore() > maxScore) {
 				maxScore = tree.getScore();
-				heur = tree.heuristic;
+				heur = tree.getHeuristic();
 			}
 		}
 		return heur;
@@ -79,8 +82,8 @@ public class HeuristicEnsemble {
 	@Override
 	public String toString() {
 		String s = "";
-		for (ATree tree : pool) {
-			s += String.format("heuristic:%s -> %s \n", tree.heuristic,
+		for (AHeuristicTree tree : pool) {
+			s += String.format("heuristic:%s -> %s \n", tree.getHeuristic(),
 					tree.getScore());
 		}
 		return s;

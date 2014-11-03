@@ -13,7 +13,7 @@ import emergence_HR.heuristics.AHeuristic;
  * 
  * Normally there should not be any time problems
  */
-public class HeuristicTreeLevelOrder extends HeuristicTree {
+public class HeuristicTreeLevelOrder extends AHeuristicTree {
 
 	public HeuristicTreeLevelOrder(Node root, AHeuristic heuristic) {
 		super(root, heuristic);
