@@ -1,58 +1,68 @@
 package emergence_HR;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
-import emergence_HR.heuristics.SimpleStateHeuristic;
+import emergence_HR.heuristics.HeuristicEnsemble;
+import emergence_HR.heuristics.StateHeuristic;
+import emergence_HR.nodes.Node;
+import emergence_HR.nodes.NodeTree;
 
 public class Agent extends AbstractPlayer {
 
+	/**
+	 * if we should print information or not.
+	 */
 	final private boolean VERBOSE = true;
+
+	/**
+	 * This variable defines how often we should simulate heuristics until we
+	 * are getting started!
+	 */
+	final private int WAIT_TICKS = 20;
+
+	/**
+	 * this is the heuristic that is applied if we found it!
+	 */
+	StateHeuristic heuristic = null;
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 	}
+	
+	
 
-	
-	
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		
-		Types.ACTIONS action = null;           // The action we will finally be executed
+		HeuristicEnsemble he = HeuristicEnsemble.getInstance(stateObs);
 
-		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		TreeNode root = new TreeNode(stateObs);
-		queue.addAll(root.getChildren());
-
-		// initialize the values for the heuristic
-		double maxQ = Double.NEGATIVE_INFINITY;
-		SimpleStateHeuristic heuristic = new SimpleStateHeuristic(stateObs);
-
-		ActionTimer timer = new ActionTimer(elapsedTimer); // Initialize the timer
-		
-		// check whether there is time and we've further tree nodes
-		while (timer.isTimeLeft() && !queue.isEmpty()) {
-
-			TreeNode node = queue.poll();
-			StateObservation stCopy = node.getObservation();
-
-			double Q = heuristic.evaluateState(stCopy);
-			if (Q > maxQ) {
-				maxQ = Q;
-				action = node.getRootAction();
+		if (stateObs.getGameTick() == WAIT_TICKS) {
+			heuristic = he.getTOP();
+			if (VERBOSE) {
+				System.out.printf("Best heuristic found: %s", heuristic);
 			}
-			queue.addAll(node.getChildren());
-			
-			
-			timer.addIteration();
 		}
 
-		if (VERBOSE) System.out.println(timer.status());
-		return action;
+		// initialize the values for the heuristic and the timer
+		ActionTimer timer = new ActionTimer(elapsedTimer);
+
+		if (heuristic == null) {
+
+			// search for the best heuristic!
+			he.calculate(timer);
+			return Types.ACTIONS.ACTION_NIL;
+
+		} else {
+
+			// apply the best found heuristic
+			Types.ACTIONS action = Types.ACTIONS.ACTION_NIL;
+
+			NodeTree tree = new NodeTree(new Node(stateObs), heuristic);
+			action = tree.expand(timer);
+			return action;
+		}
+
 
 	}
 }
