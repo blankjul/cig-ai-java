@@ -1,17 +1,16 @@
 package emergence_HR;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Set;
 
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
-import emergence_HR.heuristics.PortalHeuristic;
 import emergence_HR.heuristics.StateHeuristic;
+import emergence_HR.heuristics.Target;
+import emergence_HR.heuristics.TargetHeuristic;
 import emergence_HR.nodes.Node;
 import emergence_HR.nodes.NodeComparator;
 
@@ -32,19 +31,18 @@ public class Agent extends AbstractPlayer {
 		double bestHeuristic = Double.MAX_VALUE;
 
 		// the current heuristic that is used
-		StateHeuristic heuristic = new PortalHeuristic();
+		ArrayList<Target> l = Target.getPortals(stateObs);
+		Target t = l.get(0);
+		StateHeuristic heuristic = new TargetHeuristic(t);
 
 		// queue for all the following nodes and set the heuristic
 		final Queue<Node> queue = new PriorityQueue<Node>(11,
 				new NodeComparator());
 
-		final Set<String> closedList = new HashSet<String>();
-
 		Node root = new Node(stateObs);
 		root.setHeuristic(heuristic);
 		root.level = 0;
 		queue.add(root);
-		closedList.add(root.hash());
 
 		// initialize the values for the heuristic and the timer
 		ActionTimer timer = new ActionTimer(elapsedTimer);
@@ -63,14 +61,6 @@ public class Agent extends AbstractPlayer {
 
 		
 			//LevelInfo.printNodes(queue);
-
-			// add children to the queue
-			for (Node child : node.getChildren()) {
-				if (!closedList.contains(child.hash())) {
-					queue.add(child);
-					closedList.add(child.hash());
-				}
-			}
 
 			timer.addIteration();
 		}
