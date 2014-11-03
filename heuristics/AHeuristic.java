@@ -54,7 +54,7 @@ public abstract class AHeuristic {
 	 *            destination
 	 * @return Manhattan distance
 	 */
-	public double distance(Vector2d from, Vector2d to) {
+	public static double distance(Vector2d from, Vector2d to) {
 		return Math.abs(from.x - to.x) + (from.y - to.y);
 	}
 

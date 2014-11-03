@@ -19,6 +19,7 @@ public class Agent extends AbstractPlayer {
 	final AHeuristic heuristic = new SimpleStateHeuristic();
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+		
 	}
 
 	public Types.ACTIONS act(StateObservation stateObs,

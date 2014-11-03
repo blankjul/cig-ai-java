@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import core.game.StateObservation;
 import emergence_HR.ActionTimer;
-import emergence_HR.target.Target;
+import emergence_HR.target.ATarget;
 import emergence_HR.target.TargetFactory;
 import emergence_HR.tree.ATree;
+import emergence_HR.tree.HeuristicTreeLevelOrder;
+import emergence_HR.tree.Node;
 
 /**
  * This class is for the administration issue for the heuristics. It's a
@@ -16,7 +18,7 @@ import emergence_HR.tree.ATree;
 public class HeuristicEnsemble {
 
 	public ArrayList<ATree> pool = new ArrayList<ATree>();
-	
+
 	// singleton instance
 	private static HeuristicEnsemble instance = null;
 
@@ -32,10 +34,9 @@ public class HeuristicEnsemble {
 	}
 
 	public void reset() {
-		ArrayList<Target> targets = TargetFactory.getAllTargets(stateObs);
-		for (Target target : targets) {
-			ATree tree = null;
-			// = new ATree(new Node(stateObs), new TargetHeuristic(target));
+		ArrayList<ATarget> targets = TargetFactory.getAllTargets(stateObs);
+		for (ATarget target : targets) {
+			ATree tree = new HeuristicTreeLevelOrder(new Node(stateObs), new TargetHeuristic(target));
 			pool.add(tree);
 		}
 	}
