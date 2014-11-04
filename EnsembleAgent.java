@@ -5,7 +5,6 @@ import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence_HR.heuristics.AHeuristic;
-import emergence_HR.heuristics.HeuristicEnsemble;
 import emergence_HR.heuristics.SimpleStateHeuristic;
 
 public class EnsembleAgent extends AbstractPlayer {

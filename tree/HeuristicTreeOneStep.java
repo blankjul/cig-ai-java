@@ -25,7 +25,7 @@ public class HeuristicTreeOneStep extends AHeuristicTree {
 		// check whether there is time and we've further tree nodes
 		for (Node child : children) {
 			addScore(child);
-			
+
 			double score = heuristic.evaluateState(child.stateObs);
 			if (score > bestHeuristic) {
 				bestHeuristic = score;

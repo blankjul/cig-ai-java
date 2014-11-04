@@ -7,7 +7,6 @@ import tools.Vector2d;
 abstract public class AImmovableTarget extends ATarget{
 
 	Vector2d targetPos;
-	double distance = -1;
 	
 	public AImmovableTarget(Vector2d targetPos) {
 		this.targetPos = targetPos;
@@ -16,10 +15,17 @@ abstract public class AImmovableTarget extends ATarget{
 	@Override
 	public double distance(StateObservation stateObs) {
 		Vector2d avatarPos = stateObs.getAvatarPosition();
-		if (distance == -1) distance = AHeuristic.distance(avatarPos, targetPos);
-		return distance;
+		double dist = AHeuristic.distance(avatarPos, targetPos);
+		return dist;
 	}
 
+	/**
+	 * Print all needed information to specify a target.
+	 */
+	@Override
+	public String toString() {
+		return super.toString() + String.format(" [%s,%s]", targetPos.x, targetPos.y);
+	}
 
 
 }

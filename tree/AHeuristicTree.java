@@ -11,6 +11,7 @@ import emergence_HR.heuristics.AHeuristic;
  */
 abstract public class AHeuristicTree extends ATree {
 
+	
 	protected AHeuristic heuristic;
 
 	/**
@@ -20,6 +21,7 @@ abstract public class AHeuristicTree extends ATree {
 	 */
 	Types.ACTIONS action = Types.ACTIONS.ACTION_NIL;
 
+	
 	/**
 	 * Create a game tree that uses a heuristic for iteration.
 	 * 
@@ -55,5 +57,7 @@ abstract public class AHeuristicTree extends ATree {
 	public ACTIONS action() {
 		return action;
 	}
+	
+	
 
 }

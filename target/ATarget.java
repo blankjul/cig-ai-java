@@ -20,6 +20,7 @@ abstract public class ATarget {
 	/**
 	 * Print all needed information to specify a target.
 	 */
+	@Override
 	public String toString() {
 		return String.format("type:%s", this.getClass().getSimpleName());
 	}

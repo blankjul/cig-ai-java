@@ -1,14 +1,15 @@
-package emergence_HR.heuristics;
+package emergence_HR;
 
 import java.util.ArrayList;
 
 import core.game.StateObservation;
-import emergence_HR.ActionTimer;
+import emergence_HR.heuristics.AHeuristic;
+import emergence_HR.heuristics.TargetHeuristic;
 import emergence_HR.target.ATarget;
 import emergence_HR.target.TargetFactory;
 import emergence_HR.tree.AHeuristicTree;
 import emergence_HR.tree.ATree;
-import emergence_HR.tree.HeuristicTreeLevelOrder;
+import emergence_HR.tree.HeuristicTreeGreedy;
 import emergence_HR.tree.Node;
 
 /**
@@ -23,7 +24,7 @@ public class HeuristicEnsemble {
 	// singleton instance
 	private static HeuristicEnsemble instance = null;
 
-	// index that should be expanded on this calcuation
+	// index that should be expanded on this calculation
 	private int index = 0;
 
 	StateObservation stateObs;
@@ -38,7 +39,7 @@ public class HeuristicEnsemble {
 		pool.clear();
 		ArrayList<ATarget> targets = TargetFactory.getAllTargets(stateObs);
 		for (ATarget target : targets) {
-			AHeuristicTree tree = new HeuristicTreeLevelOrder(new Node(stateObs),
+			HeuristicTreeGreedy tree = new HeuristicTreeGreedy(new Node(stateObs),
 					new TargetHeuristic(target));
 			pool.add(tree);
 		}
@@ -49,8 +50,11 @@ public class HeuristicEnsemble {
 			reset();
 			return false;
 		}
-		ATree tree = pool.get(index % pool.size());
+		HeuristicTreeGreedy tree = (HeuristicTreeGreedy) pool.get(index % pool.size());
 		tree.expand(timer);
+		
+		//System.out.println(tree);
+		++index;
 		return true;
 	}
 

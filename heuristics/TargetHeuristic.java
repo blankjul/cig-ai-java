@@ -25,7 +25,7 @@ public class TargetHeuristic extends AHeuristic {
 		if (distance == 0)
 			return Double.POSITIVE_INFINITY;
 
-		return 100000 / distance;
+		return 10000 / distance;
 	}
 
 	public String toString() {
