@@ -7,9 +7,11 @@ import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence_HR.heuristics.AHeuristic;
-import emergence_HR.tree.AHeuristicTree;
-import emergence_HR.tree.HeuristicTreeGreedy;
+import emergence_HR.strategy.AStrategy;
+import emergence_HR.strategy.EnsembleStrategy;
+import emergence_HR.strategy.GreedyStrategy;
 import emergence_HR.tree.Node;
+import emergence_HR.tree.Tree;
 
 public class EnsembleAgent extends AbstractPlayer {
 
@@ -19,72 +21,51 @@ public class EnsembleAgent extends AbstractPlayer {
 	// heuristic that is used
 	AHeuristic heuristic;
 
-	// tree iteration that will explore the states
-	AHeuristicTree tree;
-
 	// path that is found by the heuristic
 	Stack<Types.ACTIONS> path = new Stack<Types.ACTIONS>();
 
 	public EnsembleAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
-		// simulate the heuristic and find out which is the best
+		Tree tree = new Tree(new Node(stateObs));
+		EnsembleStrategy ensemble = new EnsembleStrategy(tree);
+
+		boolean hasNext = true;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
-		timer.timeRemainingLimit = 100;
-		
-		HeuristicTreeGreedy tree = new HeuristicTreeGreedy(new Node(stateObs));
-		HeuristicEnsemble he = new HeuristicEnsemble(tree);
-		
-		// TODO: Calculate all the heuristics. not only this one!!
-		// IMPORTANT!
-		he.calculate(timer);
-		
-		heuristic = he.getTOP();
+		timer.timeRemainingLimit = 150;
+		while (timer.isTimeLeft() && hasNext) {
+			hasNext = ensemble.expand();
+			timer.addIteration();
+		}
+
+		heuristic = ensemble.top();
 
 		if (VERBOSE) {
 			LevelInfo.print(stateObs);
-			System.out.println(he);
+			System.out.println(ensemble);
 			System.out.println("Using now: " + heuristic);
 			System.out.println(timer.status());
 		}
-
-		
-		// create the path
-		Node n = tree.bestNode;
-		while (n.father != null) {
-			path.push(n.lastAction);
-			n = n.father;
-		}
-		path.push(n.lastAction);
-		
 
 	}
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		if (path.isEmpty()) {
+		Tree tree = new Tree(new Node(stateObs));
+		AStrategy strategy = new GreedyStrategy(tree, heuristic);
 
-			tree = new HeuristicTreeGreedy(new Node(stateObs));
-
-			ActionTimer timer = new ActionTimer(elapsedTimer);
-			tree.expand(timer, heuristic);
-
-			if (VERBOSE) {
-				System.out.println(tree);
-				System.out.println(timer.status());
-			}
-
-			// create the path
-			Node n = tree.bestNode;
-			while (n.father != null) {
-				path.push(n.lastAction);
-				n = n.father;
-			}
-			path.push(n.lastAction);
-
+		boolean hasNext = true;
+		ActionTimer timer = new ActionTimer(elapsedTimer);
+		while (timer.isTimeLeft() && hasNext) {
+			hasNext = strategy.expand();
+			timer.addIteration();
 		}
 
-		Types.ACTIONS action = path.pop();
+		Types.ACTIONS action = strategy.bestNode.rootAction;
+
+		if (VERBOSE)
+			System.out.println(timer.status());
+
 		return action;
 	}
 

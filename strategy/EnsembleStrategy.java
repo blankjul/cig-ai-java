@@ -1,4 +1,4 @@
-package emergence_HR;
+package emergence_HR.strategy;
 
 import java.util.ArrayList;
 
@@ -7,25 +7,26 @@ import emergence_HR.heuristics.SimpleStateHeuristic;
 import emergence_HR.heuristics.TargetHeuristic;
 import emergence_HR.target.ATarget;
 import emergence_HR.target.TargetFactory;
-import emergence_HR.tree.HeuristicTreeGreedy;
+import emergence_HR.tree.Tree;
 
 /**
  * This class is for the administration issue for the heuristics. It's a
  * singleton class!
  * 
  */
-public class HeuristicEnsemble {
+public class EnsembleStrategy {
 
-	public ArrayList<AHeuristic> pool = new ArrayList<AHeuristic>();
+	// all the different strategies
+	public ArrayList<AStrategy> pool = new ArrayList<AStrategy>();
 
 	// index that should be expanded on this calculation
 	private int index = 0;
 
 	// the tree that is used for iteration
-	public HeuristicTreeGreedy tree;
+	public Tree tree;
 
 	// private constructor for singleton pattern
-	public HeuristicEnsemble(HeuristicTreeGreedy tree) {
+	public EnsembleStrategy(Tree tree) {
 		this.tree = tree;
 		init();
 	}
@@ -37,36 +38,31 @@ public class HeuristicEnsemble {
 		ArrayList<ATarget> targets = TargetFactory
 				.getAllTargets(tree.root.stateObs);
 		for (ATarget target : targets) {
-			pool.add(new TargetHeuristic(target));
+			AStrategy strategy = new GreedyStrategy(tree, new TargetHeuristic(
+					target));
+			pool.add(strategy);
 		}
 
 		// add the simple state heuristic
-		pool.add(new SimpleStateHeuristic());
+		pool.add(new GreedyStrategy(tree, new SimpleStateHeuristic()));
 
 	}
 
-	public boolean calculate(ActionTimer timer) {
-		if (pool.size() == 0) {
-			init();
-			return false;
-		}
-		AHeuristic heuristic = pool.get(index % pool.size());
-		tree.expand(timer, heuristic);
-
-		// System.out.println(tree);
+	public boolean expand() {
+		AStrategy strategy = pool.get(index % pool.size());
+		strategy.expand();
 		++index;
 		return true;
 	}
-	
 
-	public AHeuristic getTOP() {
+	public AHeuristic top() {
 		double maxScore = Double.NEGATIVE_INFINITY;
 		AHeuristic heur = null;
 
-		for (AHeuristic heuristic : pool) {
-			if (heuristic.getScore() > maxScore) {
-				maxScore = heuristic.getScore();
-				heur = heuristic;
+		for (AStrategy strategy : pool) {
+			if (strategy.heuristic.getScore() > maxScore) {
+				maxScore = strategy.heuristic.getScore();
+				heur = strategy.heuristic;
 			}
 		}
 		return heur;
@@ -77,7 +73,8 @@ public class HeuristicEnsemble {
 		String s = "---------------------------\n";
 		s += "heuristic pool - size: " + pool.size() + "\n";
 		s += "---------------------------\n";
-		for (AHeuristic heuristic : pool) {
+		for (AStrategy strategy : pool) {
+			AHeuristic heuristic = strategy.heuristic;
 			s += String.format("heuristic:%s -> %s \n", heuristic,
 					heuristic.getScore());
 		}

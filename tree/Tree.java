@@ -1,7 +1,5 @@
 package emergence_HR.tree;
 
-import ontology.Types;
-
 /**
  * This is an abstract tree that has several attributes that should be needed by
  * every class that inherits from this one.
@@ -12,18 +10,13 @@ import ontology.Types;
  * the best for this simulation
  * 
  */
-abstract public class ATree {
+public class Tree {
 
 	public Node root;
 
-	public ATree(Node root) {
+	public Tree(Node root) {
 		this.root = root;
 		this.root.level = 0;
 	}
-
-	/**
-	 * returns the action that should be done if we need a decision now!
-	 */
-	abstract public Types.ACTIONS action();
 
 }

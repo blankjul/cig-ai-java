@@ -6,20 +6,16 @@ import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence_HR.heuristics.AHeuristic;
 import emergence_HR.heuristics.SimpleStateHeuristic;
-import emergence_HR.tree.AHeuristicTree;
-import emergence_HR.tree.HeuristicTreeGreedy;
+import emergence_HR.strategy.AStrategy;
+import emergence_HR.strategy.GreedyStrategy;
 import emergence_HR.tree.Node;
+import emergence_HR.tree.Tree;
 
 public class Agent extends AbstractPlayer {
 
 	// print out information. only DEBUG!
 	final private boolean VERBOSE = true;
 
-	// heuristic that is used
-	AHeuristic heuristic = new SimpleStateHeuristic();
-
-	// tree iteration that will explore the states
-	AHeuristicTree tree;
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 	}
@@ -27,11 +23,19 @@ public class Agent extends AbstractPlayer {
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		tree = new HeuristicTreeGreedy(new Node(stateObs));
+		Tree tree = new Tree(new Node(stateObs));
+		AHeuristic heuristic = new SimpleStateHeuristic();
+		
+		AStrategy strategy = new GreedyStrategy(tree,heuristic);
 
+		boolean hasNext = true;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
-		tree.expand(timer, heuristic);
-		Types.ACTIONS action = tree.action();
+		while (timer.isTimeLeft() && hasNext) {
+			hasNext = strategy.expand();
+			timer.addIteration();
+		}
+		
+		Types.ACTIONS action = strategy.bestNode.rootAction;
 
 		if (VERBOSE)
 			System.out.println(timer.status());

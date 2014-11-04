@@ -57,12 +57,11 @@ public class Node {
 	 */
 	public LinkedList<Node> getChildren() {
 		
-		// state observation from the father
-		StateObservation stateObs = this.stateObs;
-		
 		// if children are cached use them
 		if (stateObs.getAvailableActions().size() > 0 && children.size() > 0) return children;
-
+		
+		// state observation from the father
+		StateObservation stateObs = this.stateObs;
 		// create result list and reserve memory for the temporary state object
 		StateObservation tmpStateObs;
 
