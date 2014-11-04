@@ -1,8 +1,10 @@
 package emergence_HR.heuristics;
 
 import ontology.Types;
+import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.StateObservation;
+import emergence_HR.tree.Node;
 
 /**
  * Main type of heuristic is the StateHeuristic. Every idea that is heuristic
@@ -12,9 +14,29 @@ import core.game.StateObservation;
  */
 public abstract class AHeuristic {
 
+	protected double score;
+
+	public void evaluate(StateObservation stateObs) {
+		if (stateObs.getGameWinner() == WINNER.PLAYER_WINS)
+			score += 100;
+		score += stateObs.getGameScore();
+	}
+
+	
+	public double getScore() {
+		return score;
+	}
+	
+	
+	public void addScore(Node n) {
+		if (n == null) return;
+		if (n.stateObs.getGameWinner() == WINNER.PLAYER_WINS)
+			score += 100;
+		score += n.stateObs.getGameScore();
+	}
+
 	// the position of the avatar
 	protected Vector2d avatarPosition;
-
 
 	/**
 	 * Method that must be overridden by children classes.

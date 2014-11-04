@@ -11,33 +11,39 @@ import emergence_HR.heuristics.AHeuristic;
 
 public class HeuristicTreeGreedy extends AHeuristicTree {
 
-	public Queue<Node> queue;
+	public Queue<Node> queue = null;
+	AHeuristic heuristic = null;
 
 	Set<String> closedList = new HashSet<String>();
 
 	double bestHeuristic = Double.NEGATIVE_INFINITY;
 
-	public HeuristicTreeGreedy(Node root, AHeuristic heuristic) {
-		super(root, heuristic);
-		queue = new PriorityQueue<Node>(11, new NodeComparator(heuristic));
-		queue.add(root);
-		closedList.add(root.hash());
+	public HeuristicTreeGreedy(Node root) {
+		super(root);
 	}
 
-	public void expand(ActionTimer timer) {
+	public void expand(ActionTimer timer, AHeuristic heuristic) {
 
+		if (this.heuristic == null || this.heuristic != heuristic) {
+			this.heuristic = heuristic;
+			queue = new PriorityQueue<Node>(11, new NodeComparator(heuristic));
+			queue.add(root);
+			closedList.add(root.hash());
+		}
+		
 		// check whether there is time and we've further tree nodes
 		while (timer.isTimeLeft() && !queue.isEmpty()) {
 
 			// just look for the head of the queue
 			Node n = queue.poll();
-			addScore(n);
+			heuristic.addScore(n);
 
 			// if it is the best state until now save root as the best action
 			double score = heuristic.evaluateState(n.stateObs);
 			if (score > bestHeuristic) {
+				bestNode = n;
 				bestHeuristic = score;
-				action = n.rootAction;
+				bestAction = n.rootAction;
 			}
 
 			// add all children to the queue

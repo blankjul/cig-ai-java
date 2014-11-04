@@ -13,10 +13,10 @@ import emergence_HR.heuristics.AHeuristic;
 public class HeuristicTreeOneStep extends AHeuristicTree {
 
 	public HeuristicTreeOneStep(Node root, AHeuristic heuristic) {
-		super(root, heuristic);
+		super(root);
 	}
 
-	public void expand(ActionTimer timer) {
+	public void expand(ActionTimer timer, AHeuristic heuristic) {
 
 		double bestHeuristic = Double.NEGATIVE_INFINITY;
 
@@ -24,12 +24,12 @@ public class HeuristicTreeOneStep extends AHeuristicTree {
 
 		// check whether there is time and we've further tree nodes
 		for (Node child : children) {
-			addScore(child);
+			heuristic.addScore(child);
 
 			double score = heuristic.evaluateState(child.stateObs);
 			if (score > bestHeuristic) {
 				bestHeuristic = score;
-				action = child.rootAction;
+				bestAction = child.rootAction;
 			}
 			timer.addIteration();
 		}

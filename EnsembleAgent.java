@@ -1,5 +1,7 @@
 package emergence_HR;
 
+import java.util.Stack;
+
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
@@ -20,15 +22,22 @@ public class EnsembleAgent extends AbstractPlayer {
 	// tree iteration that will explore the states
 	AHeuristicTree tree;
 
+	// path that is found by the heuristic
+	Stack<Types.ACTIONS> path = new Stack<Types.ACTIONS>();
+
 	public EnsembleAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
 		// simulate the heuristic and find out which is the best
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		timer.timeRemainingLimit = 100;
 		
-		HeuristicEnsemble he = HeuristicEnsemble.getInstance(stateObs);
+		HeuristicTreeGreedy tree = new HeuristicTreeGreedy(new Node(stateObs));
+		HeuristicEnsemble he = new HeuristicEnsemble(tree);
+		
+		// TODO: Calculate all the heuristics. not only this one!!
+		// IMPORTANT!
 		he.calculate(timer);
-
+		
 		heuristic = he.getTOP();
 
 		if (VERBOSE) {
@@ -38,22 +47,44 @@ public class EnsembleAgent extends AbstractPlayer {
 			System.out.println(timer.status());
 		}
 
+		
+		// create the path
+		Node n = tree.bestNode;
+		while (n.father != null) {
+			path.push(n.lastAction);
+			n = n.father;
+		}
+		path.push(n.lastAction);
+		
+
 	}
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		tree = new HeuristicTreeGreedy(new Node(stateObs), heuristic);
+		if (path.isEmpty()) {
 
-		ActionTimer timer = new ActionTimer(elapsedTimer);
-		tree.expand(timer);
-		Types.ACTIONS action = tree.action();
+			tree = new HeuristicTreeGreedy(new Node(stateObs));
 
-		if (VERBOSE) {
-			System.out.println(tree);
-			System.out.println(timer.status());
+			ActionTimer timer = new ActionTimer(elapsedTimer);
+			tree.expand(timer, heuristic);
+
+			if (VERBOSE) {
+				System.out.println(tree);
+				System.out.println(timer.status());
+			}
+
+			// create the path
+			Node n = tree.bestNode;
+			while (n.father != null) {
+				path.push(n.lastAction);
+				n = n.father;
+			}
+			path.push(n.lastAction);
+
 		}
 
+		Types.ACTIONS action = path.pop();
 		return action;
 	}
 

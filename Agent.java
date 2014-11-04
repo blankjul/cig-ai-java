@@ -27,10 +27,10 @@ public class Agent extends AbstractPlayer {
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		tree = new HeuristicTreeGreedy(new Node(stateObs), heuristic);
+		tree = new HeuristicTreeGreedy(new Node(stateObs));
 
 		ActionTimer timer = new ActionTimer(elapsedTimer);
-		tree.expand(timer);
+		tree.expand(timer, heuristic);
 		Types.ACTIONS action = tree.action();
 
 		if (VERBOSE)

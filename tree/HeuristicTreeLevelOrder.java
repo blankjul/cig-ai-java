@@ -16,10 +16,10 @@ import emergence_HR.heuristics.AHeuristic;
 public class HeuristicTreeLevelOrder extends AHeuristicTree {
 
 	public HeuristicTreeLevelOrder(Node root, AHeuristic heuristic) {
-		super(root, heuristic);
+		super(root);
 	}
 
-	public void expand(ActionTimer timer) {
+	public void expand(ActionTimer timer, AHeuristic heuristic) {
 
 		double bestHeuristic = Double.NEGATIVE_INFINITY;
 
@@ -31,13 +31,13 @@ public class HeuristicTreeLevelOrder extends AHeuristicTree {
 			
 			// just look for the head of the queue
 			Node n = queue.poll();
-			addScore(n);
+			heuristic.addScore(n);
 			
 			// if it is the best state until now save root as the best action
 			double score = heuristic.evaluateState(n.stateObs);
 			if (score > bestHeuristic) {
 				bestHeuristic = score;
-				action = n.rootAction;
+				bestAction = n.rootAction;
 			}
 			
 			// add all children to the queue

@@ -2,15 +2,12 @@ package emergence_HR;
 
 import java.util.ArrayList;
 
-import core.game.StateObservation;
 import emergence_HR.heuristics.AHeuristic;
 import emergence_HR.heuristics.SimpleStateHeuristic;
 import emergence_HR.heuristics.TargetHeuristic;
 import emergence_HR.target.ATarget;
 import emergence_HR.target.TargetFactory;
-import emergence_HR.tree.AHeuristicTree;
 import emergence_HR.tree.HeuristicTreeGreedy;
-import emergence_HR.tree.Node;
 
 /**
  * This class is for the administration issue for the heuristics. It's a
@@ -19,75 +16,60 @@ import emergence_HR.tree.Node;
  */
 public class HeuristicEnsemble {
 
-	public ArrayList<AHeuristicTree> pool = new ArrayList<AHeuristicTree>();
-
-	// singleton instance
-	private static HeuristicEnsemble instance = null;
+	public ArrayList<AHeuristic> pool = new ArrayList<AHeuristic>();
 
 	// index that should be expanded on this calculation
 	private int index = 0;
 
-	StateObservation stateObs;
+	// the tree that is used for iteration
+	public HeuristicTreeGreedy tree;
 
-	// private constructor
-	private HeuristicEnsemble(StateObservation stateObs) {
-		this.stateObs = stateObs;
+	// private constructor for singleton pattern
+	public HeuristicEnsemble(HeuristicTreeGreedy tree) {
+		this.tree = tree;
 		init();
 	}
 
 	public void init() {
 		pool.clear();
-		
+
 		// add all target heuristics
-		ArrayList<ATarget> targets = TargetFactory.getAllTargets(stateObs);
+		ArrayList<ATarget> targets = TargetFactory
+				.getAllTargets(tree.root.stateObs);
 		for (ATarget target : targets) {
-			HeuristicTreeGreedy tree = new HeuristicTreeGreedy(new Node(stateObs),
-					new TargetHeuristic(target));
-			pool.add(tree);
+			pool.add(new TargetHeuristic(target));
 		}
-		
+
 		// add the simple state heuristic
-		pool.add(new HeuristicTreeGreedy(new Node(stateObs),
-				new SimpleStateHeuristic()));
+		pool.add(new SimpleStateHeuristic());
+
 	}
 
-	
 	public boolean calculate(ActionTimer timer) {
 		if (pool.size() == 0) {
 			init();
 			return false;
 		}
-		HeuristicTreeGreedy tree = (HeuristicTreeGreedy) pool.get(index % pool.size());
-		tree.expand(timer);
-		
-		//System.out.println(tree);
+		AHeuristic heuristic = pool.get(index % pool.size());
+		tree.expand(timer, heuristic);
+
+		// System.out.println(tree);
 		++index;
 		return true;
 	}
+	
 
 	public AHeuristic getTOP() {
-		double maxScore = Double.MIN_VALUE;
+		double maxScore = Double.NEGATIVE_INFINITY;
 		AHeuristic heur = null;
 
-		for (AHeuristicTree tree : pool) {
-			if (tree.getScore() > maxScore) {
-				maxScore = tree.getScore();
-				heur = tree.getHeuristic();
+		for (AHeuristic heuristic : pool) {
+			if (heuristic.getScore() > maxScore) {
+				maxScore = heuristic.getScore();
+				heur = heuristic;
 			}
 		}
 		return heur;
-	}
-
-	/**
-	 * Factory method
-	 * 
-	 * @return instance of HeuristicEnsemble
-	 */
-	public static HeuristicEnsemble getInstance(StateObservation stateObs) {
-		if (instance == null) {
-			instance = new HeuristicEnsemble(stateObs);
-		}
-		return instance;
 	}
 
 	@Override
@@ -95,9 +77,9 @@ public class HeuristicEnsemble {
 		String s = "---------------------------\n";
 		s += "heuristic pool - size: " + pool.size() + "\n";
 		s += "---------------------------\n";
-		for (AHeuristicTree tree : pool) {
-			s += String.format("heuristic:%s -> %s \n", tree.getHeuristic(),
-					tree.getScore());
+		for (AHeuristic heuristic : pool) {
+			s += String.format("heuristic:%s -> %s \n", heuristic,
+					heuristic.getScore());
 		}
 		s += "---------------------------\n";
 		return s;
