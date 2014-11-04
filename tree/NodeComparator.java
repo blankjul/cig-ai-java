@@ -12,6 +12,8 @@ public class NodeComparator implements Comparator<Node> {
 	
 	
 	public int compare(Node firstNode, Node secondNode) {
+		return 0;
+		/*
 		if (firstNode.getHeuristic() < secondNode.getHeuristic()) {
 			return 1;
 		} else if (firstNode.getHeuristic() > secondNode.getHeuristic()) {
@@ -19,5 +21,6 @@ public class NodeComparator implements Comparator<Node> {
 		} else {
 			return 0;
 		}
+		*/
 	}
 }

@@ -3,6 +3,7 @@ package emergence_HR.tree;
 import java.util.LinkedList;
 
 import ontology.Types;
+import ontology.Types.WINNER;
 import core.game.StateObservation;
 import emergence_HR.ActionTimer;
 
@@ -20,7 +21,7 @@ abstract public class ATree {
 
 	public Node root;
 
-	private double score;
+	protected double score;
 
 	public ATree(Node root) {
 		this.root = root;
@@ -81,6 +82,11 @@ abstract public class ATree {
 		}
 		tmpStateObs = null;
 		return nodes;
+	}
+	
+	public void addScore(Node n) {
+		if (n.stateObs.getGameWinner() == WINNER.PLAYER_WINS) score += 100;
+		score += n.stateObs.getGameScore();
 	}
 
 }

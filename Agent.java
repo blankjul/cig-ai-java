@@ -35,6 +35,7 @@ public class Agent extends AbstractPlayer {
 
 		if (VERBOSE)
 			System.out.println(timer.status());
+		
 		return action;
 
 	}

@@ -31,6 +31,7 @@ public class HeuristicTreeLevelOrder extends AHeuristicTree {
 			
 			// just look for the head of the queue
 			Node n = queue.poll();
+			addScore(n);
 			
 			// if it is the best state until now save root as the best action
 			double score = heuristic.evaluateState(n.stateObs);
