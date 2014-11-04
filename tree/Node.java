@@ -26,6 +26,10 @@ public class Node {
 
 	// level in the tree
 	public int level;
+	
+	//following attributes are only used by HeuristicTreeAStar
+	
+	protected Vector2d avatarPosition;
 
 	/**
 	 * A tree node is defined by using ONLY the state observation
@@ -36,6 +40,7 @@ public class Node {
 	public Node(StateObservation stateObs) {
 		this.father = null;
 		this.stateObs = stateObs;
+		this.avatarPosition = stateObs.getAvatarPosition();
 	}
 
 
@@ -58,4 +63,12 @@ public class Node {
 		return String.format("[%s,%s]", pos.x, pos.y);
 	}
 
+	//this method is used by HeuristicTreeAStar to check wheather a Node
+	//(Position of the Avatar) is already in the open List
+	public boolean equals(Node other){
+		if(this.avatarPosition.equals(other)){
+			return true;
+		}
+		return false;
+	}
 }
