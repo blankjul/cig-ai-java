@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import core.game.StateObservation;
 import emergence_HR.heuristics.AHeuristic;
+import emergence_HR.heuristics.SimpleStateHeuristic;
 import emergence_HR.heuristics.TargetHeuristic;
 import emergence_HR.target.ATarget;
 import emergence_HR.target.TargetFactory;
@@ -31,22 +32,28 @@ public class HeuristicEnsemble {
 	// private constructor
 	private HeuristicEnsemble(StateObservation stateObs) {
 		this.stateObs = stateObs;
-		reset();
+		init();
 	}
 
-	public void reset() {
+	public void init() {
 		pool.clear();
+		
+		// add all target heuristics
 		ArrayList<ATarget> targets = TargetFactory.getAllTargets(stateObs);
 		for (ATarget target : targets) {
 			HeuristicTreeGreedy tree = new HeuristicTreeGreedy(new Node(stateObs),
 					new TargetHeuristic(target));
 			pool.add(tree);
 		}
+		
+		// add the simple state heuristic
+		pool.add(new HeuristicTreeGreedy(new Node(stateObs),
+				new SimpleStateHeuristic()));
 	}
 
 	public boolean calculate(ActionTimer timer) {
 		if (pool.size() == 0) {
-			reset();
+			init();
 			return false;
 		}
 		HeuristicTreeGreedy tree = (HeuristicTreeGreedy) pool.get(index % pool.size());
@@ -84,11 +91,14 @@ public class HeuristicEnsemble {
 
 	@Override
 	public String toString() {
-		String s = "";
+		String s = "---------------------------\n";
+		s += "heuristic pool - size: " + pool.size() + "\n";
+		s += "---------------------------\n";
 		for (AHeuristicTree tree : pool) {
 			s += String.format("heuristic:%s -> %s \n", tree.getHeuristic(),
 					tree.getScore());
 		}
+		s += "---------------------------\n";
 		return s;
 	}
 

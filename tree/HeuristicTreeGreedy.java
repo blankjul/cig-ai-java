@@ -1,8 +1,10 @@
 package emergence_HR.tree;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Set;
 
 import emergence_HR.ActionTimer;
 import emergence_HR.heuristics.AHeuristic;
@@ -10,13 +12,16 @@ import emergence_HR.heuristics.AHeuristic;
 public class HeuristicTreeGreedy extends AHeuristicTree {
 
 	public Queue<Node> queue;
-	
+
+	Set<String> closedList = new HashSet<String>();
+
 	double bestHeuristic = Double.NEGATIVE_INFINITY;
-	
+
 	public HeuristicTreeGreedy(Node root, AHeuristic heuristic) {
 		super(root, heuristic);
 		queue = new PriorityQueue<Node>(11, new NodeComparator(heuristic));
 		queue.add(root);
+		closedList.add(root.hash());
 	}
 
 	public void expand(ActionTimer timer) {
@@ -37,13 +42,19 @@ public class HeuristicTreeGreedy extends AHeuristicTree {
 
 			// add all children to the queue
 			LinkedList<Node> children = getChildren(n);
-			queue.addAll(children);
+			// add children to the queue
+			for (Node child : children) {
+				if (!closedList.contains(child.hash())) {
+					queue.add(child);
+					closedList.add(child.hash());
+				}
+			}
 
 			timer.addIteration();
 		}
 
 	}
-	
+
 	@Override
 	public String toString() {
 		String s = "\n";
@@ -53,7 +64,8 @@ public class HeuristicTreeGreedy extends AHeuristicTree {
 		int i = 0;
 		for (Node n : queue) {
 			s += n.toString();
-			s += String.format(" -> %s \n", heuristic.evaluateState(n.stateObs));
+			s += String
+					.format(" -> %s \n", heuristic.evaluateState(n.stateObs));
 			if (i >= MAX)
 				break;
 			++i;
@@ -62,6 +74,5 @@ public class HeuristicTreeGreedy extends AHeuristicTree {
 		s += "\n-----------------------------";
 		return s;
 	}
-	
 
 }

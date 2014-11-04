@@ -22,7 +22,7 @@ abstract public class ATarget {
 	 */
 	@Override
 	public String toString() {
-		return String.format("type:%s", this.getClass().getSimpleName());
+		return String.format("type:%s", this.getClass().getName());
 	}
 
 

@@ -27,8 +27,7 @@ public class NPCTarget extends AMovableTarget {
 			ArrayList<Observation> listObs = npcPositions[i];
 			if (listObs == null || listObs.isEmpty())
 				continue;
-			Observation obs = listObs.get(0);
-			ATarget t = new ResourceTarget(obs.position);
+			ATarget t = new NPCTarget(i);
 			list.add(t);
 		}
 		return list;
