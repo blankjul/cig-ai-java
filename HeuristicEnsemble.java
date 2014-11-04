@@ -8,7 +8,6 @@ import emergence_HR.heuristics.TargetHeuristic;
 import emergence_HR.target.ATarget;
 import emergence_HR.target.TargetFactory;
 import emergence_HR.tree.AHeuristicTree;
-import emergence_HR.tree.ATree;
 import emergence_HR.tree.HeuristicTreeGreedy;
 import emergence_HR.tree.Node;
 
