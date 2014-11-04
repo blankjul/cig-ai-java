@@ -51,6 +51,7 @@ public class HeuristicEnsemble {
 				new SimpleStateHeuristic()));
 	}
 
+	
 	public boolean calculate(ActionTimer timer) {
 		if (pool.size() == 0) {
 			init();

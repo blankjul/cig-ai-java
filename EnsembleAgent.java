@@ -12,7 +12,7 @@ import emergence_HR.tree.Node;
 public class EnsembleAgent extends AbstractPlayer {
 
 	// print out information. only DEBUG!
-	final private boolean VERBOSE = false;
+	final private boolean VERBOSE = true;
 
 	// heuristic that is used
 	AHeuristic heuristic;
@@ -21,18 +21,21 @@ public class EnsembleAgent extends AbstractPlayer {
 	AHeuristicTree tree;
 
 	public EnsembleAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-		LevelInfo.print(stateObs);
 
 		// simulate the heuristic and find out which is the best
 		ActionTimer timer = new ActionTimer(elapsedTimer);
+		timer.timeRemainingLimit = 100;
+		
 		HeuristicEnsemble he = HeuristicEnsemble.getInstance(stateObs);
 		he.calculate(timer);
 
 		heuristic = he.getTOP();
 
 		if (VERBOSE) {
+			LevelInfo.print(stateObs);
 			System.out.println(he);
 			System.out.println("Using now: " + heuristic);
+			System.out.println(timer.status());
 		}
 
 	}
@@ -46,9 +49,10 @@ public class EnsembleAgent extends AbstractPlayer {
 		tree.expand(timer);
 		Types.ACTIONS action = tree.action();
 
-		if (VERBOSE)
+		if (VERBOSE) {
 			System.out.println(tree);
-		System.out.println(timer.status());
+			System.out.println(timer.status());
+		}
 
 		return action;
 	}

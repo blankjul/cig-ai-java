@@ -37,11 +37,11 @@ public class HeuristicTreeLevelOrder extends AHeuristicTree {
 			double score = heuristic.evaluateState(n.stateObs);
 			if (score > bestHeuristic) {
 				bestHeuristic = score;
-				action = n.getRootAction();
+				action = n.rootAction;
 			}
 			
 			// add all children to the queue
-			LinkedList<Node> children = getChildren(root);
+			LinkedList<Node> children = n.getChildren();
 			queue.addAll(children);
 
 			timer.addIteration();

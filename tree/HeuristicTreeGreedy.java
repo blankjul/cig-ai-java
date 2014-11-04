@@ -37,11 +37,11 @@ public class HeuristicTreeGreedy extends AHeuristicTree {
 			double score = heuristic.evaluateState(n.stateObs);
 			if (score > bestHeuristic) {
 				bestHeuristic = score;
-				action = n.getRootAction();
+				action = n.rootAction;
 			}
 
 			// add all children to the queue
-			LinkedList<Node> children = getChildren(n);
+			LinkedList<Node> children = n.getChildren();
 			// add children to the queue
 			for (Node child : children) {
 				if (!closedList.contains(child.hash())) {

@@ -20,7 +20,7 @@ public class HeuristicTreeOneStep extends AHeuristicTree {
 
 		double bestHeuristic = Double.NEGATIVE_INFINITY;
 
-		LinkedList<Node> children = getChildren(root);
+		LinkedList<Node> children = root.getChildren();
 
 		// check whether there is time and we've further tree nodes
 		for (Node child : children) {
@@ -29,7 +29,7 @@ public class HeuristicTreeOneStep extends AHeuristicTree {
 			double score = heuristic.evaluateState(child.stateObs);
 			if (score > bestHeuristic) {
 				bestHeuristic = score;
-				action = child.getRootAction();
+				action = child.rootAction;
 			}
 			timer.addIteration();
 		}

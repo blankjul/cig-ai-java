@@ -1,10 +1,7 @@
 package emergence_HR.tree;
 
-import java.util.LinkedList;
-
 import ontology.Types;
 import ontology.Types.WINNER;
-import core.game.StateObservation;
 import emergence_HR.ActionTimer;
 
 /**
@@ -47,43 +44,7 @@ abstract public class ATree {
 		return score;
 	}
 
-	/**
-	 * Create a list of all possible children that could be created from this
-	 * state.
-	 * 
-	 * @param node
-	 *            node that should be expanded
-	 * @return list of all possible children states
-	 */
-	public LinkedList<Node> getChildren(Node node) {
 
-		// state observation from the father
-		StateObservation stateObs = node.stateObs;
-
-		// create result list and reserve memory for the temporary state object
-		LinkedList<Node> nodes = new LinkedList<Node>();
-		StateObservation tmpStateObs;
-
-		// for each possible action
-		for (Types.ACTIONS action : stateObs.getAvailableActions()) {
-			// create the next state
-			tmpStateObs = stateObs.copy();
-			tmpStateObs.advance(action);
-
-			Node child = new Node(tmpStateObs);
-			// set the correct action from the root. if it's the root set action
-			// else just inherit
-			child.rootAction = (node.father == null) ? action : node.rootAction;
-			child.father = node;
-			child.lastAction = action;
-			child.level = node.level + 1;
-
-			nodes.add(child);
-		}
-		tmpStateObs = null;
-		return nodes;
-	}
-	
 	public void addScore(Node n) {
 		if (n.stateObs.getGameWinner() == WINNER.PLAYER_WINS) score += 100;
 		score += n.stateObs.getGameScore();
