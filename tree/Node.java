@@ -27,6 +27,9 @@ public class Node {
 	// level in the tree
 	public int level;
 	
+	//score of the actual Node based on the choosen heuristic (for A* algorithm)
+	public double score;
+	
 	//following attributes are only used by HeuristicTreeAStar
 	
 	protected Vector2d avatarPosition;
@@ -46,8 +49,8 @@ public class Node {
 
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
-		return String.format("me:[%s,%s] | root:%s | last:%s | level:%s",
-				pos.x, pos.y, rootAction, lastAction, level);
+		return String.format("me:[%s,%s] | root:%s | last:%s | level:%s | score:%s",
+				pos.x, pos.y, rootAction, lastAction, level, score);
 	}
 
 	public StateObservation getObservation() {
