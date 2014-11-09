@@ -7,16 +7,20 @@ import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
-import emergence_HR.heuristics.SimpleStateHeuristic;
+import emergence_HR.heuristics.EquationStateHeuristic;
 
 public class Agent extends AbstractPlayer {
 
-	final private boolean VERBOSE = true;
+	final private boolean VERBOSE = false;
 
+	double[] weights = { -82.59390978541923, 63.04858071534042, -7.002335306168078, -2.730598787524329, -59.79051490304785, -73.03200846990599, 39.91585019469065, -79.5935860994278, -42.0011469372217, -66.83035683017607};
+	
+	public EquationStateHeuristic heuristic = new EquationStateHeuristic(weights);
+	
+	
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 	}
 
-	
 	
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
@@ -30,8 +34,8 @@ public class Agent extends AbstractPlayer {
 
 		// initialize the values for the heuristic
 		double maxQ = Double.NEGATIVE_INFINITY;
-		SimpleStateHeuristic heuristic = new SimpleStateHeuristic(stateObs);
-
+		
+		
 		ActionTimer timer = new ActionTimer(elapsedTimer); // Initialize the timer
 		
 		// check whether there is time and we've further tree nodes

@@ -21,6 +21,9 @@ public class TreeNode {
 	// this is the action of the root node that brings us to this tree node
 	// by using this we need no traversal to the root again!
 	protected Types.ACTIONS rootAction;
+	
+	
+	public double score = -1;
 
 	/**
 	 * A tree node is defined by using ONLY the state observation
