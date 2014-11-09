@@ -33,7 +33,7 @@ public class LevelOrderStrategy extends AStrategy {
 		Node n = queue.poll();
 		heuristic.addScore(n);
 		this.checkBest(n, heuristic);
-
+		queue.addAll(n.getChildren());
 		return true;
 	}
 
