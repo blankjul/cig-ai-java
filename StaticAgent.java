@@ -5,8 +5,8 @@ import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence_HR.heuristics.EquationStateHeuristic;
+import emergence_HR.strategy.AStarStrategy;
 import emergence_HR.strategy.AStrategy;
-import emergence_HR.strategy.LevelOrderStrategy;
 import emergence_HR.tree.Node;
 import emergence_HR.tree.Tree;
 
@@ -26,7 +26,7 @@ public class StaticAgent extends AbstractPlayer {
 			ElapsedCpuTimer elapsedTimer) {
 		
 		Tree tree = new Tree(new Node(stateObs));
-		AStrategy strategy = new LevelOrderStrategy(tree,heuristic);
+		AStrategy strategy = new AStarStrategy(tree,heuristic);
 		boolean hasNext = true;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		

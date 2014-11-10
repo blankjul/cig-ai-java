@@ -26,6 +26,7 @@ public class LevelOrderStrategy extends AStrategy {
 	 */
 	public LevelOrderStrategy(Tree tree, AHeuristic heuristic) {
 		super(tree, heuristic);
+		tree.root.score = this.heuristic.evaluateState(tree.root.stateObs);
 		queue = new LinkedList<Node>();
 		queue.add(tree.root);
 		closed.add(tree.root.hash());
@@ -40,6 +41,7 @@ public class LevelOrderStrategy extends AStrategy {
 		this.checkBest(n, heuristic);
 		
 		for(Node child : n.getChildren()) {
+			child.score = this.heuristic.evaluateState(child.stateObs);
 			if (!closed.contains(child.hash())) {
 				queue.add(child);
 				closed.add(child.hash());

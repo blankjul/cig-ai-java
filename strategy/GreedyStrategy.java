@@ -23,7 +23,8 @@ public class GreedyStrategy extends AStrategy {
 	 */
 	public GreedyStrategy(Tree tree, AHeuristic heuristic) {
 		super(tree, heuristic);
-		queue = new PriorityQueue<Node>(11, new NodeComparator(heuristic));
+		queue = new PriorityQueue<Node>(11, new NodeComparator());
+		tree.root.score = this.heuristic.evaluateState(tree.root.stateObs);
 		queue.add(tree.root);
 	}
 
@@ -40,6 +41,7 @@ public class GreedyStrategy extends AStrategy {
 		// add all children to the queue
 		LinkedList<Node> children = n.getChildren();
 		for (Node child : children) {
+			child.score = this.heuristic.evaluateState(child.stateObs);
 			queue.add(child);
 		}
 		return true;

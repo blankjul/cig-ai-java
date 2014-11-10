@@ -11,23 +11,18 @@ import emergence_HR.tree.Node;
  */
 public class NodeComparator implements Comparator<Node> {
 	
-	// heuristic that is applied for the ordering
-	private AHeuristic heuristic;
-	
-	public NodeComparator(AHeuristic heuristic) {
-		this.heuristic = heuristic;
+	public NodeComparator() {
+		
 	}
 	
 	public int compare(Node firstNode, Node secondNode) {
-		double heurFirst = heuristic.evaluateState(firstNode.stateObs);
-		double heurSecond = heuristic.evaluateState(secondNode.stateObs);
-		if (heurFirst < heurSecond) {
-			return 1;
-		} else if (heurFirst > heurSecond) {
+
+		if (firstNode.score > secondNode.score) {
 			return -1;
+		} else if (firstNode.score < secondNode.score) {
+			return 1;
 		} else {
 			return 0;
 		}
-		
 	}
 }
