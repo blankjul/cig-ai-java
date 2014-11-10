@@ -42,6 +42,7 @@ public class Agent extends AbstractPlayer
         if(action == Types.ACTIONS.ACTION_NIL && useOn)
             action = Types.ACTIONS.ACTION_USE;
 
+        //System.out.printf("[%s,%s]\n", stateObs.getAvatarPosition().x,stateObs.getAvatarPosition().y);
         return action;
     }
 }
