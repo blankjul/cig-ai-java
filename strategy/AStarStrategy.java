@@ -44,10 +44,15 @@ public class AStarStrategy extends AStrategy {
 
 	// the forbidden Actions
 	ArrayList<Types.ACTIONS> forbidden_actions = new ArrayList<Types.ACTIONS>();
+	
+	//check if there are immovable positions in this game
+	boolean immovalbeExist = false;
 
 	public AStarStrategy(Tree tree, AHeuristic heuristic) {
 		super(tree, heuristic);
 		tree.root.score = this.heuristic.evaluateState(tree.root.stateObs);
+		
+		checkImmovable(tree.root.stateObs);
 		
 		comparator = new NodeComparator();
 		
@@ -59,6 +64,19 @@ public class AStarStrategy extends AStrategy {
 		openList.add(tree.root);
 	}
 
+	private void checkImmovable(StateObservation stateObs){
+		//get the list of immovableObjects in the game
+		ArrayList<Observation>[] immovableObjects = stateObs
+				.getImmovablePositions(stateObs.getAvatarPosition());
+		//if the list is empty, no actions should be forbidden
+		if(immovableObjects == null){
+			immovalbeExist = false;
+		}else if(immovableObjects[0].get(0).itype != 0){ //itype == 0 -> Walls
+			immovalbeExist = false;
+		}else{
+			immovalbeExist = true;
+		}
+	}
 	private void nextStep(Node n) {
 
 		// generate all children
@@ -107,8 +125,9 @@ public class AStarStrategy extends AStrategy {
 		ArrayList<Types.ACTIONS> actions = stateObs.getAvailableActions();
 
 		// forbid the actions which are sensless
-		forbid_actions(stateObs);
-
+		if(immovalbeExist){
+				forbid_actions(stateObs);
+		}
 		// delete the forbidden actions
 		if (!forbidden_actions.isEmpty()) {
 			actions.removeAll(forbidden_actions);
@@ -156,6 +175,9 @@ public class AStarStrategy extends AStrategy {
 		// the list of immovable Objects to get the positions of the walls
 		ArrayList<Observation>[] immovableObjects = stateObs
 				.getImmovablePositions(avatar_position);
+		
+		//store the size of immovable objects
+		int length = immovableObjects[0].size();
 
 		// generate the Positions near to the avatar
 		Vector2d left = new Vector2d(x - blocksize, y);
@@ -168,7 +190,7 @@ public class AStarStrategy extends AStrategy {
 		// immovableObjects[0].get(0).itype);
 
 		// check the first 3 Walls
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3 && i < length; i++) {
 
 			// the position of an immovable object
 			Vector2d temp = immovableObjects[0].get(i).position;
