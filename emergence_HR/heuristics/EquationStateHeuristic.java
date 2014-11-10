@@ -132,12 +132,6 @@ public class EquationStateHeuristic extends AHeuristic{
     }
 
 
-	@Override
-	protected double getRank(StateObservation stateObs) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
 	
 	public double getResult() {
 		int size = resultList.size();

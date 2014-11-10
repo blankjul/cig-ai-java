@@ -1,6 +1,5 @@
 package emergence_HR.heuristics;
 
-import ontology.Types;
 import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.StateObservation;
@@ -15,12 +14,6 @@ import emergence_HR.tree.Node;
 public abstract class AHeuristic {
 
 	protected double score;
-
-	public void evaluate(StateObservation stateObs) {
-		if (stateObs.getGameWinner() == WINNER.PLAYER_WINS)
-			score += 100;
-		score += stateObs.getGameScore();
-	}
 
 	
 	public double getScore() {
@@ -38,12 +31,6 @@ public abstract class AHeuristic {
 	// the position of the avatar
 	protected Vector2d avatarPosition;
 
-	/**
-	 * Method that must be overridden by children classes.
-	 * 
-	 * @return heuristic value if we do not win!
-	 */
-	abstract protected double getRank(StateObservation stateObs);
 
 	/**
 	 * This method returns the value if the heuristic. for every heuristic if
@@ -52,20 +39,8 @@ public abstract class AHeuristic {
 	 * @param stateObs
 	 * @return value of the heuristic
 	 */
-	public double evaluateState(StateObservation stateObs) {
-
-		Types.WINNER w = stateObs.getGameWinner();
-		if (w == Types.WINNER.PLAYER_WINS) {
-			return Double.POSITIVE_INFINITY;
-		} else if (w == Types.WINNER.PLAYER_LOSES) {
-			return Double.NEGATIVE_INFINITY;
-
-			// if we are not winning or loosing
-		} else {
-			avatarPosition = stateObs.getAvatarPosition();
-			return getRank(stateObs);
-		}
-	}
+	abstract public double evaluateState(StateObservation stateObs);
+	
 
 	/**
 	 * Calculates the Manhattan distance to one object!

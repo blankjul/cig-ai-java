@@ -31,6 +31,9 @@ public class Node {
 
 	// array of children if there were expanded
     protected LinkedList<Node> children;
+
+    // saves the current score of this node
+	public double score;
 	
 	
 	

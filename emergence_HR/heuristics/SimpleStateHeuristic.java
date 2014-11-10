@@ -20,7 +20,6 @@ public class SimpleStateHeuristic extends AHeuristic {
 	}
 
 	@SuppressWarnings("unused")
-	@Override
 	public double evaluateState(StateObservation stateObs) {
 		Vector2d avatarPosition = stateObs.getAvatarPosition();
 		ArrayList<Observation>[] npcPositions = stateObs
@@ -98,10 +97,6 @@ public class SimpleStateHeuristic extends AHeuristic {
 		return score;
 	}
 
-	@Override
-	protected double getRank(StateObservation stateObs) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 }

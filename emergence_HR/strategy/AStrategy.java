@@ -44,10 +44,9 @@ abstract public class AStrategy {
 	 * @param heuristic
 	 */
 	public void checkBest(Node n, AHeuristic heuristic) {
-		double score = heuristic.evaluateState(n.stateObs);
-		if (score > bestScore) {
+		if (n.score > bestScore) {
 			bestNode = n;
-			bestScore = score;
+			bestScore = n.score;
 		}
 	}
 	
