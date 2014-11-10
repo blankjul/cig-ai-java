@@ -61,14 +61,13 @@ public class EquationStateHeuristic extends AHeuristic{
 	public double evaluateState(StateObservation stateObs) {
 
 		if (stateObs.getGameWinner() == WINNER.PLAYER_WINS) {
-			return +100000000;
+			return Double.POSITIVE_INFINITY;
 		} else if (stateObs.getGameWinner() == WINNER.PLAYER_LOSES) {
-			 return -100000000;
+			 return Double.NEGATIVE_INFINITY;
 		}
 		
 		double[] state = new double[1];
 		state[0] = stateObs.getGameScore();
-
 		
 		double[] npc = npc(stateObs, "npc");
 		double[] portals = npc(stateObs, "portals");

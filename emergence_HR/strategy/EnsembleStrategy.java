@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import emergence_HR.heuristics.AHeuristic;
 import emergence_HR.heuristics.EquationStateHeuristic;
+import emergence_HR.heuristics.SimpleStateHeuristic;
+import emergence_HR.heuristics.WinScoreHeuristic;
 import emergence_HR.tree.Tree;
 
 /**
@@ -30,8 +32,9 @@ public class EnsembleStrategy {
 
 	public void init() {
 		pool.clear();
-		
-		pool.add(new AStarStrategy(tree, new EquationStateHeuristic("eggomania", new double[] {71.51606955238063,-0.10874248901326666,1.46935755801519,58.91949024357237,-46.09021025115321,-57.43379973569722,57.57362881912201,-73.6456264953129,-31.50978515374345,-52.41586298782184})));
+		//pool.add(new AStarStrategy(tree, new EquationStateHeuristic("infection", new double[] {74.23993150820812,-59.73089673490131,-81.78863187230746,-41.30505287771682,35.821764523860054,19.847928767495574,92.0980077240992,83.79253267828386,88.43900660948825,28.18378234029555})));
+		pool.add(new AStarStrategy(tree, new EquationStateHeuristic("camelRace/eggomania", new double[] {71.51606955238063,-0.10874248901326666,1.46935755801519,58.91949024357237,-46.09021025115321,-57.43379973569722,57.57362881912201,-73.6456264953129,-31.50978515374345,-52.41586298782184})));
+		pool.add(new AStarStrategy(tree, new SimpleStateHeuristic()));
 		
 		//pool.add(new GreedyStrategy(tree, new SimpleStateHeuristic()));
 		//pool.add(new GreedyStrategy(tree, new EquationStateHeuristic("aliens/butterflies/missilecommand", new double[] {64.84119238866205,-6.706116268770671,15.972320970002045,-86.00116924839656,1.5311167186565768,83.48853622908294,0.5650190254932141,-83.55457187644191,96.1475129439522,51.51009302853271 })));

@@ -65,13 +65,15 @@ public class Agent extends AbstractPlayer {
 			hasNext = strategy.expand();
 			timer.addIteration();
 		}
-
-		Types.ACTIONS action = strategy.bestNode.rootAction;
 		
-		System.out.println(strategy.bestNode);
-		System.out.println(timer.status());
+		Types.ACTIONS action = Types.ACTIONS.ACTION_NIL;
+		if (strategy.bestNode != null) action = strategy.bestNode.rootAction;
 		
-		//if (VERBOSE)
+		if (VERBOSE) {
+			System.out.println(strategy.bestNode);
+			System.out.println(timer.status());
+		}
+		
 
 		return action;
 	}

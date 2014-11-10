@@ -19,7 +19,7 @@ public class OneAgentOneGame
     	
     	String controller = "emergence_HR.Agent";
         String gameStr = "firestorms";
-        int levelIdx = 1; 
+        int levelIdx = 0; 
         
         
         //"aliens", "boulderdash", "butterflies", "chase", "frogs",

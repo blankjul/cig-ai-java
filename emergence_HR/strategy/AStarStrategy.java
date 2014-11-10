@@ -118,7 +118,7 @@ public class AStarStrategy extends AStrategy {
 		// generate the list with all available actions
 		ArrayList<Types.ACTIONS> actions = stateObs.getAvailableActions();
 
-		/*
+		
 		// forbid the actions which are sensless
 		if (immovalbeExist) {
 			forbid_actions(stateObs);
@@ -127,7 +127,7 @@ public class AStarStrategy extends AStrategy {
 		if (!forbidden_actions.isEmpty()) {
 			actions.removeAll(forbidden_actions);
 		}
-		*/
+		
 
 		// create result list and reserve memory for the temporary state object
 		LinkedList<Node> nodes = new LinkedList<Node>();
@@ -228,6 +228,7 @@ public class AStarStrategy extends AStrategy {
 		// add the actual position to the closed list
 		closedSet.put(n.hash(), n);
 		checkBest(n);
+		heuristic.addScore(n);
 		next(n);
 
 		return true;
