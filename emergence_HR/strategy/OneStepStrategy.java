@@ -23,18 +23,22 @@ public class OneStepStrategy extends AStrategy {
 	public OneStepStrategy(Tree tree, AHeuristic heuristic) {
 		super(tree, heuristic);
 		queue = new LinkedList<Node>();
-		queue.add(tree.root);
+		queue.addAll(tree.root.getChildren());
 	}
 
 	@Override
 	public boolean expand() {
-		if (queue.isEmpty()) return false;
+		
+		if (queue.isEmpty())
+			return false;
+		
 		// just look for the head of the queue
 		Node n = queue.poll();
-		heuristic.addScore(n);
-		this.checkBest(n, heuristic);
+		n.score = heuristic.evaluateState(n.stateObs);
 		
-		queue.addAll(n.getChildren());
+		heuristic.addScore(n);
+		checkBest(n, heuristic);
+
 
 		return true;
 	}

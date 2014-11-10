@@ -21,7 +21,7 @@ public class Test
         //Available games:
         String gamesPath = "examples/gridphysics/";
 
-        String gameStr = "camelRace";
+        String gameStr = "eggomania";
         int levelIdx = 0; 
         
         

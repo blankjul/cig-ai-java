@@ -1,4 +1,4 @@
-package emergence_HR;
+package emergence_HR.helper;
 
 import tools.ElapsedCpuTimer;
 
@@ -34,7 +34,7 @@ public class ActionTimer {
 	 * 
 	 * @param elapsedTimer
 	 */
-	ActionTimer(ElapsedCpuTimer cpuTimer) {
+	public ActionTimer(ElapsedCpuTimer cpuTimer) {
 		this.cpuTimer = cpuTimer;
 		this.startTime = getRemaining();
 		iteration = 0;
@@ -76,7 +76,7 @@ public class ActionTimer {
 	 * 
 	 * @return string with the status.
 	 */
-	String status() {
+	public String status() {
 		return "Remaining Time: " + getRemaining() + " | Iterations: "
 				+ this.iteration + " | Average Time: " + getAVG();
 	}

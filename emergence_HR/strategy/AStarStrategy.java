@@ -27,7 +27,7 @@ import emergence_HR.tree.Tree;
 public class AStarStrategy extends AStrategy {
 
 	// (a < b) = 1 if a.score > b.score
-	Comparator<Node> comparator;
+	Comparator<Node> comparator = new NodeComparator();;
 
 	// to check if a Node is on the openlist
 	Map<String, Node> openSet = new HashMap<String, Node>();
@@ -36,10 +36,10 @@ public class AStarStrategy extends AStrategy {
 	Map<String, Node> closedSet = new HashMap<String, Node>();
 
 	// to get the best Node from the openlist
-	PriorityQueue<Node> openList;
+	PriorityQueue<Node> openList = new PriorityQueue<Node>(10, comparator);
 
 	// to get the best Node from the closedlist
-	PriorityQueue<Node> closedList;
+	PriorityQueue<Node> closedList = new PriorityQueue<Node>(10, comparator);
 
 	// the forbidden Actions
 	ArrayList<Types.ACTIONS> forbidden_actions = new ArrayList<Types.ACTIONS>();
@@ -52,11 +52,6 @@ public class AStarStrategy extends AStrategy {
 		tree.root.score = this.heuristic.evaluateState(tree.root.stateObs);
 		
 		checkImmovable(tree.root.stateObs);
-		
-		comparator = new NodeComparator();
-		
-		openList = new PriorityQueue<Node>(10, comparator);
-		closedList = new PriorityQueue<Node>(10, comparator);
 		
 		// add own node to the open list
 		openSet.put(tree.root.hash(), tree.root);

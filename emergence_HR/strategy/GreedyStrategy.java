@@ -34,6 +34,7 @@ public class GreedyStrategy extends AStrategy {
 	 */
 	public GreedyStrategy(Tree tree, AHeuristic heuristic) {
 		super(tree, heuristic);
+		tree.root.score = heuristic.evaluateState(tree.root.stateObs);
 		// create the queue
 		queue = new PriorityQueue<Node>(11, new NodeComparator());
 		queue.add(tree.root);

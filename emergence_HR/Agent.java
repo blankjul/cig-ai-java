@@ -6,6 +6,8 @@ import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
+import emergence_HR.helper.ActionTimer;
+import emergence_HR.helper.LevelInfo;
 import emergence_HR.heuristics.AHeuristic;
 import emergence_HR.strategy.AStrategy;
 import emergence_HR.strategy.EnsembleStrategy;

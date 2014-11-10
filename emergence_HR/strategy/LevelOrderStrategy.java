@@ -27,6 +27,7 @@ public class LevelOrderStrategy extends AStrategy {
 	public LevelOrderStrategy(Tree tree, AHeuristic heuristic) {
 		super(tree, heuristic);
 		queue = new LinkedList<Node>();
+		tree.root.score = heuristic.evaluateState(tree.root.stateObs);
 		queue.add(tree.root);
 		closed.add(tree.root.hash());
 	}
@@ -41,6 +42,7 @@ public class LevelOrderStrategy extends AStrategy {
 		
 		for(Node child : n.getChildren()) {
 			if (!closed.contains(child.hash())) {
+				child.score = heuristic.evaluateState(child.stateObs);
 				queue.add(child);
 				closed.add(child.hash());
 			}
