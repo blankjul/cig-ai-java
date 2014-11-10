@@ -11,7 +11,7 @@ import emergence_HR.heuristics.GameResult;
 public class PoolOneGames {
 
 	public static String CONTROLLER = "emergence_HR.StaticAgent";
-	public static String GAME = "eggomania";
+	public static String GAME = "camelRace";
 	public static int NUM_LEVELS = 5;
 	public static int POOL_SIZE = 10;
 
@@ -26,7 +26,7 @@ public class PoolOneGames {
 			EquationStateHeuristic heuristic = EquationStateHeuristic.random();
 			for (int j = 0; j < NUM_LEVELS; j++) {
 				ExecCallable e = new ExecCallable(CONTROLLER, game, j,
-						heuristic.toString());
+						heuristic.parameter());
 				Future<GameResult> future = Configuration.SCHEDULER.submit(e);
 				heuristic.resultList.add(future);
 			}
@@ -53,7 +53,7 @@ public class PoolOneGames {
 			}
 		});
 
-		for (int i = 0; i < pool.size() && i < 3; i++) {
+		for (int i = 0; i < pool.size(); i++) {
 			EquationStateHeuristic h = pool.get(i);
 			System.out.println(h + " --> " + h.getResult());
 		}

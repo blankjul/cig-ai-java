@@ -42,7 +42,7 @@ public class Agent extends AbstractPlayer {
 		heuristic = ensemble.top();
 		
 		System.out.println(ensemble);
-		System.out.println(heuristic);
+		System.out.println(heuristic.toString());
 
 		if (VERBOSE) {
 			LevelInfo.print(stateObs);

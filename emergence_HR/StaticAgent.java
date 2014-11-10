@@ -6,8 +6,8 @@ import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence_HR.helper.ActionTimer;
 import emergence_HR.heuristics.EquationStateHeuristic;
+import emergence_HR.strategy.AStarStrategy;
 import emergence_HR.strategy.AStrategy;
-import emergence_HR.strategy.LevelOrderStrategy;
 import emergence_HR.tree.Node;
 import emergence_HR.tree.Tree;
 
@@ -19,7 +19,7 @@ public class StaticAgent extends AbstractPlayer {
 	public EquationStateHeuristic heuristic;
 	
 	public StaticAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-		heuristic = new EquationStateHeuristic(new double[] {22.411238839548915,-80.48724107173246,32.36064972660259,83.99446994734384,42.64481692521031,55.32231465005154,-55.487332283934144,10.71756675650282,47.99218288302822,-79.38576087271994});
+		heuristic = new EquationStateHeuristic(new double[] {71.51606955238063,-0.10874248901326666,1.46935755801519,58.91949024357237,-46.09021025115321,-57.43379973569722,57.57362881912201,-73.6456264953129,-31.50978515374345,-52.41586298782184});
 	}
 
 	
@@ -27,7 +27,7 @@ public class StaticAgent extends AbstractPlayer {
 			ElapsedCpuTimer elapsedTimer) {
 		
 		Tree tree = new Tree(new Node(stateObs));
-		AStrategy strategy = new LevelOrderStrategy(tree,heuristic);
+		AStrategy strategy = new AStarStrategy(tree,heuristic);
 		boolean hasNext = true;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		

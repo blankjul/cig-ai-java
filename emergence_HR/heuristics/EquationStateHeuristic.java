@@ -33,16 +33,18 @@ public class EquationStateHeuristic extends AHeuristic{
 	}
 	
 
-	
-	@Override
-	public String toString() {
-		String s = this.createdOnGame + " --> ";
+	public String parameter() {
+		String s = "";
 		for (double d : weights) {
 			s += String.valueOf(d) + ",";
-			//s += String.format("%.2f,",  d);
 		}
 		s = s.substring(0, s.length()-1);
 		return s;
+	}
+	
+	@Override
+	public String toString() {
+		return "Created on game: " + createdOnGame + " " + parameter();
 	}
 	
 	public EquationStateHeuristic(double[] weights) {

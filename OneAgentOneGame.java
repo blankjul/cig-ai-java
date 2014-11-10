@@ -10,17 +10,14 @@ import core.ArcadeMachine;
  * Time: 16:29
  * This is a Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
-public class Test
+public class OneAgentOneGame
 {
 
     public static void main(String[] args)
     {
-        //Available controllers:
-        String controller = "emergence_HR.Agent";
-
-        //Available games:
-        String gamesPath = "examples/gridphysics/";
-
+        
+    	
+    	String controller = "emergence_HR.StaticAgent";
         String gameStr = "eggomania";
         int levelIdx = 0; 
         
@@ -31,6 +28,9 @@ public class Test
         //"overload", "pacman", "seaquest", "whackamole", "eggomania"
 
 
+        //Available games:
+        String gamesPath = "examples/gridphysics/";
+        
         //Other settings
         boolean visuals = true;
         String recordActionsFile = null; //where to record the actions executed. null if not to save.

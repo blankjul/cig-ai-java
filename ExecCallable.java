@@ -36,9 +36,11 @@ public class ExecCallable implements Callable<GameResult> {
 		
 		String strExec = String.format("java Exec %s %s %d %s", controller, game,
 				level, parameter);
+		
+		//System.out.println(strExec);
 		pRun = rt.exec(strExec, null, new File("./classes"));
 		pRun.waitFor();
-		this.log = ExecStatic.stringFromProc(pRun);
+		this.log = Exec.stringFromProc(pRun);
 		
 		if (VERBOSE) {
 			System.out.println(parameter);

@@ -22,7 +22,7 @@ public class Compile {
 			Runtime rt = Runtime.getRuntime();
 			Process pCompile = rt.exec("sh compile.sh",null, new File("./src"));
 			pCompile.waitFor();
-			return ExecStatic.stringFromProc(pCompile);
+			return Exec.stringFromProc(pCompile);
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 			return "Error during compiling!";
