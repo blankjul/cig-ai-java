@@ -9,7 +9,7 @@ import core.player.AbstractPlayer;
 import emergence_HR.heuristics.AHeuristic;
 import emergence_HR.strategy.AStrategy;
 import emergence_HR.strategy.EnsembleStrategy;
-import emergence_HR.strategy.GreedyStrategy;
+import emergence_HR.strategy.LevelOrderStrategy;
 import emergence_HR.tree.Node;
 import emergence_HR.tree.Tree;
 
@@ -39,6 +39,7 @@ public class Agent extends AbstractPlayer {
 
 		heuristic = ensemble.top();
 		
+		System.out.println(ensemble);
 		System.out.println(heuristic);
 
 		if (VERBOSE) {
@@ -49,13 +50,12 @@ public class Agent extends AbstractPlayer {
 		}
 	}
 	
-	
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
 		Tree tree = new Tree(new Node(stateObs));
-		AStrategy strategy = new GreedyStrategy(tree, heuristic);
+		AStrategy strategy = new LevelOrderStrategy(tree, heuristic);
 
 		boolean hasNext = true;
 		ActionTimer timer = new ActionTimer(elapsedTimer);

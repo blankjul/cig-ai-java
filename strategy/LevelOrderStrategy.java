@@ -1,5 +1,6 @@
 package emergence_HR.strategy;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -11,6 +12,9 @@ public class LevelOrderStrategy extends AStrategy {
 
 	// the queue that is the storage for the nodes
 	public Queue<Node> queue = null;
+	
+	public HashSet<String> closed = new HashSet<String>();
+	
 
 	/**
 	 * Constructor for creating a strategy.
@@ -23,7 +27,8 @@ public class LevelOrderStrategy extends AStrategy {
 	public LevelOrderStrategy(Tree tree, AHeuristic heuristic) {
 		super(tree, heuristic);
 		queue = new LinkedList<Node>();
-		queue.addAll(tree.root.getChildren());
+		queue.add(tree.root);
+		closed.add(tree.root.hash());
 	}
 
 	@Override
@@ -33,7 +38,15 @@ public class LevelOrderStrategy extends AStrategy {
 		Node n = queue.poll();
 		heuristic.addScore(n);
 		this.checkBest(n, heuristic);
-		queue.addAll(n.getChildren());
+		
+		for(Node child : n.getChildren()) {
+			if (!closed.contains(child.hash())) {
+				queue.add(child);
+				closed.add(child.hash());
+			}
+		}
+		
+		
 		return true;
 	}
 

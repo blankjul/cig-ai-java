@@ -18,6 +18,8 @@ public class EquationStateHeuristic extends AHeuristic{
 	
 	public ArrayList<Future<GameResult>> resultList = new ArrayList<Future<GameResult>>();
 	
+	public String createdOnGame = "";
+	
 	public static EquationStateHeuristic random() {
 		double[] weights = new double[10];
 		for (int i = 0; i < weights.length; i++) {
@@ -32,10 +34,9 @@ public class EquationStateHeuristic extends AHeuristic{
 	
 
 	
-	
 	@Override
 	public String toString() {
-		String s = "";
+		String s = this.createdOnGame + " --> ";
 		for (double d : weights) {
 			s += String.valueOf(d) + ",";
 			//s += String.format("%.2f,",  d);
@@ -46,6 +47,11 @@ public class EquationStateHeuristic extends AHeuristic{
 	
 	public EquationStateHeuristic(double[] weights) {
 		this.weights = weights;
+	}
+	
+	public EquationStateHeuristic(String createdOnGame, double[] weights) {
+		this(weights);
+		this.createdOnGame = createdOnGame;
 	}
 
 	
