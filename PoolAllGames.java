@@ -24,14 +24,11 @@ public class PoolAllGames {
 	public static ArrayList<EquationStateHeuristic> pool = new ArrayList<EquationStateHeuristic>();
 	public static ArrayList<Future<GameResult>> poolResult = new ArrayList<Future<GameResult>>();
 
-	
 
 	public static void playOneGame(String game) {
 	
 		pool.clear();
-		
 		System.out.println(Configuration.dateFormat.format(new Date()));
-		
 		for (int i = 0; i < POOL_SIZE; i++) {
 			EquationStateHeuristic heuristic = EquationStateHeuristic
 					.random();
@@ -97,8 +94,6 @@ public class PoolAllGames {
 			playOneGame(strGame);
 			
 		}
-
-		
 
 		Configuration.SCHEDULER.shutdown();
 	}

@@ -10,7 +10,7 @@ import emergence_HR.heuristics.GameResult;
 
 public class OneAgentAllGames {
 
-	public static String CONTROLLER = "controllers.sampleRandom.Agent";
+	public static String CONTROLLER = "emergence_HR.Agent";
 	public static String PARAMETER = "";
 	public static int NUM_LEVELS = 5;
 
@@ -42,22 +42,24 @@ public class OneAgentAllGames {
 			allResult.add(gameResult);
 		}
 		
+		double allWins = 0;
+		
 		for (int i = 0; i < allResult.size(); i++) {
 		    ArrayList<Future<GameResult>> gameResult = allResult.get(i);
-			double gameScore = 0;
-			double gameWins = 0;
+			int gameScore = 0;
+			int gameWins = 0;
 			for (Future<GameResult> levelResult : gameResult) {
 				GameResult g;
 				g = levelResult.get();
 				gameScore += g.getScore();
 				gameWins += g.getWin();
 			}
-			gameScore /= NUM_LEVELS;
-			gameWins /= NUM_LEVELS;
-			double gameValue = gameWins * 100 + gameScore;
-			System.out.printf("Game:%s , Win:%f, Score:%f --> %f \n", gamesToPlay.get(i), gameWins, gameScore, gameValue);
+			allWins += gameWins;
+			double gameValue = (gameWins / NUM_LEVELS )* 100 + (gameScore / NUM_LEVELS);
+			System.out.printf("[%d]Game:%s , Win:%d, Score:%d --> %f \n", i, gamesToPlay.get(i), gameWins, (gameScore / NUM_LEVELS), gameValue);
 		}
-
+		System.out.println("-----------------------------------");
+		System.out.printf("Overall wins:%s \n", allWins);
 		
 		System.out.println(Configuration.dateFormat.format(new Date()));
 		Configuration.SCHEDULER.shutdown();
