@@ -1,15 +1,17 @@
 package emergence_HR.tree;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.Vector;
 
+import ontology.Types;
 import tools.Vector2d;
+import core.game.Observation;
+import core.game.StateObservation;
 import emergence_HR.ActionTimer;
 import emergence_HR.heuristics.AHeuristic;
 
@@ -34,10 +36,13 @@ public class HeuristicTreeAStar extends AHeuristicTree{
 	Map<String, Node> closedSet = new HashMap<String, Node>();
 	
 	//to get the best Node from the openlist
-	PriorityQueue<Node> openList = new PriorityQueue<Node>(comparator);
+	PriorityQueue<Node> openList = new PriorityQueue<Node>(10, comparator);
 	
 	//to get the best Node from the closedlist
-	PriorityQueue<Node> closedList = new PriorityQueue<Node>(comparator);
+	PriorityQueue<Node> closedList = new PriorityQueue<Node>(10, comparator);
+	
+	//the forbidden Actions
+	ArrayList<Types.ACTIONS> forbidden_actions = new ArrayList<Types.ACTIONS>();
 	
 	public HeuristicTreeAStar(Node root, AHeuristic heuristic) {
 		super(root, heuristic);
@@ -56,6 +61,7 @@ public class HeuristicTreeAStar extends AHeuristicTree{
 			
 			Node n = openList.poll();
 			openSet.remove(n.hash());
+			
 			
 			//TODO check if path is found, maybe sensless in this case...
 		
@@ -96,24 +102,113 @@ public class HeuristicTreeAStar extends AHeuristicTree{
 				openList.add(child);
 				
 			}else if(node.level >= child.level){
-				//change path to child ni openSet
+				//change path to child in openSet
 				openSet.put(child.hash(), child);
 				openList.add(child);
-				
 			}
-			
-			//Node node = new Node(child.stateObs);
-			//for testing
-			//node = child;
-			//Node checknode = openSet.get(child.hash());
-			//Node checknode2 = openList.poll();
+		}
+	}
+	
+	/**
+	 * Overwritten method from Class ATree. only create the children
+	 * 
+	 * @param node
+	 *            node that should be expanded
+	 * @return list of all possible children states
+	 */
+	public LinkedList<Node> getChildren(Node node) {
+
+		// state observation from the father
+		StateObservation stateObs = node.stateObs;
+
+		//generate the list with all available actions
+		ArrayList<Types.ACTIONS> actions = stateObs.getAvailableActions();
+		
+		//forbid the actions which are sensless
+		forbid_actions(stateObs);
+		
+		//delete the forbidden actions
+		if(!forbidden_actions.isEmpty()){
+			actions.removeAll(forbidden_actions);
 		}
 		
-		
-		
-		
-		
-	}
+		// create result list and reserve memory for the temporary state object
+		LinkedList<Node> nodes = new LinkedList<Node>();
+		StateObservation tmpStateObs;
 
+		// for each possible action
+		for (Types.ACTIONS action : actions) {
+			// create the next state
+			tmpStateObs = stateObs.copy();
+			tmpStateObs.advance(action);
+
+			Node child = new Node(tmpStateObs);
+			// set the correct action from the root. if it's the root set action
+			// else just inherit
+			child.rootAction = (node.father == null) ? action : node.rootAction;
+			child.father = node;
+			child.lastAction = action;
+			child.level = node.level + 1;
+
+			nodes.add(child);
+		}
+		tmpStateObs = null;
+		return nodes;
+	}
+	
+	private void forbid_actions(StateObservation stateObs){
+		
+		//store the blocksize
+		double blocksize = (double) stateObs.getBlockSize();
+		
+		//get the position of the avatar
+		Vector2d avatar_position = stateObs.getAvatarPosition();
+		
+		//store the x and y value of the avatar position
+		double x = avatar_position.x;
+		double y = avatar_position.y;
+		
+		//delete all forbidden actions from a further iteration
+		forbidden_actions.clear();
+		
+		//the list of immovable Objects to get the positions of the walls
+		ArrayList<Observation>[] immovableObjects = stateObs.getImmovablePositions(avatar_position);
+		
+		//generate the Positions near to the avatar
+		Vector2d left = new Vector2d(x-blocksize,y);
+		Vector2d up = new Vector2d(x, y-blocksize);
+		Vector2d right = new Vector2d(x+blocksize, y);
+		Vector2d down = new Vector2d(x, y+blocksize);
+		
+		//for debug
+		//System.out.println("position itype: " + immovableObjects[0].get(0).itype);
+		
+		//check the first 3 Walls
+		for(int i = 0; i < 3; i++){
+			
+			//the position of an immovable object
+			Vector2d temp = immovableObjects[0].get(i).position;
+			
+			//the distance must be 1 field
+			if(avatar_position.dist(temp)/blocksize < 1.01){
+				
+				//forbid the corresponding action if a wall has the same position as
+				//left, up ect.
+				if(temp.equals(left)){
+					forbidden_actions.add(Types.ACTIONS.ACTION_LEFT);
+				}else if(temp.equals(up)){
+					forbidden_actions.add(Types.ACTIONS.ACTION_UP);
+				}else if(temp.equals(right)){
+					forbidden_actions.add(Types.ACTIONS.ACTION_RIGHT);
+				}else if(temp.equals(down)){
+					forbidden_actions.add(Types.ACTIONS.ACTION_DOWN);
+				}else{
+					//if the distance is only 1, the position has to match one of the
+					//positions before
+					//System.out.println("fehler forbidden actions / oder winning path gefunden");
+				}
+			}
+		}
+	}
 	
 }
