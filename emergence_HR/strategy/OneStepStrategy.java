@@ -37,7 +37,7 @@ public class OneStepStrategy extends AStrategy {
 		n.score = heuristic.evaluateState(n.stateObs);
 		
 		heuristic.addScore(n);
-		checkBest(n, heuristic);
+		checkBest(n);
 
 
 		return true;

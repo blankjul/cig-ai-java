@@ -6,10 +6,10 @@ import java.util.concurrent.Future;
 import emergence_HR.heuristics.EquationStateHeuristic;
 import emergence_HR.heuristics.GameResult;
 
-public class PoolOneGames {
+public class PoolOneGame {
 
 	public static String CONTROLLER = "emergence_HR.StaticAgent";
-	public static String GAME = "camelRace";
+	public static String GAME = "firestorms";
 	public static int NUM_LEVELS = 5;
 	public static int POOL_SIZE = 10;
 

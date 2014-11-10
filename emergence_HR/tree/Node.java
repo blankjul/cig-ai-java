@@ -92,8 +92,8 @@ public class Node {
 	
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
-		return String.format("me:[%s,%s] | root:%s | last:%s | level:%s",
-				pos.x, pos.y, rootAction, lastAction, level);
+		return String.format("me:[%s,%s] | root:%s | last:%s | level:%s | score:%s",
+				pos.x, pos.y, rootAction, lastAction, level, score);
 	}
 
 	

@@ -32,7 +32,7 @@ public class PoolAllGames {
 			System.out.println("------------------------");
 			System.out.println(strGame);
 			System.out.println("------------------------");
-			PoolOneGames.playOneGame(strGame);
+			PoolOneGame.playOneGame(strGame);
 			
 		}
 

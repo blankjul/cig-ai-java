@@ -9,9 +9,9 @@ import core.player.AbstractPlayer;
 import emergence_HR.helper.ActionTimer;
 import emergence_HR.helper.LevelInfo;
 import emergence_HR.heuristics.AHeuristic;
+import emergence_HR.strategy.AStarStrategy;
 import emergence_HR.strategy.AStrategy;
 import emergence_HR.strategy.EnsembleStrategy;
-import emergence_HR.strategy.LevelOrderStrategy;
 import emergence_HR.tree.Node;
 import emergence_HR.tree.Tree;
 
@@ -57,7 +57,7 @@ public class Agent extends AbstractPlayer {
 			ElapsedCpuTimer elapsedTimer) {
 
 		Tree tree = new Tree(new Node(stateObs));
-		AStrategy strategy = new LevelOrderStrategy(tree, heuristic);
+		AStrategy strategy = new AStarStrategy(tree, heuristic);
 
 		boolean hasNext = true;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
@@ -67,9 +67,11 @@ public class Agent extends AbstractPlayer {
 		}
 
 		Types.ACTIONS action = strategy.bestNode.rootAction;
-
-		if (VERBOSE)
-			System.out.println(timer.status());
+		
+		System.out.println(strategy.bestNode);
+		System.out.println(timer.status());
+		
+		//if (VERBOSE)
 
 		return action;
 	}

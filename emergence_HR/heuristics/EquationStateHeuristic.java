@@ -61,9 +61,9 @@ public class EquationStateHeuristic extends AHeuristic{
 	public double evaluateState(StateObservation stateObs) {
 
 		if (stateObs.getGameWinner() == WINNER.PLAYER_WINS) {
-			return Double.POSITIVE_INFINITY;
+			return +100000000;
 		} else if (stateObs.getGameWinner() == WINNER.PLAYER_LOSES) {
-			 return Double.NEGATIVE_INFINITY;
+			 return -100000000;
 		}
 		
 		double[] state = new double[1];

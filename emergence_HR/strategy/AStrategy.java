@@ -18,10 +18,10 @@ abstract public class AStrategy {
 	public AHeuristic heuristic;
 	
 	// best current node in the tree. this is important for extracting the path.
-	public Node bestNode;
+	public Node bestNode = null;
 
 	// best score that has reached with this heuristic
-	public double bestScore;
+	public double bestScore = Double.NEGATIVE_INFINITY;
 	
 
 	/**
@@ -33,8 +33,7 @@ abstract public class AStrategy {
 	public AStrategy(Tree tree, AHeuristic heuristic) {
 		this.tree = tree;
 		this.heuristic = heuristic;
-		bestNode = tree.root;
-		bestScore = Double.NEGATIVE_INFINITY;
+		tree.root.score = heuristic.evaluateState(tree.root.stateObs);
 	}
 	
 	/**
@@ -43,10 +42,10 @@ abstract public class AStrategy {
 	 * @param n
 	 * @param heuristic
 	 */
-	public void checkBest(Node n, AHeuristic heuristic) {
+	public void checkBest(Node n) {
 		if (n.score > bestScore) {
-			bestNode = n;
 			bestScore = n.score;
+			bestNode = n;
 		}
 	}
 	

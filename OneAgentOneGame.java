@@ -17,9 +17,9 @@ public class OneAgentOneGame
     {
         
     	
-    	String controller = "emergence_HR.StaticAgent";
-        String gameStr = "eggomania";
-        int levelIdx = 0; 
+    	String controller = "emergence_HR.Agent";
+        String gameStr = "firestorms";
+        int levelIdx = 1; 
         
         
         //"aliens", "boulderdash", "butterflies", "chase", "frogs",

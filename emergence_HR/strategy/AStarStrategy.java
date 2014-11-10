@@ -38,40 +38,43 @@ public class AStarStrategy extends AStrategy {
 	// to get the best Node from the openlist
 	PriorityQueue<Node> openList = new PriorityQueue<Node>(10, comparator);
 
-	// to get the best Node from the closedlist
-	PriorityQueue<Node> closedList = new PriorityQueue<Node>(10, comparator);
-
 	// the forbidden Actions
 	ArrayList<Types.ACTIONS> forbidden_actions = new ArrayList<Types.ACTIONS>();
-	
-	//check if there are immovable positions in this game
+
+	// check if there are immovable positions in this game
 	boolean immovalbeExist = false;
 
 	public AStarStrategy(Tree tree, AHeuristic heuristic) {
 		super(tree, heuristic);
-		tree.root.score = this.heuristic.evaluateState(tree.root.stateObs);
 		
 		checkImmovable(tree.root.stateObs);
-		
+
 		// add own node to the open list
-		openSet.put(tree.root.hash(), tree.root);
-		openList.add(tree.root);
+		for (Node child : this.getChildren(tree.root)) {
+			openSet.put(child.hash(), child);
+			openList.add(child);
+		}
+		
 	}
 
-	private void checkImmovable(StateObservation stateObs){
-		//get the list of immovableObjects in the game
+	
+
+	private void checkImmovable(StateObservation stateObs) {
+		// get the list of immovableObjects in the game
 		ArrayList<Observation>[] immovableObjects = stateObs
 				.getImmovablePositions(stateObs.getAvatarPosition());
-		//if the list is empty, no actions should be forbidden
-		if(immovableObjects == null){
+		// if the list is empty, no actions should be forbidden
+		if (immovableObjects == null) {
 			immovalbeExist = false;
-		}else if(immovableObjects[0].get(0).itype != 0){ //itype == 0 -> Walls
-			immovalbeExist = false; 
-		}else{
+		} else if (immovableObjects[0].get(0).itype != 0) { // itype == 0 ->
+															// Walls
+			immovalbeExist = false;
+		} else {
 			immovalbeExist = true;
 		}
 	}
-	private void nextStep(Node n) {
+
+	private void next(Node n) {
 
 		// generate all children
 		LinkedList<Node> children = this.getChildren(n);
@@ -79,9 +82,6 @@ public class AStarStrategy extends AStrategy {
 		// for every child that can be computed:
 		for (Node child : children) {
 
-			// store the score in the node, so that the NodeComparator can
-			// compare them
-			child.score = this.heuristic.evaluateState(child.stateObs);
 
 			// if the node (Position) is already on the closed List, do nothing
 			if (closedSet.containsKey(child.hash())) {
@@ -118,14 +118,16 @@ public class AStarStrategy extends AStrategy {
 		// generate the list with all available actions
 		ArrayList<Types.ACTIONS> actions = stateObs.getAvailableActions();
 
+		/*
 		// forbid the actions which are sensless
-		if(immovalbeExist){
-				forbid_actions(stateObs);
+		if (immovalbeExist) {
+			forbid_actions(stateObs);
 		}
 		// delete the forbidden actions
 		if (!forbidden_actions.isEmpty()) {
 			actions.removeAll(forbidden_actions);
 		}
+		*/
 
 		// create result list and reserve memory for the temporary state object
 		LinkedList<Node> nodes = new LinkedList<Node>();
@@ -144,6 +146,7 @@ public class AStarStrategy extends AStrategy {
 			child.father = node;
 			child.lastAction = action;
 			child.level = node.level + 1;
+			child.score = heuristic.evaluateState(child.stateObs);
 
 			nodes.add(child);
 		}
@@ -169,8 +172,8 @@ public class AStarStrategy extends AStrategy {
 		// the list of immovable Objects to get the positions of the walls
 		ArrayList<Observation>[] immovableObjects = stateObs
 				.getImmovablePositions(avatar_position);
-		
-		//store the size of immovable objects
+
+		// store the size of immovable objects
 		int length = immovableObjects[0].size();
 
 		// generate the Positions near to the avatar
@@ -215,33 +218,18 @@ public class AStarStrategy extends AStrategy {
 
 	@Override
 	public boolean expand() {
-		
+
 		if (openSet.isEmpty())
 			return false;
 
-		// int iterations = 0;
-		// store the score in the node, so that the NodeComparator can compare
-		// them
-		
+		Node n = openList.poll();
+		openSet.remove(n.hash());
 
-		
+		// add the actual position to the closed list
+		closedSet.put(n.hash(), n);
+		checkBest(n);
+		next(n);
 
-			Node n = openList.poll();
-			openSet.remove(n.hash());
-
-			// TODO check if path is found, maybe sensless in this case...
-
-			// add the actual position to the closed list
-			closedSet.put(n.hash(), n);
-			closedList.add(n);
-
-			// set the actual action, the rootaction from the best Node
-			// on the closed List
-			bestNode = closedList.peek();
-			// iterations++;
-			this.nextStep(n);
-		
-		// System.out.println("iterations: " + iterations);
 		return true;
 	}
 
