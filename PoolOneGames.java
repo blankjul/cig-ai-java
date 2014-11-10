@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -32,26 +30,6 @@ public class PoolOneGames {
 			}
 			pool.add(heuristic);
 		}
-
-		for (EquationStateHeuristic h : pool) {
-			h.fitness = h.getResult();
-		}
-
-		Collections.sort(pool, new Comparator<EquationStateHeuristic>() {
-			@Override
-			public int compare(EquationStateHeuristic o1,
-					EquationStateHeuristic o2) {
-				double heurFirst = o1.fitness;
-				double heurSecond = o2.fitness;
-				if (heurFirst < heurSecond) {
-					return 1;
-				} else if (heurFirst > heurSecond) {
-					return -1;
-				} else {
-					return 0;
-				}
-			}
-		});
 
 		for (int i = 0; i < pool.size(); i++) {
 			EquationStateHeuristic h = pool.get(i);

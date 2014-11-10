@@ -68,7 +68,7 @@ public class Exec  {
 		 * special parsing of parameter of agent needs it!
 		 */
 		if (controller.equals("emergence_HR.StaticAgent")) {
-			player = new emergence_HR.StaticAgentManuell(toPlay.getObservation(), ect);
+			player = new emergence_HR.StaticAgent(toPlay.getObservation(), ect);
 
 			String[] heuristicArray = parameter.split(",");
 			double[] weights = new double[heuristicArray.length];
@@ -77,7 +77,7 @@ public class Exec  {
 			}
 			EquationStateHeuristic heuristic = new EquationStateHeuristic(
 					weights);
-			((emergence_HR.StaticAgentManuell) player).heuristic = heuristic;
+			((emergence_HR.StaticAgent) player).heuristic = heuristic;
 
 			
 		} else {
