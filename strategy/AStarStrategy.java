@@ -72,7 +72,7 @@ public class AStarStrategy extends AStrategy {
 		if(immovableObjects == null){
 			immovalbeExist = false;
 		}else if(immovableObjects[0].get(0).itype != 0){ //itype == 0 -> Walls
-			immovalbeExist = false;
+			immovalbeExist = false; 
 		}else{
 			immovalbeExist = true;
 		}
