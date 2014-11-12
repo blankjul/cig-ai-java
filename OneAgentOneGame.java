@@ -18,7 +18,7 @@ public class OneAgentOneGame
         
     	
     	String controller = "emergence_RL.Agent";
-        String gameStr = "frogs";
+        String gameStr = "butterflies";
         int levelIdx = 0; 
         
         

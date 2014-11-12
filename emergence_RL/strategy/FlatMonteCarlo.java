@@ -17,36 +17,25 @@ public class FlatMonteCarlo extends AStrategy {
 	// there three variable are needed for the current iteration
 	protected Node bestNode = null;
 	
-	// there three variable are needed for the current iteration
-	protected Node currentNode = null;
-	
-	// counter for check if there starts a new path
-	protected int counter = 0;
-
 	
 	public FlatMonteCarlo(Tree tree, int nSteps) {
 		super(tree);
 		this.n = nSteps;
-		this.currentNode = tree.root;
 	}
 
 
 	@Override
 	public boolean expand() {
-		// if we have to start a new path
-		if (counter == n) {
-			if (currentNode != null && isBest(currentNode)) {
-				bestNode = currentNode;
-				bestScore = currentNode.getScore();
-			}
-			currentNode = tree.root;
-			counter = 0;
-		// just expand random this path
-		} else {
+		Node currentNode = null;
+		// simulate just n random steps
+		for (int i = 0; i < n; i++) {
+			if (currentNode == null) break;
 			currentNode = currentNode.getRandomChild(rand);
-			// check if there is a child
-			++counter;
-			if (currentNode == null) counter = n;
+		}
+		// look how good it is
+		if (currentNode != null && isBest(currentNode)) {
+			bestNode = currentNode;
+			bestScore = currentNode.getScore();
 		}
 		return true;
 	}
