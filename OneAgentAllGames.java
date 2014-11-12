@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import emergence_HR.heuristics.GameResult;
-
 public class OneAgentAllGames {
 
 	public static String CONTROLLER = "emergence_HR.Agent";

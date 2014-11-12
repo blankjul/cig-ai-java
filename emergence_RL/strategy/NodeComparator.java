@@ -11,6 +11,9 @@ import emergence_RL.tree.Node;
 public class NodeComparator implements Comparator<Node> {
 	
 	public int compare(Node firstNode, Node secondNode) {
+		// TODO: Implement
+		return -1;
+		/*
 		if (firstNode.score < secondNode.score) {
 			return 1;
 		} else if (firstNode.score > secondNode.score) {
@@ -18,5 +21,6 @@ public class NodeComparator implements Comparator<Node> {
 		} else {
 			return 0;
 		}
+		*/
 	}
 }

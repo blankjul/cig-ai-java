@@ -1,5 +1,6 @@
 package emergence_RL.strategy;
 
+import ontology.Types;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 
@@ -30,16 +31,9 @@ abstract public class AStrategy {
 		this.tree = tree;
 	}
 	
+
 	
-	/**
-	 * Checks if the node evaluated with heuristic h is better
-	 * than the best saved node.
-	 * @param n
-	 * @param heuristic
-	 */
-	public boolean isBest(Node n) {
-		return n.score > bestScore;
-	}
+	abstract public Types.ACTIONS act();
 	
 	
 	/**

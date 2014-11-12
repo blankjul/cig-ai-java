@@ -3,9 +3,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import emergence_HR.heuristics.EquationStateHeuristic;
-import emergence_HR.heuristics.GameResult;
-
 public class PoolAllGames {
 
 

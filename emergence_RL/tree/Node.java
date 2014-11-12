@@ -32,8 +32,7 @@ public class Node {
 	// array of children if there were expanded
 	protected LinkedList<Node> children;
 
-	// saves the current score of this node
-	public double score;
+
 
 	/**
 	 * A tree node is defined by using ONLY the state observation
@@ -47,6 +46,7 @@ public class Node {
 		this.children = new LinkedList<Node>();
 	}
 
+	
 	/**
 	 * Create a list of all possible children that could be created from this
 	 * state.
@@ -90,8 +90,8 @@ public class Node {
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
 		return String.format(
-				"me:[%s,%s] | root:%s | last:%s | level:%s | score:%s", pos.x,
-				pos.y, rootAction, lastAction, level, score);
+				"me:[%s,%s] | root:%s | last:%s | level:%s ", pos.x,
+				pos.y, rootAction, lastAction, level);
 	}
 
 	public String hash() {
@@ -99,5 +99,7 @@ public class Node {
 		String used = (lastAction == Types.ACTIONS.ACTION_USE) ? "y" : "n";
 		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
 	}
+	
+	
 
 }
