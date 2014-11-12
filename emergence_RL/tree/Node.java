@@ -1,8 +1,10 @@
 package emergence_RL.tree;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import ontology.Types;
+import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.StateObservation;
 
@@ -11,7 +13,7 @@ import core.game.StateObservation;
  * to simulate next steps of a node. This has the consequence that there are
  * always father and children states.
  */
-public class Node {
+public class Node implements Comparable<Node>{
 
 	// father node, if null it's the root
 	public Node father;
@@ -29,8 +31,11 @@ public class Node {
 	// it's static to get it fast
 	public int level;
 
+
+
 	// array of children if there were expanded
 	protected LinkedList<Node> children;
+	
 
 
 
@@ -47,6 +52,28 @@ public class Node {
 	}
 
 	
+	
+	/**
+	 * Return a random child in this tree.
+	 * @param r
+	 * @return null if there are no available actions else the random child!
+	 */
+	public Node getRandomChild(Random r) {
+		int size = stateObs.getAvailableActions().size();
+		if (size == 0) return null;
+		
+		int index = r.nextInt(size);
+		Types.ACTIONS a = stateObs.getAvailableActions().get(index);
+		StateObservation tmpStateObs = stateObs.copy();
+		tmpStateObs.advance(a);
+		Node child = new Node(tmpStateObs);
+		child.rootAction = (this.father == null) ? a : this.rootAction;
+		child.father = this;
+		child.lastAction = a;
+		child.level = this.level + 1;
+		return child;
+	}
+	
 	/**
 	 * Create a list of all possible children that could be created from this
 	 * state.
@@ -58,7 +85,7 @@ public class Node {
 	public LinkedList<Node> getChildren() {
 
 		// if children are cached use them
-		if (stateObs.getAvailableActions().size() > 0 && children.size() > 0)
+		if (stateObs.getAvailableActions().size() ==  children.size())
 			return children;
 
 		// state observation from the father
@@ -99,7 +126,27 @@ public class Node {
 		String used = (lastAction == Types.ACTIONS.ACTION_USE) ? "y" : "n";
 		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
 	}
+
+
+	@Override
+	public int compareTo(Node o) {
+		if (this.getScore() < o.getScore()) {
+			return 1;
+		} else if (this.getScore() > o.getScore()) {
+			return -1;
+		} else {
+			return 0;
+		}
+	}
 	
+	
+	public double getScore() {
+		if (stateObs.getGameWinner() == WINNER.PLAYER_WINS) return Double.POSITIVE_INFINITY;
+		else if (stateObs.getGameWinner() == WINNER.PLAYER_LOSES) return Double.NEGATIVE_INFINITY;
+		else return stateObs.getGameScore();
+	}
+
+
 	
 
 }

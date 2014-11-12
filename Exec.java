@@ -12,7 +12,6 @@ import core.VGDLRegistry;
 import core.competition.CompetitionParameters;
 import core.game.Game;
 import core.player.AbstractPlayer;
-import emergence_HR.heuristics.EquationStateHeuristic;
 
 public class Exec  {
 
@@ -67,19 +66,9 @@ public class Exec  {
 		/*
 		 * special parsing of parameter of agent needs it!
 		 */
-		if (controller.equals("emergence_HR.StaticAgent")) {
-			player = new emergence_HR.StaticAgent(toPlay.getObservation(), ect);
-
-			String[] heuristicArray = parameter.split(",");
-			double[] weights = new double[heuristicArray.length];
-			for (int i = 0; i < weights.length; i++) {
-				weights[i] = Double.valueOf(heuristicArray[i]);
-			}
-			EquationStateHeuristic heuristic = new EquationStateHeuristic(
-					weights);
-			((emergence_HR.StaticAgent) player).heuristic = heuristic;
-
-			
+		if (controller.equals("emergence_RL.Agent")) {
+			player = new emergence_RL.Agent(toPlay.getObservation(), ect);
+			((emergence_RL.Agent) player).initFromString(parameter);
 		} else {
 			player = ArcadeMachine.createPlayer(controller, actionFile,
 					toPlay.getObservation(), randomSeed);

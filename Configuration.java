@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 public class Configuration {
 
-	public static String gamesAll[] = new String[] { "aliens", "boulderdash",
+	public static String gamesAll[] = new String[] { "aliens", // "boulderdash",
 			"butterflies", "chase", "frogs", "missilecommand", "portals",
 			"sokoban", "survivezombies", "zelda", "camelRace", "digdug",
 			"firestorms", "infection", "firecaster", "overload", "pacman",

@@ -5,14 +5,19 @@ import java.util.concurrent.Future;
 
 public class PoolOneGame {
 
+	
+	
+	
 	public static String CONTROLLER = "emergence_HR.StaticAgent";
 	public static String GAME = "seaquest";
 	public static int NUM_LEVELS = 5;
 	public static int POOL_SIZE = 10;
 
-	public static ArrayList<EquationStateHeuristic> pool = new ArrayList<EquationStateHeuristic>();
-	public static ArrayList<Future<GameResult>> poolResult = new ArrayList<Future<GameResult>>();
+	//public static ArrayList<EquationStateHeuristic> pool = new ArrayList<EquationStateHeuristic>();
+	//public static ArrayList<Future<GameResult>> poolResult = new ArrayList<Future<GameResult>>();
 
+	/*
+	
 	public static void playOneGame(String game) {
 
 		pool.clear();
@@ -53,5 +58,6 @@ public class PoolOneGame {
 
 		Configuration.SCHEDULER.shutdown();
 	}
+	*/
 
 }
