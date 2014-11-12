@@ -18,7 +18,7 @@ public class OneAgentOneGame
         
     	
     	String controller = "emergence_HR.Agent";
-        String gameStr = "firestorms";
+        String gameStr = "eggomania";
         int levelIdx = 0; 
         
         

@@ -9,7 +9,7 @@ import emergence_HR.heuristics.GameResult;
 public class PoolOneGame {
 
 	public static String CONTROLLER = "emergence_HR.StaticAgent";
-	public static String GAME = "firestorms";
+	public static String GAME = "seaquest";
 	public static int NUM_LEVELS = 5;
 	public static int POOL_SIZE = 10;
 

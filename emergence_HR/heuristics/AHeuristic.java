@@ -23,8 +23,11 @@ public abstract class AHeuristic {
 	
 	public void addScore(Node n) {
 		if (n == null) return;
-		if (n.stateObs.getGameWinner() == WINNER.PLAYER_WINS)
-			score += 100;
+		if (n.stateObs.getGameWinner() == WINNER.PLAYER_WINS) {
+			score += 10;
+		} else if (n.stateObs.getGameWinner() == WINNER.PLAYER_LOSES) {
+			score -= 10;
+		}
 		score += n.stateObs.getGameScore();
 	}
 

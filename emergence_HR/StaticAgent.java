@@ -1,7 +1,10 @@
 package emergence_HR;
 
+import java.util.ArrayList;
+
 import ontology.Types;
 import tools.ElapsedCpuTimer;
+import core.game.Observation;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence_HR.helper.ActionTimer;
