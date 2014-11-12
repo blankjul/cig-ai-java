@@ -1,8 +1,7 @@
-package emergence_HR.strategy;
+package emergence_RL.strategy;
 
-import emergence_HR.heuristics.AHeuristic;
-import emergence_HR.tree.Node;
-import emergence_HR.tree.Tree;
+import emergence_RL.tree.Node;
+import emergence_RL.tree.Tree;
 
 /**
  * This is also an abstract class that adds the feature of a heuristic to the
@@ -14,9 +13,6 @@ abstract public class AStrategy {
 	// game tree that should be expanded by this class
 	public Tree tree;
 
-	// heuristic that is used for expanding the tree
-	public AHeuristic heuristic;
-	
 	// best current node in the tree. this is important for extracting the path.
 	public Node bestNode = null;
 
@@ -30,11 +26,10 @@ abstract public class AStrategy {
 	 * @param root
 	 * @param heuristic
 	 */
-	public AStrategy(Tree tree, AHeuristic heuristic) {
+	public AStrategy(Tree tree) {
 		this.tree = tree;
-		this.heuristic = heuristic;
-		tree.root.score = heuristic.evaluateState(tree.root.stateObs);
 	}
+	
 	
 	/**
 	 * Checks if the node evaluated with heuristic h is better
@@ -42,12 +37,10 @@ abstract public class AStrategy {
 	 * @param n
 	 * @param heuristic
 	 */
-	public void checkBest(Node n) {
-		if (n.score > bestScore) {
-			bestScore = n.score;
-			bestNode = n;
-		}
+	public boolean isBest(Node n) {
+		return n.score > bestScore;
 	}
+	
 	
 	/**
 	 * Expand the tree given to that heuristic.

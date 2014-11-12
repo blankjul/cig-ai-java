@@ -1,4 +1,4 @@
-package emergence_HR.tree;
+package emergence_RL.tree;
 
 /**
  * This is an abstract tree that has several attributes that should be needed by

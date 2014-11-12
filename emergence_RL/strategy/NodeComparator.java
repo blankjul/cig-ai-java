@@ -1,8 +1,7 @@
-package emergence_HR.strategy;
+package emergence_RL.strategy;
 
 import java.util.Comparator;
-
-import emergence_HR.tree.Node;
+import emergence_RL.tree.Node;
 
 /**
  * The comparator that is needed to find the node with the highest heuristic at

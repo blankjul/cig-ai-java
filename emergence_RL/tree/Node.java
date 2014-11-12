@@ -1,4 +1,4 @@
-package emergence_HR.tree;
+package emergence_RL.tree;
 
 import java.util.LinkedList;
 
@@ -30,13 +30,11 @@ public class Node {
 	public int level;
 
 	// array of children if there were expanded
-    protected LinkedList<Node> children;
+	protected LinkedList<Node> children;
 
-    // saves the current score of this node
+	// saves the current score of this node
 	public double score;
-	
-	
-	
+
 	/**
 	 * A tree node is defined by using ONLY the state observation
 	 * 
@@ -49,7 +47,6 @@ public class Node {
 		this.children = new LinkedList<Node>();
 	}
 
-
 	/**
 	 * Create a list of all possible children that could be created from this
 	 * state.
@@ -59,10 +56,11 @@ public class Node {
 	 * @return list of all possible children states
 	 */
 	public LinkedList<Node> getChildren() {
-		
+
 		// if children are cached use them
-		if (stateObs.getAvailableActions().size() > 0 && children.size() > 0) return children;
-		
+		if (stateObs.getAvailableActions().size() > 0 && children.size() > 0)
+			return children;
+
 		// state observation from the father
 		StateObservation stateObs = this.stateObs;
 		// create result list and reserve memory for the temporary state object
@@ -85,18 +83,16 @@ public class Node {
 			children.add(child);
 		}
 		tmpStateObs = null;
-		
+
 		return children;
 	}
-	
-	
+
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
-		return String.format("me:[%s,%s] | root:%s | last:%s | level:%s | score:%s",
-				pos.x, pos.y, rootAction, lastAction, level, score);
+		return String.format(
+				"me:[%s,%s] | root:%s | last:%s | level:%s | score:%s", pos.x,
+				pos.y, rootAction, lastAction, level, score);
 	}
-
-	
 
 	public String hash() {
 		Vector2d pos = stateObs.getAvatarPosition();

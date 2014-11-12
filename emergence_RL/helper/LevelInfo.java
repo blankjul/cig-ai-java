@@ -1,4 +1,4 @@
-package emergence_HR.helper;
+package emergence_RL.helper;
 
 import java.util.ArrayList;
 import java.util.Queue;
@@ -6,7 +6,7 @@ import java.util.Queue;
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
-import emergence_HR.tree.Node;
+import emergence_RL.tree.Node;
 
 public class LevelInfo {
 
