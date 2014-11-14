@@ -31,8 +31,7 @@ public class Node implements Comparable<Node>{
 	// it's static to get it fast
 	public int level;
 
-
-
+	
 	// array of children if there were expanded
 	protected LinkedList<Node> children;
 	
