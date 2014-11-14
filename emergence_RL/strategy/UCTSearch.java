@@ -44,6 +44,7 @@ public class UCTSearch extends AStrategy {
 
 	}
 
+	
 	@Override
 	public boolean expand() {
 		Node n = treePolicy(tree.root);
@@ -52,16 +53,7 @@ public class UCTSearch extends AStrategy {
 		return true;
 	}
 
-	private Node treePolicy(Node n) {
-		while (!n.stateObs.isGameOver() && n.level <= maxDepth) {
-			if (!n.isFullyExpanded()) {
-				return n.getRandomChild(rand, true);
-			} else {
-				n = uct(n);
-			}
-		}
-		return n;
-	}
+	
 
 	protected double defaultPolicy(Node n) {
 		StateObservation s = n.stateObs.copy();
@@ -74,9 +66,24 @@ public class UCTSearch extends AStrategy {
 		double delta = Node.getScore(s);
 		// TODO: normalize if bad result!
 		return delta;
-
+	}
+	
+	
+	
+	private Node treePolicy(Node n) {
+		while (!n.stateObs.isGameOver() && n.level <= maxDepth) {
+			if (!n.isFullyExpanded()) {
+				return n.getRandomChild(rand, true);
+			} else {
+				n = uct(n);
+			}
+		}
+		return n;
 	}
 
+
+
+	
 	public Node uct(Node n) {
 		double bestUTC = Double.NEGATIVE_INFINITY;
 		Node bestNode = null;

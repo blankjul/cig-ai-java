@@ -7,7 +7,7 @@ import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import emergence_RL.helper.ActionTimer;
 import emergence_RL.strategy.AStrategy;
-import emergence_RL.strategy.UCTSearch;
+import emergence_RL.strategy.UCTSearchCopyStates;
 import emergence_RL.strategy.uct.actor.HighestUCT;
 import emergence_RL.strategy.uct.actor.IActor;
 import emergence_RL.tree.Node;
@@ -40,7 +40,7 @@ public class Agent extends AThreadablePlayer {
 			ElapsedCpuTimer elapsedTimer) {
 
 		Tree tree = new Tree(new Node(stateObs));
-		AStrategy strategy = new UCTSearch(tree, rand, maxDepth, C, epsilon, gamma, actor);
+		AStrategy strategy = new UCTSearchCopyStates(tree, rand, maxDepth, C, epsilon, gamma, actor);
 
 		boolean hasNext = true;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
