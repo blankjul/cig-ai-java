@@ -14,10 +14,7 @@ public class FlatMonteCarlo extends AStrategy {
 	// generator for random numbers
 	protected Random rand = new Random();
 
-	// there three variable are needed for the current iteration
-	protected Node bestNode = null;
-	
-	
+
 	public FlatMonteCarlo(Tree tree, int nSteps) {
 		super(tree);
 		this.n = nSteps;
@@ -26,16 +23,20 @@ public class FlatMonteCarlo extends AStrategy {
 
 	@Override
 	public boolean expand() {
-		Node currentNode = null;
+		
+		// set currentNode as the root
+		Node currentNode = tree.root;
+		
 		// simulate just n random steps
 		for (int i = 0; i < n; i++) {
 			if (currentNode == null) break;
-			currentNode = currentNode.getRandomChild(rand);
+			currentNode = currentNode.getRandomChild(rand, false);
 		}
+		
 		// look how good it is
 		if (currentNode != null && isBest(currentNode)) {
 			bestNode = currentNode;
-			bestScore = currentNode.getScore();
+			bestScore = currentNode.heuristicScore;
 		}
 		return true;
 	}

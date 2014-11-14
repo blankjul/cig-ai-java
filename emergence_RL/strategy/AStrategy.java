@@ -33,7 +33,7 @@ abstract public class AStrategy {
 	
 
 	protected boolean isBest(Node n) {
-		return n.getScore() > bestScore;
+		return n.heuristicScore > bestScore;
 	}
 	
 	abstract public Types.ACTIONS act();
