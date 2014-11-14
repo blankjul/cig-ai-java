@@ -32,10 +32,20 @@ abstract public class AStrategy {
 	}
 	
 
+	/**
+	 * Returns true if the given node n has a higher heuristicScore than 
+	 * the actually best node
+	 * @param n
+	 * @return
+	 */
 	protected boolean isBest(Node n) {
 		return n.heuristicScore > bestScore;
 	}
 	
+	/**
+	 * Return the action that the agent should actually do!
+	 * @return
+	 */
 	abstract public Types.ACTIONS act();
 	
 	

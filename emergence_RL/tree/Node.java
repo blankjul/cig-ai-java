@@ -52,13 +52,6 @@ public class Node implements Comparable<Node> {
 	// map for actions to integer and a round
 	protected ActionMap map;
 
-	// boolean value to check if this node is fully expanded!
-	protected boolean isFullyExpanded;
-
-	// counts how often this node was randomly expanded.
-	// if it's lower than the available actions is could not be
-	// fully expanded. --> fast check
-	protected int randomExpandedCounter = 0;
 
 	/**
 	 * A tree node is defined by using ONLY the state observation
@@ -71,7 +64,6 @@ public class Node implements Comparable<Node> {
 		this.stateObs = stateObs;
 		this.map = ActionMap.create(stateObs.getAvailableActions());
 		this.children = new Node[map.NUM_ACTIONS];
-		this.isFullyExpanded = false;
 		this.Q = 0;
 		this.level = 0;
 	}
@@ -92,27 +84,29 @@ public class Node implements Comparable<Node> {
 
 		// get a random child
 		if (!mustBeNew) {
-			int index = r.nextInt(size);
-			a = stateObs.getAvailableActions().get(index);
+			a = getRandomAction(r);
 
 			// get a random child that is not expanded yet!
 		} else {
-			ArrayList<Integer> posActions = new ArrayList<Integer>();
+			ArrayList<Types.ACTIONS> posActions = new ArrayList<Types.ACTIONS>();
 			for (int i = 0; i < children.length; i++) {
 				if (children[i] == null)
-					posActions.add(i);
+					posActions.add(map.getAction(i));
 			}
 			int index = r.nextInt(posActions.size());
-			a = map.getAction(index);
+			a = posActions.get(index);
 		}
 
 		Node child = getChild(a, true);
 
-		// check if it is fully expanded by using first of all the counter!
-		++randomExpandedCounter;
-		setFullyExpanded();
-
 		return child;
+	}
+
+	public Types.ACTIONS getRandomAction(Random r) {
+		int size = stateObs.getAvailableActions().size();
+		int index = r.nextInt(size);
+		Types.ACTIONS a = stateObs.getAvailableActions().get(index);
+		return a;
 	}
 
 	/**
@@ -133,7 +127,7 @@ public class Node implements Comparable<Node> {
 		child.father = this;
 		child.lastAction = a;
 		child.level = this.level + 1;
-		child.heuristicScore = getScore();
+		child.heuristicScore = getScore(stateObs);
 
 		// set the child that it is not expanded again!
 		int index = map.getInt(a);
@@ -169,7 +163,7 @@ public class Node implements Comparable<Node> {
 	public List<Node> getChildren() {
 
 		// if children are cached use them
-		if (isFullyExpanded)
+		if (isFullyExpanded())
 			return Arrays.asList(children);
 
 		ArrayList<Types.ACTIONS> actionList = stateObs.getAvailableActions();
@@ -183,8 +177,6 @@ public class Node implements Comparable<Node> {
 
 		}
 
-		isFullyExpanded = true;
-
 		return Arrays.asList(children);
 	}
 
@@ -194,20 +186,11 @@ public class Node implements Comparable<Node> {
 	 * @return fully expanded or not!
 	 */
 	public boolean isFullyExpanded() {
-		return this.isFullyExpanded;
-	}
-
-	private void setFullyExpanded() {
-		if (randomExpandedCounter >= stateObs.getAvailableActions().size()) {
-			for (int i = 0; i < children.length; i++) {
-				if (children[i] == null) {
-					isFullyExpanded = false;
-					return;
-				}
-			}
-			isFullyExpanded = true;
-			return;
+		for (int i = 0; i < children.length; i++) {
+			if (children[i] == null)
+				return false;
 		}
+		return true;
 	}
 
 	public String hash() {
@@ -230,15 +213,22 @@ public class Node implements Comparable<Node> {
 	@Override
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
-		return String.format("me:[%s,%s] | root:%s | last:%s | level:%s | score:%s | Q:%s | visited:%s | utc:%s",
-				pos.x, pos.y, rootAction, lastAction, level, heuristicScore, Q, visited, utcValue);
+		String s =  String.format("me:[%s,%s] | root:%s | last:%s | level:%s | score:%s | Q:%s | visited:%s | utc:%s | fE:%s | children:[",
+						pos.x, pos.y, rootAction, lastAction, level,
+						heuristicScore, Q, visited, utcValue, isFullyExpanded());
+		for (int i = 0; i < children.length; i++) {
+			if (children[i] == null) s += "_,";
+			else s += "x,";
+		}
+		s += "]";
+		return s;
 	}
 
-	private double getScore() {
+	public static double getScore(StateObservation stateObs) {
 		if (stateObs.getGameWinner() == WINNER.PLAYER_WINS)
-			return Double.POSITIVE_INFINITY;
+			return 100;
 		else if (stateObs.getGameWinner() == WINNER.PLAYER_LOSES)
-			return Double.NEGATIVE_INFINITY;
+			return -100;
 		else
 			return stateObs.getGameScore();
 	}

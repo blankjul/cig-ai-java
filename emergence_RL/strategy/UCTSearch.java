@@ -3,6 +3,8 @@ package emergence_RL.strategy;
 import java.util.Random;
 
 import ontology.Types;
+import core.game.StateObservation;
+import emergence_RL.strategy.uct.actor.IActor;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 
@@ -11,61 +13,83 @@ public class UCTSearch extends AStrategy {
 	// thats the height of the tree - that is fix
 	public int maxDepth;
 
+	// the value for the exploration term
 	public double C;
-	
-	public boolean verbose = true;
+
+	// epsilon for the utc formula
+	public double epsilon;
+
+	// method that should by used by acting
+	public IActor actor;
+
+	// this is a discount factor for the backpropagation
+	// if it's zero nothing happens!
+	public double gamma;
 
 	// generator for random numbers
 	protected Random rand = new Random();
 
-	public UCTSearch(Tree tree, int maxDepth, double C) {
+	// if true there is a debug output
+	public boolean verbose = true;
+
+	public UCTSearch(Tree tree, Random r, int maxDepth, double C,
+			double epsilon, double gamma, IActor actor) {
 		super(tree);
+		this.rand = r;
 		this.maxDepth = maxDepth;
 		this.C = C;
+		this.epsilon = epsilon;
+		this.gamma = gamma;
+		this.actor = actor;
+
 	}
 
-	public Types.ACTIONS act() {
-		return mostVisited();
-	}
-
-	
 	@Override
 	public boolean expand() {
 		Node n = treePolicy(tree.root);
 		double reward = defaultPolicy(n);
-		backup(n, reward);
+		backpropagate(n, reward);
 		return true;
 	}
 
 	private Node treePolicy(Node n) {
-		while (!n.stateObs.isGameOver()) {
+		while (!n.stateObs.isGameOver() && n.level <= maxDepth) {
 			if (!n.isFullyExpanded()) {
 				return n.getRandomChild(rand, true);
 			} else {
-				n = bestChild(n, C);
+				n = uct(n);
 			}
 		}
 		return n;
 	}
-	
-	
+
 	protected double defaultPolicy(Node n) {
-		while (!n.stateObs.isGameOver() && n.level <= maxDepth) {
-			n = n.getRandomChild(rand, false);
+		StateObservation s = n.stateObs.copy();
+		int level = n.level;
+		while (!n.stateObs.isGameOver() && level <= maxDepth) {
+			Types.ACTIONS a = n.getRandomAction(rand);
+			s.advance(a);
+			++level;
 		}
-		return n.heuristicScore;
+		double delta = Node.getScore(s);
+		// TODO: normalize if bad result!
+		return delta;
+
 	}
 
-	protected Node bestChild(Node n, double c) {
+	public Node uct(Node n) {
 		double bestUTC = Double.NEGATIVE_INFINITY;
 		Node bestNode = null;
-		
+
 		for (Node child : n.getChildren()) {
-			double exploitRate = child.Q / ((double)child.visited);
-			double exploreRate = (2 * Math.log((double) n.visited)) / ((double) child.visited);
-			child.utcValue = exploitRate + c * Math.sqrt(exploreRate);
-			
-			if (child.utcValue > bestUTC) {
+			child.utcValue = child.Q
+					/ (child.visited + epsilon)
+					+ C
+					* Math.sqrt(Math.log(n.visited + 1)
+							/ (child.visited + this.epsilon))
+					+ rand.nextDouble() * epsilon;
+
+			if (child.utcValue >= bestUTC) {
 				bestNode = child;
 				bestUTC = child.utcValue;
 			}
@@ -73,41 +97,46 @@ public class UCTSearch extends AStrategy {
 		return bestNode;
 	}
 
-	
-
-	
-	protected void backup(Node n, double reward) {
+	/**
+	 * update the q values until the root is reached!
+	 * 
+	 * @param n
+	 * @param reward
+	 */
+	protected void backpropagate(Node n, double reward) {
+		int counter = 0;
 		while (n != null) {
 			++n.visited;
-			n.Q += reward;
+
+			// use a discount factor for the as a weight!
+			n.Q += reward * Math.pow(gamma, counter);
+			++counter;
 			n = n.father;
 		}
 	}
-	
-	protected Types.ACTIONS mostVisited() {
-		Types.ACTIONS a = null;
-		int mostVisited = -1;
-		
-		for (Node child : tree.root.getChildren()) {
-			if (child.visited > mostVisited) {
-				mostVisited = child.visited;
-				a = child.lastAction;
-			}
-		}
+
+	/**
+	 * Use the actor interface to find the best action to return!
+	 */
+	@Override
+	public Types.ACTIONS act() {
+		Types.ACTIONS a = actor.act(this, tree);
+		if (verbose)
+			System.out.println("Selected action: " + a);
 		return a;
 	}
-	
+
 	@Override
 	public String toString() {
-		bestChild(tree.root, C);
+		uct(tree.root);
 		StringBuffer sb = new StringBuffer();
 		sb.append("ROOT\n");
-		sb.append(tree.root.toString()+ "\n");
+		sb.append(tree.root.toString() + "\n");
 		sb.append("Children\n");
 		for (Node child : tree.root.getChildren()) {
 			sb.append(child.toString() + "\n");
 		}
-		return sb.substring(0, sb.length() -1);
+		return sb.substring(0, sb.length() - 1);
 	}
 
 }
