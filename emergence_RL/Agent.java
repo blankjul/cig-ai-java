@@ -44,12 +44,12 @@ public class Agent extends AThreadablePlayer {
 
 	@Override
 	public void initFromString(String parameter) {
-		this.nSteps = Integer.valueOf(parameter);
+		//this.maxDepth = Integer.valueOf(parameter);
 	}
 
 	@Override
 	public String setToString() {
-		return String.valueOf(nSteps);
+		return String.valueOf(maxDepth);
 	}
 
 }

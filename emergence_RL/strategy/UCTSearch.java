@@ -34,8 +34,6 @@ public class UCTSearch extends AStrategy {
 		Node n = treePolicy(tree.root);
 		double reward = defaultPolicy(n);
 		backup(n, reward);
-		//System.out.println(this);
-		//System.out.println("--------------------");
 		return true;
 	}
 
