@@ -12,6 +12,7 @@ public class UCTPolicy extends ATreePolicy {
 	public double epsilon = 1e-6;
 
 	public Node bestChild(UCTSettings s, Node n, double c) {
+		
 		double bestUTC = Double.NEGATIVE_INFINITY;
 		ArrayList<Node> bestNodes = new ArrayList<Node>();
 		
@@ -34,7 +35,7 @@ public class UCTPolicy extends ATreePolicy {
 				bestUTC = child.uct;
 			}
 		}
-
+		if (bestNodes.isEmpty()) return n;
 		result = Helper.getRandomEntry(bestNodes, s.r);
 		return result;
 		

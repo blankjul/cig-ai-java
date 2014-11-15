@@ -1,19 +1,23 @@
 package emergence_RL.heuristic;
 
-
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
+import emergence_RL.GameResult;
 
 public class EquationStateHeuristic extends AHeuristic{
 
 	public double[] weights;
 
 	public double fitness = Double.NEGATIVE_INFINITY;
+	
+	public ArrayList<Future<GameResult>> resultList = new ArrayList<Future<GameResult>>();
 	
 	public String createdOnGame = "";
 	
@@ -30,17 +34,19 @@ public class EquationStateHeuristic extends AHeuristic{
 	}
 	
 
-	@Override
-	public String toString() {
-		String s = this.createdOnGame + " --> ";
+	public String parameter() {
+		String s = "";
 		for (double d : weights) {
 			s += String.valueOf(d) + ",";
-			//s += String.format("%.2f,",  d);
 		}
 		s = s.substring(0, s.length()-1);
 		return s;
 	}
 	
+	@Override
+	public String toString() {
+		return "Created on game: " + createdOnGame + " " + parameter();
+	}
 	
 	public EquationStateHeuristic(double[] weights) {
 		this.weights = weights;
@@ -63,7 +69,6 @@ public class EquationStateHeuristic extends AHeuristic{
 		
 		double[] state = new double[1];
 		state[0] = stateObs.getGameScore();
-
 		
 		double[] npc = npc(stateObs, "npc");
 		double[] portals = npc(stateObs, "portals");
@@ -111,7 +116,6 @@ public class EquationStateHeuristic extends AHeuristic{
 		return eq;
 	}
 
-	
 	public double[] concatAll(double[]... array) {
         int len = 0;
         for (final double[] job : array) {
@@ -129,6 +133,31 @@ public class EquationStateHeuristic extends AHeuristic{
         return result;
     }
 
+
+	
+	public double getResult() {
+		int size = resultList.size();
+		double score = 0;
+		double wins = 0;
+		for (Future<GameResult> f : resultList) {
+			GameResult g;
+			try {
+				g = f.get();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				return -100;
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+				return -100;
+			}
+			score += g.getScore();
+			wins += g.getWin();
+		}
+		score /= size;
+		wins /= size;
+		double value = wins * 100 + score;
+		return value;
+	}
 
 
 }

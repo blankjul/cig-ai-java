@@ -25,7 +25,14 @@ public class Exec  {
 		String controller = args[0];
 		String game = gamesPath + args[1] + ".txt";
 		String level = gamesPath + args[1] + "_lvl" + args[2] + ".txt";
-		String parameter = (args.length > 3) ? args[3] : null;
+	
+		// concatenate all parameters
+		StringBuffer sb = new StringBuffer();
+		for (int i = 3; i < args.length; i++) {
+			sb.append(args[i] + " ");
+		}
+		String parameter = sb.toString();
+		
 		execute(controller, game, level, parameter);
 	}
 
@@ -67,8 +74,11 @@ public class Exec  {
 		 * special parsing of parameter of agent needs it!
 		 */
 		if (controller.equals("emergence_RL.Agent")) {
-			player = new emergence_RL.Agent(toPlay.getObservation(), ect);
-			((emergence_RL.Agent) player).initFromString(parameter);
+			emergence_RL.Agent.VERBOSE = false;
+			if (parameter != null) {
+				player = new emergence_RL.Agent(toPlay.getObservation(), ect);
+				((emergence_RL.Agent) player).initFromString(parameter);
+			}
 		} else {
 			player = ArcadeMachine.createPlayer(controller, actionFile,
 					toPlay.getObservation(), randomSeed);

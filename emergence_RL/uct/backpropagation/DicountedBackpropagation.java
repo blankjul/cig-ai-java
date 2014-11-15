@@ -3,7 +3,7 @@ package emergence_RL.uct.backpropagation;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
 
-public class DicountedBackpropagation implements IBackPropagation{
+public class DicountedBackpropagation extends ABackPropagation{
 
 
 	@Override

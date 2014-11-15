@@ -2,6 +2,8 @@
 import java.io.File;
 import java.util.concurrent.Callable;
 
+import emergence_RL.GameResult;
+
 /**
  *	This class is used to allow multithreading for one game result.
  */
@@ -36,8 +38,8 @@ public class ExecCallable implements Callable<GameResult> {
 				level, parameter);
 		
 		//System.out.println("STARTED " + strExec);
-		
 		//System.out.println("STARTING " + strExec);
+		
 		pRun = rt.exec(strExec, null, new File("./classes"));
 		pRun.waitFor();
 		this.log = Exec.stringFromProc(pRun);

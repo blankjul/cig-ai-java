@@ -6,11 +6,14 @@ import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import emergence_RL.GameResult;
+import emergence_RL.uct.UCTSettings;
+
 public class OneAgentAllGames {
 
 	public static String CONTROLLER = "emergence_RL.Agent";
 	//public static String CONTROLLER = "controllers.sampleMCTS.Agent";
-	public static String PARAMETER = "";
+	public static String PARAMETER = UCTSettings.createDefault().toString();
 	public static int NUM_LEVELS = 5;
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {

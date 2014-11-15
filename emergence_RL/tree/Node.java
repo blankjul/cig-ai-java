@@ -44,7 +44,7 @@ public class Node  {
 	public int visited;
 
 	// array of children if there were expanded
-	protected Node[] children;
+	public Node[] children;
 
 	// map for actions to integer and a round
 	protected ActionMap map;
