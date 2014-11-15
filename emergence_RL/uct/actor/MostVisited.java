@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
+import ontology.Types.WINNER;
 import emergence_RL.helper.Helper;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
@@ -20,6 +21,7 @@ public class MostVisited implements IActor {
 		int mostVisited = -1;
 
 		for (Node child : tree.root.getChildren()) {
+			if (child.stateObs.getGameWinner() == WINNER.PLAYER_LOSES) continue;
 			if (child.visited == mostVisited) {
 				bestActions.add(child.lastAction);
 			}

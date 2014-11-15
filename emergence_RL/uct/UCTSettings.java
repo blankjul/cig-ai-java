@@ -10,7 +10,6 @@ import emergence_RL.uct.actor.HighestReward;
 import emergence_RL.uct.actor.HighestUCT;
 import emergence_RL.uct.actor.IActor;
 import emergence_RL.uct.actor.MostVisited;
-import emergence_RL.uct.actor.MostVisitedAdvanced;
 import emergence_RL.uct.backpropagation.ABackPropagation;
 import emergence_RL.uct.backpropagation.DicountedBackpropagation;
 import emergence_RL.uct.defaultPoliciy.ADefaultPolicy;
@@ -25,7 +24,7 @@ public class UCTSettings {
 	// this are the different policies that could be used!
 	public IActor actor;
 	public static List<IActor> allActors = Arrays.asList(new HighestReward(),
-			new HighestUCT(), new MostVisited(), new MostVisitedAdvanced());
+			new HighestUCT(), new MostVisited());
 
 	public ADefaultPolicy defaultPolicy;
 	public static List<ADefaultPolicy> allDefaultPolicies = new ArrayList<ADefaultPolicy>(
@@ -54,8 +53,8 @@ public class UCTSettings {
 	
 
 	public static UCTSettings createDefault() {
-		int maxDepth = 10;
-		IActor actor = new MostVisitedAdvanced();
+		int maxDepth = 5;
+		IActor actor = new MostVisited();
 		ATreePolicy treePolicy = new UCTPolicy();
 		ADefaultPolicy defaultPolicy = new RandomPolicy();
 		ABackPropagation backPropagation = new DicountedBackpropagation();

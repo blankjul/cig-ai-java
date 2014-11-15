@@ -2,6 +2,7 @@ package emergence_RL.uct.actor;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
+import ontology.Types.WINNER;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 import emergence_RL.uct.UCTSettings;
@@ -17,6 +18,7 @@ public class HighestUCT implements IActor {
 		double bestUTC = Double.NEGATIVE_INFINITY;
 
 		for (Node child : tree.root.getChildren()) {
+			if (child.stateObs.getGameWinner() == WINNER.PLAYER_LOSES) continue;
 			if (child.uct >= bestUTC) {
 				bestUTC = child.uct;
 				a = child.lastAction;
