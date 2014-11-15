@@ -1,4 +1,5 @@
 
+
 /**
  * This is the result of a game simulation. This is needed to have a callback
  * object for multithreading. The attributes are the output, game, level, winner

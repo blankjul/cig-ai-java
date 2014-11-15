@@ -16,7 +16,7 @@ import emergence_RL.helper.ActionMap;
  * to simulate next steps of a node. This has the consequence that there are
  * always father and children states.
  */
-public class Node implements Comparable<Node> {
+public class Node  {
 
 	// father node, if null it's the root
 	public Node father;
@@ -34,14 +34,11 @@ public class Node implements Comparable<Node> {
 	// it's static to get it fast
 	public int level;
 
-	// just the score of a node. normally heuristic based!
-	public double heuristicScore;
-
 	// the Q value that is needed for the MCTS
 	public double Q;
 
 	// storage for the utc value!
-	public double utcValue;
+	public double uct;
 
 	// counts how often any expandation function was executed!
 	public int visited;
@@ -127,7 +124,6 @@ public class Node implements Comparable<Node> {
 		child.father = this;
 		child.lastAction = a;
 		child.level = this.level + 1;
-		child.heuristicScore = getScore(stateObs);
 
 		// set the child that it is not expanded again!
 		int index = map.getInt(a);
@@ -199,23 +195,14 @@ public class Node implements Comparable<Node> {
 		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
 	}
 
-	@Override
-	public int compareTo(Node o) {
-		if (this.heuristicScore < o.heuristicScore) {
-			return 1;
-		} else if (this.heuristicScore > o.heuristicScore) {
-			return -1;
-		} else {
-			return 0;
-		}
-	}
+
 
 	@Override
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
-		String s =  String.format("me:[%s,%s] | root:%s | last:%s | level:%s | score:%s | Q:%s | visited:%s | utc:%s | fE:%s | children:[",
+		String s =  String.format("me:[%s,%s] | root:%s | last:%s | level:%s | Q:%s | visited:%s | utc:%s | fE:%s | children:[",
 						pos.x, pos.y, rootAction, lastAction, level,
-						heuristicScore, Q, visited, utcValue, isFullyExpanded());
+						 Q, visited, uct, isFullyExpanded());
 		for (int i = 0; i < children.length; i++) {
 			if (children[i] == null) s += "_,";
 			else s += "x,";

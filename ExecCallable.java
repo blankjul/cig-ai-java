@@ -35,6 +35,8 @@ public class ExecCallable implements Callable<GameResult> {
 		String strExec = String.format("java Exec %s %s %d %s", controller, game,
 				level, parameter);
 		
+		//System.out.println("STARTED " + strExec);
+		
 		//System.out.println("STARTING " + strExec);
 		pRun = rt.exec(strExec, null, new File("./classes"));
 		pRun.waitFor();

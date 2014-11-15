@@ -9,6 +9,7 @@ import java.util.concurrent.Future;
 public class OneAgentAllGames {
 
 	public static String CONTROLLER = "emergence_RL.Agent";
+	//public static String CONTROLLER = "controllers.sampleMCTS.Agent";
 	public static String PARAMETER = "5";
 	public static int NUM_LEVELS = 5;
 

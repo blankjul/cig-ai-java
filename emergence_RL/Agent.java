@@ -1,59 +1,71 @@
 package emergence_RL;
 
-import java.util.Random;
-
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import emergence_RL.helper.ActionTimer;
-import emergence_RL.strategy.AStrategy;
-import emergence_RL.strategy.UCTSearch;
-import emergence_RL.strategy.uct.actor.HighestUCT;
-import emergence_RL.strategy.uct.actor.IActor;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
+import emergence_RL.uct.UCTSearch;
+import emergence_RL.uct.UCTSettings;
+import emergence_RL.uct.actor.IActor;
+import emergence_RL.uct.actor.MostVisited;
+import emergence_RL.uct.backpropagation.DicountedBackpropagation;
+import emergence_RL.uct.backpropagation.IBackPropagation;
+import emergence_RL.uct.defaultPoliciy.IDefaultPolicy;
+import emergence_RL.uct.defaultPoliciy.RandomPolicy;
+import emergence_RL.uct.treePolicy.ATreePolicy;
+import emergence_RL.uct.treePolicy.UCTPolicy;
 
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
 	final private boolean VERBOSE = true;
 
-	// generator for random numbers
-	protected Random rand = new Random();
-	
 	
 	/*
 	 * Configuration for the MCTS Tree
 	 */
 	private int maxDepth = 10;
+	private IActor actor = new MostVisited();
+	private IDefaultPolicy defaultPolicy = new RandomPolicy();
+	private ATreePolicy treePolicy = new UCTPolicy();
+	private IBackPropagation backPropagation = new DicountedBackpropagation();
 	private double C = Math.sqrt(2);
-	private double epsilon = 1e-6;
-	private IActor actor = new HighestUCT();
 	private double gamma = 0.8;
+	
+	
+	// finally the settings for the tree!
+	private UCTSettings settings;
+	
 
 	
 	
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+		settings = new UCTSettings(actor, defaultPolicy, treePolicy, backPropagation, maxDepth, C, gamma);
 	}
 
+	
+	
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
 		Tree tree = new Tree(new Node(stateObs));
-		AStrategy strategy = new UCTSearch(tree, rand, maxDepth, C, epsilon, gamma, actor);
+		
+		UCTSearch uct = new UCTSearch(tree, settings);
 
 		boolean hasNext = true;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		while (timer.isTimeLeft() && hasNext) {
-			strategy.expand();
+			uct.expand();
 			timer.addIteration();
 		}
 		if (VERBOSE) {
-			System.out.println(strategy);
+			System.out.println(uct);
 			System.out.println("--------------------------");
 		}
 		
-		Types.ACTIONS a = strategy.act();
+		Types.ACTIONS a = uct.act();
 		return a;
 		
 	}

@@ -10,5 +10,6 @@ abstract public class AThreadablePlayer extends AbstractPlayer {
 	abstract public void initFromString(String parameter);
 	
 	abstract public String setToString();
+	
 
 }
