@@ -10,7 +10,7 @@ public class OneAgentAllGames {
 
 	public static String CONTROLLER = "emergence_RL.Agent";
 	//public static String CONTROLLER = "controllers.sampleMCTS.Agent";
-	public static String PARAMETER = "5";
+	public static String PARAMETER = "";
 	public static int NUM_LEVELS = 5;
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {

@@ -1,5 +1,8 @@
 package emergence_RL.uct.treePolicy;
 
+import java.util.ArrayList;
+
+import emergence_RL.helper.Helper;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
 
@@ -10,8 +13,11 @@ public class UCTPolicy extends ATreePolicy {
 
 	public Node bestChild(UCTSettings s, Node n, double c) {
 		double bestUTC = Double.NEGATIVE_INFINITY;
-		Node bestNode = null;
+		ArrayList<Node> bestNodes = new ArrayList<Node>();
+		
+		Node result = null;
 
+		
 		for (Node child : n.getChildren()) {
 			child.uct = child.Q
 					/ (child.visited + epsilon)
@@ -19,13 +25,19 @@ public class UCTPolicy extends ATreePolicy {
 					* Math.sqrt(Math.log(n.visited + 1)
 							/ (child.visited + epsilon)) + s.r.nextDouble()
 					* epsilon;
-
-			if (child.uct >= bestUTC) {
-				bestNode = child;
+			
+			if (child.uct == bestUTC) {
+				bestNodes.add(child);
+			} else if (child.uct > bestUTC) {
+				bestNodes.clear();
+				bestNodes.add(child);
 				bestUTC = child.uct;
 			}
 		}
-		return bestNode;
+
+		result = Helper.getRandomEntry(bestNodes, s.r);
+		return result;
+		
 	}
 
 }

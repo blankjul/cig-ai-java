@@ -17,7 +17,7 @@ public class DicountedBackpropagation implements IBackPropagation{
 			n.Q += reward;
 
 			// use a discount factor for the as a weight!
-			reward = reward * s.gamma;
+			reward *= s.gamma;
 			n = n.father;
 		}
 		

@@ -20,7 +20,7 @@ import emergence_RL.uct.treePolicy.UCTPolicy;
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
-	final private boolean VERBOSE = true;
+	final private boolean VERBOSE = false;
 
 	
 	/*
@@ -32,7 +32,7 @@ public class Agent extends AThreadablePlayer {
 	private ATreePolicy treePolicy = new UCTPolicy();
 	private IBackPropagation backPropagation = new DicountedBackpropagation();
 	private double C = Math.sqrt(2);
-	private double gamma = 0.8;
+	private double gamma = 1;
 	
 	
 	// finally the settings for the tree!

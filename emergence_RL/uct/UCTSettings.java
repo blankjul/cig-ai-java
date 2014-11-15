@@ -32,7 +32,6 @@ public class UCTSettings {
 	public Random r = new Random();
 	
 	
-	
 	public UCTSettings(IActor actor, IDefaultPolicy defaultPolicy,
 			ATreePolicy treePolicy, IBackPropagation backPropagation,
 			int maxDepth, double c, double gamma) {
@@ -46,6 +45,7 @@ public class UCTSettings {
 		this.gamma = gamma;
 	}
 	
+
 	
 	
 	

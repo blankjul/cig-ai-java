@@ -16,11 +16,10 @@ public class OneAgentOneGame
     public static void main(String[] args)
     {
         
-    	
     	String controller = "emergence_RL.Agent";
     	//controller = "controllers.sampleMCTS.Agent";
     	
-        String gameStr = "frogs";
+        String gameStr = "butterflies";
         int levelIdx = 0; 
         
         
@@ -28,7 +27,6 @@ public class OneAgentOneGame
         //"missilecommand", "portals", "sokoban", "survivezombies", "zelda", 
         //"camelRace", "digdug", "firestorms", "infection", "firecaster",
         //"overload", "pacman", "seaquest", "whackamole", "eggomania"
-
 
         //Available games:
         String gamesPath = "examples/gridphysics/";
