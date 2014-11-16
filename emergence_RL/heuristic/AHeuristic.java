@@ -1,9 +1,7 @@
 package emergence_RL.heuristic;
 
-import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.StateObservation;
-import emergence_RL.tree.Node;
 
 /**
  * Main type of heuristic is the StateHeuristic. Every idea that is heuristic
@@ -13,30 +11,29 @@ import emergence_RL.tree.Node;
  */
 public abstract class AHeuristic {
 
-	protected double score;
 
-	public void evaluate(StateObservation stateObs) {
-		if (stateObs.getGameWinner() == WINNER.PLAYER_WINS)
-			score += 100;
-		score += stateObs.getGameScore();
+	public static AHeuristic getNPCHeuristic() {
+		AHeuristic heuristic = new EquationStateHeuristic(
+				"camelRace/eggomania", new double[] { 83.56525340105779,
+						-94.18003693788877, 63.8497743799621,
+						52.91407845744166, -89.16201858673986,
+						50.898113590684744, -59.55816967825811,
+						41.28391268668591, -70.88223625353956,
+						-17.469607503662886 });
+		return heuristic;
 	}
 
 	
-	public double getScore() {
-		return score;
+	public static AHeuristic getPortalHeuristic() {
+		AHeuristic heuristic = new EquationStateHeuristic(
+				"aliens/butterflies/missilecommand", new double[] {
+						-40.62327505720693, -58.69258914953923,
+						-49.606898527438204, -81.32390879388393,
+						71.43675019986114, -61.35483540585036,
+						-61.11143207906202, -87.16329141011143,
+						-62.109108312834024, 69.37755076132808 });
+		return heuristic;
 	}
-	
-	
-	public void addScore(Node n) {
-		if (n == null) return;
-		if (n.stateObs.getGameWinner() == WINNER.PLAYER_WINS)
-			score += 100;
-		score += n.stateObs.getGameScore();
-	}
-
-	// the position of the avatar
-	protected Vector2d avatarPosition;
-
 
 	/**
 	 * This method returns the value if the heuristic. for every heuristic if
@@ -46,8 +43,7 @@ public abstract class AHeuristic {
 	 * @return value of the heuristic
 	 */
 	abstract public double evaluateState(StateObservation stateObs);
-	
-	
+
 	/**
 	 * Calculates the Manhattan distance to one object!
 	 * 

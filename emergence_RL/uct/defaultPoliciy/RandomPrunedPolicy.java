@@ -8,7 +8,7 @@ import emergence_RL.helper.Helper;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
 
-public class RandomPolicy extends ADefaultPolicy {
+public class RandomPrunedPolicy extends ADefaultPolicy {
 
 
 	@Override
@@ -17,6 +17,7 @@ public class RandomPolicy extends ADefaultPolicy {
 		StateObservation currentStateObs = n.stateObs.copy();
 		Types.ACTIONS currentAction = null;
 
+		Types.ACTIONS lastAction = null;
 
 		ArrayList<Types.ACTIONS> allActions = currentStateObs
 				.getAvailableActions();
@@ -26,13 +27,14 @@ public class RandomPolicy extends ADefaultPolicy {
 
 		while (!currentStateObs.isGameOver() && delta == 0
 				&& level <= s.maxDepth) {
-			
-			currentAction = Helper.getRandomEntry(allActions, s.r);
+
+			ArrayList<Types.ACTIONS> nextActions = RandomPrunedPolicy.getForbiddenMoves(allActions, lastAction);
+
+			currentAction = Helper.getRandomEntry(nextActions, s.r);
 			currentStateObs.advance(currentAction);
 			delta = currentStateObs.getGameScore() - n.stateObs.getGameScore();
 			++level;
 		}
-		
 		
 		if (currentStateObs.isGameOver()) {
 			Types.WINNER winner = currentStateObs.getGameWinner();
@@ -49,6 +51,30 @@ public class RandomPolicy extends ADefaultPolicy {
 
 		return delta;
 
+	}
+	
+	
+	
+	public static ArrayList<Types.ACTIONS> getForbiddenMoves(ArrayList<Types.ACTIONS> allActions, Types.ACTIONS lastAction) {
+		ArrayList<Types.ACTIONS> nextActions = new ArrayList<Types.ACTIONS>();
+		for (Types.ACTIONS a : allActions) {
+			if (lastAction != null) {
+				if (lastAction == Types.ACTIONS.ACTION_RIGHT
+						&& a == Types.ACTIONS.ACTION_LEFT)
+					continue;
+				else if (lastAction == Types.ACTIONS.ACTION_LEFT
+						&& a == Types.ACTIONS.ACTION_RIGHT)
+					continue;
+				else if (lastAction == Types.ACTIONS.ACTION_UP
+						&& a == Types.ACTIONS.ACTION_DOWN)
+					continue;
+				else if (lastAction == Types.ACTIONS.ACTION_DOWN
+						&& a == Types.ACTIONS.ACTION_UP)
+					continue;
+			}
+			nextActions.add(a);
+		}
+		return nextActions;
 	}
 
 }

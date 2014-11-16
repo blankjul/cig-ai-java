@@ -22,34 +22,25 @@ public class HeuristicPolicy extends ATreePolicy {
 
 	public Node bestChild(UCTSettings s, Node n, double c) {
 
-		double bestUTC = Double.NEGATIVE_INFINITY;
+		double bestHeuristic = Double.NEGATIVE_INFINITY;
 		ArrayList<Node> bestNodes = new ArrayList<Node>();
-
-		Node result = null;
 
 		for (Node child : n.getChildren()) {
 
-			double heuristicValue = heuristic.evaluateState(child.stateObs)
-					- heuristic.evaluateState(n.stateObs);
+			double heuristicValue = heuristic.evaluateState(child.stateObs);
 
-			child.uct = child.Q
-					/ (child.visited + epsilon)
-					+ c
-					* Math.sqrt(Math.log(n.visited + 1)
-							/ (child.visited + epsilon)) + s.r.nextDouble()
-					* epsilon + heuristicWeight * heuristicValue;
-
-			if (child.uct == bestUTC) {
+			if (heuristicValue == bestHeuristic) {
 				bestNodes.add(child);
-			} else if (child.uct > bestUTC) {
+			} else if (bestHeuristic > heuristicValue) {
 				bestNodes.clear();
 				bestNodes.add(child);
-				bestUTC = child.uct;
+				bestHeuristic = heuristicValue;
 			}
 		}
 		if (bestNodes.isEmpty())
 			return n;
-		result = Helper.getRandomEntry(bestNodes, s.r);
+		
+		Node result = Helper.getRandomEntry(bestNodes, s.r);
 		return result;
 
 	}

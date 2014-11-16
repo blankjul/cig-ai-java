@@ -2,7 +2,6 @@ package emergence_RL.uct.treePolicy;
 
 import java.util.ArrayList;
 
-import controllers.Heuristics.SimpleStateHeuristic;
 import emergence_RL.helper.Helper;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;

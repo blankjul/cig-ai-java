@@ -13,8 +13,6 @@ import emergence_RL.uct.actor.MostVisited;
 import emergence_RL.uct.backpropagation.ABackPropagation;
 import emergence_RL.uct.backpropagation.DicountedBackpropagation;
 import emergence_RL.uct.defaultPoliciy.ADefaultPolicy;
-import emergence_RL.uct.defaultPoliciy.ExplorePolicy;
-import emergence_RL.uct.defaultPoliciy.GreedyPolicy;
 import emergence_RL.uct.defaultPoliciy.RandomPolicy;
 import emergence_RL.uct.treePolicy.ATreePolicy;
 import emergence_RL.uct.treePolicy.UCTPolicy;
@@ -30,7 +28,7 @@ public class UCTSettings {
 
 	public ADefaultPolicy defaultPolicy;
 	public static List<ADefaultPolicy> allDefaultPolicies = new ArrayList<ADefaultPolicy>(
-			Arrays.asList(new RandomPolicy(), new ExplorePolicy(), new GreedyPolicy()));
+			Arrays.asList(new RandomPolicy()));
 
 	public ATreePolicy treePolicy;
 	public static List<ATreePolicy> allTreePolicies = new ArrayList<ATreePolicy>(

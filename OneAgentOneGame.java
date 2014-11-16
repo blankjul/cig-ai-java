@@ -19,7 +19,7 @@ public class OneAgentOneGame
     	String controller = "emergence_RL.Agent";
     	//controller = "controllers.sampleMCTS.Agent";
     	
-        String gameStr = "frogs";
+        String gameStr = "eggomania";
         int levelIdx = 0; 
         
         

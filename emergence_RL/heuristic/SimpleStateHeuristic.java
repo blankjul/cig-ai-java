@@ -20,8 +20,9 @@ public class SimpleStateHeuristic extends AHeuristic {
     double initialNpcCounter = 0;
 
 
-
-    public double evaluateState(StateObservation stateObs) {
+    @SuppressWarnings("unused")
+    @Override
+	public double evaluateState(StateObservation stateObs) {
         Vector2d avatarPosition = stateObs.getAvatarPosition();
         ArrayList<Observation>[] npcPositions = stateObs.getNPCPositions(avatarPosition);
         ArrayList<Observation>[] portalPositions = stateObs.getPortalsPositions(avatarPosition);
