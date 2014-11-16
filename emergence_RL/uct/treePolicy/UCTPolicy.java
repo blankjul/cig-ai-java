@@ -2,6 +2,7 @@ package emergence_RL.uct.treePolicy;
 
 import java.util.ArrayList;
 
+import controllers.Heuristics.SimpleStateHeuristic;
 import emergence_RL.helper.Helper;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
@@ -20,12 +21,13 @@ public class UCTPolicy extends ATreePolicy {
 
 		
 		for (Node child : n.getChildren()) {
+			
+			
 			child.uct = child.Q
 					/ (child.visited + epsilon)
-					+ c
-					* Math.sqrt(Math.log(n.visited + 1)
-							/ (child.visited + epsilon)) + s.r.nextDouble()
-					* epsilon;
+					+ c* Math.sqrt(Math.log(n.visited + 1)
+							/ (child.visited + epsilon))
+					+ s.r.nextDouble() * epsilon;
 			
 			if (child.uct == bestUTC) {
 				bestNodes.add(child);

@@ -3,18 +3,20 @@ package emergence_RL.uct.defaultPoliciy;
 import java.util.ArrayList;
 
 import ontology.Types;
+import core.game.StateObservation;
 import emergence_RL.helper.ActionMap;
 import emergence_RL.heuristic.AHeuristic;
 import emergence_RL.heuristic.EquationStateHeuristic;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
 
-public class GreedyPolicy extends ADefaultPolicy {
+public class GreedyPolicy extends RandomPolicy {
 
 	
 	@Override
 	public double expand(UCTSettings s, Node n) {
 
+		
 		lastBounds[0] = curBounds[0];
 		lastBounds[1] = curBounds[1];
 		
@@ -36,6 +38,10 @@ public class GreedyPolicy extends ADefaultPolicy {
 				Types.ACTIONS a = actionList.get(i);
 				Node child = n.getChild(a);
 				
+				if (hash(child.stateObs, a).equals(hash(n.stateObs, n.lastAction))){
+					continue;
+				}
+				
 				// delete reference again! this is a dirty hack :/
 				int index = map.getInt(a);
 				n.children[index] = null;
@@ -56,6 +62,22 @@ public class GreedyPolicy extends ADefaultPolicy {
 
 		double normDelta = getNormalizedReward(n.stateObs);
 		
+		return normDelta;
+	}
+	
+
+	protected double getNormalizedReward(StateObservation stateObs) {
+		double delta = stateObs.getGameScore();
+
+		if (stateObs.isGameOver()) {
+
+			if (stateObs.getGameWinner() == Types.WINNER.PLAYER_WINS)
+				return Double.POSITIVE_INFINITY;
+			else if (stateObs.getGameWinner() == Types.WINNER.PLAYER_LOSES)
+				return -1;
+		}
+
+		double normDelta = normalise(delta, lastBounds[0], lastBounds[1]);
 		return normDelta;
 	}
 

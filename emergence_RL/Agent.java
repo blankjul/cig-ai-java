@@ -6,18 +6,18 @@ import core.game.StateObservation;
 import emergence_RL.helper.ActionTimer;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
+import emergence_RL.uct.UCTFactory;
 import emergence_RL.uct.UCTSearch;
 import emergence_RL.uct.UCTSettings;
 
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = false;
+	public static boolean VERBOSE = true;
 
 
 	// finally the settings for the tree!
-	private UCTSettings settings = UCTSettings.createDefault();
-
+	private UCTSettings settings = UCTFactory.createDefault();
 
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {

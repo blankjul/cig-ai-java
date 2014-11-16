@@ -1,38 +1,56 @@
 package emergence_RL.uct.treePolicy;
 
+import java.util.ArrayList;
+
+import emergence_RL.helper.Helper;
 import emergence_RL.heuristic.AHeuristic;
-import emergence_RL.heuristic.EquationStateHeuristic;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
 
 public class HeuristicPolicy extends ATreePolicy {
 
+	private AHeuristic heuristic;
+	
+	public HeuristicPolicy (AHeuristic heuristic) {
+		this.heuristic = heuristic;
+	}
+	
+	// epsilon for the utc formula
+	public double epsilon = 1e-6;
+
+	public double heuristicWeight = 2;
+
 	public Node bestChild(UCTSettings s, Node n, double c) {
 
-		// AHeuristic heuristic = new SimpleStateHeuristic();
-		AHeuristic heuristic = new EquationStateHeuristic(
-				"camelRace/eggomania", new double[] { 71.51606955238063,
-						-0.10874248901326666, 1.46935755801519,
-						58.91949024357237, -46.09021025115321,
-						-57.43379973569722, 57.57362881912201,
-						-73.6456264953129, -31.50978515374345,
-						-52.41586298782184 });
-		
+		double bestUTC = Double.NEGATIVE_INFINITY;
+		ArrayList<Node> bestNodes = new ArrayList<Node>();
 
-		double bestHeuristic = Double.NEGATIVE_INFINITY;
-		Node bestChild = null;
+		Node result = null;
 
 		for (Node child : n.getChildren()) {
-			
-			// check for best heuristic and this heuristic
-			double score = heuristic.evaluateState(child.stateObs);
 
-			if (score > bestHeuristic) {
-				bestHeuristic = score;
-				bestChild = child;
+			double heuristicValue = heuristic.evaluateState(child.stateObs)
+					- heuristic.evaluateState(n.stateObs);
+
+			child.uct = child.Q
+					/ (child.visited + epsilon)
+					+ c
+					* Math.sqrt(Math.log(n.visited + 1)
+							/ (child.visited + epsilon)) + s.r.nextDouble()
+					* epsilon + heuristicWeight * heuristicValue;
+
+			if (child.uct == bestUTC) {
+				bestNodes.add(child);
+			} else if (child.uct > bestUTC) {
+				bestNodes.clear();
+				bestNodes.add(child);
+				bestUTC = child.uct;
 			}
 		}
-		return bestChild;
+		if (bestNodes.isEmpty())
+			return n;
+		result = Helper.getRandomEntry(bestNodes, s.r);
+		return result;
 
 	}
 }

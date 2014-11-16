@@ -8,7 +8,7 @@ import core.game.StateObservation;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
 
-public class ExplorePolicy extends ADefaultPolicy {
+public class ExplorePolicy extends RandomPolicy {
 
 
 	@Override
@@ -50,6 +50,22 @@ public class ExplorePolicy extends ADefaultPolicy {
 		double normDelta =  getNormalizedReward(stateObs);
 		return normDelta;
 
+	}
+	
+
+	protected double getNormalizedReward(StateObservation stateObs) {
+		double delta = stateObs.getGameScore();
+
+		if (stateObs.isGameOver()) {
+
+			if (stateObs.getGameWinner() == Types.WINNER.PLAYER_WINS)
+				return Double.POSITIVE_INFINITY;
+			else if (stateObs.getGameWinner() == Types.WINNER.PLAYER_LOSES)
+				return -1;
+		}
+
+		double normDelta = normalise(delta, lastBounds[0], lastBounds[1]);
+		return normDelta;
 	}
 
 

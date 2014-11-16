@@ -11,5 +11,7 @@ abstract public class AThreadablePlayer extends AbstractPlayer {
 	
 	abstract public String setToString();
 	
+	
+	
 
 }

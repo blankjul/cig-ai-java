@@ -21,6 +21,8 @@ import emergence_RL.uct.treePolicy.UCTPolicy;
 
 public class UCTSettings {
 
+	public static double epsilon = 1e-6;
+	
 	// this are the different policies that could be used!
 	public IActor actor;
 	public static List<IActor> allActors = Arrays.asList(new HighestReward(),
@@ -52,18 +54,7 @@ public class UCTSettings {
 	public Random r = new Random();
 	
 
-	public static UCTSettings createDefault() {
-		int maxDepth = 5;
-		IActor actor = new MostVisited();
-		ATreePolicy treePolicy = new UCTPolicy();
-		ADefaultPolicy defaultPolicy = new RandomPolicy();
-		ABackPropagation backPropagation = new DicountedBackpropagation();
-		double c = Math.sqrt(2);
-		double gamma = 1;
-		return new UCTSettings(actor, treePolicy, defaultPolicy,
-				backPropagation, maxDepth, c, gamma);
 
-	}
 
 	public UCTSettings(IActor actor, ATreePolicy treePolicy,
 			ADefaultPolicy defaultPolicy, ABackPropagation backPropagation,

@@ -7,14 +7,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import emergence_RL.GameResult;
-import emergence_RL.uct.UCTSettings;
+import emergence_RL.uct.UCTFactory;
 
 public class OneAgentAllGames {
 
 	public static String CONTROLLER = "emergence_RL.Agent";
 	//public static String CONTROLLER = "controllers.sampleMCTS.Agent";
-	public static String PARAMETER = UCTSettings.createDefault().toString();
+	public static String PARAMETER = UCTFactory.createDefault().toString();
 	public static int NUM_LEVELS = 5;
+	public static String[] GAMES = Configuration.training;
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();
@@ -33,7 +34,7 @@ public class OneAgentAllGames {
 		System.out.println("START PLAYING...");
 
 		ArrayList<String> gamesToPlay = new ArrayList<String>();
-		gamesToPlay.addAll(Arrays.asList(Configuration.gamesAll));
+		gamesToPlay.addAll(Arrays.asList(GAMES));
 
 		System.out.println(Configuration.dateFormat.format(new Date()));
 		

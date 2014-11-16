@@ -21,7 +21,11 @@ public class MostVisited implements IActor {
 		int mostVisited = -1;
 
 		for (Node child : tree.root.getChildren()) {
+			
+			// if loose or no new position!
 			if (child.stateObs.getGameWinner() == WINNER.PLAYER_LOSES) continue;
+			else if (child.hash().equals(tree.root.hash())) continue;
+			
 			if (child.visited == mostVisited) {
 				bestActions.add(child.lastAction);
 			}
@@ -31,7 +35,7 @@ public class MostVisited implements IActor {
 				mostVisited = child.visited;
 			}
 		}
-		
+		if (bestActions.size() == 0) return Types.ACTIONS.ACTION_NIL;
 		a = Helper.getRandomEntry(bestActions, s.r);
 		return a;
 

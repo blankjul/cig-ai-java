@@ -10,8 +10,6 @@ public abstract class ADefaultPolicy {
 
 	abstract public double expand(UCTSettings s, Node n);
 
-	protected static double[] lastBounds = new double[] { 0, 1 };
-	protected static double[] curBounds = new double[] { 0, 1 };
 
 	
 	
@@ -28,24 +26,6 @@ public abstract class ADefaultPolicy {
 	
 	
 	
-	protected double getNormalizedReward(StateObservation stateObs) {
-		double delta = stateObs.getGameScore();
 
-		if (stateObs.isGameOver()) {
-
-			if (stateObs.getGameWinner() == Types.WINNER.PLAYER_WINS)
-				return Double.POSITIVE_INFINITY;
-			else if (stateObs.getGameWinner() == Types.WINNER.PLAYER_LOSES)
-				return Double.NEGATIVE_INFINITY;
-		}
-		
-		if (delta < curBounds[0])
-			curBounds[0] = delta;
-		if (delta > curBounds[1])
-			curBounds[1] = delta;
-
-		double normDelta = normalise(delta, lastBounds[0], lastBounds[1]);
-		return normDelta;
-	}
 
 }

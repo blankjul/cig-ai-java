@@ -64,6 +64,23 @@ public class Node  {
 		this.Q = 0;
 		this.level = 0;
 	}
+	
+	/**
+	 * A tree node is defined by using ONLY the state observation
+	 * 
+	 * @param stateObs
+	 *            observation of this node!
+	 */
+	public Node(StateObservation stateObs, Node father, Types.ACTIONS lastAction) {
+		this.stateObs = stateObs;
+		this.father = father;
+		this.map = ActionMap.create(stateObs.getAvailableActions());
+		this.children = new Node[map.NUM_ACTIONS];
+		this.Q = 0;
+		this.level = father.level + 1;
+		this.rootAction = (this.father == null) ? lastAction : this.rootAction;
+		this.lastAction = lastAction;
+	}
 
 	/**
 	 * Return a random child in this tree.
@@ -106,6 +123,8 @@ public class Node  {
 		return a;
 	}
 
+
+	
 	/**
 	 * Create one child if the action a is used!
 	 * 
@@ -119,11 +138,8 @@ public class Node  {
 		tmpStateObs.advance(a);
 
 		// create the node and set the correct values
-		Node child = new Node(tmpStateObs);
-		child.rootAction = (this.father == null) ? a : this.rootAction;
-		child.father = this;
-		child.lastAction = a;
-		child.level = this.level + 1;
+		Node child = new Node(tmpStateObs, this, a);
+
 
 		// set the child that it is not expanded again!
 		int index = map.getInt(a);
