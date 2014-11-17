@@ -1,10 +1,11 @@
-package emergence_RL.uct.actor;
+package emergence_RL.uct.sample;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 import emergence_RL.uct.UCTSettings;
+import emergence_RL.uct.actor.IActor;
 
 public class SampleActor implements IActor {
 

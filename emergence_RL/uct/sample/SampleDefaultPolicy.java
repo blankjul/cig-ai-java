@@ -1,4 +1,4 @@
-package emergence_RL.uct.defaultPoliciy;
+package emergence_RL.uct.sample;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,7 @@ import tools.Utils;
 import core.game.StateObservation;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
+import emergence_RL.uct.defaultPoliciy.ADefaultPolicy;
 
 public class SampleDefaultPolicy extends ADefaultPolicy{
 

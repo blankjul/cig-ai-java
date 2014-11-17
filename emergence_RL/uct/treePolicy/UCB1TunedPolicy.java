@@ -34,6 +34,7 @@ public class UCB1TunedPolicy extends ATreePolicy{
 											- Math.pow(child.Q / child.visited + epsilon, 2)
 											+ Math.sqrt(2 * Math.log(n.visited + 1)))));
 
+			
 			if (child.uct == bestUTC) {
 				bestNodes.add(child);
 			} else if (child.uct > bestUTC) {

@@ -13,7 +13,7 @@ import emergence_RL.uct.UCTSettings;
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = true;
+	public static boolean VERBOSE = false;
 
 
 	// finally the settings for the tree!

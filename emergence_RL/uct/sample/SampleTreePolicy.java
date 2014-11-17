@@ -1,4 +1,4 @@
-package emergence_RL.uct.treePolicy;
+package emergence_RL.uct.sample;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -7,6 +7,7 @@ import ontology.Types;
 import core.game.StateObservation;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
+import emergence_RL.uct.treePolicy.ATreePolicy;
 
 public class SampleTreePolicy extends ATreePolicy {
 

@@ -48,6 +48,9 @@ public class Node  {
 
 	// map for actions to integer and a round
 	protected ActionMap map;
+	
+	// value for USB1 Tuned Policy
+	public double quadReward;
 
 
 	/**

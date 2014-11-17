@@ -15,44 +15,30 @@ public class RandomPrunedPolicy extends ADefaultPolicy {
 	public double expand(UCTSettings s, Node n) {
 
 		StateObservation currentStateObs = n.stateObs.copy();
-		Types.ACTIONS currentAction = null;
 
-		Types.ACTIONS lastAction = null;
 
-		ArrayList<Types.ACTIONS> allActions = currentStateObs
+		ArrayList<Types.ACTIONS> actions = currentStateObs
 				.getAvailableActions();
 
 		int level = n.level;
-		double delta = 0;
-
-		while (!currentStateObs.isGameOver() && delta == 0
-				&& level <= s.maxDepth) {
-
-			ArrayList<Types.ACTIONS> nextActions = RandomPrunedPolicy.getForbiddenMoves(allActions, lastAction);
-
-			currentAction = Helper.getRandomEntry(nextActions, s.r);
-			currentStateObs.advance(currentAction);
-			delta = currentStateObs.getGameScore() - n.stateObs.getGameScore();
+		while (!currentStateObs.isGameOver() && level <= s.maxDepth) {
+			Types.ACTIONS a = Helper.getRandomEntry(actions, s.r);
+			currentStateObs.advance(a);
 			++level;
 		}
 		
 		if (currentStateObs.isGameOver()) {
 			Types.WINNER winner = currentStateObs.getGameWinner();
 			if (winner == Types.WINNER.PLAYER_WINS)
-				return 1000;
+				return Double.POSITIVE_INFINITY;
 			else if (winner == Types.WINNER.PLAYER_LOSES)
-				return -1000;
-		}
+				return 0;
+		} 
 
-		if (delta > 0)
-			delta = 1;
-		else if (delta < 0)
-			delta = -1;
-
+		double delta = currentStateObs.getGameScore() - n.stateObs.getGameScore();
 		return delta;
 
 	}
-	
 	
 	
 	public static ArrayList<Types.ACTIONS> getForbiddenMoves(ArrayList<Types.ACTIONS> allActions, Types.ACTIONS lastAction) {

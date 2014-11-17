@@ -1,7 +1,8 @@
-package emergence_RL.uct.backpropagation;
+package emergence_RL.uct.sample;
 
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
+import emergence_RL.uct.backpropagation.ABackPropagation;
 
 public class SampleBackpropagation extends ABackPropagation {
 

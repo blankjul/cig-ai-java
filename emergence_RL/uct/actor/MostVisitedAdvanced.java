@@ -10,7 +10,7 @@ import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 import emergence_RL.uct.UCTSettings;
 
-public class MostVisited implements IActor {
+public class MostVisitedAdvanced implements IActor {
 
 	@Override
 	public ACTIONS act(UCTSettings s, Tree tree) {
@@ -24,6 +24,8 @@ public class MostVisited implements IActor {
 			
 			// if loose or no new position!
 			if (child.stateObs.getGameWinner() == WINNER.PLAYER_LOSES) continue;
+			else if (child.hash().equals(tree.root.hash())) continue;
+			else if (child.stateObs.getGameScore() < tree.root.stateObs.getGameScore()) continue;
 			
 			if (child.visited == mostVisited) {
 				bestActions.add(child.lastAction);
