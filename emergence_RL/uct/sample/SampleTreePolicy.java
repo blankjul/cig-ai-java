@@ -20,7 +20,7 @@ public class SampleTreePolicy extends ATreePolicy {
 			if (!n.isFullyExpanded()) {
 				return expand(n, s.r);
 			} else {
-				n = bestChild(s, n, s.C);
+				n = bestChild(s, n, s.c);
 			}
 		}
 		return n;
@@ -33,7 +33,9 @@ public class SampleTreePolicy extends ATreePolicy {
         double bestValue = -Double.MAX_VALUE;
         for (Node child : n.children)
         {
-            if (child == null) continue;
+            
+        	
+        	if (child == null) continue;
             
         	double hvVal = child.Q;
             double childValue =  hvVal / (child.visited + epsilon);

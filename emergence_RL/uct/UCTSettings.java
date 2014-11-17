@@ -42,7 +42,7 @@ public class UCTSettings {
 	public int maxDepth;
 
 	// the value for the exploration term
-	public double C;
+	public double c;
 
 	// this is a discount factor for the backpropagation
 	// if it's zero nothing happens!
@@ -63,7 +63,7 @@ public class UCTSettings {
 		this.treePolicy = treePolicy;
 		this.backPropagation = backPropagation;
 		this.maxDepth = maxDepth;
-		C = c;
+		this.c = c;
 		this.gamma = gamma;
 	}
 
@@ -75,7 +75,7 @@ public class UCTSettings {
 				"actor:%s tree:%s default:%s back:%s depth:%s c:%s gamma:%s",
 				actor.getClass().getName(), treePolicy.getClass().getName(),
 				defaultPolicy.getClass().getName(), backPropagation.getClass()
-						.getName(), maxDepth, C, gamma);
+						.getName(), maxDepth, c, gamma);
 		return s;
 	}
 

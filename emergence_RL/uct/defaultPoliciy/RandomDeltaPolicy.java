@@ -8,7 +8,7 @@ import emergence_RL.helper.Helper;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
 
-public class RandomPrunedPolicy extends ADefaultPolicy {
+public class RandomDeltaPolicy extends ADefaultPolicy {
 
 
 	@Override

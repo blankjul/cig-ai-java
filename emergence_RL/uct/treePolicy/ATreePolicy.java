@@ -10,7 +10,7 @@ public abstract class ATreePolicy {
 			if (!n.isFullyExpanded()) {
 				return n.getRandomChild(s.r, true);
 			} else {
-				n = bestChild(s,n, s.C);
+				n = bestChild(s,n, s.c);
 			}
 		}
 		return n;

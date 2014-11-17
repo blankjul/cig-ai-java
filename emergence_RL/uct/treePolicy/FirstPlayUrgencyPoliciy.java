@@ -23,9 +23,9 @@ public class FirstPlayUrgencyPoliciy extends ATreePolicy {
 	public Node treePolicy(UCTSettings s, Node n) {
 		while (!n.stateObs.isGameOver() && n.level <= s.maxDepth) {
 			if (!n.isFullyExpanded()) {
-				return bestChildExpand(s, n, s.C);
+				return bestChildExpand(s, n, s.c);
 			} else {
-				n = bestChild(s, n, s.C);
+				n = bestChild(s, n, s.c);
 			}
 		}
 		return n;
