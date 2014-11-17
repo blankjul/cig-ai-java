@@ -1,19 +1,13 @@
 package emergence_RL.uct.treePolicy;
 
-import emergence_RL.heuristic.AHeuristic;
 import emergence_RL.heuristic.TargetHeuristic;
 import emergence_RL.tree.Node;
+import emergence_RL.uct.UCTSearch;
 import emergence_RL.uct.UCTSettings;
 
 public class HeuristicTreePolicy extends ATreePolicy {
 
-	// epsilon for the utc formula
-	public double epsilon = 1e-6;
-
-	public AHeuristic heuristic = new TargetHeuristic();
 	
-	
-
 	@Override
 	public Node bestChild(UCTSettings s, Node n, double c) {
 		Node bestChild = null;
@@ -21,21 +15,33 @@ public class HeuristicTreePolicy extends ATreePolicy {
 
 		for (Node child : n.getChildren()) {
 
-			double exploitation = child.Q / (child.visited + epsilon);
-			
-			double exploration = Math.sqrt(Math.log(n.visited + 1)
-					/ (child.visited));
-			
-			double heuristicValue = heuristic.evaluateState(child.stateObs);
-			
-			
-			double tieBreaker = s.r.nextDouble() * epsilon;
+			child.exploitation = child.Q
+					/ (child.visited + UCTSettings.epsilon);
 
-			double uctValue = exploitation + c * exploration + heuristicValue
-					+ tieBreaker;
+			child.exploration = Math.sqrt(Math.log(n.visited + 1)
+					/ (child.visited));
+
+			// heuristic by using the target
+			child.heuristicValue = new TargetHeuristic()
+					.evaluateState(child.stateObs);
+			child.targetHeuristicIndex = TargetHeuristic.lastUsed;
+
+			// history of field
+			String h = child.hash();
+			Integer visitsOfField = UCTSearch.fieldVisits.get(h);
+			child.historyValue = 1;
+			double gameTick = child.stateObs.getGameTick();
+			if (visitsOfField != null) {
+				child.historyValue = 1 - visitsOfField / gameTick;
+			}
+			
+			double uctValue = child.exploitation + c * child.exploration + child.heuristicValue
+					+ child.historyValue;
+			
+			child.uct = uctValue;
 
 			// check if it has the best value
-			if (uctValue > bestValue) {
+			if (uctValue >= bestValue) {
 				bestChild = child;
 				bestValue = uctValue;
 			}

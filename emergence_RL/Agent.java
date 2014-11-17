@@ -13,15 +13,16 @@ import emergence_RL.uct.UCTSettings;
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = false;
+	public static boolean VERBOSE = true;
 
 
 	// finally the settings for the tree!
-	private UCTSettings settings = UCTFactory.createDefault();
+	private UCTSettings settings = UCTFactory.createHeuristic();
 
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 	}
+	
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {

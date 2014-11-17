@@ -16,17 +16,13 @@ import emergence_RL.helper.ActionMap;
  * to simulate next steps of a node. This has the consequence that there are
  * always father and children states.
  */
-public class Node  {
+public class Node {
 
 	// father node, if null it's the root
 	public Node father;
 
 	// state observation. if it's ones advanced we need not to do it again!
 	public StateObservation stateObs;
-
-	// this is the action of the root node that brings us to this tree node
-	// by using this we need no traversal to the root again!
-	public Types.ACTIONS rootAction;
 
 	// always the last action
 	public Types.ACTIONS lastAction;
@@ -48,10 +44,18 @@ public class Node  {
 
 	// map for actions to integer and a round
 	protected ActionMap map;
-	
+
 	// value for USB1 Tuned Policy
 	public double quadReward;
 
+	public double exploitation;
+	public double exploration;
+	public double heuristicValue;
+	public double historyValue;
+	
+	// this saves the target heuristic value
+	public int targetHeuristicIndex = -1;
+	
 
 	/**
 	 * A tree node is defined by using ONLY the state observation
@@ -67,7 +71,7 @@ public class Node  {
 		this.Q = 0;
 		this.level = 0;
 	}
-	
+
 	/**
 	 * A tree node is defined by using ONLY the state observation
 	 * 
@@ -81,7 +85,6 @@ public class Node  {
 		this.children = new Node[map.NUM_ACTIONS];
 		this.Q = 0;
 		this.level = father.level + 1;
-		this.rootAction = (this.father == null) ? lastAction : this.rootAction;
 		this.lastAction = lastAction;
 	}
 
@@ -102,7 +105,6 @@ public class Node  {
 		// get a random child
 		if (!mustBeNew) {
 			a = getRandomAction(r);
-
 			// get a random child that is not expanded yet!
 		} else {
 			ArrayList<Types.ACTIONS> posActions = new ArrayList<Types.ACTIONS>();
@@ -126,8 +128,6 @@ public class Node  {
 		return a;
 	}
 
-
-	
 	/**
 	 * Create one child if the action a is used!
 	 * 
@@ -142,7 +142,6 @@ public class Node  {
 
 		// create the node and set the correct values
 		Node child = new Node(tmpStateObs, this, a);
-
 
 		// set the child that it is not expanded again!
 		int index = map.getInt(a);
@@ -210,23 +209,28 @@ public class Node  {
 
 	public String hash() {
 		Vector2d pos = stateObs.getAvatarPosition();
-		String used = (lastAction == Types.ACTIONS.ACTION_USE) ? "y" : "n";
+		String used = (lastAction == null || lastAction != Types.ACTIONS.ACTION_USE) ? "n"
+				: "y";
 		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
 	}
-
-
 
 	@Override
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
-		String s =  String.format("me:[%s,%s] | root:%s | last:%s | level:%s | Q:%s | visited:%s | utc:%s | fE:%s | children:[",
-						pos.x, pos.y, rootAction, lastAction, level,
-						 Q, visited, uct, isFullyExpanded());
+		String s = String
+				.format("me:[%s,%s] | last:%s | level:%s | Q:%s | visited:%s | utc:%s | fE:%s | children:[",
+						pos.x, pos.y, lastAction, level, Q, visited, uct,
+						isFullyExpanded());
 		for (int i = 0; i < children.length; i++) {
-			if (children[i] == null) s += "_,";
-			else s += "x,";
+			if (children[i] == null)
+				s += "_,";
+			else
+				s += "x,";
 		}
 		s += "]";
+		s += String
+				.format("| exploitation:%s | exploration:%s | heuristic:%s | history:%s",
+						exploitation, exploration, heuristicValue, historyValue);
 		return s;
 	}
 

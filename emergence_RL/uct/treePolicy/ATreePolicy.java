@@ -8,7 +8,8 @@ public abstract class ATreePolicy {
 	public Node treePolicy(UCTSettings s,Node n) {
 		while (!n.stateObs.isGameOver() && n.level <= s.maxDepth) {
 			if (!n.isFullyExpanded()) {
-				return n.getRandomChild(s.r, true);
+				Node child = n.getRandomChild(s.r, true);
+				return child;
 			} else {
 				n = bestChild(s,n, s.c);
 			}
