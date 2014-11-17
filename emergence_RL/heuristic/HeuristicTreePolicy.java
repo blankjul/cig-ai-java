@@ -1,12 +1,13 @@
-package emergence_RL.uct.treePolicy;
+package emergence_RL.heuristic;
 
-import emergence_RL.heuristic.TargetHeuristic;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSearch;
 import emergence_RL.uct.UCTSettings;
+import emergence_RL.uct.treePolicy.ATreePolicy;
 
 public class HeuristicTreePolicy extends ATreePolicy {
 
+	
 	
 	@Override
 	public Node bestChild(UCTSettings s, Node n, double c) {
@@ -30,12 +31,11 @@ public class HeuristicTreePolicy extends ATreePolicy {
 			String h = child.hash();
 			Integer visitsOfField = UCTSearch.fieldVisits.get(h);
 			child.historyValue = 1;
-			double gameTick = child.stateObs.getGameTick();
-			if (visitsOfField != null) {
-				child.historyValue = 1 - visitsOfField / gameTick;
+			if (visitsOfField != null && UCTSearch.maxVisitedField > 0) {
+				child.historyValue = 1 - visitsOfField / UCTSearch.maxVisitedField;
 			}
 			
-			double uctValue = child.exploitation + c * child.exploration + child.heuristicValue
+			double uctValue = 3 * child.exploitation + c * child.exploration + child.heuristicValue
 					+ child.historyValue;
 			
 			child.uct = uctValue;

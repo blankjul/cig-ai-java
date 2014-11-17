@@ -49,6 +49,7 @@ public class ExecCallable implements Callable<GameResult> {
 			System.out.println(log);
 			System.out.println("--------------------");
 		}
+		
 		//System.out.println("FINISHED " + strExec);
 		
 		int win = parseWinner(log);

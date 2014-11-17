@@ -1,15 +1,15 @@
 package emergence_RL.uct;
 
+import emergence_RL.heuristic.HeuristicBackpropagation;
+import emergence_RL.heuristic.HeuristicTreePolicy;
 import emergence_RL.uct.actor.IActor;
 import emergence_RL.uct.actor.MostVisitedAdvanced;
 import emergence_RL.uct.backpropagation.ABackPropagation;
-import emergence_RL.uct.backpropagation.HeuristicBackpropagation;
 import emergence_RL.uct.defaultPoliciy.ADefaultPolicy;
 import emergence_RL.uct.defaultPoliciy.RandomDeltaPolicy;
 import emergence_RL.uct.sample.SampleBackpropagation;
 import emergence_RL.uct.sample.SampleTreePolicy;
 import emergence_RL.uct.treePolicy.ATreePolicy;
-import emergence_RL.uct.treePolicy.HeuristicTreePolicy;
 
 public class UCTFactory {
 

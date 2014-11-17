@@ -1,8 +1,8 @@
-package emergence_RL.uct.backpropagation;
+package emergence_RL.heuristic;
 
-import emergence_RL.heuristic.TargetHeuristic;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
+import emergence_RL.uct.backpropagation.ABackPropagation;
 
 public class HeuristicBackpropagation extends ABackPropagation{
 
@@ -14,7 +14,10 @@ public class HeuristicBackpropagation extends ABackPropagation{
 			// now we visited the node
 			++n.visited;
 			n.Q += reward;
-			if (n.targetHeuristicIndex != -1) TargetHeuristic.rewards[n.targetHeuristicIndex] += reward;
+			int i = n.targetHeuristicIndex;
+			if (i  >= 0 && i < TargetHeuristic.reward.length) {
+				TargetHeuristic.reward[i] += reward;
+			}
 			
 			// use a discount factor for the as a weight!
 			reward *= s.gamma;

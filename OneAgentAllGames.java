@@ -12,11 +12,14 @@ import emergence_RL.uct.UCTFactory;
 public class OneAgentAllGames {
 
 	public static String CONTROLLER = "emergence_RL.Agent";
-	//public static String CONTROLLER = "controllers.sampleMCTS.Agent";
-	public static String PARAMETER = UCTFactory.createDefault().toString();
+	
+	public static String PARAMETER = UCTFactory.createHeuristic().toString();
+	
 	public static int NUM_LEVELS = 5;
+	
 	public static String[] GAMES = Configuration.training;
 
+	
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();
 		for (int j = 0; j < NUM_LEVELS; j++) {

@@ -210,7 +210,7 @@ public class Node {
 	public String hash() {
 		Vector2d pos = stateObs.getAvatarPosition();
 		String used = (lastAction == null || lastAction != Types.ACTIONS.ACTION_USE) ? "n"
-				: "y";
+				: "y"; 
 		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
 	}
 
