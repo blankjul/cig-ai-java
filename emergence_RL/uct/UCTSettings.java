@@ -42,6 +42,11 @@ public class UCTSettings {
 	public int maxDepth;
 
 	// the value for the exploration term
+    public double b;
+    public double d;
+    public double f;
+	
+	// the value for the exploration term
 	public double c;
 
 	// this is a discount factor for the backpropagation
@@ -161,6 +166,7 @@ public class UCTSettings {
 				} else if (key.equals("gamma")) {
 					gamma = Double.valueOf(value);
 				}
+				
 			}
 
 			return new UCTSettings(actor, treePolicy, defaultPolicy,

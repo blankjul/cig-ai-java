@@ -3,13 +3,7 @@ import java.util.Random;
 
 import core.ArcadeMachine;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Diego
- * Date: 04/10/13
- * Time: 16:29
- * This is a Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
- */
+
 public class OneAgentOneGame
 {
 
@@ -19,8 +13,8 @@ public class OneAgentOneGame
     	String controller = "emergence_RL.Agent";
     	//controller = "controllers.sampleMCTS.Agent";
     	
-        String gameStr = "chase";
-        int levelIdx = 2; 
+        String gameStr = "camelRace";
+        int levelIdx = 0; 
         
         
         //"aliens", "boulderdash", "butterflies", "chase", "frogs",
