@@ -1,47 +1,38 @@
 package emergence_RL.heuristic;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
-import emergence_RL.helper.Helper;
 import emergence_RL.uct.UCTSettings;
 
 public class TargetHeuristic extends AHeuristic {
 
-	// number of targets that should be tracked
-	public final static int numberOfTargets = 3;
-
 	// this is always the last used heuristic distance
-	public static int lastUsed = -1;
+	public int lastUsed = -1;
 
 	// this just the statistic how often a minimal distance is used.
-	public static Double[] distancesReal = new Double[] {0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d};
-	
-	// this just the statistic how often a minimal distance is used.
-	public static Double[] distances = new Double[] {0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d};
+	public ArrayList<Double> distances = new ArrayList<Double>();
 
 	// this just the statistic how often a minimal distance is used.
-	public static int[] used = new int[] {0,0,0,0,0,0,0,0,0,0,0,0};
+	public ArrayList<Double> result = new ArrayList<Double>();
 
-	// track the reward of the used statistic
-	public static Double[] reward = new Double[] {0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d};
-	
-	// track the reward of the used statistic
-	public static Double[] exploitation = new Double[] {0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d};
-	
-	public static Double[] exploration = new Double[] {0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d};
-	
-	public static Double[] result = new Double[] {0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d,0.0d};
+	// this just the statistic how often a minimal distance is used.
+	public ArrayList<Integer> used = null;
+
+	// this just the statistic how often a minimal distance is used.
+	public ArrayList<Double> reward = null;
+
+	public ArrayList<String> names = new ArrayList<String>();
+
+	public ArrayList<Double> weights = new ArrayList<Double>();
+
+	public int visitAll = 0;
 	
 	public static Random r = new Random();
-	
-	
-	
-	public double visitAll = 0;
 
 	@Override
 	public double evaluateState(StateObservation stateObs) {
@@ -50,59 +41,59 @@ public class TargetHeuristic extends AHeuristic {
 		/*
 		 * the next step normalizes the distances between [0,1]
 		 */
-		distancesReal = input(stateObs);
-		distances = input(stateObs);
-		Dimension d = stateObs.getWorldDimension();
-		double maxDistance = d.height + d.width;
-		for (int i = 0; i < distances.length; i++) {
-			 if (distances[i] == -1) {
-				 distances[i] = maxDistance;
-			 }
-		}
-		Helper.normalize(distances);
-		for (int i = 0; i < distances.length; i++) {
-			distances[i] = 1 - distances[i];
-		}
-		maxDistance = Double.NEGATIVE_INFINITY;
+		names.clear();
+		input(stateObs);
+		if (distances == null | distances.isEmpty()) return 0;
+		double max = Collections.max(distances);
+		double min = Collections.min(distances);
 
-		
-		
-		/*
-		 * Calculate for each target the average reward!
-		 */
-		for (int i = 0; i < exploitation.length; i++) {
-			if (distances[i] == 0 || used[i] == 0) exploitation[i] = 0d;
-			else exploitation[i] = reward[i] / (double) used[i];
-		}
-		Helper.normalize(exploitation);
-		
-		for (int i = 0; i < exploration.length; i++) {
-			exploration[i] = Math.sqrt(2) * Math.sqrt(Math.log(visitAll + 1)
-					/ (used[i]));
-		}
-
-		
-		for (int i = 0; i < result.length; i++) {
-			result[i] = distances[i] * (exploitation[i] + exploration[i]);
-		}
-		Helper.normalize(result);
-		
-		
-		int maxIndex = 0;
-		double maxValue = Double.NEGATIVE_INFINITY;
-		for (int i = 0; i < result.length; i++) {
-			if (result[i] + r.nextDouble() * UCTSettings.epsilon > maxValue) {
-				maxIndex = i;
-				maxValue = result[i];
+		// initialize weights if needed
+		if (weights == null || weights.size() != distances.size() || Collections.max(weights) == 0) {
+			weights = new ArrayList<Double>();
+			for (int i = 0; i < distances.size(); i++) {
+				weights.add(1d);
 			}
 		}
 
-		// add one to the used field!
+		result.clear();
+		for (int i = 0; i < distances.size(); i++) {
+			double d = distances.get(i);
+			double norm = (max != min) ? 1 - ((d - min) / (max - min)) : 1;
+			result.add(norm * weights.get(i));
+		}
+
+		// initialize reward
+		if (reward == null || reward.size() != distances.size()) {
+			reward = new ArrayList<Double>();
+			for (int i = 0; i < distances.size(); i++) {
+				reward.add(0d);
+			}
+		}
+
+		
+		double maxValue = Double.NEGATIVE_INFINITY;
+		int maxIndex = 0;
+		for (int i = 0; i < result.size(); i++) {
+			double value = result.get(i);
+			double tieBreaker = UCTSettings.epsilon * r.nextDouble();
+			if (value +  tieBreaker > maxValue) {
+				maxValue = value +  tieBreaker;
+				maxIndex = i;
+			}
+		}
+
+		
+		// check for used field or init
 		lastUsed = maxIndex;
-		used[lastUsed] += 1;
+		if (used == null || used.size() != distances.size()) {
+			used = new ArrayList<Integer>();
+			for (int i = 0; i < distances.size(); i++) {
+				used.add(0);
+			}
+		}
+		used.set(lastUsed, used.get(lastUsed) + 1);
+
 		++visitAll;
-		
-		
 		return maxValue;
 
 	}
@@ -110,7 +101,8 @@ public class TargetHeuristic extends AHeuristic {
 	public void norm(Double[] values) {
 		double max = Double.NEGATIVE_INFINITY;
 		for (int i = 0; i < values.length; i++) {
-			if (values[i] > max) max = values[i];
+			if (values[i] > max)
+				max = values[i];
 		}
 		// just normalize all the values that they are in between [0,1]
 		for (int i = 0; i < values.length; i++) {
@@ -119,7 +111,7 @@ public class TargetHeuristic extends AHeuristic {
 			if (distance <= 0)
 				values[i] = 1.0d;
 			else if (distance == Double.POSITIVE_INFINITY)
-				values[i] =  0.0d;
+				values[i] = 0.0d;
 			else
 				// normalize the value
 				// if we are very close return 1 else something that is lower
@@ -128,18 +120,15 @@ public class TargetHeuristic extends AHeuristic {
 		}
 	}
 
-	private Double[] input(StateObservation stateObs) {
+	private void input(StateObservation stateObs) {
+		distances.clear();
 
 		// get all the different distances
-		Double[] npc = target(stateObs, "npc", numberOfTargets);
-		Double[] portals = target(stateObs, "portals", numberOfTargets);
-		Double[] resource = target(stateObs, "resource", numberOfTargets);
-		Double[] movable = target(stateObs, "movable", numberOfTargets);
-		
-		return Helper.concatAll(npc, portals, resource, movable);
-
+		distances.addAll(target(stateObs, "npc"));
+		distances.addAll(target(stateObs, "portals"));
+		distances.addAll(target(stateObs, "resource"));
+		distances.addAll(target(stateObs, "movable"));
 	}
-	
 
 	/**
 	 * This function returns always an array with the next few distances. It is
@@ -151,11 +140,8 @@ public class TargetHeuristic extends AHeuristic {
 	 * @param num
 	 * @return
 	 */
-	private Double[] target(StateObservation stateObs, String type, int num) {
-		Double[] eq = new Double[num];
-		for (int i = 0; i < eq.length; i++) {
-			eq[i] = -1d;
-		}
+	private ArrayList<Double> target(StateObservation stateObs, String type) {
+		ArrayList<Double> eq = new ArrayList<Double>();
 
 		Vector2d avatarPosition = stateObs.getAvatarPosition();
 		ArrayList<Observation>[] positions = null;
@@ -175,12 +161,13 @@ public class TargetHeuristic extends AHeuristic {
 		if (positions == null)
 			return eq;
 
-		for (int i = 0; i < positions.length && i < num; i++) {
+		for (int i = 0; i < positions.length; i++) {
 			ArrayList<Observation> listObs = positions[i];
 			if (listObs == null || listObs.isEmpty())
 				continue;
 			Observation obs = listObs.get(0);
-			eq[i] = distance(avatarPosition, obs.position);
+			eq.add(distance(avatarPosition, obs.position));
+			names.add(type);
 		}
 		return eq;
 	}

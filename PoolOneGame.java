@@ -12,8 +12,9 @@ public class PoolOneGame {
 	public static String CONTROLLER = "emergence_RL.Agent";
 	public static String GAME = "frogs";
 	public static int NUM_LEVELS = 5;
-	public static int POOL_SIZE = 40;
+	public static int POOL_SIZE = 50;
 
+	
 	public static ArrayList<UCTSettings> pool = new ArrayList<UCTSettings>();
 	public static ArrayList<Future<GameResult>> poolResult = new ArrayList<Future<GameResult>>();
 

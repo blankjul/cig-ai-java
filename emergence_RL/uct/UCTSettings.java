@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import emergence_RL.helper.Helper;
+import emergence_RL.heuristic.TargetHeuristic;
 import emergence_RL.uct.actor.HighestReward;
 import emergence_RL.uct.actor.HighestUCT;
 import emergence_RL.uct.actor.IActor;
@@ -40,11 +41,6 @@ public class UCTSettings {
 
 	// maximal depth of the tree
 	public int maxDepth;
-
-	// the value for the exploration term
-    public double b;
-    public double d;
-    public double f;
 	
 	// the value for the exploration term
 	public double c;
@@ -55,6 +51,9 @@ public class UCTSettings {
 
 	// generator for random numbers
 	public Random r = new Random();
+	
+	// heuristic that could be used
+	public TargetHeuristic heuristic = new TargetHeuristic();;
 	
 
 
@@ -99,6 +98,7 @@ public class UCTSettings {
 		return new UCTSettings(actor, treePolicy, defaultPolicy,
 				backPropagation, maxDepth, c, gamma);
 	}
+	
 
 	public static int randomMaxDepth(Random r) {
 		return r.nextInt((20 - 5) + 1) + 5;
@@ -111,7 +111,7 @@ public class UCTSettings {
 	public static double randomC(Random r) {
 		return r.nextDouble() * 5;
 	}
-
+	
 	public static IActor randomActor(Random r) {
 		return Helper.getRandomEntry(allActors, r);
 	}
@@ -164,6 +164,12 @@ public class UCTSettings {
 				} else if (key.equals("c")) {
 					c = Double.valueOf(value);
 				} else if (key.equals("gamma")) {
+					gamma = Double.valueOf(value);
+				}else if (key.equals("b")) {
+					gamma = Double.valueOf(value);
+				}else if (key.equals("d")) {
+					gamma = Double.valueOf(value);
+				}else if (key.equals("f")) {
 					gamma = Double.valueOf(value);
 				}
 				

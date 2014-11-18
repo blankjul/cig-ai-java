@@ -1,13 +1,11 @@
 package emergence_RL;
 
-import java.util.Arrays;
-
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import emergence_RL.helper.ActionTimer;
+import emergence_RL.helper.Helper;
 import emergence_RL.helper.LevelInfo;
-import emergence_RL.heuristic.TargetHeuristic;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 import emergence_RL.uct.UCTFactory;
@@ -24,8 +22,7 @@ public class Agent extends AThreadablePlayer {
 
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-		
-		LevelInfo.print(stateObs);
+		if (VERBOSE) LevelInfo.print(stateObs);
 		
 	}
 	
@@ -45,12 +42,11 @@ public class Agent extends AThreadablePlayer {
 		if (VERBOSE) {
 			System.out.println(uct);
 			System.out.println("ACTION: " + a);
-			System.out.println("distance: " + Arrays.toString(TargetHeuristic.distancesReal));
-			System.out.println("normedDistance: " + Arrays.toString(TargetHeuristic.distances));
-			System.out.println("used: " + Arrays.toString(TargetHeuristic.used));
-			System.out.println("reward: " + Arrays.toString(TargetHeuristic.reward));
-			System.out.println("avgReward: " + Arrays.toString(TargetHeuristic.exploitation));
-			
+			System.out.println("target: " + Helper.listToString(settings.heuristic.names));
+			System.out.println("distance: " + Helper.listToString(settings.heuristic.distances));
+			System.out.println("used: " + Helper.listToString(settings.heuristic.used));
+			System.out.println("weights: " + Helper.listToString(settings.heuristic.weights));
+			System.out.println("result: " + Helper.listToString(settings.heuristic.result));
 			System.out.println("--------------------------");
 		}
 

@@ -37,6 +37,12 @@ public class LevelInfo {
 		LevelInfo.printList(stateObs.getPortalsPositions(avatarPosition));
 
 		System.out.println("---------------------");
+		System.out.println("Movable");
+		System.out.println("---------------------");
+		LevelInfo.printList(stateObs.getMovablePositions(avatarPosition));
+
+		
+		System.out.println("---------------------");
 		System.out.println("Immovable");
 		System.out.println("---------------------");
 		LevelInfo.printList(stateObs.getImmovablePositions(avatarPosition));
@@ -45,6 +51,8 @@ public class LevelInfo {
 		System.out.println("Resources");
 		System.out.println("---------------------");
 		LevelInfo.printList(stateObs.getResourcesPositions(avatarPosition));
+		
+		
 
 	}
 

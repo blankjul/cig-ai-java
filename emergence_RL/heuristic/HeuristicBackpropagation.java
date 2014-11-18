@@ -14,11 +14,22 @@ public class HeuristicBackpropagation extends ABackPropagation{
 			// now we visited the node
 			++n.visited;
 			n.Q += reward;
-			int i = n.targetHeuristicIndex;
-			if (i  >= 0 && i < TargetHeuristic.reward.length) {
-				TargetHeuristic.reward[i] += reward;
-			}
 			
+			int i = n.targetHeuristicIndex;
+		    if (i >= 0 && i < s.heuristic.reward.size()) {
+		    	double value = s.heuristic.reward.get(i);
+		    	s.heuristic.reward.set(i, value + reward);
+		    	
+		    	double weight = s.heuristic.weights.get(i);
+		    	if (weight <= 0) s.heuristic.weights.set(i, 0d);
+		    	else if (reward > 0) {
+			    	s.heuristic.weights.set(i, weight);
+		    	} else if (reward < 0 ) {
+		    		s.heuristic.weights.set(i, weight);
+		    	} 
+		    }
+			
+		    
 			// use a discount factor for the as a weight!
 			reward *= s.gamma;
 			n = n.father;

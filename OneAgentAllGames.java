@@ -18,7 +18,6 @@ public class OneAgentAllGames {
 	public static int NUM_LEVELS = 5;
 	
 	public static String[] GAMES = Configuration.training;
-
 	
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();
