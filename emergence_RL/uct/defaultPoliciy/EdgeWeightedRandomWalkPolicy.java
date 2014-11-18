@@ -24,15 +24,21 @@ public class EdgeWeightedRandomWalkPolicy extends ADefaultPolicy {
 	// action wich is used to weight the possible Actions
 	private Types.ACTIONS dependingAction;
 
-	//available Actions
+	// available Actions
 	TreeSet<Types.ACTIONS> actions = new TreeSet<Types.ACTIONS>();
 
-	//the list of Actions which will be executed
+	// the list of Actions which will be executed
 	ArrayList<Types.ACTIONS> execActions = new ArrayList<Types.ACTIONS>();
 
-
+	// array to store the number of Actions
 	private int[] values = new int[5];
-	
+
+	// this Values can be modified:
+
+	// true-> take the action from the root ; false-> take the action from
+	// the expanded Node
+	private boolean takeRootAction = true;
+
 	// the same, the dependingAction
 	private int actionSame = 4;
 
@@ -54,7 +60,6 @@ public class EdgeWeightedRandomWalkPolicy extends ADefaultPolicy {
 	// [2] -> action180
 	// [3] -> action90_
 	// [4] -> actionuse
-	// private Types.ACTIONS[] execActions = new Types.ACTIONS[5];
 
 	public EdgeWeightedRandomWalkPolicy() {
 
@@ -63,30 +68,26 @@ public class EdgeWeightedRandomWalkPolicy extends ADefaultPolicy {
 	@Override
 	public double expand(UCTSettings s, Node n) {
 
-		dependingAction = n.lastAction;
-		
+		setDependingAction(n);
+
 		actions.addAll(n.stateObs.getAvailableActions());
-		
+
 		setArray();
-		
-		generateExecActions();
-		
+
+		generateExecActions(n);
+
 		StateObservation currentStateObs = n.stateObs.copy();
 		Types.ACTIONS currentAction = null;
 
 		int level = n.level;
-		double delta = 0;
 
-		while (!currentStateObs.isGameOver() && delta == 0
-				&& level <= s.maxDepth) {
-			
+		while (!currentStateObs.isGameOver() && level <= s.maxDepth) {
+
 			currentAction = getNextAction(s.r);
 			currentStateObs.advance(currentAction);
-			delta = currentStateObs.getGameScore() - n.stateObs.getGameScore();
 			++level;
 		}
-		
-		
+
 		if (currentStateObs.isGameOver()) {
 			Types.WINNER winner = currentStateObs.getGameWinner();
 			if (winner == Types.WINNER.PLAYER_WINS)
@@ -95,41 +96,85 @@ public class EdgeWeightedRandomWalkPolicy extends ADefaultPolicy {
 				return -1000;
 		}
 
-		if (delta > 0)
-			delta = 1;
-		else if (delta < 0)
-			delta = -1;
-
+		double delta = currentStateObs.getGameScore() - n.stateObs.getGameScore();
+		
+		//clear temporary values
+		dependingAction = null;
+		actions.clear();
+		execActions.clear();
+		
 		return delta;
 	}
 
+	/**
+	 * set the depending action which was selected in the attributes of this class
+	 * @param n
+	 */
+	public void setDependingAction(Node n) {
+		if (takeRootAction) {
+			while (n.father.father != null) {
+				n = n.father;
+			}
+		}
+		dependingAction = n.lastAction;
+	}
+
+	/**
+	 * get the next action to execute
+	 * @param r
+	 * @return
+	 */
 	public Types.ACTIONS getNextAction(Random r) {
 		int random = r.nextInt(execActions.size());
 		return execActions.get(random);
 	}
 
-	public void generateExecActions() {
+	/**
+	 * generates the execution List, depends on actions which are available
+	 * and dependingAction
+	 * @param n
+	 */
+	public void generateExecActions(Node n) {
 
+		//while actual action is use, select the next one (bottom up to the root)
+		while ((dependingAction == Types.ACTIONS.ACTION_USE || dependingAction == Types.ACTIONS.ACTION_NIL)
+				&& n.father.father != null) {
+			n = n.father;
+			dependingAction = n.lastAction;
+		}
+		
 		Types.ACTIONS actualAction = dependingAction;
 		
-		for(int e = 0; e < 4; e++){
-			if(actions.contains(actualAction)){
-				int anz_actions = values[e];
-				for(int i = 0; i < anz_actions; i++){
-					execActions.add(actualAction);
+		//if the action isn't use, set the values
+		if (!(actualAction == Types.ACTIONS.ACTION_USE) && actualAction != null) {
+
+			for (int e = 0; e < 4; e++) {
+				if (actions.contains(actualAction)) {
+					int anz_actions = values[e];
+					for (int i = 0; i < anz_actions; i++) {
+						execActions.add(actualAction);
+					}
+				}
+				actualAction = nextAction(actualAction);
+			}
+
+			if (actions.contains(Types.ACTIONS.ACTION_USE)) {
+				int anz_actions = values[4];
+				for (int i = 0; i < anz_actions; i++) {
+					execActions.add(Types.ACTIONS.ACTION_USE);
 				}
 			}
-			actualAction = nextAction(actualAction);
+		}else{//the action was use -> just random
+			execActions.addAll(actions);
 		}
 		
-		if(actions.contains(Types.ACTIONS.ACTION_USE)){
-			int anz_actions = values[4];
-			for(int i = 0; i < anz_actions; i++){
-				execActions.add(actualAction);
-			}
-		}
 	}
 
+	/**
+	 * returns the next Action (in a circle up->right, right->down and so on...
+	 * @param action
+	 * @return
+	 */
 	public Types.ACTIONS nextAction(Types.ACTIONS action) {
 		if (action == Types.ACTIONS.ACTION_UP) {
 			return Types.ACTIONS.ACTION_RIGHT;
@@ -143,8 +188,11 @@ public class EdgeWeightedRandomWalkPolicy extends ADefaultPolicy {
 		System.out.println("nextActionFehler");
 		return null;
 	}
-	
-	public void setArray(){
+
+	/**
+	 * sets the values selected by the user 
+	 */
+	public void setArray() {
 		values[0] = actionSame;
 		values[1] = action90;
 		values[2] = action180;
