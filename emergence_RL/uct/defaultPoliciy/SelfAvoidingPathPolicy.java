@@ -30,6 +30,7 @@ public class SelfAvoidingPathPolicy extends ADefaultPolicy {
 		// openSet.put(child.hash(), child);
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public double expand(UCTSettings s, Node n) {
 		Vector2d sesv = n.father.stateObs.getAvatarPosition();

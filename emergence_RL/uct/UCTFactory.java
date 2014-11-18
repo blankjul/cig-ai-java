@@ -1,43 +1,70 @@
 package emergence_RL.uct;
 
-import emergence_RL.heuristic.HeuristicBackpropagation;
 import emergence_RL.heuristic.HeuristicTreePolicy;
-import emergence_RL.uct.actor.IActor;
 import emergence_RL.uct.actor.MostVisitedAdvanced;
-import emergence_RL.uct.backpropagation.ABackPropagation;
-import emergence_RL.uct.defaultPoliciy.ADefaultPolicy;
+import emergence_RL.uct.backpropagation.Backpropagation;
 import emergence_RL.uct.defaultPoliciy.RandomDeltaPolicy;
+import emergence_RL.uct.sample.SampleActor;
 import emergence_RL.uct.sample.SampleBackpropagation;
+import emergence_RL.uct.sample.SampleDefaultPolicy;
 import emergence_RL.uct.sample.SampleTreePolicy;
-import emergence_RL.uct.treePolicy.ATreePolicy;
 
+
+/**
+ * This factory return different settings of the uct search.
+ * There are a lot of parameter that can differ. Each new settings
+ * has advantages and disadvantages.
+ *
+ */
 public class UCTFactory {
 
-	
+	/**
+	 * The default settings that can be different all the time.
+	 */
 	public static UCTSettings createDefault() {
-		int maxDepth = 10;
-		IActor actor = new MostVisitedAdvanced();
-		ATreePolicy treePolicy = new SampleTreePolicy();
-		ADefaultPolicy defaultPolicy = new RandomDeltaPolicy();
-		ABackPropagation backPropagation = new SampleBackpropagation();
-		double c = Math.sqrt(2);
-		double gamma = 1;
-		return new UCTSettings(actor, treePolicy, defaultPolicy,
-				backPropagation, maxDepth, c, gamma);
+		UCTSettings settings = new UCTSettings();
+		settings.maxDepth = 10;
+		settings.actor = new MostVisitedAdvanced();
+		settings.treePolicy = new SampleTreePolicy();
+		settings.defaultPolicy = new RandomDeltaPolicy();
+		settings.backPropagation = new Backpropagation();
+		settings.c = Math.sqrt(2);
+		settings.gamma = 1;
+		return settings;
 
 	}
-
 	
+	
+	/**
+	 * Play like the standard mcts search of the controller sample.
+	 */
+	public static UCTSettings createSample() {
+		UCTSettings settings = new UCTSettings();
+		settings.maxDepth = 10;
+		settings.actor = new SampleActor();
+		settings.treePolicy = new SampleTreePolicy();
+		settings.defaultPolicy = new SampleDefaultPolicy();
+		settings.backPropagation = new SampleBackpropagation();
+		settings.c = Math.sqrt(2);
+		settings.gamma = 1;
+		return settings;
+
+	}
+	
+
+	/**
+	 * Use heuristic while playing.
+	 */
 	public static UCTSettings createHeuristic() {
-		int maxDepth = 10;
-		IActor actor = new MostVisitedAdvanced();
-		ATreePolicy treePolicy = new HeuristicTreePolicy();
-		ADefaultPolicy defaultPolicy = new RandomDeltaPolicy();
-		ABackPropagation backPropagation = new HeuristicBackpropagation();
-		double c = Math.sqrt(2);
-		double gamma = 1;
-		return new UCTSettings(actor, treePolicy, defaultPolicy,
-				backPropagation, maxDepth, c, gamma);
+		UCTSettings settings = new UCTSettings();
+		settings.maxDepth = 10;
+		settings.actor = new MostVisitedAdvanced();
+		settings.treePolicy = new HeuristicTreePolicy();
+		settings.defaultPolicy = new RandomDeltaPolicy();
+		settings.backPropagation = new Backpropagation();
+		settings.c = Math.sqrt(2);
+		settings.gamma = 1;
+		return settings;
 
 	}
 }

@@ -3,7 +3,6 @@ package emergence_RL.uct.defaultPoliciy;
 import ontology.Types;
 import tools.Vector2d;
 import core.game.StateObservation;
-import emergence_RL.tree.Node;
 
 /**
  * stores only stateObs and lastAction, used by DefaultPolicies

@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeSet;
 
-import core.game.StateObservation;
 import ontology.Types;
-import emergence_RL.helper.Helper;
+import core.game.StateObservation;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
 

@@ -21,6 +21,7 @@ public abstract class AHeuristic {
 	 */
 	abstract public double evaluateState(StateObservation stateObs);
 
+	
 	/**
 	 * Calculates the Manhattan distance to one object!
 	 * 
