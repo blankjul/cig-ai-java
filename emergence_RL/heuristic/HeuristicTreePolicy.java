@@ -37,7 +37,7 @@ public class HeuristicTreePolicy extends ATreePolicy {
 			}
 			
 			child.uct = child.exploitation + c * child.exploration + child.heuristicValue
-					+ 0 * child.historyValue;
+					+ child.historyValue;
 			
 
 			// check if it has the best value

@@ -45,8 +45,6 @@ public class UCTSettingsFactory {
 		s.backPropagation = randomBackPropagation(r);
 		return s;
 	}
-	
-	
 
 
 	public static int randomMaxDepth(Random r) {
@@ -76,5 +74,9 @@ public class UCTSettingsFactory {
 	public static ADefaultPolicy randomDefaultPolicy(Random r) {
 		return Helper.getRandomEntry(allDefaultPolicies, r);
 	}
+
+
+
+
 	
 }

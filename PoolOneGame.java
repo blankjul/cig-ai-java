@@ -6,6 +6,7 @@ import java.util.concurrent.Future;
 
 import emergence_RL.GameResult;
 import emergence_RL.uct.UCTSettings;
+import emergence_RL.uct.UCTSettingsFactory;
 
 public class PoolOneGame {
 
@@ -31,7 +32,7 @@ public class PoolOneGame {
 			
 			ArrayList<Future<GameResult>> gameResultList = new ArrayList<Future<GameResult>> ();
 			
-			UCTSettings settings = UCTSettings.random(r);
+			UCTSettings settings = UCTSettingsFactory.random(r)	;
 			for (int j = 0; j < NUM_LEVELS; j++) {
 				ExecCallable e = new ExecCallable(CONTROLLER, game, j,
 						settings.toString());
