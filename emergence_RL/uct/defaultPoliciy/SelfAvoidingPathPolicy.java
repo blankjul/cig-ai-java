@@ -20,7 +20,7 @@ import emergence_RL.uct.UCTSettings;
 public class SelfAvoidingPathPolicy extends ADefaultPolicy {
 
 	// to check if a Node was visited before
-	public Map<String, SimNode> visitedNodes = new HashMap<String, SimNode>();
+	public Map<String, Integer> visitedNodes = new HashMap<String, Integer>();
 	
 	//this variable set how much Nodes on the path from the Expand node
 	//to the root wil be put on the visited list
@@ -49,27 +49,45 @@ public class SelfAvoidingPathPolicy extends ADefaultPolicy {
 		//visitedNodes.put(n_.hash(), n_);
 		SimNode node;
 		
-		while (!currentStateObs.isGameOver() && delta == 0
+		while (!currentStateObs.isGameOver()
 				&& level <= s.maxDepth) {
 			currentAction = Helper.getRandomEntry(allActions, s.r);
 			
 			//actualnode
 			node = new SimNode(currentStateObs, currentAction);
 
+			int minVisited = Integer.MIN_VALUE;
+			Types.ACTIONS minAction = Types.ACTIONS.ACTION_NIL;
 			// check if the Node was visited before
-			if (visitedNodes.containsKey(node.hash())) {
-				continue;
+			for (Types.ACTIONS actions : allActions) {
+				String hash = generate_hash(node.stateObs, actions);
+				Integer visited = visitedNodes.get(hash);
+				if (visited == null) visited = 0;
+				if (visited < minVisited){
+					minVisited = visited;
+					minAction = actions;
+				}
 			}
 			
-			//was notvisited before, advance and put in hashMap
-			currentStateObs.advance(currentAction);
 			
-			visitedNodes.put(node.hash(), node); 
+			
+			//was notvisited before, advance and put in hashMap
+			currentStateObs.advance(minAction);
+			
+			visitedNodes.put(hash(currentStateObs, minAction), minVisited + 1); 
 			delta = currentStateObs.getGameScore() - n.stateObs.getGameScore();
 			++level;
 		}
+		
+		if (currentStateObs.isGameOver()) {
+			Types.WINNER winner = currentStateObs.getGameWinner();
+			if (winner == Types.WINNER.PLAYER_WINS)
+				return Double.POSITIVE_INFINITY;
+			else if (winner == Types.WINNER.PLAYER_LOSES)
+				return -1;
+		}
 
-		return 0;
+		return delta;
 	}
 
 	public String generate_hash(StateObservation currentStateObs,
@@ -104,8 +122,10 @@ public class SelfAvoidingPathPolicy extends ADefaultPolicy {
 	 */
 	public void ignorePathToRoot(Node n){
 		for(int i = 0; i < numberOfsteps && n!=null; i++){
-			SimNode node = new SimNode(n.stateObs, n.lastAction);
-			visitedNodes.put(node.hash(), node);
+			String hash = hash(n.stateObs, n.lastAction);
+			Integer visited = visitedNodes.get(hash);
+			if (visited == null) visitedNodes.put(hash, 1);
+			else visitedNodes.put(hash, visited + 1);
 			n = n.father;
 		}
 	}
