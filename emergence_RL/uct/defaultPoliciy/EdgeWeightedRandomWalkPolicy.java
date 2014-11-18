@@ -1,156 +1,99 @@
 package emergence_RL.uct.defaultPoliciy;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeSet;
 
-import core.game.StateObservation;
 import ontology.Types;
-import emergence_RL.helper.Helper;
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSettings;
 
 /**
- * this class weights the possible action you pick. To weight the action we need
- * a dependingAction (this could be the action from the Node which was Expanded
- * at the end of the TreePolicy, or the first action from the root node, which
- * leeds to the expanded node, ect..) the expansion will go in the direction
- * from the depending Action
- * 
+ * this class weights the possible action you pick. To weight the action
+ * we need a dependingAction (this could be the action from the
+ *  Node which was Expanded at the end of the TreePolicy, or the first
+ *  action from the root node, which leeds to the expanded node, ect..) 
  * @author spakken
  *
  */
-public class EdgeWeightedRandomWalkPolicy extends ADefaultPolicy {
+public class EdgeWeightedRandomWalkPolicy extends ADefaultPolicy{
 
-	// action wich is used to weight the possible Actions
-	private Types.ACTIONS dependingAction;
-
-	//available Actions
-	TreeSet<Types.ACTIONS> actions = new TreeSet<Types.ACTIONS>();
-
-	//the list of Actions which will be executed
-	ArrayList<Types.ACTIONS> execActions = new ArrayList<Types.ACTIONS>();
-
-
-	private int[] values = new int[5];
+	//action wich is used to weight the possible Actions
+	private Types.ACTIONS dependingAction = null;
 	
-	// the same, the dependingAction
-	private int actionSame = 4;
-
-	// the opposite Action Left -> Right; Right ->Left
-	private int action180 = 1;
-
-	// action on the right side UP -> Right
-	private int action90 = 2;
-
-	// actiom on the left sid UP ->Left
-	private int action90_ = 2;
-
-	// action use is always 1/nmberOfActions
-	private int actionUse = 2;
-
-	// Actions which willbeexecuted
-	// [0] -> actionSame
-	// [1] -> action90
-	// [2] -> action180
-	// [3] -> action90_
-	// [4] -> actionuse
-	// private Types.ACTIONS[] execActions = new Types.ACTIONS[5];
-
+	TreeSet<Types.ACTIONS> actions = new TreeSet<Types.ACTIONS>();
+	
+	private int numberOfActions;
+	//this are the probabilities of select an action, must sum up to one
+	
+	//the same, the dependingAction
+	private double actionSame = 0.4;
+	
+	//the opposite Action Left -> Right; Right ->Left
+	private double action180 = 0.1;
+	
+	//action on the right side UP -> Right
+	private double action90 = 0.15;
+	
+	//actiom on the left sid UP ->Left
+	private double action90_ = 0.15;
+	
+	//action use is always 1/nmberOfActions
+	private double actionUse = 0;
+	
+	//Actions which willbeexecuted
+	//[0] -> actionSame
+	//[1] -> action180
+	//[2] -> action90
+	//[3] -> action90_
+	//[4] -> actionuse
+	private Types.ACTIONS[] execActions = new Types.ACTIONS[5];
+	
+	
+	private double[] actionValues;
+	
 	public EdgeWeightedRandomWalkPolicy() {
-
+		
 	}
-
+	
 	@Override
 	public double expand(UCTSettings s, Node n) {
-
-		dependingAction = n.lastAction;
+		double numberOfActions = (double) n.children.length;
+		actionUse = 1/numberOfActions;
 		
 		actions.addAll(n.stateObs.getAvailableActions());
 		
-		setArray();
 		
-		generateExecActions();
 		
-		StateObservation currentStateObs = n.stateObs.copy();
-		Types.ACTIONS currentAction = null;
-
-		int level = n.level;
-		double delta = 0;
-
-		while (!currentStateObs.isGameOver() && delta == 0
-				&& level <= s.maxDepth) {
-			
-			currentAction = getNextAction(s.r);
-			currentStateObs.advance(currentAction);
-			delta = currentStateObs.getGameScore() - n.stateObs.getGameScore();
-			++level;
+		if(numberOfActions != 5){
+			configureActionValues();
 		}
 		
-		
-		if (currentStateObs.isGameOver()) {
-			Types.WINNER winner = currentStateObs.getGameWinner();
-			if (winner == Types.WINNER.PLAYER_WINS)
-				return 1000;
-			else if (winner == Types.WINNER.PLAYER_LOSES)
-				return -1000;
-		}
-
-		if (delta > 0)
-			delta = 1;
-		else if (delta < 0)
-			delta = -1;
-
-		return delta;
+		return 0;
 	}
-
-	public Types.ACTIONS getNextAction(Random r) {
-		int random = r.nextInt(execActions.size());
-		return execActions.get(random);
-	}
-
-	public void generateExecActions() {
-
-		Types.ACTIONS actualAction = dependingAction;
+	
+	public Types.ACTIONS getNextAction(Random r, Node n){
 		
-		for(int e = 0; e < 4; e++){
-			if(actions.contains(actualAction)){
-				int anz_actions = values[e];
-				for(int i = 0; i < anz_actions; i++){
-					execActions.add(actualAction);
-				}
-			}
-			actualAction = nextAction(actualAction);
-		}
 		
-		if(actions.contains(Types.ACTIONS.ACTION_USE)){
-			int anz_actions = values[4];
-			for(int i = 0; i < anz_actions; i++){
-				execActions.add(actualAction);
-			}
-		}
-	}
-
-	public Types.ACTIONS nextAction(Types.ACTIONS action) {
-		if (action == Types.ACTIONS.ACTION_UP) {
-			return Types.ACTIONS.ACTION_RIGHT;
-		} else if (action == Types.ACTIONS.ACTION_RIGHT) {
-			return Types.ACTIONS.ACTION_DOWN;
-		} else if (action == Types.ACTIONS.ACTION_DOWN) {
-			return Types.ACTIONS.ACTION_LEFT;
-		} else if (action == Types.ACTIONS.ACTION_LEFT) {
-			return Types.ACTIONS.ACTION_UP;
-		}
-		System.out.println("nextActionFehler");
+		
 		return null;
 	}
 	
-	public void setArray(){
-		values[0] = actionSame;
-		values[1] = action90;
-		values[2] = action180;
-		values[3] = action90_;
-		values[4] = actionUse;
+	public void configureActionValues(){
+		double sum = 0;
+		
+		if(!actions.contains(Types.ACTIONS.ACTION_UP)){
+			
+		}
+	}
+	
+	public void generateExecActions(){
+		if(dependingAction == Types.ACTIONS.ACTION_UP){
+			execActions[0] = Types.ACTIONS.ACTION_UP;
+		}
+	}
+	
+	public void generateActionValues(){
+		
 	}
 
 }
