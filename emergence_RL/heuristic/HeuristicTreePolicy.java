@@ -33,11 +33,11 @@ public class HeuristicTreePolicy extends ATreePolicy {
 			Integer visitsOfField = UCTSearch.fieldVisits.get(h);
 			child.historyValue = 1;
 			if (visitsOfField != null && UCTSearch.maxVisitedField > 0) {
-				child.historyValue = Math.sqrt((1 - visitsOfField / (double) UCTSearch.maxVisitedField));
+				child.historyValue = c * Math.sqrt((1 - visitsOfField / (double) UCTSearch.maxVisitedField));
 			}
 			
-			child.uct = child.exploitation + c * child.exploration + child.heuristicValue
-					+ child.historyValue;
+			child.uct = s.weights[0] * child.exploitation + s.weights[1] * child.exploration + s.weights[2] * child.heuristicValue
+					+ s.weights[3] * child.historyValue;
 			
 
 			// check if it has the best value

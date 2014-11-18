@@ -5,13 +5,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import emergence_RL.GameResult;
+import emergence_RL.uct.UCTFactory;
 import emergence_RL.uct.UCTSettings;
 import emergence_RL.uct.UCTSettingsFactory;
 
 public class PoolOneGame {
 
 	public static String CONTROLLER = "emergence_RL.Agent";
-	public static String GAME = "frogs";
+	public static String GAME = "portals";
 	public static int NUM_LEVELS = 5;
 	public static int POOL_SIZE = 50;
 
@@ -32,7 +33,13 @@ public class PoolOneGame {
 			
 			ArrayList<Future<GameResult>> gameResultList = new ArrayList<Future<GameResult>> ();
 			
-			UCTSettings settings = UCTSettingsFactory.random(r)	;
+			// here the random settings are created!
+			
+			UCTSettings settings = UCTFactory.createHeuristic();
+			settings.weights = UCTSettingsFactory.randomWeights(r);
+			settings.maxDepth = UCTSettingsFactory.randomMaxDepth(r);
+			settings.gamma = UCTSettingsFactory.randomGamma(r);
+			
 			for (int j = 0; j < NUM_LEVELS; j++) {
 				ExecCallable e = new ExecCallable(CONTROLLER, game, j,
 						settings.toString());
@@ -51,7 +58,6 @@ public class PoolOneGame {
 		}
 
 		System.out.println(Configuration.dateFormat.format(new Date()));
-
 	}
 
 	public static String getResult(ArrayList<Future<GameResult>> resultList) {

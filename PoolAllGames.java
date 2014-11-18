@@ -22,7 +22,6 @@ public class PoolAllGames {
 		// compile the classes
 		String out = Compile.start();
 		System.out.println(out);
-		
 		System.out.println("STARTING COMPETITION...");
 		
 

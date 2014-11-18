@@ -23,6 +23,7 @@ public class UCTSettings {
 	public ADefaultPolicy defaultPolicy = null;
 
 	// sending the feedback back with backpropagation
+	
 	public ABackPropagation backPropagation = null;
 
 	// maximal depth of the tree -> 10 per default!
@@ -36,9 +37,16 @@ public class UCTSettings {
 
 	// generator for random numbers
 	public Random r = new Random();
+	
+	// weights that could be used for a formula!
+	public double[] weights = new double[] {1,1,1,1};
+	
+	// this value defines the pessimistic iterations. if 0 it's disabled.
+	public int pessimisticIterations = 4;
+	
 
 	// initialize the heuristic that could be used
-	public TargetHeuristic heuristic = new TargetHeuristic();;
+	public TargetHeuristic heuristic = new TargetHeuristic();
 
 	public UCTSettings() {
 	}
@@ -54,16 +62,18 @@ public class UCTSettings {
 		this.maxDepth = maxDepth;
 	}
 
+	
+	
 	/**
 	 * Print the whole settings to a string!
 	 */
 	@Override
 	public String toString() {
 		String s = String.format(
-				"actor:%s tree:%s default:%s back:%s depth:%s c:%s gamma:%s",
+				"actor:%s tree:%s default:%s back:%s depth:%s c:%s gamma:%s weight[0]:%s weight[1]:%s weight[2]:%s weight[3]:%s",
 				actor.getClass().getName(), treePolicy.getClass().getName(),
 				defaultPolicy.getClass().getName(), backPropagation.getClass()
-						.getName(), maxDepth, c, gamma);
+						.getName(), maxDepth, c, gamma, weights[0], weights[1], weights[2], weights[3]);
 		return s;
 	}
 
@@ -97,7 +107,18 @@ public class UCTSettings {
 					settings.c = Double.valueOf(value);
 				} else if (key.equals("gamma")) {
 					settings.gamma = Double.valueOf(value);
+				} else if (key.equals("weight[0]")) {
+					settings.weights[0] = Double.valueOf(value);
+				} else if (key.equals("weight[1]")) {
+					settings.weights[1] = Double.valueOf(value);
+				} else if (key.equals("weight[2]")) {
+					settings.weights[2] = Double.valueOf(value);
+				} else if (key.equals("weight[3]")) {
+					settings.weights[3] = Double.valueOf(value);
+				} else if (key.equals("weight[4]")) {
+					settings.weights[4] = Double.valueOf(value);
 				} 
+				
 
 			}
 

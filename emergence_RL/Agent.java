@@ -51,7 +51,7 @@ public class Agent extends AThreadablePlayer {
 		if (VERBOSE) {
 			System.out.println(uct);
 			System.out.println("ACTION: " + a);
-			
+			System.out.println(settings);
 			if (settings.heuristic != null) {
 				System.out.println("target: " + Helper.listToString(settings.heuristic.names));
 				System.out.println("distance: " + Helper.listToString(settings.heuristic.distances));

@@ -10,11 +10,17 @@ import emergence_RL.uct.actor.HighestReward;
 import emergence_RL.uct.actor.HighestUCT;
 import emergence_RL.uct.actor.IActor;
 import emergence_RL.uct.actor.MostVisited;
+import emergence_RL.uct.actor.MostVisitedAdvanced;
 import emergence_RL.uct.backpropagation.ABackPropagation;
 import emergence_RL.uct.backpropagation.Backpropagation;
 import emergence_RL.uct.defaultPoliciy.ADefaultPolicy;
+import emergence_RL.uct.defaultPoliciy.EdgeWeightedRandomWalkPolicy;
+import emergence_RL.uct.defaultPoliciy.RandomDeltaPolicy;
 import emergence_RL.uct.defaultPoliciy.RandomPolicy;
+import emergence_RL.uct.defaultPoliciy.SelfAvoidingPathPolicy;
 import emergence_RL.uct.treePolicy.ATreePolicy;
+import emergence_RL.uct.treePolicy.FirstPlayUrgencyPoliciy;
+import emergence_RL.uct.treePolicy.UCB1TunedPolicy;
 import emergence_RL.uct.treePolicy.UCTPolicy;
 
 public class UCTSettingsFactory {
@@ -25,13 +31,13 @@ public class UCTSettingsFactory {
 			Arrays.asList(new Backpropagation()));
 	
 	public static List<ATreePolicy> allTreePolicies = new ArrayList<ATreePolicy>(
-			Arrays.asList(new UCTPolicy()));
+			Arrays.asList(new UCTPolicy(), new FirstPlayUrgencyPoliciy(), new UCB1TunedPolicy()));
 
 	public static List<ADefaultPolicy> allDefaultPolicies = new ArrayList<ADefaultPolicy>(
-			Arrays.asList(new RandomPolicy()));
+			Arrays.asList(new RandomPolicy(), new RandomDeltaPolicy(), new SelfAvoidingPathPolicy(), new EdgeWeightedRandomWalkPolicy()));
 	
 	public static List<IActor> allActors = Arrays.asList(new HighestReward(),
-			new HighestUCT(), new MostVisited());
+			new HighestUCT(), new MostVisited(), new MostVisitedAdvanced());
 	
 	
 	public static UCTSettings random(Random r) {
@@ -73,6 +79,15 @@ public class UCTSettingsFactory {
 
 	public static ADefaultPolicy randomDefaultPolicy(Random r) {
 		return Helper.getRandomEntry(allDefaultPolicies, r);
+	}
+	
+	
+	public static double[] randomWeights(Random r) {
+		double[] weights = new double[4];
+		for (int i = 0; i < weights.length; i++) {
+			weights[i] = r.nextDouble() * 3;
+		}
+		return weights;
 	}
 
 
