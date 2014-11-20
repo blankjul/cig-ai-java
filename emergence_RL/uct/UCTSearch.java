@@ -3,10 +3,11 @@ package emergence_RL.uct;
 import java.util.HashMap;
 
 import ontology.Types;
+import emergence_RL.strategies.AStrategy;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 
-public class UCTSearch {
+public class UCTSearch extends AStrategy{
 
 	/**
 	 * Tree for all the iterations
@@ -35,6 +36,8 @@ public class UCTSearch {
 	 * @param settings
 	 */
 	public UCTSearch(Tree tree, UCTSettings settings) {
+		super(tree);
+		
 		this.tree = tree;
 		this.s = settings;
 		
@@ -66,6 +69,7 @@ public class UCTSearch {
 		return true;
 	}
 
+	@Override
 	public Types.ACTIONS act() {
 		Types.ACTIONS a = s.actor.act(s, tree);
 		lastAction = a;

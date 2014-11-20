@@ -1,9 +1,8 @@
-package emergence_RL.heuristic;
+package emergence_RL.uct.treePolicy;
 
 import emergence_RL.tree.Node;
 import emergence_RL.uct.UCTSearch;
 import emergence_RL.uct.UCTSettings;
-import emergence_RL.uct.treePolicy.ATreePolicy;
 
 public class HeuristicTreePolicy extends ATreePolicy {
 

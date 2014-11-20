@@ -27,6 +27,9 @@ public class Node {
 	// always the last action
 	public Types.ACTIONS lastAction;
 
+	// always the last action
+	public Types.ACTIONS rootAction;
+	
 	// it's static to get it fast
 	public int level;
 
@@ -44,6 +47,9 @@ public class Node {
 
 	// map for actions to integer and a round
 	protected ActionMap map;
+	
+	public double score;
+	
 
 	// value for USB1 Tuned Policy
 	public double quadReward;

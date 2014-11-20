@@ -34,5 +34,7 @@ public abstract class AHeuristic {
 	public static double distance(Vector2d from, Vector2d to) {
 		return Math.abs(from.x - to.x) + Math.abs(from.y - to.y);
 	}
+	
+	
 
 }

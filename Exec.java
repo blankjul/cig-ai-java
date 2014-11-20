@@ -33,7 +33,7 @@ public class Exec  {
 		}
 		String parameter = sb.toString();
 		
-		execute(controller, game, level, parameter);
+		execute(controller, game, level, parameter, false);
 	}
 
 	
@@ -48,7 +48,7 @@ public class Exec  {
 	 * @param parameter
 	 */
 	public static void execute(String controller, String game, String level,
-			String parameter) {
+			String parameter, boolean visuals) {
 
 		String actionFile = null;
 		int randomSeed = new Random().nextInt();
@@ -92,8 +92,11 @@ public class Exec  {
 		ArcadeMachine.warmUp(toPlay, CompetitionParameters.WARMUP_TIME);
 		// Then, play the game.
 		
-		@SuppressWarnings("unused")
-		double score = toPlay.runGame(player, randomSeed);
+		if(visuals)
+            toPlay.playGame(player, randomSeed);
+        else
+            toPlay.runGame(player, randomSeed);
+		
 		
 		// Finally, when the game is over, we need to tear the player down.
 		ArcadeMachine.tearPlayerDown(player);

@@ -1,6 +1,7 @@
 package emergence_RL.helper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -31,6 +32,13 @@ public class Helper {
 		}
 		sb.append("]");
 		return sb.toString();
+	}
+	
+	public static String[] concat(String[] first, String[] second) {
+	    List<String> both = new ArrayList<String>(first.length + second.length);
+	    Collections.addAll(both, first);
+	    Collections.addAll(both, second);
+	    return both.toArray(new String[both.size()]);
 	}
 
 }

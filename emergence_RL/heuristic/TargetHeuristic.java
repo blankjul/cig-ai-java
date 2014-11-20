@@ -17,18 +17,6 @@ public class TargetHeuristic extends AHeuristic {
 	// this just the statistic how often a minimal distance is used.
 	public ArrayList<Double> distances = new ArrayList<Double>();
 
-	// this just the statistic how often a minimal distance is used.
-	public ArrayList<Double> result = new ArrayList<Double>();
-
-	// this just the statistic how often a minimal distance is used.
-	public ArrayList<Integer> used = null;
-
-	// this just the statistic how often a minimal distance is used.
-	public ArrayList<Double> reward = null;
-
-	public ArrayList<String> names = new ArrayList<String>();
-
-	public ArrayList<Double> weights = new ArrayList<Double>();
 
 	public int visitAll = 0;
 	
@@ -37,88 +25,32 @@ public class TargetHeuristic extends AHeuristic {
 	@Override
 	public double evaluateState(StateObservation stateObs) {
 
-		
-		/*
-		 * the next step normalizes the distances between [0,1]
-		 */
-		names.clear();
 		input(stateObs);
 		if (distances == null | distances.isEmpty()) return 0;
 		double max = Collections.max(distances);
 		double min = Collections.min(distances);
 
-		// initialize weights if needed
-		if (weights == null || weights.size() != distances.size() || Collections.max(weights) == 0) {
-			weights = new ArrayList<Double>();
-			for (int i = 0; i < distances.size(); i++) {
-				weights.add(1d);
-			}
-		}
-
-		result.clear();
 		for (int i = 0; i < distances.size(); i++) {
 			double d = distances.get(i);
 			double norm = (max != min) ? 1 - ((d - min) / (max - min)) : 1;
-			result.add(norm * weights.get(i));
+			distances.set(i, norm);
 		}
 
-		// initialize reward
-		if (reward == null || reward.size() != distances.size()) {
-			reward = new ArrayList<Double>();
-			for (int i = 0; i < distances.size(); i++) {
-				reward.add(0d);
-			}
-		}
-
-		
 		double maxValue = Double.NEGATIVE_INFINITY;
-		int maxIndex = 0;
-		for (int i = 0; i < result.size(); i++) {
-			double value = result.get(i);
+		for (int i = 0; i < distances.size(); i++) {
+			double value = distances.get(i);
 			double tieBreaker = UCTSettings.epsilon * r.nextDouble();
 			if (value +  tieBreaker > maxValue) {
 				maxValue = value +  tieBreaker;
-				maxIndex = i;
 			}
 		}
-
-		
-		// check for used field or init
-		lastUsed = maxIndex;
-		if (used == null || used.size() != distances.size()) {
-			used = new ArrayList<Integer>();
-			for (int i = 0; i < distances.size(); i++) {
-				used.add(0);
-			}
-		}
-		used.set(lastUsed, used.get(lastUsed) + 1);
 
 		++visitAll;
 		return maxValue;
 
 	}
 
-	public void norm(Double[] values) {
-		double max = Double.NEGATIVE_INFINITY;
-		for (int i = 0; i < values.length; i++) {
-			if (values[i] > max)
-				max = values[i];
-		}
-		// just normalize all the values that they are in between [0,1]
-		for (int i = 0; i < values.length; i++) {
-			Double distance = values[i];
-			// if we had reached the target immediately return 1!
-			if (distance <= 0)
-				values[i] = 1.0d;
-			else if (distance == Double.POSITIVE_INFINITY)
-				values[i] = 0.0d;
-			else
-				// normalize the value
-				// if we are very close return 1 else something that is lower
-				// the heuristic is always larger than zero!
-				values[i] = 1 - (distance / max);
-		}
-	}
+	
 
 	private void input(StateObservation stateObs) {
 		distances.clear();
@@ -167,7 +99,6 @@ public class TargetHeuristic extends AHeuristic {
 				continue;
 			Observation obs = listObs.get(0);
 			eq.add(distance(avatarPosition, obs.position));
-			names.add(type);
 		}
 		return eq;
 	}

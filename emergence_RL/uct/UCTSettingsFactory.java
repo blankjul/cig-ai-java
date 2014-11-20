@@ -85,11 +85,14 @@ public class UCTSettingsFactory {
 	public static double[] randomWeights(Random r) {
 		double[] weights = new double[4];
 		for (int i = 0; i < weights.length; i++) {
-			weights[i] = r.nextDouble() * 3;
+			weights[i] = UCTSettingsFactory.randomWeight(r);
 		}
 		return weights;
 	}
 
+	public static double randomWeight(Random r) {
+			return r.nextDouble() * 3;
+	}
 
 
 

@@ -1,11 +1,18 @@
 package emergence_RL;
 
+import java.util.ArrayList;
+
 import ontology.Types;
+import ontology.Types.WINNER;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import emergence_RL.helper.ActionTimer;
 import emergence_RL.helper.Helper;
 import emergence_RL.helper.LevelInfo;
+import emergence_RL.heuristic.AHeuristic;
+import emergence_RL.heuristic.EquationStateHeuristic;
+import emergence_RL.strategies.AStarStrategy;
+import emergence_RL.strategies.AStrategy;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 import emergence_RL.uct.UCTFactory;
@@ -19,11 +26,42 @@ public class Agent extends AThreadablePlayer {
 
 	// finally the settings for the tree!
 	private UCTSettings settings = UCTFactory.createHeuristic();
-
+	
+	// heuristic that should be used if constructor found a good solution!
+	private AHeuristic heuristic = null;
 
 	
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+		
 		if (VERBOSE) LevelInfo.print(stateObs);
+		
+		
+		Tree tree = new Tree(new Node(stateObs));
+		
+		ArrayList<AStarStrategy> pool = new ArrayList<AStarStrategy>();
+		for (AHeuristic heuristic : EquationStateHeuristic.create(tree)) {
+			pool.add(new AStarStrategy(tree, heuristic));
+		}
+		
+		ActionTimer timer = new ActionTimer(elapsedTimer);
+		boolean hasNext = true;
+		while (timer.isTimeLeft() && hasNext) {
+			for (AStarStrategy strategy : pool) {
+				strategy.expand();
+			}
+			timer.addIteration();
+		}
+		
+		for (AStarStrategy s : pool) {
+			if (s.bestNode.stateObs.getGameWinner() ==WINNER.PLAYER_WINS) {
+				heuristic = s.heuristic;
+				break;
+			}
+		}
+		
+		 
+		if (heuristic == null) System.out.println("USE UCTSearch"); 
+		else System.out.println("USE AStarStrategy with Heuristic");
 		
 	}
 
@@ -32,7 +70,8 @@ public class Agent extends AThreadablePlayer {
 		
 		// create a tree with a root
 		Tree tree = new Tree(new Node(stateObs));
-		UCTSearch uct = new UCTSearch(tree, settings);
+		
+		AStrategy uct = (heuristic == null) ? new UCTSearch(tree, settings) : new AStarStrategy(tree, heuristic);
 		
 		// set up the action timer.
 		boolean hasNext = true;
@@ -53,11 +92,7 @@ public class Agent extends AThreadablePlayer {
 			System.out.println("ACTION: " + a);
 			System.out.println(settings);
 			if (settings.heuristic != null) {
-				System.out.println("target: " + Helper.listToString(settings.heuristic.names));
 				System.out.println("distance: " + Helper.listToString(settings.heuristic.distances));
-				System.out.println("used: " + Helper.listToString(settings.heuristic.used));
-				System.out.println("weights: " + Helper.listToString(settings.heuristic.weights));
-				System.out.println("result: " + Helper.listToString(settings.heuristic.result));
 			}
 			System.out.println("--------------------------");
 		}

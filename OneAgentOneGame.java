@@ -1,6 +1,5 @@
-import java.util.Random;
+import emergence_RL.uct.UCTFactory;
 
-import core.ArcadeMachine;
 
 public class OneAgentOneGame {
 
@@ -8,9 +7,11 @@ public class OneAgentOneGame {
 
 		String controller = "emergence_RL.Agent";
 		// controller = "controllers.sampleMCTS.Agent";
-
-		String gameStr = "butterflies";
-		int levelIdx = 1;
+		//String parameter = "actor:emergence_RL.uct.actor.MostVisitedAdvanced tree:emergence_RL.heuristic.HeuristicTreePolicy default:emergence_RL.uct.defaultPoliciy.RandomDeltaPolicy back:emergence_RL.uct.backpropagation.Backpropagation depth:7 c:1.4142135623730951 gamma:0.9834985014608854 weight[0]:1.0132829408740718 weight[1]:0.2511097534265957 weight[2]:1.1717280309045348 weight[3]:1.2052372180089392";
+		String parameter = UCTFactory.createHeuristic().toString();
+		
+		String gameStr = "zelda";
+		int levelIdx = 3;
 
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
@@ -23,15 +24,12 @@ public class OneAgentOneGame {
 
 		// Other settings
 		boolean visuals = true;
-		String recordActionsFile = null; // where to record the actions
-											// executed. null if not to save.
-		int seed = new Random().nextInt();
 
 		// Game and level to play
 		String game = gamesPath + gameStr + ".txt";
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
-		ArcadeMachine.runOneGame(game, level1, visuals, controller,
-				recordActionsFile, seed);
+		
+		Exec.execute(controller, game, level1, parameter, visuals);
 
 	}
 }
