@@ -5,9 +5,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import emergence_RL.GameResult;
-import emergence_RL.uct.UCTFactory;
-import emergence_RL.uct.UCTSettings;
-import emergence_RL.uct.UCTSettingsFactory;
+import emergence_RL.strategies.uct.UCTFactory;
+import emergence_RL.strategies.uct.UCTSettings;
 
 public class PoolOneGame {
 
@@ -36,9 +35,9 @@ public class PoolOneGame {
 			// here the random settings are created!
 			
 			UCTSettings settings = UCTFactory.createHeuristic();
-			settings.weights = UCTSettingsFactory.randomWeights(r);
-			settings.maxDepth = UCTSettingsFactory.randomMaxDepth(r);
-			settings.gamma = UCTSettingsFactory.randomGamma(r);
+			settings.weights = UCTFactory.randomWeights(r);
+			settings.maxDepth = UCTFactory.randomMaxDepth(r);
+			settings.gamma = UCTFactory.randomGamma(r);
 			
 			for (int j = 0; j < NUM_LEVELS; j++) {
 				ExecCallable e = new ExecCallable(CONTROLLER, game, j,

@@ -7,7 +7,7 @@ import java.util.Random;
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
-import emergence_RL.uct.UCTSettings;
+import emergence_RL.strategies.uct.UCTSettings;
 
 public class TargetHeuristic extends AHeuristic {
 

@@ -1,23 +1,19 @@
 package emergence_RL;
 
-import java.util.ArrayList;
-
 import ontology.Types;
-import ontology.Types.WINNER;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import emergence_RL.helper.ActionTimer;
 import emergence_RL.helper.Helper;
 import emergence_RL.helper.LevelInfo;
 import emergence_RL.heuristic.AHeuristic;
-import emergence_RL.heuristic.EquationStateHeuristic;
-import emergence_RL.strategies.AStarStrategy;
 import emergence_RL.strategies.AStrategy;
+import emergence_RL.strategies.AStar.AStarStrategy;
+import emergence_RL.strategies.uct.UCTFactory;
+import emergence_RL.strategies.uct.UCTSearch;
+import emergence_RL.strategies.uct.UCTSettings;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
-import emergence_RL.uct.UCTFactory;
-import emergence_RL.uct.UCTSearch;
-import emergence_RL.uct.UCTSettings;
 
 public class Agent extends AThreadablePlayer {
 

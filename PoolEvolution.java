@@ -9,8 +9,8 @@ import java.util.concurrent.Future;
 import emergence_RL.GameResult;
 import emergence_RL.helper.Helper;
 import emergence_RL.helper.Pair;
-import emergence_RL.uct.UCTSettings;
-import emergence_RL.uct.UCTSettingsFactory;
+import emergence_RL.strategies.uct.UCTSettings;
+import emergence_RL.strategies.uct.UCTFactory;
 
 public class PoolEvolution {
 
@@ -40,12 +40,12 @@ public class PoolEvolution {
 
 		// initialize the pool
 		for (int i = 0; i < POOL_SIZE; i++) {
-			UCTSettings settings = UCTSettingsFactory.random(r);
+			UCTSettings settings = UCTFactory.random(r);
 			
 			/*
-			settings.weights = UCTSettingsFactory.randomWeights(r);
-			settings.maxDepth = UCTSettingsFactory.randomMaxDepth(r);
-			settings.gamma = UCTSettingsFactory.randomGamma(r);
+			settings.weights = UCTFactory.randomWeights(r);
+			settings.maxDepth = UCTFactory.randomMaxDepth(r);
+			settings.gamma = UCTFactory.randomGamma(r);
 			*/
 			Integer wins = getWins(games, settings);
 			pool.add(new Pair<UCTSettings, Integer>(settings, wins));
@@ -82,24 +82,24 @@ public class PoolEvolution {
 				// mutate
 				if (r.nextDouble() < 0.4) {
 					if (r.nextDouble() < 0.2)
-						entry.weights[0] = UCTSettingsFactory.randomWeight(r);
+						entry.weights[0] = UCTFactory.randomWeight(r);
 					if (r.nextDouble() < 0.2)
-						entry.weights[1] = UCTSettingsFactory.randomWeight(r);
+						entry.weights[1] = UCTFactory.randomWeight(r);
 					if (r.nextDouble() < 0.2)
-						entry.weights[2] = UCTSettingsFactory.randomWeight(r);
+						entry.weights[2] = UCTFactory.randomWeight(r);
 					if (r.nextDouble() < 0.2)
-						entry.weights[3] = UCTSettingsFactory.randomWeight(r);
+						entry.weights[3] = UCTFactory.randomWeight(r);
 					if (r.nextDouble() < 0.2)
-						entry.maxDepth = UCTSettingsFactory.randomMaxDepth(r);
+						entry.maxDepth = UCTFactory.randomMaxDepth(r);
 					if (r.nextDouble() < 0.2)
-						entry.gamma = UCTSettingsFactory.randomGamma(r);
+						entry.gamma = UCTFactory.randomGamma(r);
 					
 					if (r.nextDouble() < 0.2)
-						entry.defaultPolicy = UCTSettingsFactory.randomDefaultPolicy(r);
+						entry.defaultPolicy = UCTFactory.randomDefaultPolicy(r);
 					if (r.nextDouble() < 0.2)
-						entry.treePolicy = UCTSettingsFactory.randomTreePolicy(r);
+						entry.treePolicy = UCTFactory.randomTreePolicy(r);
 					if (r.nextDouble() < 0.2)
-						entry.actor = UCTSettingsFactory.randomActor(r);
+						entry.actor = UCTFactory.randomActor(r);
 
 					
 					// crossover
