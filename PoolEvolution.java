@@ -9,7 +9,6 @@ import java.util.concurrent.Future;
 import emergence_RL.GameResult;
 import emergence_RL.helper.Helper;
 import emergence_RL.helper.Pair;
-import emergence_RL.uct.UCTFactory;
 import emergence_RL.uct.UCTSettings;
 import emergence_RL.uct.UCTSettingsFactory;
 
@@ -17,7 +16,7 @@ public class PoolEvolution {
 
 	public String CONTROLLER = "emergence_RL.Agent";
 	public int NUM_LEVELS = 5;
-	public int POOL_SIZE = 10;
+	public int POOL_SIZE = 12;
 	public int NUM_FITTEST = 4;
 	public int NUM_GENERATION = 10;
 
@@ -41,10 +40,13 @@ public class PoolEvolution {
 
 		// initialize the pool
 		for (int i = 0; i < POOL_SIZE; i++) {
-			UCTSettings settings = UCTFactory.createHeuristic();
+			UCTSettings settings = UCTSettingsFactory.random(r);
+			
+			/*
 			settings.weights = UCTSettingsFactory.randomWeights(r);
 			settings.maxDepth = UCTSettingsFactory.randomMaxDepth(r);
 			settings.gamma = UCTSettingsFactory.randomGamma(r);
+			*/
 			Integer wins = getWins(games, settings);
 			pool.add(new Pair<UCTSettings, Integer>(settings, wins));
 		}
@@ -91,7 +93,15 @@ public class PoolEvolution {
 						entry.maxDepth = UCTSettingsFactory.randomMaxDepth(r);
 					if (r.nextDouble() < 0.2)
 						entry.gamma = UCTSettingsFactory.randomGamma(r);
+					
+					if (r.nextDouble() < 0.2)
+						entry.defaultPolicy = UCTSettingsFactory.randomDefaultPolicy(r);
+					if (r.nextDouble() < 0.2)
+						entry.treePolicy = UCTSettingsFactory.randomTreePolicy(r);
+					if (r.nextDouble() < 0.2)
+						entry.actor = UCTSettingsFactory.randomActor(r);
 
+					
 					// crossover
 				} else {
 
@@ -115,7 +125,13 @@ public class PoolEvolution {
 							: second.maxDepth;
 					entry.gamma = (r.nextDouble() < 0.5) ? selected.maxDepth
 							: second.maxDepth;
-
+					entry.treePolicy = (r.nextDouble() < 0.5) ? selected.treePolicy
+							: second.treePolicy;
+					entry.defaultPolicy = (r.nextDouble() < 0.5) ? selected.defaultPolicy
+							: second.defaultPolicy;
+					entry.actor = (r.nextDouble() < 0.5) ? selected.actor
+							: second.actor;
+					
 				}
 				Integer wins = getWins(games, entry);
 				nextPool.add(new Pair<UCTSettings, Integer>(entry, wins));

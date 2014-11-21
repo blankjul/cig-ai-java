@@ -31,7 +31,7 @@ public class UCTSettingsFactory {
 			Arrays.asList(new Backpropagation()));
 	
 	public static List<ATreePolicy> allTreePolicies = new ArrayList<ATreePolicy>(
-			Arrays.asList(new UCTPolicy(), new FirstPlayUrgencyPoliciy(), new UCB1TunedPolicy()));
+			Arrays.asList(new UCTPolicy(), new FirstPlayUrgencyPoliciy()));
 
 	public static List<ADefaultPolicy> allDefaultPolicies = new ArrayList<ADefaultPolicy>(
 			Arrays.asList(new RandomPolicy(), new RandomDeltaPolicy(), new SelfAvoidingPathPolicy(), new EdgeWeightedRandomWalkPolicy()));
@@ -49,6 +49,7 @@ public class UCTSettingsFactory {
 		s.treePolicy = randomTreePolicy(r);
 		s.defaultPolicy = randomDefaultPolicy(r);
 		s.backPropagation = randomBackPropagation(r);
+		s.weights = randomWeights(r);
 		return s;
 	}
 

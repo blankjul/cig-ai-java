@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 import ontology.Types;
+import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
@@ -235,6 +236,8 @@ public class AStarStrategy extends AStrategy {
 		closedSet.put(n.hash(), n);
 		checkBest(n);
 		next(n);
+		
+		if (bestNode.stateObs.getGameWinner() ==WINNER.PLAYER_WINS);
 
 		return true;
 	}

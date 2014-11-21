@@ -1,4 +1,3 @@
-import emergence_RL.uct.UCTFactory;
 
 
 public class OneAgentOneGame {
@@ -6,12 +5,13 @@ public class OneAgentOneGame {
 	public static void main(String[] args) {
 
 		String controller = "emergence_RL.Agent";
+		//String controller = "controllers.human.Agent";
 		// controller = "controllers.sampleMCTS.Agent";
-		//String parameter = "actor:emergence_RL.uct.actor.MostVisitedAdvanced tree:emergence_RL.heuristic.HeuristicTreePolicy default:emergence_RL.uct.defaultPoliciy.RandomDeltaPolicy back:emergence_RL.uct.backpropagation.Backpropagation depth:7 c:1.4142135623730951 gamma:0.9834985014608854 weight[0]:1.0132829408740718 weight[1]:0.2511097534265957 weight[2]:1.1717280309045348 weight[3]:1.2052372180089392";
-		String parameter = UCTFactory.createHeuristic().toString();
+		String parameter = "actor:emergence_RL.uct.actor.MostVisitedAdvanced tree:emergence_RL.uct.treePolicy.HeuristicTreePolicy default:emergence_RL.uct.defaultPoliciy.RandomDeltaPolicy back:emergence_RL.uct.backpropagation.Backpropagation depth:10 c:1.4142135623730951 gamma:0.9326211765422769 weight[0]:2.089510418050092 weight[1]:2.0665150182207026 weight[2]:1.8947589131807137 weight[3]:1.9357444209255685";
+		//String parameter = UCTFactory.createHeuristic().toString();
 		
-		String gameStr = "zelda";
-		int levelIdx = 3;
+		String gameStr = "eggomania";
+		int levelIdx = 4;
 
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
@@ -22,14 +22,11 @@ public class OneAgentOneGame {
 		// Available games:
 		String gamesPath = "examples/gridphysics/";
 
-		// Other settings
-		boolean visuals = true;
-
 		// Game and level to play
 		String game = gamesPath + gameStr + ".txt";
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
 		
-		Exec.execute(controller, game, level1, parameter, visuals);
+		Exec.execute(controller, game, level1, parameter, true, true);
 
 	}
 }

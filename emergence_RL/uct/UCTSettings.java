@@ -42,7 +42,7 @@ public class UCTSettings {
 	public double[] weights = new double[] {1,1,1,1};
 	
 	// this value defines the pessimistic iterations. if 0 it's disabled.
-	public int pessimisticIterations = 4;
+	public int pessimisticIterations = 3;
 	
 
 	// initialize the heuristic that could be used

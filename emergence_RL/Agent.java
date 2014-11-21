@@ -34,8 +34,8 @@ public class Agent extends AThreadablePlayer {
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 		
 		if (VERBOSE) LevelInfo.print(stateObs);
-		
-		
+
+		/*
 		Tree tree = new Tree(new Node(stateObs));
 		
 		ArrayList<AStarStrategy> pool = new ArrayList<AStarStrategy>();
@@ -53,16 +53,18 @@ public class Agent extends AThreadablePlayer {
 		}
 		
 		for (AStarStrategy s : pool) {
-			if (s.bestNode.stateObs.getGameWinner() ==WINNER.PLAYER_WINS) {
+			double d =  s.bestNode.stateObs.getGameScore();
+			System.out.println(d);
+			if (s.bestNode.stateObs.getGameWinner() == WINNER.PLAYER_WINS) {
 				heuristic = s.heuristic;
 				break;
 			}
 		}
 		
-		 
+		
 		if (heuristic == null) System.out.println("USE UCTSearch"); 
 		else System.out.println("USE AStarStrategy with Heuristic");
-		
+		 */
 	}
 
 	public Types.ACTIONS act(StateObservation stateObs,

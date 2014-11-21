@@ -7,13 +7,13 @@ import java.util.concurrent.Future;
 
 import emergence_RL.GameResult;
 import emergence_RL.helper.Helper;
-import emergence_RL.uct.UCTFactory;
 
 public class OneAgentAllGames {
 
 	public static String CONTROLLER = "emergence_RL.Agent";
 
-	public static String PARAMETER = UCTFactory.createHeuristic().toString();
+	//public static String PARAMETER = UCTFactory.createHeuristic().toString();
+	public static String PARAMETER = "actor:emergence_RL.uct.actor.MostVisitedAdvanced tree:emergence_RL.uct.treePolicy.HeuristicTreePolicy default:emergence_RL.uct.defaultPoliciy.RandomDeltaPolicy back:emergence_RL.uct.backpropagation.Backpropagation depth:10 c:1.4142135623730951 gamma:0.9326211765422769 weight[0]:2.089510418050092 weight[1]:2.0665150182207026 weight[2]:1.8947589131807137 weight[3]:1.9357444209255685";
 	//public static String PARAMETER = "actor:emergence_RL.uct.actor.MostVisitedAdvanced tree:emergence_RL.heuristic.HeuristicTreePolicy default:emergence_RL.uct.defaultPoliciy.RandomDeltaPolicy back:emergence_RL.uct.backpropagation.Backpropagation depth:7 c:1.4142135623730951 gamma:0.9834985014608854 weight[0]:1.0132829408740718 weight[1]:0.2511097534265957 weight[2]:1.1717280309045348 weight[3]:1.2052372180089392";
 
 	public static int NUM_LEVELS = 5;
