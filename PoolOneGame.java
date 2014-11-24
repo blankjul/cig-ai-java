@@ -1,17 +1,7 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Random;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
-import emergence_RL.GameResult;
-import emergence_RL.heuristic.TargetHeuristic;
-import emergence_RL.strategies.uct.UCTFactory;
-import emergence_RL.strategies.uct.UCTSettings;
 
 public class PoolOneGame {
 
+	/*
 	public static String CONTROLLER = "emergence_RL.Agent";
 	public static String GAME = "aliens";
 	public static int NUM_LEVELS = 5;
@@ -102,5 +92,6 @@ public class PoolOneGame {
 
 		Configuration.SCHEDULER.shutdown();
 	}
+	*/
 
 }

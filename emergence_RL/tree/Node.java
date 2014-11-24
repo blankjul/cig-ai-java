@@ -70,7 +70,7 @@ public class Node {
 	public Node(StateObservation stateObs) {
 		this.father = null;
 		this.stateObs = stateObs;
-		this.map = ActionMap.create(stateObs.getAvailableActions());
+		this.map = new ActionMap(stateObs.getAvailableActions());
 		this.children = new Node[map.NUM_ACTIONS];
 		this.Q = 0;
 		this.level = 0;
@@ -83,11 +83,8 @@ public class Node {
 	 *            observation of this node!
 	 */
 	public Node(StateObservation stateObs, Node father, Types.ACTIONS lastAction) {
-		this.stateObs = stateObs;
+		this(stateObs);
 		this.father = father;
-		this.map = ActionMap.create(stateObs.getAvailableActions());
-		this.children = new Node[map.NUM_ACTIONS];
-		this.Q = 0;
 		this.level = father.level + 1;
 		this.lastAction = lastAction;
 	}

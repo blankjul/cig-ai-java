@@ -1,18 +1,18 @@
-package emergence_RL.strategies.uct.defaultPolicy;
+package emergence_RL.strategies.UCT.defaultPolicy;
 
 import java.util.ArrayList;
 
 import ontology.Types;
 import core.game.StateObservation;
 import emergence_RL.helper.Helper;
-import emergence_RL.strategies.uct.UCTSettings;
+import emergence_RL.strategies.UCT.UCTSearch;
 import emergence_RL.tree.Node;
 
 public class RandomDeltaPolicy extends ADefaultPolicy {
 
 
 	@Override
-	public double expand(UCTSettings s, Node n) {
+	public double expand(UCTSearch search, Node n) {
 
 		StateObservation currentStateObs = n.stateObs.copy();
 
@@ -20,8 +20,8 @@ public class RandomDeltaPolicy extends ADefaultPolicy {
 				.getAvailableActions();
 
 		int level = n.level;
-		while (!currentStateObs.isGameOver() && level <= s.maxDepth) {
-			Types.ACTIONS a = Helper.getRandomEntry(actions, s.r);
+		while (!currentStateObs.isGameOver() && level <= search.maxDepth) {
+			Types.ACTIONS a = Helper.getRandomEntry(actions, UCTSearch.r);
 			currentStateObs.advance(a);
 			++level;
 		}

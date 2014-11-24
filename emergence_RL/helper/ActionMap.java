@@ -15,8 +15,6 @@ public class ActionMap {
 
 	public int NUM_ACTIONS;
 	
-	// singleton object
-	private static ActionMap instance = null;
 
 	// maps an action to an integer
 	private Map<Types.ACTIONS, Integer> act_int_map;
@@ -24,18 +22,9 @@ public class ActionMap {
 	// maps and integer to an action by using simply an array
 	private Types.ACTIONS[] int_act_map;
 
-	/**
-	 * Simply the factory method.
-	 * @param act
-	 * @return
-	 */
-	public static ActionMap create(ArrayList<Types.ACTIONS> act) {
-		if (instance == null)
-			instance = new ActionMap(act);
-		return instance;
-	}
 
-	private ActionMap(ArrayList<Types.ACTIONS> act) {
+	
+	public ActionMap(ArrayList<Types.ACTIONS> act) {
 		NUM_ACTIONS = act.size();
 		act_int_map = new HashMap<Types.ACTIONS, Integer>();
 		int_act_map = new Types.ACTIONS[NUM_ACTIONS];

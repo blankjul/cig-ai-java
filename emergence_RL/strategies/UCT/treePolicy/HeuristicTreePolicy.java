@@ -1,35 +1,32 @@
-package emergence_RL.strategies.uct.treePolicy;
+package emergence_RL.strategies.UCT.treePolicy;
 
-import emergence_RL.strategies.uct.UCTSearch;
-import emergence_RL.strategies.uct.UCTSettings;
+import emergence_RL.strategies.UCT.UCTSearch;
 import emergence_RL.tree.Node;
 
 public class HeuristicTreePolicy extends ATreePolicy {
 
 	@Override
-	public Node bestChild(UCTSettings s, Node n, double c) {
+	public Node bestChild(UCTSearch search, Node n, double c) {
 
 		Node bestChild = null;
 		double bestValue = Double.NEGATIVE_INFINITY;
 
 		for (Node child : n.getChildren()) {
 
-			child.exploitation = child.Q
-					/ (child.visited + UCTSettings.epsilon);
+			child.exploitation = child.Q / (child.visited + UCTSearch.epsilon);
 
 			child.exploration = Math.sqrt(Math.log(n.visited + 1)
 					/ (child.visited));
 
 			// heuristic by using the target
 			child.heuristicValue = 0;
-			if (s.heuristic != null) {
-				s.heuristic.evaluateState(child.stateObs);
-				for (int i = 0; i < s.heuristic.distances.size(); i++) {
-					child.heuristicValue += s.heuristic.weights[i]
-							* s.heuristic.distances.get(i);
+			if (search.heuristic != null) {
+				search.heuristic.evaluateState(child.stateObs);
+				for (int i = 0; i < search.heuristic.distances.size(); i++) {
+					child.heuristicValue += search.heuristic.weights[i]
+							* search.heuristic.distances.get(i);
 				}
 			}
-			
 
 			// history of field
 			String h = child.hash();
@@ -41,9 +38,10 @@ public class HeuristicTreePolicy extends ATreePolicy {
 								/ (double) UCTSearch.maxVisitedField));
 			}
 
-			child.uct = s.weights[0] * child.exploitation + s.weights[1]
-					* child.exploration + s.weights[2] * child.heuristicValue
-					+ s.weights[3] * child.historyValue;
+			double[] weights = search.weights;
+			child.uct = weights[0] * child.exploitation + weights[1]
+					* child.exploration + weights[2] * child.heuristicValue
+					+ weights[3] * child.historyValue;
 
 			// check if it has the best value
 			if (child.uct >= bestValue) {

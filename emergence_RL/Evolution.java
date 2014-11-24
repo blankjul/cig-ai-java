@@ -1,40 +1,31 @@
 package emergence_RL;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
-import emergence_RL.heuristic.AHeuristic;
+import core.game.StateObservation;
 import emergence_RL.heuristic.TargetHeuristic;
-import emergence_RL.strategies.uct.UCTFactory;
-import emergence_RL.strategies.uct.UCTSettings;
+import emergence_RL.strategies.UCT.UCTFactory;
+import emergence_RL.strategies.UCT.UCTSearch;
 
 public class Evolution {
 
-	public static ArrayList<UCTSettings> initPool(Random r, int count) {
-		ArrayList<UCTSettings> pool = new ArrayList<UCTSettings>();
+	
+	public static ArrayList<UCTSearch> initPool(Random r, int count, StateObservation stateObs) {
+		ArrayList<UCTSearch> pool = new ArrayList<UCTSearch>();
 		for (int i = 0; i < count; i++) {
-			UCTSettings settings = UCTFactory.createHeuristic();
-			settings.weights = UCTFactory.randomWeights(r);
-			settings.maxDepth = UCTFactory.randomMaxDepth(r);
-
-			if (TestAgent.heuristics.size() > 0) {
-				List<TargetHeuristic> asList = new ArrayList<TargetHeuristic>(
-						TestAgent.heuristics);
-				Collections.shuffle(asList);
-				settings.heuristic = (TargetHeuristic) asList.get(0);
-			} else {
-				settings.heuristic = null;
-			}
-			pool.add(settings);
-
+			UCTSearch search = new UCTSearch();
+			search.weights = UCTFactory.randomWeights(r);
+			search.maxDepth = UCTFactory.randomMaxDepth(r);
+			search.heuristic = TargetHeuristic.createRandom(stateObs);
+			pool.add(search);
 		}
 		return pool;
 	}
 
-	public static UCTSettings mutate(Random r, UCTSettings settings) {
-		UCTSettings entry = (UCTSettings) settings.clone();
+	
+	public static UCTSearch mutate(Random r, UCTSearch search, StateObservation stateObs) {
+		UCTSearch entry = (UCTSearch) search.clone();
 		if (r.nextDouble() < 0.2)
 			entry.weights[0] = UCTFactory.randomWeight(r);
 		if (r.nextDouble() < 0.2)
@@ -46,16 +37,13 @@ public class Evolution {
 		if (r.nextDouble() < 0.2)
 			entry.maxDepth = UCTFactory.randomMaxDepth(r);
 		if (r.nextDouble() < 0.2) {
-			List<AHeuristic> asList = new ArrayList<AHeuristic>(
-					TestAgent.heuristics);
-			Collections.shuffle(asList);
-			entry.heuristic = (TargetHeuristic) asList.get(0);
+			entry.heuristic = TargetHeuristic.createRandom(stateObs);
 		}
 		return entry;
 	}
 
-	public static UCTSettings crossover(Random r, UCTSettings s1, UCTSettings s2) {
-		UCTSettings entry = (UCTSettings) s1.clone();
+	public static UCTSearch crossover(Random r, UCTSearch s1, UCTSearch s2) {
+		UCTSearch entry = (UCTSearch) s1.clone();
 		entry.weights[0] = (r.nextDouble() < 0.5) ? s2.weights[0]
 				: s1.weights[0];
 		entry.weights[1] = (r.nextDouble() < 0.5) ? s2.weights[1]

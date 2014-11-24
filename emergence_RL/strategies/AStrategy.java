@@ -21,7 +21,10 @@ abstract public class AStrategy {
 	// best score that has reached with this heuristic
 	public double bestScore = Double.NEGATIVE_INFINITY;
 	
-
+	public AStrategy() {
+	}
+	
+	
 	/**
 	 * Create a game tree that uses a heuristic for iteration.
 	 * 

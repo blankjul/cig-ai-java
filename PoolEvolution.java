@@ -1,34 +1,21 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Random;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
-import emergence_RL.Evolution;
-import emergence_RL.GameResult;
-import emergence_RL.helper.Helper;
-import emergence_RL.helper.Pair;
-import emergence_RL.strategies.uct.UCTSettings;
-import emergence_RL.strategies.uct.UCTFactory;
 
 public class PoolEvolution {
 
+	/*
 	public String CONTROLLER = "emergence_RL.Agent";
 	public int NUM_LEVELS = 5;
 	public int POOL_SIZE = 12;
 	public int NUM_FITTEST = 4;
 	public int NUM_GENERATION = 10;
 
-	public ArrayList<Pair<UCTSettings, Integer>> pool = new ArrayList<Pair<UCTSettings, Integer>>();
+	public ArrayList<Pair<UCTSearch, Integer>> pool = new ArrayList<Pair<UCTSearch, Integer>>();
 
 	public ArrayList<String> games = new ArrayList<String>(Arrays.asList(Configuration.training));
 
 	public Random r = new Random();
 
 	
-	private Integer getWins(ArrayList<String> games, UCTSettings settings) {
+	private Integer getWins(ArrayList<String> games, UCTSearch settings) {
 		Integer wins = playAllGames(games, settings);
 		//Integer wins = r.nextInt();
 		return wins;
@@ -43,16 +30,12 @@ public class PoolEvolution {
 		for (int i = 0; i < POOL_SIZE; i++) {
 			UCTSettings settings = UCTFactory.random(r);
 			
-			/*
+			
 			settings.weights = UCTFactory.randomWeights(r);
 			settings.maxDepth = UCTFactory.randomMaxDepth(r);
 			settings.gamma = UCTFactory.randomGamma(r);
-			*/
-			Integer wins = getWins(games, settings);
-			pool.add(new Pair<UCTSettings, Integer>(settings, wins));
-		}
-
-		for (int j = 0; j < NUM_GENERATION; j++) {
+			
+			; j++) {
 
 			
 			// survival of the fittest
@@ -150,5 +133,7 @@ public class PoolEvolution {
 		evo.start();
 
 	}
+	*/
+	
 
 }

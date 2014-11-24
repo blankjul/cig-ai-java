@@ -1,4 +1,4 @@
-package emergence_RL.strategies.uct.actor;
+package emergence_RL.strategies.UCT.actor;
 
 import java.util.ArrayList;
 
@@ -6,14 +6,14 @@ import ontology.Types;
 import ontology.Types.ACTIONS;
 import ontology.Types.WINNER;
 import emergence_RL.helper.Helper;
-import emergence_RL.strategies.uct.UCTSettings;
+import emergence_RL.strategies.UCT.UCTSearch;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 
 public class MostVisitedAdvanced implements IActor {
 
 	@Override
-	public ACTIONS act(UCTSettings s, Tree tree) {
+	public ACTIONS act(UCTSearch search, Tree tree) {
 		
 		ArrayList<Types.ACTIONS> bestActions = new ArrayList<Types.ACTIONS>();
 		
@@ -36,7 +36,7 @@ public class MostVisitedAdvanced implements IActor {
 			}
 		}
 		if (bestActions.size() == 0) return Types.ACTIONS.ACTION_NIL;
-		a = Helper.getRandomEntry(bestActions, s.r);
+		a = Helper.getRandomEntry(bestActions, UCTSearch.r);
 		return a;
 
 	}

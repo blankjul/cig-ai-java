@@ -1,121 +1,128 @@
 package emergence_RL;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import emergence_RL.helper.ActionTimer;
-import emergence_RL.helper.Helper;
 import emergence_RL.helper.LevelInfo;
-import emergence_RL.heuristic.AHeuristic;
-import emergence_RL.strategies.AStrategy;
-import emergence_RL.strategies.AStar.AStarStrategy;
-import emergence_RL.strategies.uct.UCTFactory;
-import emergence_RL.strategies.uct.UCTSearch;
-import emergence_RL.strategies.uct.UCTSettings;
+import emergence_RL.helper.Pair;
+import emergence_RL.strategies.UCT.UCTSearch;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = true;
+	public static boolean VERBOSE = false;
 
-	// finally the settings for the tree!
-	private UCTSettings settings = UCTFactory.createHeuristic();
+	// a pool of possible uct settings
+	private ArrayList<Pair<UCTSearch, Double>> pool;
 	
-	// heuristic that should be used if constructor found a good solution!
-	private AHeuristic heuristic = null;
+	private UCTSearch uct = null;
 
-	
+	public int POOL_SIZE = 5;
+
+	private int counter = 0;
+
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-		
+
+		// initialize the pool
+		pool = new ArrayList<Pair<UCTSearch, Double>>();
+
+		// add five random mcts tree
+		ArrayList<UCTSearch> init = Evolution.initPool(UCTSearch.r, POOL_SIZE,
+				stateObs);
+		for (UCTSearch search : init) {
+			search.tree = new Tree(new Node(stateObs));
+			pool.add(new Pair<UCTSearch, Double>(search, 0d));
+		}
+
+		// simulate until there is no time left!
+		ActionTimer timer = new ActionTimer(elapsedTimer);
+		timer.timeRemainingLimit = 50;
+
+		simulate(timer);
+		uct = rankPool();
+
 		if (VERBOSE) {
 			LevelInfo.print(stateObs);
-			System.out.println(settings);
+			System.out.println(uct);
 		}
 
-		/*
-		Tree tree = new Tree(new Node(stateObs));
-		
-		ArrayList<AStarStrategy> pool = new ArrayList<AStarStrategy>();
-		for (AHeuristic heuristic : EquationStateHeuristic.create(tree)) {
-			pool.add(new AStarStrategy(tree, heuristic));
-		}
-		
-		ActionTimer timer = new ActionTimer(elapsedTimer);
-		boolean hasNext = true;
-		while (timer.isTimeLeft() && hasNext) {
-			for (AStarStrategy strategy : pool) {
-				strategy.expand();
-			}
-			timer.addIteration();
-		}
-		
-		for (AStarStrategy s : pool) {
-			double d =  s.bestNode.stateObs.getGameScore();
-			System.out.println(d);
-			if (s.bestNode.stateObs.getGameWinner() == WINNER.PLAYER_WINS) {
-				heuristic = s.heuristic;
-				break;
-			}
-		}
-		
-		
-		if (heuristic == null) System.out.println("USE UCTSearch"); 
-		else System.out.println("USE AStarStrategy with Heuristic");
-		 */
 	}
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
-		
+
 		// create a tree with a root
-		Tree tree = new Tree(new Node(stateObs));
-		
-		AStrategy uct = (heuristic == null) ? new UCTSearch(tree, settings) : new AStarStrategy(tree, heuristic);
-		
-		// set up the action timer.
-		boolean hasNext = true;
-		
+		uct.tree = new Tree(new Node(stateObs));
+
 		ActionTimer timer = new ActionTimer(elapsedTimer);
-		while (timer.isTimeLeft() && hasNext) {
+		while (timer.isTimeLeft()) {
 			uct.expand();
 			timer.addIteration();
 		}
+
 		
 		// act as the uct search says
 		Types.ACTIONS a = uct.act();
-
-		
-		// print debug output
-		if (VERBOSE) {
-			System.out.println(uct);
-			System.out.println("ACTION: " + a);
-			System.out.println(settings);
-			System.out.println("--------------------------");
-		}
-
 		return a;
 
 	}
 
+	/**
+	 * Simulate until there is no time left.
+	 * @param timer
+	 * @return
+	 */
+	private void simulate(ActionTimer timer) {
+		// simulate until there is no time left
+		while (timer.isTimeLeft()) {
+			Pair<UCTSearch, Double> pair = pool.get(counter % pool.size());
+			++counter;
+			pair.getFirst().expand();
+			timer.addIteration();
+		}
+	}
+
 	
-	
+	/**
+	 * Calculate the score of each uct search and return the best one!
+	 * @return best uct search
+	 */
+	private UCTSearch rankPool() {
+		// calculate the score of each uct search
+		for (Pair<UCTSearch, Double> p : pool) {
+			double score = 0;
+			for (Node child : p.getFirst().tree.root.getChildren()) {
+				score += child.Q / child.visited;
+			}
+			p.setSecond(score);
+		}
+
+		// sort and return the best one
+		Collections.sort(pool);
+		return pool.get(0).getFirst();
+	}
+
 	
 	/*
 	 * These two methods are need for multithreading simulation!
 	 * It must be implemented by inherit from AThreadablePlayer
 	 */
-	
+
 	@Override
 	public String setToString() {
-		return settings.toString();
+		return "";
+		// return settings.toString();
 	}
-	
-	
+
 	@Override
 	public void initFromString(String parameter) {
-		this.settings = UCTSettings.create(parameter);
+		// this.settings = UCTSettings.create(parameter);
 	}
 
 }

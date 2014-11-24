@@ -1,7 +1,7 @@
-package emergence_RL.strategies.uct.actor;
+package emergence_RL.strategies.UCT.actor;
 
 import ontology.Types;
-import emergence_RL.strategies.uct.UCTSettings;
+import emergence_RL.strategies.UCT.UCTSearch;
 import emergence_RL.tree.Tree;
 
 /**
@@ -11,7 +11,7 @@ import emergence_RL.tree.Tree;
  */
 public interface IActor {
 	
-	public Types.ACTIONS act(UCTSettings s, Tree tree);
+	public Types.ACTIONS act(UCTSearch search, Tree tree);
 
 
 }

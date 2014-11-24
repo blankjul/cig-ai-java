@@ -19,7 +19,7 @@ public class PoolAllGames {
 			System.out.println("------------------------");
 			System.out.println(strGame);
 			System.out.println("------------------------");
-			PoolOneGame.playOneGame(strGame);
+			//PoolOneGame.playOneGame(strGame);
 			
 		}
 
