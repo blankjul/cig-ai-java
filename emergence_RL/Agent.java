@@ -18,11 +18,11 @@ import emergence_RL.tree.Tree;
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = true;
+	public static boolean VERBOSE = false;
 
 	// a pool of possible uct settings
 	private ArrayList<Pair<UCTSearch, Double>> pool;
-	
+
 	// map from action to int and arround.
 	public static ActionMap map;
 
@@ -34,8 +34,8 @@ public class Agent extends AThreadablePlayer {
 	// the current uct search that is used for acting
 	private UCTSearch uct = null;
 
-	public int EVO_GAME_TICK = 400;
-	public int POOL_SIZE = 10;
+	public int EVO_GAME_TICK = 200;
+	public int POOL_SIZE = 20;
 	public int POOL_FITTEST = 4;
 	public int TIME_FOR_EVOLUTION = 22;
 
@@ -44,7 +44,7 @@ public class Agent extends AThreadablePlayer {
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
 		map = new ActionMap(stateObs.getAvailableActions());
-		
+
 		// initialize the pool and add five random mcts tree
 		pool = new ArrayList<Pair<UCTSearch, Double>>();
 		ArrayList<UCTSearch> init = Evolution.initPool(UCTSearch.r, POOL_SIZE,
@@ -62,6 +62,7 @@ public class Agent extends AThreadablePlayer {
 			timer.addIteration();
 		}
 		uct = rankPool();
+		//printPool(stateObs.getGameTick());
 
 		if (VERBOSE) {
 			LevelInfo.print(stateObs);
@@ -85,28 +86,54 @@ public class Agent extends AThreadablePlayer {
 			timer.addIteration();
 		}
 		lastAction = uct.act();
-		
 
 		// normally just simulate
-		if (stateObs.getGameTick() % EVO_GAME_TICK != 0) {
+		if (stateObs.getGameTick() != 0 && stateObs.getGameTick() % EVO_GAME_TICK == 0) {
+
+			uct = rankPool();
+			printPool(stateObs.getGameTick());
+
+
+			// create a new generation
+			// System.out.println(uct);
+			pool = Evolution.createNextGeneration(stateObs, pool, POOL_FITTEST,
+					POOL_SIZE, 0.7);
+
+		} else {
 			// simulate the pool for the next best mcts
 			while (timer.isTimeLeft()) {
 				simulate();
 				timer.addIteration();
 			}
-		} else {
-			// create a new generation
-			uct = rankPool();
-			System.out.println(uct);
-			pool = Evolution.createNextGeneration(stateObs, pool, POOL_FITTEST, POOL_SIZE, 0.7);
-		}
 
+		}
+/*
+		if (false) {
+			System.out.println("----------------------");
+			System.out.println(uct);
+			System.out.println(uct.status());
+			System.out.println("----------------------");
+		}
+		*/
 
 		// act as the uct search says
 		return lastAction;
 
 	}
 
+	private void printPool(int gameTick) {
+		System.out.println("------------------");
+		System.out.println(gameTick);
+		System.out.println("------------------");
+		int counter = 0;
+		for (Pair<UCTSearch, Double> pair : pool) {
+			System.out.println(counter + " " + pair.getSecond() + "->"
+					+ pair.getFirst());
+			++counter;
+		}
+		System.out.println("------------------");
+	}
+	
 	/**
 	 * Simulate until there is no time left.
 	 */
@@ -118,6 +145,7 @@ public class Agent extends AThreadablePlayer {
 
 	/**
 	 * Calculate the score of each uct search and return the best one!
+	 * 
 	 * @return best uct search
 	 */
 	private UCTSearch rankPool() {
@@ -126,7 +154,8 @@ public class Agent extends AThreadablePlayer {
 			UCTSearch search = p.getFirst();
 			search.act();
 			Node n = search.bestNode;
-			double score = (n != null) ? n.Q / n.visited : 0;
+			double score = (n != null || n.visited != 0) ? n.Q / n.visited : 0;
+			//System.out.println(score);
 			p.setSecond(score);
 		}
 
@@ -136,8 +165,8 @@ public class Agent extends AThreadablePlayer {
 	}
 
 	/*
-	 * These two methods are need for multithreading simulation!
-	 * It must be implemented by inherit from AThreadablePlayer
+	 * These two methods are need for multithreading simulation! It must be
+	 * implemented by inherit from AThreadablePlayer
 	 */
 
 	@Override

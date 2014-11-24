@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutionException;
 
 public class PoolAllGames {
 
-
+/*
 
 	public static void main(String[] args) throws InterruptedException,
 			ExecutionException {
@@ -25,6 +25,6 @@ public class PoolAllGames {
 
 		Configuration.SCHEDULER.shutdown();
 	}
-
+*/
 
 }
