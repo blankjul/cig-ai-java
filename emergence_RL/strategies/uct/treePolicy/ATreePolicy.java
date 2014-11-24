@@ -8,11 +8,14 @@ import emergence_RL.tree.Node;
 public abstract class ATreePolicy {
 	
 
+	abstract public Node bestChild(UCTSettings s, Node n, double c);
+	
+	
+	
 	public Node treePolicy(UCTSettings s, Node n) {
 		while (!n.stateObs.isGameOver() && n.level <= s.maxDepth) {
 			if (!n.isFullyExpanded()) {
 				Node child = n.getRandomChild(s.r, true);
-				
 				if (child.level == 1 && s.pessimisticIterations > 0)
 					pessimisticExploring(child, s.pessimisticIterations);
 				
@@ -21,13 +24,11 @@ public abstract class ATreePolicy {
 				n = bestChild(s, n, s.c);
 			}
 		}
+		
 		return n;
 	}
-
-	abstract public Node bestChild(UCTSettings s, Node n, double c);
-
 	
-	
+
 	/**
 	 * Pessimistic iteration of the next possible move from the root.
 	 */

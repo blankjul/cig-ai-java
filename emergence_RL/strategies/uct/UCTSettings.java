@@ -1,5 +1,6 @@
 package emergence_RL.strategies.uct;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import emergence_RL.heuristic.TargetHeuristic;
@@ -44,12 +45,13 @@ public class UCTSettings {
 	// this value defines the pessimistic iterations. if 0 it's disabled.
 	public int pessimisticIterations = 3;
 	
-
 	// initialize the heuristic that could be used
-	public TargetHeuristic heuristic = new TargetHeuristic();
+	public TargetHeuristic heuristic = null;
 
+	
 	public UCTSettings() {
 	}
+	
 
 	public UCTSettings(IActor actor, ATreePolicy treePolicy,
 			ADefaultPolicy defaultPolicy, ABackPropagation backPropagation,
@@ -129,6 +131,14 @@ public class UCTSettings {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public Object clone(){  
+	    try{  
+	        return super.clone();  
+	    }catch(Exception e){ 
+	        return null; 
+	    }
 	}
 
 }

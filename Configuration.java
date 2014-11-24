@@ -18,7 +18,7 @@ public class Configuration {
 		"firestorms", "infection", "firecaster", "overload", "pacman",
 		"seaquest", "whackamole", "eggomania" };
 	
-	String[] allGames = concatenate(training,validation);
+	public static String[] allGames = concatenate(training,validation);
 
 	public static DateFormat dateFormat = new SimpleDateFormat(
 			"yyyy/MM/dd HH:mm:ss");
@@ -29,7 +29,7 @@ public class Configuration {
 			.newFixedThreadPool(NUM_THREADS);
 
 	
-	public <T> T[] concatenate (T[] A, T[] B) {
+	public static <T> T[] concatenate (T[] A, T[] B) {
 	    int aLen = A.length;
 	    int bLen = B.length;
 

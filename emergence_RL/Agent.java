@@ -29,7 +29,10 @@ public class Agent extends AThreadablePlayer {
 	
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 		
-		if (VERBOSE) LevelInfo.print(stateObs);
+		if (VERBOSE) {
+			LevelInfo.print(stateObs);
+			System.out.println(settings);
+		}
 
 		/*
 		Tree tree = new Tree(new Node(stateObs));
@@ -89,9 +92,6 @@ public class Agent extends AThreadablePlayer {
 			System.out.println(uct);
 			System.out.println("ACTION: " + a);
 			System.out.println(settings);
-			if (settings.heuristic != null) {
-				System.out.println("distance: " + Helper.listToString(settings.heuristic.distances));
-			}
 			System.out.println("--------------------------");
 		}
 

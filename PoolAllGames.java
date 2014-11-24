@@ -15,7 +15,7 @@ public class PoolAllGames {
 		System.out.println("STARTING COMPETITION...");
 		
 
-		for (String strGame : Configuration.training) {
+		for (String strGame : Configuration.allGames) {
 			System.out.println("------------------------");
 			System.out.println(strGame);
 			System.out.println("------------------------");

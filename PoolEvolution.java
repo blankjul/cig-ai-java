@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import emergence_RL.Evolution;
 import emergence_RL.GameResult;
 import emergence_RL.helper.Helper;
 import emergence_RL.helper.Pair;
@@ -77,30 +78,13 @@ public class PoolEvolution {
 
 				UCTSettings selected = Helper.getRandomEntry(nextPool, r)
 						.getFirst();
-				UCTSettings entry = UCTSettings.create(selected.toString());
-
+				
+				UCTSettings entry = null;
+				
 				// mutate
 				if (r.nextDouble() < 0.4) {
-					if (r.nextDouble() < 0.2)
-						entry.weights[0] = UCTFactory.randomWeight(r);
-					if (r.nextDouble() < 0.2)
-						entry.weights[1] = UCTFactory.randomWeight(r);
-					if (r.nextDouble() < 0.2)
-						entry.weights[2] = UCTFactory.randomWeight(r);
-					if (r.nextDouble() < 0.2)
-						entry.weights[3] = UCTFactory.randomWeight(r);
-					if (r.nextDouble() < 0.2)
-						entry.maxDepth = UCTFactory.randomMaxDepth(r);
-					if (r.nextDouble() < 0.2)
-						entry.gamma = UCTFactory.randomGamma(r);
 					
-					if (r.nextDouble() < 0.2)
-						entry.defaultPolicy = UCTFactory.randomDefaultPolicy(r);
-					if (r.nextDouble() < 0.2)
-						entry.treePolicy = UCTFactory.randomTreePolicy(r);
-					if (r.nextDouble() < 0.2)
-						entry.actor = UCTFactory.randomActor(r);
-
+					entry = Evolution.mutate(r, selected);
 					
 					// crossover
 				} else {
@@ -110,28 +94,14 @@ public class PoolEvolution {
 					for (Pair<UCTSettings, Integer> pair : nextPool) {
 						if (pair.getFirst() != selected) tmp.add(pair);
 					}
-					
+
 					UCTSettings second = Helper.getRandomEntry(tmp, r)
 							.getFirst();
-					entry.weights[0] = (r.nextDouble() < 0.5) ? selected.weights[0]
-							: second.weights[0];
-					entry.weights[1] = (r.nextDouble() < 0.5) ? selected.weights[1]
-							: second.weights[1];
-					entry.weights[2] = (r.nextDouble() < 0.5) ? selected.weights[2]
-							: second.weights[2];
-					entry.weights[3] = (r.nextDouble() < 0.5) ? selected.weights[3]
-							: second.weights[3];
-					entry.maxDepth = (r.nextDouble() < 0.5) ? selected.maxDepth
-							: second.maxDepth;
-					entry.gamma = (r.nextDouble() < 0.5) ? selected.maxDepth
-							: second.maxDepth;
-					entry.treePolicy = (r.nextDouble() < 0.5) ? selected.treePolicy
-							: second.treePolicy;
-					entry.defaultPolicy = (r.nextDouble() < 0.5) ? selected.defaultPolicy
-							: second.defaultPolicy;
-					entry.actor = (r.nextDouble() < 0.5) ? selected.actor
-							: second.actor;
 					
+					
+					
+					entry = Evolution.crossover(r, selected, second);
+
 				}
 				Integer wins = getWins(games, entry);
 				nextPool.add(new Pair<UCTSettings, Integer>(entry, wins));

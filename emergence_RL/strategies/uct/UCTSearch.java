@@ -27,14 +27,11 @@ public class UCTSearch extends AStrategy{
 	public static HashMap<String, Integer> fieldVisits = new HashMap<String, Integer>();
 	public static int maxVisitedField = 0;
 	public static Types.ACTIONS lastAction = Types.ACTIONS.ACTION_NIL;
-
-	/**
-	 * For the construction there is
-	 * 
-	 * @param tree
-	 * @param r
-	 * @param settings
-	 */
+	
+	
+	
+	
+	
 	public UCTSearch(Tree tree, UCTSettings settings) {
 		super(tree);
 		
@@ -59,6 +56,8 @@ public class UCTSearch extends AStrategy{
 
 	}
 
+	
+	
 	public boolean expand() {
 		Node n = s.treePolicy.treePolicy(s, tree.root);
 		double reward = s.defaultPolicy.expand(s, n);
@@ -66,6 +65,7 @@ public class UCTSearch extends AStrategy{
 		return true;
 	}
 
+	
 	@Override
 	public Types.ACTIONS act() {
 		Types.ACTIONS a = s.actor.act(s, tree);

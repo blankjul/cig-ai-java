@@ -59,8 +59,6 @@ public class Node {
 	public double heuristicValue;
 	public double historyValue;
 	
-	// this saves the target heuristic value
-	public int targetHeuristicIndex = -1;
 	
 
 	/**

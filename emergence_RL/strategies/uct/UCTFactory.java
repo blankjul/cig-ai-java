@@ -156,5 +156,23 @@ public class UCTFactory {
 	public static double randomWeight(Random r) {
 			return r.nextDouble() * 3;
 	}
+	
+	public static int[] randomTargetHeuristic(Random r) {
+		ArrayList<int[]> list = new ArrayList<int[]>();
+		list.add(new int[] {0,0,0,0,0,0,0,0,0,0,0,0});
+		list.add(new int[] {1,0,0,0,0,0,0,0,0,0,0,0});
+		list.add(new int[] {0,1,0,0,0,0,0,0,0,0,0,0});
+		list.add(new int[] {0,0,1,0,0,0,0,0,0,0,0,0});
+		list.add(new int[] {0,0,0,1,0,0,0,0,0,0,0,0});
+		list.add(new int[] {0,0,0,0,1,0,0,0,0,0,0,0});
+		list.add(new int[] {0,0,0,0,0,1,0,0,0,0,0,0});
+		list.add(new int[] {0,0,0,0,0,0,1,0,0,0,0,0});
+		list.add(new int[] {0,0,0,0,0,0,0,1,0,0,0,0});
+		list.add(new int[] {0,0,0,0,0,0,0,0,1,0,0,0});
+		list.add(new int[] {0,0,0,0,0,0,0,0,0,1,0,0});
+		list.add(new int[] {0,0,0,0,0,0,0,0,0,0,1,0});
+		list.add(new int[] {0,0,0,0,0,0,0,0,0,0,0,1});
+		return Helper.getRandomEntry(list, r);	
+	}
 
 }

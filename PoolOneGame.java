@@ -1,19 +1,21 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import emergence_RL.GameResult;
+import emergence_RL.heuristic.TargetHeuristic;
 import emergence_RL.strategies.uct.UCTFactory;
 import emergence_RL.strategies.uct.UCTSettings;
 
 public class PoolOneGame {
 
 	public static String CONTROLLER = "emergence_RL.Agent";
-	public static String GAME = "portals";
+	public static String GAME = "aliens";
 	public static int NUM_LEVELS = 5;
-	public static int POOL_SIZE = 50;
+	public static int POOL_SIZE = 20;
 
 	
 	public static ArrayList<UCTSettings> pool = new ArrayList<UCTSettings>();
@@ -37,7 +39,7 @@ public class PoolOneGame {
 			UCTSettings settings = UCTFactory.createHeuristic();
 			settings.weights = UCTFactory.randomWeights(r);
 			settings.maxDepth = UCTFactory.randomMaxDepth(r);
-			settings.gamma = UCTFactory.randomGamma(r);
+			settings.heuristic = new TargetHeuristic(UCTFactory.randomTargetHeuristic(r));
 			
 			for (int j = 0; j < NUM_LEVELS; j++) {
 				ExecCallable e = new ExecCallable(CONTROLLER, game, j,
@@ -53,7 +55,10 @@ public class PoolOneGame {
 		for (int i = 0; i < pool.size(); i++) {
 			UCTSettings s = pool.get(i);
 			ArrayList<Future<GameResult>> gameResultList = allResultList.get(i);
-			System.out.println(getResult(gameResultList) + " -> " + s);
+			String str = getResult(gameResultList) + " -> " + s;
+			if (s.heuristic == null) str += " heuristic:null";
+			else str += " heuristic:" + Arrays.toString(s.heuristic.weights);
+			System.out.println(str);
 		}
 
 		System.out.println(Configuration.dateFormat.format(new Date()));
