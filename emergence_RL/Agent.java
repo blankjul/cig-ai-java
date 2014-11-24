@@ -34,9 +34,10 @@ public class Agent extends AThreadablePlayer {
 	// the current uct search that is used for acting
 	private UCTSearch uct = null;
 
-	public int EVO_GAME_TICK = 40;
+	public int EVO_GAME_TICK = 400;
 	public int POOL_SIZE = 10;
 	public int POOL_FITTEST = 4;
+	public int TIME_FOR_EVOLUTION = 22;
 
 	private int counter = 0;
 
@@ -78,7 +79,7 @@ public class Agent extends AThreadablePlayer {
 
 		// get the next best action that will be executed
 		ActionTimer timer = new ActionTimer(elapsedTimer);
-		timer.timeRemainingLimit = 22;
+		timer.timeRemainingLimit = TIME_FOR_EVOLUTION;
 		while (timer.isTimeLeft()) {
 			uct.expand();
 			timer.addIteration();

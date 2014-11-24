@@ -11,7 +11,7 @@ import emergence_RL.strategies.UCT.actor.MostVisitedAdvanced;
 import emergence_RL.strategies.UCT.backpropagation.ABackPropagation;
 import emergence_RL.strategies.UCT.backpropagation.Backpropagation;
 import emergence_RL.strategies.UCT.defaultPolicy.ADefaultPolicy;
-import emergence_RL.strategies.UCT.defaultPolicy.RandomDeltaPolicy;
+import emergence_RL.strategies.UCT.defaultPolicy.FourRoomPolicy;
 import emergence_RL.strategies.UCT.treePolicy.ATreePolicy;
 import emergence_RL.strategies.UCT.treePolicy.HeuristicTreePolicy;
 import emergence_RL.tree.Node;
@@ -35,7 +35,7 @@ public class UCTSearch extends AStrategy {
 	public ATreePolicy treePolicy = new HeuristicTreePolicy();
 
 	// default policy for the roll out
-	public ADefaultPolicy defaultPolicy = new RandomDeltaPolicy();
+	public ADefaultPolicy defaultPolicy = new FourRoomPolicy();
 
 	// sending the feedback back with backpropagation
 	public ABackPropagation backPropagation = new Backpropagation();
