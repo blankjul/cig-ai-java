@@ -1,11 +1,9 @@
 package emergence_RL.strategies.UCT.treePolicy;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import ontology.Types;
 import emergence_RL.Agent;
-import emergence_RL.helper.Helper;
 import emergence_RL.strategies.UCT.UCTSearch;
 import emergence_RL.tree.Node;
 
@@ -15,6 +13,7 @@ public class HeuristicTreePolicy extends ATreePolicy {
 	public Node expand(UCTSearch search, Node n) {
 		while (!n.stateObs.isGameOver() && n.level <= search.maxDepth) {
 			if (!n.isFullyExpanded()) {
+				
 				Node child = n.getRandomChild(UCTSearch.r, true);
 				if (child.level == 1 && search.pessimisticIterations > 0)
 					pessimisticExploring(child, search.pessimisticIterations);

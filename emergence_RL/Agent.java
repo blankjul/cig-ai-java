@@ -18,7 +18,7 @@ import emergence_RL.tree.Tree;
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = false;
+	public static boolean VERBOSE = true;
 
 	// a pool of possible uct settings
 	private ArrayList<Pair<UCTSearch, Double>> pool;
@@ -40,6 +40,9 @@ public class Agent extends AThreadablePlayer {
 	public int TIME_FOR_EVOLUTION = 22;
 
 	private int counter = 0;
+
+	public Agent() {
+	};
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
@@ -88,11 +91,11 @@ public class Agent extends AThreadablePlayer {
 		lastAction = uct.act();
 
 		// normally just simulate
-		if (stateObs.getGameTick() != 0 && stateObs.getGameTick() % EVO_GAME_TICK == 0) {
+		if (stateObs.getGameTick() != 0
+				&& stateObs.getGameTick() % EVO_GAME_TICK == 0) {
 
 			uct = rankPool();
 			printPool(stateObs.getGameTick());
-
 
 			// create a new generation
 			// System.out.println(uct);
@@ -107,14 +110,14 @@ public class Agent extends AThreadablePlayer {
 			}
 
 		}
-/*
-		if (false) {
+
+		if (VERBOSE) {
 			System.out.println("----------------------");
 			System.out.println(uct);
 			System.out.println(uct.status());
+			System.out.println("SELECT: " + lastAction);
 			System.out.println("----------------------");
 		}
-		*/
 
 		// act as the uct search says
 		return lastAction;
@@ -133,7 +136,7 @@ public class Agent extends AThreadablePlayer {
 		}
 		System.out.println("------------------");
 	}
-	
+
 	/**
 	 * Simulate until there is no time left.
 	 */
@@ -154,8 +157,8 @@ public class Agent extends AThreadablePlayer {
 			UCTSearch search = p.getFirst();
 			search.act();
 			Node n = search.bestNode;
-			double score = (n != null || n.visited != 0) ? n.Q / n.visited : 0;
-			//System.out.println(score);
+			double score = (n != null) ? n.Q / n.visited : 0;
+			// System.out.println(score);
 			p.setSecond(score);
 		}
 
@@ -171,15 +174,32 @@ public class Agent extends AThreadablePlayer {
 
 	@Override
 	public String setToString() {
-		String s = String.format("evo_tick:%s pool_size:%s pool_fittest:%s evo_time:%s", EVO_GAME_TICK, POOL_SIZE, POOL_FITTEST, TIME_FOR_EVOLUTION );
+		String s = String.format(
+				"evo_tick:%s pool_size:%s pool_fittest:%s evo_time:%s",
+				EVO_GAME_TICK, POOL_SIZE, POOL_FITTEST, TIME_FOR_EVOLUTION);
 		return s;
 	}
 
 	@Override
 	public void initFromString(String parameter) {
-		
-		
-		// this.settings = UCTSettings.create(parameter);
+		// set the correct actor
+		if (parameter == null || parameter == "")
+			return;
+		String[] array = parameter.split(" ");
+		for (String s : array) {
+			String key = s.split(":")[0];
+			String value = s.split(":")[1];
+			if (key.equals("evo_tick")) {
+				this.EVO_GAME_TICK = Integer.valueOf(value);
+			} else if (key.equals("pool_size")) {
+				this.POOL_SIZE = Integer.valueOf(value);
+			} else if (key.equals("pool_fittest")) {
+				this.POOL_FITTEST = Integer.valueOf(value);
+			} else if (key.equals("evo_time")) {
+				this.TIME_FOR_EVOLUTION = Integer.valueOf(value);
+			}
+		}
+
 	}
 
 	public void trackFields(StateObservation stateObs, Types.ACTIONS action) {

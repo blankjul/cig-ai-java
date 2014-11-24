@@ -202,6 +202,14 @@ public class Node {
 		}
 		return true;
 	}
+	
+	public boolean isNotExpanded() {
+		for (int i = 0; i < children.length; i++) {
+			if (children[i] != null)
+				return false;
+		}
+		return true;
+	}
 
 	public String hash() {
 		return hash(stateObs, lastAction);

@@ -77,7 +77,7 @@ public class Evolution {
 
 		ArrayList<Pair<UCTSearch, Double>> nextPool = new ArrayList<Pair<UCTSearch, Double>>();
 
-		for (int i = 0; i < numFittest; i++) {
+		for (int i = 0; i < numFittest && i < pool.size(); i++) {
 			UCTSearch s = pool.get(i).getFirst();
 			s.tree = new Tree(new Node(stateObs));
 			nextPool.add(new Pair<UCTSearch, Double>(s, 0d));

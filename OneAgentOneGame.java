@@ -13,7 +13,7 @@ public class OneAgentOneGame {
 		String parameter = "";
 		
 		String gameStr = "camelRace";
-		int levelIdx = 3;
+		int levelIdx = 0;
 
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
