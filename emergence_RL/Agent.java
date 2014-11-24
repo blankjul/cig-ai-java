@@ -154,7 +154,7 @@ public class Agent extends AThreadablePlayer {
 			UCTSearch search = p.getFirst();
 			search.act();
 			Node n = search.bestNode;
-			double score = (n != null || n.visited != 0) ? n.Q / n.visited : 0;
+			double score = (n != null && n.visited != 0) ? n.Q / n.visited : 0;
 			//System.out.println(score);
 			p.setSecond(score);
 		}

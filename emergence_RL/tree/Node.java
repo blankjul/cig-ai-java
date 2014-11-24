@@ -68,6 +68,7 @@ public class Node {
 		this.children = new Node[Agent.map.NUM_ACTIONS];
 		this.Q = 0;
 		this.level = 0;
+		this.visited = 0;
 	}
 
 	/**
@@ -81,6 +82,7 @@ public class Node {
 		this.father = father;
 		this.level = father.level + 1;
 		this.lastAction = lastAction;
+		this.visited = 0;
 	}
 
 	/**
