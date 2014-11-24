@@ -12,8 +12,8 @@ public class OneAgentOneGame {
 		//String parameter = UCTFactory.createHeuristic().toString();
 		String parameter = "";
 		
-		String gameStr = "zelda";
-		int levelIdx = 0;
+		String gameStr = "camelRace";
+		int levelIdx = 3;
 
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",

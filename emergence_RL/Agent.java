@@ -62,7 +62,7 @@ public class Agent extends AThreadablePlayer {
 			timer.addIteration();
 		}
 		uct = rankPool();
-		//printPool(stateObs.getGameTick());
+		printPool(stateObs.getGameTick());
 
 		if (VERBOSE) {
 			LevelInfo.print(stateObs);
@@ -171,12 +171,14 @@ public class Agent extends AThreadablePlayer {
 
 	@Override
 	public String setToString() {
-		return "";
-		// return settings.toString();
+		String s = String.format("evo_tick:%s pool_size:%s pool_fittest:%s evo_time:%s", EVO_GAME_TICK, POOL_SIZE, POOL_FITTEST, TIME_FOR_EVOLUTION );
+		return s;
 	}
 
 	@Override
 	public void initFromString(String parameter) {
+		
+		
 		// this.settings = UCTSettings.create(parameter);
 	}
 

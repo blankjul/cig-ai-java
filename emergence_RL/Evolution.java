@@ -18,6 +18,12 @@ public class Evolution {
 	public static ArrayList<UCTSearch> initPool(Random r, int count,
 			StateObservation stateObs) {
 		ArrayList<UCTSearch> pool = new ArrayList<UCTSearch>();
+		UCTSearch portal = new UCTSearch();
+		portal.weights = new double[] {5,0,0,10};
+		portal.maxDepth = UCTFactory.randomMaxDepth(r);
+		portal.heuristic = new TargetHeuristic(new int[] {0,0,0,1,0,0,0,0,0,0,0,0});
+		pool.add(portal);
+		
 		for (int i = 0; i < count; i++) {
 			UCTSearch search = new UCTSearch();
 			search.weights = UCTFactory.randomWeights(r);
