@@ -33,5 +33,10 @@ public class Pair<F, S extends Comparable<S>> implements Comparable<Pair<F, S>>{
 	public int compareTo(Pair<F, S> obj) {
 		return obj.getSecond().compareTo(this.getSecond());
 	}
+	
+	@Override
+	public String toString() {
+		return "(" + first.toString() + "," + second.toString() + ")";
+	}
 
 }

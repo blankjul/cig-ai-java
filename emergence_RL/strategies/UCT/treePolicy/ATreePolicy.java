@@ -31,7 +31,7 @@ public abstract class ATreePolicy {
 	/**
 	 * Pessimistic iteration of the next possible move from the root.
 	 */
-	private void pessimisticExploring(Node n, int iteration) {
+	protected void pessimisticExploring(Node n, int iteration) {
 		StateObservation fatherObs = n.father.stateObs;
 		for (int i = 0; i < iteration; i++) {
 			StateObservation stateObs = fatherObs.copy();

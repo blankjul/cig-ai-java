@@ -1,9 +1,6 @@
 package emergence_RL.strategies.UCT;
 
-import java.util.ArrayList;
 import java.util.Random;
-
-import emergence_RL.helper.Helper;
 
 
 /**
@@ -22,7 +19,6 @@ public class UCTFactory {
 	}
 
 
-
 	public static double[] randomWeights(Random r) {
 		double[] weights = new double[4];
 		for (int i = 0; i < weights.length; i++) {
@@ -36,22 +32,6 @@ public class UCTFactory {
 	}
 	
 	
-	public static int[] randomTargetHeuristic(Random r) {
-		ArrayList<int[]> list = new ArrayList<int[]>();
-		list.add(new int[] {0,0,0,0,0,0,0,0,0,0,0,0});
-		list.add(new int[] {1,0,0,0,0,0,0,0,0,0,0,0});
-		list.add(new int[] {0,1,0,0,0,0,0,0,0,0,0,0});
-		list.add(new int[] {0,0,1,0,0,0,0,0,0,0,0,0});
-		list.add(new int[] {0,0,0,1,0,0,0,0,0,0,0,0});
-		list.add(new int[] {0,0,0,0,1,0,0,0,0,0,0,0});
-		list.add(new int[] {0,0,0,0,0,1,0,0,0,0,0,0});
-		list.add(new int[] {0,0,0,0,0,0,1,0,0,0,0,0});
-		list.add(new int[] {0,0,0,0,0,0,0,1,0,0,0,0});
-		list.add(new int[] {0,0,0,0,0,0,0,0,1,0,0,0});
-		list.add(new int[] {0,0,0,0,0,0,0,0,0,1,0,0});
-		list.add(new int[] {0,0,0,0,0,0,0,0,0,0,1,0});
-		list.add(new int[] {0,0,0,0,0,0,0,0,0,0,0,1});
-		return Helper.getRandomEntry(list, r);	
-	}
+
 
 }

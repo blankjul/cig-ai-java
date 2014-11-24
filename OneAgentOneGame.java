@@ -12,7 +12,7 @@ public class OneAgentOneGame {
 		//String parameter = UCTFactory.createHeuristic().toString();
 		String parameter = "";
 		
-		String gameStr = "frogs";
+		String gameStr = "zelda";
 		int levelIdx = 0;
 
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",

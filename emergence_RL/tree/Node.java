@@ -9,7 +9,7 @@ import ontology.Types;
 import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.StateObservation;
-import emergence_RL.helper.ActionMap;
+import emergence_RL.Agent;
 
 /**
  * This class represents a TreeNode. Important is that there is the possibility
@@ -45,15 +45,10 @@ public class Node {
 	// array of children if there were expanded
 	public Node[] children;
 
-	// map for actions to integer and a round
-	protected ActionMap map;
-	
+
 	public double score;
 	
-
-	// value for USB1 Tuned Policy
-	public double quadReward;
-
+	
 	public double exploitation;
 	public double exploration;
 	public double heuristicValue;
@@ -70,8 +65,7 @@ public class Node {
 	public Node(StateObservation stateObs) {
 		this.father = null;
 		this.stateObs = stateObs;
-		this.map = new ActionMap(stateObs.getAvailableActions());
-		this.children = new Node[map.NUM_ACTIONS];
+		this.children = new Node[Agent.map.NUM_ACTIONS];
 		this.Q = 0;
 		this.level = 0;
 	}
@@ -111,16 +105,15 @@ public class Node {
 			ArrayList<Types.ACTIONS> posActions = new ArrayList<Types.ACTIONS>();
 			for (int i = 0; i < children.length; i++) {
 				if (children[i] == null)
-					posActions.add(map.getAction(i));
+					posActions.add(Agent.map.getAction(i));
 			}
 			int index = r.nextInt(posActions.size());
 			a = posActions.get(index);
 		}
-
 		Node child = getChild(a, true);
-
 		return child;
 	}
+	
 
 	public Types.ACTIONS getRandomAction(Random r) {
 		int size = stateObs.getAvailableActions().size();
@@ -145,7 +138,7 @@ public class Node {
 		Node child = new Node(tmpStateObs, this, a);
 
 		// set the child that it is not expanded again!
-		int index = map.getInt(a);
+		int index = Agent.map.getInt(a);
 		children[index] = child;
 
 		return child;
@@ -159,13 +152,15 @@ public class Node {
 	 * @return
 	 */
 	public Node getChild(Types.ACTIONS a, boolean useCache) {
-		int index = map.getInt(a);
+		int index = Agent.map.getInt(a);
 		if (children[index] != null)
 			return children[index];
 		else
 			return getChild(a);
 
 	}
+	
+	
 
 	/**
 	 * Create a list of all possible children that could be created from this
@@ -209,11 +204,17 @@ public class Node {
 	}
 
 	public String hash() {
+		return hash(stateObs, lastAction);
+	}
+	
+	
+	public static String hash(StateObservation stateObs, Types.ACTIONS action) {
 		Vector2d pos = stateObs.getAvatarPosition();
-		String used = (lastAction == null || lastAction != Types.ACTIONS.ACTION_USE) ? "n"
+		String used = (action == null || action != Types.ACTIONS.ACTION_USE) ? "n"
 				: "y"; 
 		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
 	}
+
 
 	@Override
 	public String toString() {

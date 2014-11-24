@@ -114,6 +114,7 @@ public class TargetHeuristic extends AHeuristic {
 	 * @return
 	 */
 	public static Set<TargetHeuristic> createAll(StateObservation stateObs) {
+		heuristics.clear();
 		ArrayList<Double> distances = getDistances(stateObs);
 		// calculate a weight vector for using a strategy or not
 		for (int i = 0; i < distances.size(); i++) {
