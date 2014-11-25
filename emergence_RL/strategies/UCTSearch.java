@@ -109,6 +109,7 @@ public class UCTSearch extends AEvolutionaryStrategy {
 	@Override
 	public AEvolutionaryStrategy random() {
 		UCTSearch strategy = new UCTSearch();
+		strategy.tree = tree;
 		for (int i = 0; i < strategy.weights.length; i++) {
 			strategy.weights[i] = UCTSearch.r.nextDouble() * 3;
 		}

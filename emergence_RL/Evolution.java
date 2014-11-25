@@ -17,8 +17,9 @@ public class Evolution {
 			StateObservation stateObs) {
 		ArrayList<AEvolutionaryStrategy> pool = new ArrayList<AEvolutionaryStrategy>();
 		for (int i = 0; i < count - 1; i++) {
-			AEvolutionaryStrategy search = new UCTSearch();
-			pool.add(search.random());
+			AEvolutionaryStrategy search = new UCTSearch().random();
+			search.tree = new Tree(new Node(stateObs));
+			pool.add(search);
 		}
 		return pool;
 	}

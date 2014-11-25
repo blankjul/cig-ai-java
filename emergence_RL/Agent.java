@@ -53,14 +53,14 @@ public class Agent extends AThreadablePlayer {
 		// simulate until there is no time left!
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		timer.timeRemainingLimit = 50;
-		double schedule = timer.getRemaining() - 20;
+		double schedule = timer.getRemaining() - 40;
 		while (timer.isTimeLeft()) {
 			AEvolutionaryStrategy evo = pool.get(counter % pool.size());
 			evo.expand();
 			timer.addIteration();
 			if (timer.getRemaining() < schedule) {
 				++counter;
-				schedule = timer.getRemaining() - 20;
+				schedule = timer.getRemaining() - 40;
 			}
 		}
 		
@@ -85,7 +85,6 @@ public class Agent extends AThreadablePlayer {
 
 		// track the current field and create a tree with a root
 		FieldTracker.track(stateObs);
-		TargetHeuristic.createAll(stateObs);
 		strategy.tree = new Tree(new Node(stateObs));;
 		
 		// Astar needs a reset
