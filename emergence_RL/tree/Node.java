@@ -45,13 +45,8 @@ public class Node {
 	// array of children if there were expanded
 	public Node[] children;
 	
-	// map for the actions
-	public ActionMap map;
-	
 
 	public double score;
-	
-	
 	public double exploitation;
 	public double exploration;
 	public double heuristicValue;
@@ -71,7 +66,7 @@ public class Node {
 		this.children = new Node[stateObs.getAvailableActions().size()];
 		this.Q = 0;
 		this.level = 0;
-		this.map = new ActionMap(stateObs.getAvailableActions());
+		this.rootAction = Types.ACTIONS.ACTION_NIL;
 	}
 
 	/**
@@ -85,6 +80,7 @@ public class Node {
 		this.father = father;
 		this.level = father.level + 1;
 		this.lastAction = lastAction;
+		this.rootAction = (father.father == null) ? lastAction : father.rootAction;
 	}
 
 	/**
@@ -109,7 +105,7 @@ public class Node {
 			ArrayList<Types.ACTIONS> posActions = new ArrayList<Types.ACTIONS>();
 			for (int i = 0; i < children.length; i++) {
 				if (children[i] == null)
-					posActions.add(map.getAction(i));
+					posActions.add(ActionMap.getAction(stateObs, i));
 			}
 			int index = r.nextInt(posActions.size());
 			a = posActions.get(index);
@@ -135,14 +131,14 @@ public class Node {
 	public Node getChild(Types.ACTIONS a) {
 
 		// copy the state
-		StateObservation tmpStateObs = this.stateObs.copy();
+		StateObservation tmpStateObs = stateObs.copy();
 		tmpStateObs.advance(a);
 
 		// create the node and set the correct values
 		Node child = new Node(tmpStateObs, this, a);
 
 		// set the child that it is not expanded again!
-		int index = map.getInt(a);
+		int index = ActionMap.getInt(stateObs, a);
 		children[index] = child;
 
 		return child;
@@ -156,12 +152,11 @@ public class Node {
 	 * @return
 	 */
 	public Node getChild(Types.ACTIONS a, boolean useCache) {
-		int index = map.getInt(a);
+		int index = ActionMap.getInt(stateObs, a);
 		if (children[index] != null)
 			return children[index];
 		else
 			return getChild(a);
-
 	}
 	
 	

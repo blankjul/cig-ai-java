@@ -12,8 +12,8 @@ public class OneAgentOneGame {
 		//String parameter = UCTFactory.createHeuristic().toString();
 		String parameter = "";
 		
-		String gameStr = "zelda";
-		int levelIdx = 2;
+		String gameStr = "camelRace";
+		int levelIdx = 3;
 
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
@@ -28,7 +28,7 @@ public class OneAgentOneGame {
 		String game = gamesPath + gameStr + ".txt";
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
 		
-		boolean verbose = true;
+		boolean verbose = false;
 		Exec.execute(controller, game, level1, parameter, true, verbose);
 
 	}

@@ -20,42 +20,31 @@ public class UCTSearch extends AEvolutionaryStrategy {
 
 	// this epsilon value is sometimes needed
 	public static double epsilon = 1e-6;
-
 	// generator for random numbers
 	public static Random r = new Random();
-
 	// actor that is used after building the tree
 	public IActor actor = new MostVisitedAdvanced();
-
 	// tree policy for expand the nodes
 	public ATreePolicy treePolicy = new HeuristicTreePolicy();
-
 	// default policy for the roll out
 	public ADefaultPolicy defaultPolicy = new RandomDeltaPolicy();
-
 	// sending the feedback back with backpropagation
 	public ABackPropagation backPropagation = new Backpropagation();
-
 	// maximal depth of the tree -> 10 per default!
-	public int maxDepth = 14;
-
+	public int maxDepth = 10;
 	// the value for the exploration term
 	public double c = Math.sqrt(2);
-
 	// this is the discounting factor. it's one so disabled default
 	public double gamma = 1;
-
 	// this value defines the pessimistic iterations. if 0 it's disabled.
 	public int pessimisticIterations = 3;
-
 	// initialize the heuristic that could be used
 	public TargetHeuristic heuristic = null;
-
 	// the current best node that were used for acting!
 	public Node bestNode = null;
-
 	// weights that could be used for a formula!
 	public double[] weights = new double[] { 1, 1, 1, 1 };
+	
 
 	public UCTSearch() {
 		super();

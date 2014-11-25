@@ -15,8 +15,8 @@ public class PoolEvolution {
 
 	public String CONTROLLER = "emergence_RL.Agent";
 	public int NUM_LEVELS = 5;
-	public int POOL_SIZE = 12;
-	public int NUM_FITTEST = 4;
+	public int POOL_SIZE = 6;
+	public int NUM_FITTEST = 3;
 	public int NUM_GENERATION = 10;
 
 	public ArrayList<Pair<Agent, Integer>> pool = new ArrayList<Pair<Agent, Integer>>();

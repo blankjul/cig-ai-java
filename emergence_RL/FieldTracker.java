@@ -30,6 +30,12 @@ public class FieldTracker {
 		}
 	}
 	
+	public static void reset() {
+		maxVisitedField = 0;
+		fieldVisits.clear();
+		lastAction = Types.ACTIONS.ACTION_NIL;
+	}
+	
 	
 
 }

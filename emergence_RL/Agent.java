@@ -6,7 +6,6 @@ import java.util.Collections;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
-import emergence_RL.helper.ActionMap;
 import emergence_RL.helper.ActionTimer;
 import emergence_RL.helper.LevelInfo;
 import emergence_RL.heuristic.TargetHeuristic;
@@ -18,33 +17,31 @@ import emergence_RL.tree.Tree;
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = true;
+	public static boolean VERBOSE = false;
 
 	// a pool of possible uct settings
 	private ArrayList<AEvolutionaryStrategy> pool;
 
-	// map from action to int and arround.
-	public static ActionMap map;
-
 	// the current uct search that is used for acting
 	private AEvolutionaryStrategy strategy = null;
 
-	public int EVO_GAME_TICK = 200;
-	public int POOL_SIZE = 20;
-	public int POOL_FITTEST = 6;
-	public int TIME_FOR_EVOLUTION = 12;
 	
-
+	public int EVO_GAME_TICK = 200;
+	public int POOL_SIZE = 12;
+	public int POOL_FITTEST = 4;
+	public int TIME_FOR_EVOLUTION = 22;
+	
 	private int counter = 0;
 
-	public Agent() {
-	};
+	public Agent() {};
 
+	
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
 		// initialize the static objects
+		FieldTracker.reset();
 		TargetHeuristic.createAll(stateObs);
-		map = new ActionMap(stateObs.getAvailableActions());
+		
 
 		// initialize the pool
 		pool = new ArrayList<AEvolutionaryStrategy>();
@@ -70,6 +67,9 @@ public class Agent extends AThreadablePlayer {
 
 		Collections.sort(pool);
 		strategy = pool.get(0);
+		if (strategy.getScore() <= 0) {
+			strategy = new AStarStrategy(new Tree(new Node(stateObs)), new TargetHeuristic(new int[] {0,0,0,1,0,0,0,0,0,0,0,0}));
+		}
 
 		printPool(stateObs.getGameTick());
 
@@ -86,12 +86,11 @@ public class Agent extends AThreadablePlayer {
 		// track the current field and create a tree with a root
 		FieldTracker.track(stateObs);
 		TargetHeuristic.createAll(stateObs);
-		map = new ActionMap(stateObs.getAvailableActions());
-		strategy.tree = new Tree(new Node(stateObs));
+		strategy.tree = new Tree(new Node(stateObs));;
 		
 		// Astar needs a reset
 		if (strategy instanceof AStarStrategy) {
-			strategy = new AStarStrategy(strategy.tree, ((AStarStrategy) strategy).heuristic);
+			((AStarStrategy)strategy).init(new Tree(new Node(stateObs))); 
 		}
 
 		// get the next best action that will be executed
@@ -104,6 +103,8 @@ public class Agent extends AThreadablePlayer {
 		Types.ACTIONS a = strategy.act();
 		FieldTracker.lastAction = a;
 
+		
+		timer = new ActionTimer(elapsedTimer);
 		// normally just simulate
 		if (stateObs.getGameTick() != 0
 				&& stateObs.getGameTick() % EVO_GAME_TICK == 0) {
@@ -116,25 +117,25 @@ public class Agent extends AThreadablePlayer {
 			if (strategy.getScore() <= 0) {
 				strategy = new AStarStrategy(new Tree(new Node(stateObs)), TargetHeuristic.createRandom());
 			}
-			
 			printPool(stateObs.getGameTick());
-			
-
 			// create a new generation
-			pool = Evolution.createNextGeneration(stateObs, pool, POOL_FITTEST,
+			ArrayList<AEvolutionaryStrategy> nextPool = Evolution.createNextGeneration(stateObs, pool, POOL_FITTEST,
 					POOL_SIZE, 0.7);
-			
+			pool.clear();
+			pool = nextPool;
 			counter = 0;
 
 		} else {
+			
 			// simulate the pool for the next best strategy
 			timer = new ActionTimer(elapsedTimer);
+			timer.timeRemainingLimit = 5;
 			while (timer.isTimeLeft()) {
 				AEvolutionaryStrategy evo = pool.get(counter % pool.size());
 				evo.expand();
 				timer.addIteration();
+				++counter;
 			}
-			++counter;
 
 		}
 

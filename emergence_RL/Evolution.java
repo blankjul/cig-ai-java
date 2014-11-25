@@ -6,36 +6,26 @@ import java.util.Random;
 
 import core.game.StateObservation;
 import emergence_RL.helper.Helper;
-import emergence_RL.heuristic.TargetHeuristic;
 import emergence_RL.strategies.AEvolutionaryStrategy;
-import emergence_RL.strategies.AStarStrategy;
 import emergence_RL.strategies.UCTSearch;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 
 public class Evolution {
 
-	
-	
-	public static ArrayList<AEvolutionaryStrategy> initPool(int count, StateObservation stateObs) {
+	public static ArrayList<AEvolutionaryStrategy> initPool(int count,
+			StateObservation stateObs) {
 		ArrayList<AEvolutionaryStrategy> pool = new ArrayList<AEvolutionaryStrategy>();
-		int numOfAstarStrategy = 1;
-		for (int i = 0; i < count - numOfAstarStrategy; i++) {
+		for (int i = 0; i < count - 1; i++) {
 			AEvolutionaryStrategy search = new UCTSearch();
 			pool.add(search.random());
-		}
-		for (int i = 0; i < numOfAstarStrategy; i++) {
-			AStarStrategy astar = new AStarStrategy();
-			astar = (AStarStrategy) astar.random();
-			astar.init(new Tree(new Node(stateObs)), new TargetHeuristic(new int[] {0,0,0,1,0,0,0,0,0,0,0,0}));
-			pool.add(astar);
 		}
 		return pool;
 	}
 
-
-
-	public static ArrayList<AEvolutionaryStrategy> createNextGeneration(StateObservation stateObs, ArrayList<AEvolutionaryStrategy> pool,
+	
+	public static ArrayList<AEvolutionaryStrategy> createNextGeneration(
+			StateObservation stateObs, ArrayList<AEvolutionaryStrategy> pool,
 			int numFittest, int poolSize, double mutateProbability) {
 
 		// survival of the fittest
@@ -61,7 +51,7 @@ public class Evolution {
 			if (r.nextDouble() < mutateProbability) {
 				result = selected.mutate();
 
-		    // crossover
+				// crossover
 			} else {
 
 				// select a second one that is not the first!
