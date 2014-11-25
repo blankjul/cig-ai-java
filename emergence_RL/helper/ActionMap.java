@@ -33,6 +33,7 @@ public class ActionMap {
 			int_act_map[i] = act.get(i);
 		}
 	}
+	
 
 	/**
 	 * Converts the action to an integer by using the internal hash map!

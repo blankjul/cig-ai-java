@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import ontology.Types.WINNER;
 import emergence_RL.helper.Helper;
-import emergence_RL.strategies.UCT.UCTSearch;
+import emergence_RL.strategies.UCTSearch;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 

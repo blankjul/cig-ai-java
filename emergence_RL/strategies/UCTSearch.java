@@ -1,11 +1,10 @@
-package emergence_RL.strategies.UCT;
+package emergence_RL.strategies;
 
 import java.util.Arrays;
 import java.util.Random;
 
 import ontology.Types;
 import emergence_RL.heuristic.TargetHeuristic;
-import emergence_RL.strategies.AStrategy;
 import emergence_RL.strategies.UCT.actor.IActor;
 import emergence_RL.strategies.UCT.actor.MostVisitedAdvanced;
 import emergence_RL.strategies.UCT.backpropagation.ABackPropagation;
@@ -13,11 +12,11 @@ import emergence_RL.strategies.UCT.backpropagation.Backpropagation;
 import emergence_RL.strategies.UCT.defaultPolicy.ADefaultPolicy;
 import emergence_RL.strategies.UCT.defaultPolicy.RandomDeltaPolicy;
 import emergence_RL.strategies.UCT.treePolicy.ATreePolicy;
-import emergence_RL.strategies.UCT.treePolicy.UrgentHeuristicTreePolicy;
+import emergence_RL.strategies.UCT.treePolicy.HeuristicTreePolicy;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 
-public class UCTSearch extends AStrategy {
+public class UCTSearch extends AEvolutionaryStrategy {
 
 	// this epsilon value is sometimes needed
 	public static double epsilon = 1e-6;
@@ -25,14 +24,11 @@ public class UCTSearch extends AStrategy {
 	// generator for random numbers
 	public static Random r = new Random();
 
-	// Tree for all the iterations
-	public Tree tree;
-
 	// actor that is used after building the tree
 	public IActor actor = new MostVisitedAdvanced();
 
 	// tree policy for expand the nodes
-	public ATreePolicy treePolicy = new UrgentHeuristicTreePolicy();
+	public ATreePolicy treePolicy = new HeuristicTreePolicy();
 
 	// default policy for the roll out
 	public ADefaultPolicy defaultPolicy = new RandomDeltaPolicy();
@@ -41,7 +37,7 @@ public class UCTSearch extends AStrategy {
 	public ABackPropagation backPropagation = new Backpropagation();
 
 	// maximal depth of the tree -> 10 per default!
-	public int maxDepth = 10;
+	public int maxDepth = 14;
 
 	// the value for the exploration term
 	public double c = Math.sqrt(2);
@@ -54,15 +50,12 @@ public class UCTSearch extends AStrategy {
 
 	// initialize the heuristic that could be used
 	public TargetHeuristic heuristic = null;
-	
+
 	// the current best node that were used for acting!
 	public Node bestNode = null;
 
 	// weights that could be used for a formula!
 	public double[] weights = new double[] { 1, 1, 1, 1 };
-	
-	// urgent tree policy. value for expansion
-	public double urgentUCTValue = 1.5;
 
 	public UCTSearch() {
 		super();
@@ -70,7 +63,6 @@ public class UCTSearch extends AStrategy {
 
 	public UCTSearch(Tree tree) {
 		super(tree);
-		this.tree = tree;
 	}
 
 	public boolean expand() {
@@ -80,49 +72,21 @@ public class UCTSearch extends AStrategy {
 		return true;
 	}
 
-
+	
 	@Override
 	public Types.ACTIONS act() {
 		bestNode = actor.act(this, tree);
-		if (bestNode == null) return Types.ACTIONS.ACTION_NIL;
+		if (bestNode == null)
+			return Types.ACTIONS.ACTION_NIL;
 		return bestNode.lastAction;
 	}
 
 
-	public static UCTSearch createRandom(String parameter) {
-		UCTSearch search = new UCTSearch();
-		// set the correct actor
-		String[] array = parameter.split(" ");
-		for (String s : array) {
-			String key = s.split(":")[0];
-			String value = s.split(":")[1];
-			if (key.equals("weight[0]")) {
-				search.weights[0] = Double.valueOf(value);
-			} else if (key.equals("weight[1]")) {
-				search.weights[1] = Double.valueOf(value);
-			} else if (key.equals("weight[2]")) {
-				search.weights[2] = Double.valueOf(value);
-			} else if (key.equals("weight[3]")) {
-				search.weights[3] = Double.valueOf(value);
-			} else if (key.equals("weight[4]")) {
-				search.weights[4] = Double.valueOf(value);
-			}
-		}
-		return search;
-	}
-
-	/**
-	 * Public clone method for evolution
+	
+	/*
+	 * Print methods
 	 */
-	public UCTSearch copy() {
-		UCTSearch s = new UCTSearch();
-		s.heuristic =this.heuristic;
-		for (int i = 0; i < weights.length; i++) {
-			s.weights[i] = this.weights[i];
-		}
-		return s;
-	}
-
+	
 	public String status() {
 		treePolicy.bestChild(this, tree.root, 0);
 		StringBuffer sb = new StringBuffer();
@@ -136,8 +100,6 @@ public class UCTSearch extends AStrategy {
 		return sb.substring(0, sb.length() - 1);
 	}
 
-	
-	
 	/**
 	 * Print the whole settings to a string!
 	 */
@@ -151,4 +113,74 @@ public class UCTSearch extends AStrategy {
 		return s;
 	}
 
+	/*
+	 * All methods that are needed for the evolution!
+	 */
+
+	@Override
+	public AEvolutionaryStrategy random() {
+		UCTSearch strategy = new UCTSearch();
+		for (int i = 0; i < strategy.weights.length; i++) {
+			strategy.weights[i] = UCTSearch.r.nextDouble() * 3;
+		}
+		strategy.maxDepth = UCTSearch.r.nextInt((20 - 5) + 1) + 5;
+		strategy.heuristic = TargetHeuristic.createRandom();
+		return strategy;
+	}
+
+	
+	@Override
+	public AEvolutionaryStrategy mutate() {
+		UCTSearch random = (UCTSearch) random();
+		return crossover(random);
+	}
+
+	
+	@Override
+	public AEvolutionaryStrategy crossover(AEvolutionaryStrategy strategy) {
+		UCTSearch search;
+
+		if (strategy instanceof UCTSearch)
+			search = (UCTSearch) strategy;
+		else
+			return this.copy();
+
+		UCTSearch mutation = new UCTSearch();
+
+		for (int i = 0; i < search.weights.length; i++) {
+			mutation.weights[i] = (r.nextDouble() < 0.2) ? this.weights[i]
+					: search.weights[i];
+		}
+		
+		mutation.maxDepth = (r.nextDouble() < 0.2) ? this.maxDepth
+				: search.maxDepth;
+		mutation.heuristic = (r.nextDouble() < 0.2) ? this.heuristic
+				: search.heuristic;
+		
+		return mutation;
+	}
+	
+	
+	/**
+	 * Public clone method for evolution
+	 */
+	public UCTSearch copy() {
+		UCTSearch s = new UCTSearch();
+		s.heuristic = this.heuristic;
+		for (int i = 0; i < weights.length; i++) {
+			s.weights[i] = this.weights[i];
+		}
+		s.maxDepth = this.maxDepth;
+		return s;
+	}
+
+	
+	@Override
+	public double getScore() {
+		act();
+		double score = (bestNode != null && bestNode.visited > 0) ? bestNode.Q / bestNode.visited : 0;
+		return score;
+	}
+
+	
 }

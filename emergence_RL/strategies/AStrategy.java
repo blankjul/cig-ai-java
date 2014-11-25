@@ -1,7 +1,6 @@
 package emergence_RL.strategies;
 
 import ontology.Types;
-import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 
 /**
@@ -14,12 +13,6 @@ abstract public class AStrategy {
 	// game tree that should be expanded by this class
 	public Tree tree;
 
-	
-	// best current node in the tree. this is important for extracting the path.
-	public Node bestNode = null;
-
-	// best score that has reached with this heuristic
-	public double bestScore = Double.NEGATIVE_INFINITY;
 	
 	public AStrategy() {
 	}
@@ -35,29 +28,16 @@ abstract public class AStrategy {
 		this.tree = tree;
 	}
 	
-	/**
-	 * Checks if the node evaluated with heuristic h is better
-	 * than the best saved node.
-	 * @param n
-	 * @param heuristic
-	 */
-	public void checkBest(Node n) {
-		if (n.score > bestScore) {
-			bestScore = n.score;
-			bestNode = n;
-		}
-	}
+
 	
 	/**
 	 * Expand the tree given to that heuristic.
 	 */
 	abstract public boolean expand();
 	
+	abstract public Types.ACTIONS act();
 	
-	public Types.ACTIONS act() {
-		if (bestNode == null) return Types.ACTIONS.ACTION_NIL;
-		else return bestNode.rootAction;
-	}
+
 	
 	
 

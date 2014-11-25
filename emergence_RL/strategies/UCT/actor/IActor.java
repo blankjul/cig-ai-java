@@ -1,6 +1,6 @@
 package emergence_RL.strategies.UCT.actor;
 
-import emergence_RL.strategies.UCT.UCTSearch;
+import emergence_RL.strategies.UCTSearch;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 

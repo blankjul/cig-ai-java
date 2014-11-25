@@ -1,4 +1,4 @@
-package emergence_RL.strategies.AStar;
+package emergence_RL.strategies;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,7 +13,7 @@ import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
 import emergence_RL.heuristic.AHeuristic;
-import emergence_RL.strategies.AStrategy;
+import emergence_RL.heuristic.TargetHeuristic;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.NodeComparator;
 import emergence_RL.tree.Tree;
@@ -27,7 +27,7 @@ import emergence_RL.tree.Tree;
  * @author spakken
  *
  */
-public class AStarStrategy extends AStrategy {
+public class AStarStrategy extends AEvolutionaryStrategy {
 
 	// (a < b) = 1 if a.score > b.score
 	Comparator<Node> comparator = new NodeComparator();
@@ -43,7 +43,12 @@ public class AStarStrategy extends AStrategy {
 
 	// the forbidden Actions
 	ArrayList<Types.ACTIONS> forbidden_actions = new ArrayList<Types.ACTIONS>();
-	
+
+	// best current node in the tree. this is important for extracting the path.
+	public Node bestNode = null;
+
+	// best score that has reached with this heuristic
+	public double bestScore = Double.NEGATIVE_INFINITY;
 
 	// heuristic that is used for expanding the tree
 	public AHeuristic heuristic;
@@ -51,10 +56,26 @@ public class AStarStrategy extends AStrategy {
 	// check if there are immovable positions in this game
 	boolean immovalbeExist = false;
 
+	public AStarStrategy() {
+	};
+
 	public AStarStrategy(Tree tree, AHeuristic heuristic) {
 		super(tree);
+		init(tree, heuristic);
+
+	}
+
+	public void init(Tree tree, AHeuristic heuristic) {
 		this.heuristic = heuristic;
 		tree.root.score = heuristic.evaluateState(tree.root.stateObs);
+		
+		openSet.clear();
+		closedSet.clear();
+		openList.clear();
+		forbidden_actions.clear();
+		bestNode = null;
+		bestScore = Double.NEGATIVE_INFINITY;
+		immovalbeExist = false;
 		
 		checkImmovable(tree.root.stateObs);
 
@@ -63,10 +84,7 @@ public class AStarStrategy extends AStrategy {
 			openSet.put(child.hash(), child);
 			openList.add(child);
 		}
-		
 	}
-
-	
 
 	private void checkImmovable(StateObservation stateObs) {
 		// get the list of immovableObjects in the game
@@ -126,7 +144,6 @@ public class AStarStrategy extends AStrategy {
 		// generate the list with all available actions
 		ArrayList<Types.ACTIONS> actions = stateObs.getAvailableActions();
 
-		
 		// forbid the actions which are sensless
 		if (immovalbeExist) {
 			forbid_actions(stateObs);
@@ -135,7 +152,6 @@ public class AStarStrategy extends AStrategy {
 		if (!forbidden_actions.isEmpty()) {
 			actions.removeAll(forbidden_actions);
 		}
-		
 
 		// create result list and reserve memory for the temporary state object
 		LinkedList<Node> nodes = new LinkedList<Node>();
@@ -155,7 +171,14 @@ public class AStarStrategy extends AStrategy {
 			child.lastAction = action;
 			child.level = node.level + 1;
 			child.score = heuristic.evaluateState(child.stateObs);
-
+			double delta = child.stateObs.getGameScore() - node.stateObs.getGameScore();
+			
+			if (child.stateObs.getGameWinner() == WINNER.PLAYER_WINS) {
+				child.score = 100;
+			} else if (delta != 0) {
+				child.score = delta;
+			}
+				
 			nodes.add(child);
 		}
 		tmpStateObs = null;
@@ -227,9 +250,8 @@ public class AStarStrategy extends AStrategy {
 	@Override
 	public boolean expand() {
 
-		if (openSet.isEmpty())
-			return false;
-
+		if (openList.isEmpty()) return false;
+			
 		Node n = openList.poll();
 		openSet.remove(n.hash());
 
@@ -238,9 +260,65 @@ public class AStarStrategy extends AStrategy {
 		checkBest(n);
 		next(n);
 		
-		if (bestNode.stateObs.getGameWinner() ==WINNER.PLAYER_WINS);
-
+		//System.out.println(bestNode);
 		return true;
+	}
+
+	@Override
+	public AEvolutionaryStrategy random() {
+		AStarStrategy strategy = new AStarStrategy();
+		strategy.heuristic = TargetHeuristic.createRandom();
+		return strategy;
+	}
+
+	@Override
+	public AEvolutionaryStrategy mutate() {
+		return this.random();
+	}
+
+	@Override
+	public AEvolutionaryStrategy crossover(AEvolutionaryStrategy strategy) {
+		return this.random();
+	}
+
+	@Override
+	public double getScore() {
+		if (bestNode != null
+				&& bestNode.stateObs.getGameWinner() == WINNER.PLAYER_WINS)
+			return 1;
+		else
+			return -1;
+	}
+
+	@Override
+	public String toString() {
+		String s = "AStar ";
+		s += " | ";
+		s += (bestNode != null) ? bestNode.toString() : "null";
+		s += " | ";
+		s += heuristic.toString();
+		return s;
+	}
+
+	/**
+	 * Checks if the node evaluated with heuristic h is better than the best
+	 * saved node.
+	 * 
+	 * @param n
+	 * @param heuristic
+	 */
+	public void checkBest(Node n) {
+		if (n.score > bestScore) {
+			bestScore = n.score;
+			bestNode = n;
+		}
+	}
+
+	public Types.ACTIONS act() {
+		if (bestNode == null)
+			return Types.ACTIONS.ACTION_NIL;
+		else
+			return bestNode.rootAction;
 	}
 
 }

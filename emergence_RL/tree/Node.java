@@ -9,7 +9,7 @@ import ontology.Types;
 import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.StateObservation;
-import emergence_RL.Agent;
+import emergence_RL.helper.ActionMap;
 
 /**
  * This class represents a TreeNode. Important is that there is the possibility
@@ -44,7 +44,10 @@ public class Node {
 
 	// array of children if there were expanded
 	public Node[] children;
-
+	
+	// map for the actions
+	public ActionMap map;
+	
 
 	public double score;
 	
@@ -68,6 +71,7 @@ public class Node {
 		this.children = new Node[stateObs.getAvailableActions().size()];
 		this.Q = 0;
 		this.level = 0;
+		this.map = new ActionMap(stateObs.getAvailableActions());
 	}
 
 	/**
@@ -105,7 +109,7 @@ public class Node {
 			ArrayList<Types.ACTIONS> posActions = new ArrayList<Types.ACTIONS>();
 			for (int i = 0; i < children.length; i++) {
 				if (children[i] == null)
-					posActions.add(Agent.map.getAction(i));
+					posActions.add(map.getAction(i));
 			}
 			int index = r.nextInt(posActions.size());
 			a = posActions.get(index);
@@ -138,7 +142,7 @@ public class Node {
 		Node child = new Node(tmpStateObs, this, a);
 
 		// set the child that it is not expanded again!
-		int index = Agent.map.getInt(a);
+		int index = map.getInt(a);
 		children[index] = child;
 
 		return child;
@@ -152,7 +156,7 @@ public class Node {
 	 * @return
 	 */
 	public Node getChild(Types.ACTIONS a, boolean useCache) {
-		int index = Agent.map.getInt(a);
+		int index = map.getInt(a);
 		if (children[index] != null)
 			return children[index];
 		else
@@ -228,9 +232,9 @@ public class Node {
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
 		String s = String
-				.format("me:[%s,%s] | last:%s | level:%s | Q:%s | visited:%s | utc:%s | fE:%s | children:[",
+				.format("me:[%s,%s] | last:%s | level:%s | Q:%s | visited:%s | utc:%s | fE:%s | score:%s | children:[",
 						pos.x, pos.y, lastAction, level, Q, visited, uct,
-						isFullyExpanded());
+						isFullyExpanded(), score);
 		for (int i = 0; i < children.length; i++) {
 			if (children[i] == null)
 				s += "_,";

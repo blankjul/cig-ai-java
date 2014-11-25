@@ -11,7 +11,7 @@ import java.util.Set;
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
-import emergence_RL.strategies.UCT.UCTSearch;
+import emergence_RL.strategies.UCTSearch;
 
 public class TargetHeuristic extends AHeuristic {
 
@@ -29,7 +29,7 @@ public class TargetHeuristic extends AHeuristic {
 	
 	public ArrayList<Double> distances = new ArrayList<Double>();
 	
-	
+
 	
 	public TargetHeuristic(int[] weights) {
 		this.weights = weights;
@@ -65,7 +65,13 @@ public class TargetHeuristic extends AHeuristic {
 			double value = norm * weights[i];
 			distances.set(i, value);
 		}
-		return -1;
+		
+		double value = 0;
+		for (int j = 0; j < distances.size(); j++) {
+			value += weights[j] * distances.get(j);
+		}
+		
+		return value;
 	}
 	
 	
@@ -97,8 +103,7 @@ public class TargetHeuristic extends AHeuristic {
 	}
 	
 	
-	public static TargetHeuristic createRandom(StateObservation stateObs) {
-		createAll(stateObs);
+	public static TargetHeuristic createRandom() {
 		if (heuristics.size() > 0) {
 			List<TargetHeuristic> asList = new ArrayList<TargetHeuristic>(
 					heuristics);
@@ -107,6 +112,7 @@ public class TargetHeuristic extends AHeuristic {
 		}
 		return null;
 	}
+	
 	
 	/**
 	 * Return all possible good heuristics!
@@ -178,6 +184,19 @@ public class TargetHeuristic extends AHeuristic {
 			eq.set(i, distance(avatarPosition, obs.position));
 		}
 		return eq;
+	}
+	
+	
+	/**
+	 * Initialize the set of possible heuristics
+	 */
+	public static void init() {
+		heuristics.add(new TargetHeuristic(new int[] {0,0,0,0,0,0,0,0,0,0,0}));
+		for (int i = 0; i < NUM_TARGETS * 4; i++) {
+			int[] weights = new int[] {0,0,0,0,0,0,0,0,0,0,0};
+			weights[i] = 1;
+			heuristics.add(new TargetHeuristic(weights));
+		}
 	}
 	
 	

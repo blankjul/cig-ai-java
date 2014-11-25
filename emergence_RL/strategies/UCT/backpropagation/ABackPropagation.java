@@ -1,6 +1,6 @@
 package emergence_RL.strategies.UCT.backpropagation;
 
-import emergence_RL.strategies.UCT.UCTSearch;
+import emergence_RL.strategies.UCTSearch;
 import emergence_RL.tree.Node;
 
 public abstract class ABackPropagation {

@@ -3,7 +3,7 @@ package emergence_RL.strategies.UCT.defaultPolicy;
 import ontology.Types;
 import tools.Vector2d;
 import core.game.StateObservation;
-import emergence_RL.strategies.UCT.UCTSearch;
+import emergence_RL.strategies.UCTSearch;
 import emergence_RL.tree.Node;
 
 public abstract class ADefaultPolicy {
