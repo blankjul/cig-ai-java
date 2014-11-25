@@ -65,7 +65,7 @@ public class PoolEvolution {
 			System.out.println("-----------------------------");
 			for (Pair<Agent, Integer> entry : pool) {
 				String s = String.format("[wins:%s] %s", entry.getSecond(),
-						entry.getFirst().setToString());
+						entry.getFirst().printToString());
 				System.out.println(s);
 			}
 
@@ -138,7 +138,7 @@ public class PoolEvolution {
 		for (String game : games) {
 			for (int j = 0; j < NUM_LEVELS; j++) {
 				ExecCallable e = new ExecCallable(CONTROLLER, game, j,
-						agent.setToString());
+						agent.printToString());
 				Future<GameResult> future = Configuration.SCHEDULER.submit(e);
 				results.add(future);
 			}

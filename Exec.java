@@ -77,7 +77,7 @@ public class Exec  {
 			emergence_RL.Agent.VERBOSE = verbose;
 			if (parameter != null) {
 				player = new emergence_RL.Agent(toPlay.getObservation(), ect);
-				((emergence_RL.Agent) player).initFromString(parameter);
+				((emergence_RL.Agent) player).createFromString(parameter);
 			}
 		} else {
 			player = ArcadeMachine.createPlayer(controller, actionFile,

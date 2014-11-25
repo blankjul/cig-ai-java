@@ -65,7 +65,7 @@ public class Node {
 	public Node(StateObservation stateObs) {
 		this.father = null;
 		this.stateObs = stateObs;
-		this.children = new Node[Agent.map.NUM_ACTIONS];
+		this.children = new Node[stateObs.getAvailableActions().size()];
 		this.Q = 0;
 		this.level = 0;
 	}

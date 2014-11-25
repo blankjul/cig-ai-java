@@ -136,6 +136,8 @@ public class UCTSearch extends AStrategy {
 		return sb.substring(0, sb.length() - 1);
 	}
 
+	
+	
 	/**
 	 * Print the whole settings to a string!
 	 */

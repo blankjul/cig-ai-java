@@ -173,7 +173,7 @@ public class Agent extends AThreadablePlayer {
 	 */
 
 	@Override
-	public String setToString() {
+	public String printToString() {
 		String s = String.format(
 				"evo_tick:%s pool_size:%s pool_fittest:%s evo_time:%s",
 				EVO_GAME_TICK, POOL_SIZE, POOL_FITTEST, TIME_FOR_EVOLUTION);
@@ -181,7 +181,7 @@ public class Agent extends AThreadablePlayer {
 	}
 
 	@Override
-	public void initFromString(String parameter) {
+	public void createFromString(String parameter) {
 		// set the correct actor
 		if (parameter == null || parameter == "")
 			return;
