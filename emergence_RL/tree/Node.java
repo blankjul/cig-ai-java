@@ -253,4 +253,19 @@ public class Node {
 			return stateObs.getGameScore();
 	}
 
+	
+	public String print() {
+		String s = "";
+		for (int i = 0; i < children.length; i++) {
+			if (children[i] == null) continue;
+			for (int j = 0; j < children[i].level; j++) {
+				s += '\t';
+			}
+			s += children[i].toString();
+			s += '\n';
+			s += children[i].print();
+		}
+		return s;
+	}
+
 }

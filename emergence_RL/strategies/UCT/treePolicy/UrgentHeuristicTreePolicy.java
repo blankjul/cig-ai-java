@@ -1,33 +1,38 @@
 package emergence_RL.strategies.UCT.treePolicy;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import ontology.Types;
 import emergence_RL.Agent;
+import emergence_RL.helper.Helper;
 import emergence_RL.strategies.UCT.UCTSearch;
 import emergence_RL.tree.Node;
 
-public class HeuristicTreePolicy extends ATreePolicy {
+public class UrgentHeuristicTreePolicy extends ATreePolicy {
 
+
+	private HashSet<Node> firstLevelPessimistic = new HashSet<Node>();
 	
+	
+	@Override
 	public Node expand(UCTSearch search, Node n) {
-		while (!n.stateObs.isGameOver() && n.level <= search.maxDepth) {
-			if (!n.isFullyExpanded()) {
-				
-				Node child = n.getRandomChild(UCTSearch.r, true);
-				if (child.level == 1 && search.pessimisticIterations > 0)
-					pessimisticExploring(child, search.pessimisticIterations);
-				
-				return child;
-			} else {
-				n = bestChild(search, n, search.c);
+		int level = 0;
+		
+		while (!n.stateObs.isGameOver() && level <= search.maxDepth) {
+			if (n.level == 1 && search.pessimisticIterations > 0 && !firstLevelPessimistic.contains(n)) {
+				firstLevelPessimistic.add(n);
+				pessimisticExploring(n, search.pessimisticIterations);
 			}
+			++level;
+			n = bestChild(search, n, search.c);
 		}
+		
 		return n;
 	}
 	
 
-	
+
 	@Override
 	public Node bestChild(UCTSearch search, Node n, double c) {
 
@@ -76,16 +81,26 @@ public class HeuristicTreePolicy extends ATreePolicy {
 			}
 
 			double[] weights = search.weights;
+			weights[1] = 0;
+			weights[3] = 0;
 			child.uct = weights[0] * child.exploitation + weights[1]
 					* child.exploration + weights[2] * child.heuristicValue
 					+ weights[3] * child.historyValue;
 
-			
 			// check if it has the best value
 			if (child.uct >= bestValue) {
 				bestChild = child;
 				bestValue = child.uct;
 			}
+		}
+
+		
+		if (bestValue < search.urgentUCTValue && !unexpandedActions.isEmpty()) {
+			Types.ACTIONS a = Helper.getRandomEntry(unexpandedActions, UCTSearch.r);
+			bestChild = n.getChild(a);
+		}
+		if (bestChild == null) {
+			n.getRandomChild(UCTSearch.r, false);
 		}
 
 

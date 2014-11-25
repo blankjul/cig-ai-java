@@ -13,7 +13,7 @@ import emergence_RL.strategies.UCT.backpropagation.Backpropagation;
 import emergence_RL.strategies.UCT.defaultPolicy.ADefaultPolicy;
 import emergence_RL.strategies.UCT.defaultPolicy.RandomDeltaPolicy;
 import emergence_RL.strategies.UCT.treePolicy.ATreePolicy;
-import emergence_RL.strategies.UCT.treePolicy.HeuristicTreePolicy;
+import emergence_RL.strategies.UCT.treePolicy.UrgentHeuristicTreePolicy;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
 
@@ -32,7 +32,7 @@ public class UCTSearch extends AStrategy {
 	public IActor actor = new MostVisitedAdvanced();
 
 	// tree policy for expand the nodes
-	public ATreePolicy treePolicy = new HeuristicTreePolicy();
+	public ATreePolicy treePolicy = new UrgentHeuristicTreePolicy();
 
 	// default policy for the roll out
 	public ADefaultPolicy defaultPolicy = new RandomDeltaPolicy();
@@ -62,7 +62,7 @@ public class UCTSearch extends AStrategy {
 	public double[] weights = new double[] { 1, 1, 1, 1 };
 	
 	// urgent tree policy. value for expansion
-	public double urgentUCTValue = 3;
+	public double urgentUCTValue = 1.5;
 
 	public UCTSearch() {
 		super();

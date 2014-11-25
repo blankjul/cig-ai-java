@@ -19,5 +19,12 @@ public class Tree {
 		this.root = root;
 		this.root.level = 0;
 	}
+	
+	
+	@Override
+	public String toString() {
+		
+		return root.toString() + '\n' + root.print();
+	}
 
 }

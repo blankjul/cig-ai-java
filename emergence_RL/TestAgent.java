@@ -7,6 +7,7 @@ import core.player.AbstractPlayer;
 import emergence_RL.helper.ActionMap;
 import emergence_RL.helper.ActionTimer;
 import emergence_RL.helper.LevelInfo;
+import emergence_RL.heuristic.TargetHeuristic;
 import emergence_RL.strategies.UCT.UCTSearch;
 import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
@@ -24,6 +25,21 @@ public class TestAgent extends AbstractPlayer {
 		uct = new UCTSearch();
 		Agent.map = new ActionMap(stateObs.getAvailableActions());
 		LevelInfo.print(stateObs);
+		
+		
+		uct.tree = new Tree(new Node(stateObs));
+		uct.heuristic = new TargetHeuristic(new int[] {0,0,0,1,0,0,0,0,0,0,0,0});
+
+		// get the next best action that will be executed
+		ActionTimer timer = new ActionTimer(elapsedTimer);
+		timer.timeRemainingLimit = 50;
+		while (timer.isTimeLeft()) {
+			uct.expand();
+			timer.addIteration();
+		}
+		
+		System.out.println(uct.tree);
+		System.out.println("CONSTRUCTOR");
 
 	}
 
