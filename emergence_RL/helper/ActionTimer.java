@@ -56,7 +56,7 @@ public class ActionTimer {
 	/**
 	 * @return remaining time for all further iteration.
 	 */
-	double getRemaining() {
+	public double getRemaining() {
 		return cpuTimer.remainingTimeMillis();
 	}
 

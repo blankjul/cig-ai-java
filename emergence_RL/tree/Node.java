@@ -44,23 +44,14 @@ public class Node {
 
 	// array of children if there were expanded
 	public Node[] children;
-
-	// map for actions to integer and a round
-	protected ActionMap map;
 	
+
 	public double score;
-	
-
-	// value for USB1 Tuned Policy
-	public double quadReward;
-
 	public double exploitation;
 	public double exploration;
 	public double heuristicValue;
 	public double historyValue;
 	
-	// this saves the target heuristic value
-	public int targetHeuristicIndex = -1;
 	
 
 	/**
@@ -72,10 +63,10 @@ public class Node {
 	public Node(StateObservation stateObs) {
 		this.father = null;
 		this.stateObs = stateObs;
-		this.map = ActionMap.create(stateObs.getAvailableActions());
-		this.children = new Node[map.NUM_ACTIONS];
+		this.children = new Node[stateObs.getAvailableActions().size()];
 		this.Q = 0;
 		this.level = 0;
+		this.rootAction = Types.ACTIONS.ACTION_NIL;
 	}
 
 	/**
@@ -85,13 +76,11 @@ public class Node {
 	 *            observation of this node!
 	 */
 	public Node(StateObservation stateObs, Node father, Types.ACTIONS lastAction) {
-		this.stateObs = stateObs;
+		this(stateObs);
 		this.father = father;
-		this.map = ActionMap.create(stateObs.getAvailableActions());
-		this.children = new Node[map.NUM_ACTIONS];
-		this.Q = 0;
 		this.level = father.level + 1;
 		this.lastAction = lastAction;
+		this.rootAction = (father.father == null) ? lastAction : father.rootAction;
 	}
 
 	/**
@@ -116,16 +105,15 @@ public class Node {
 			ArrayList<Types.ACTIONS> posActions = new ArrayList<Types.ACTIONS>();
 			for (int i = 0; i < children.length; i++) {
 				if (children[i] == null)
-					posActions.add(map.getAction(i));
+					posActions.add(ActionMap.getAction(stateObs, i));
 			}
 			int index = r.nextInt(posActions.size());
 			a = posActions.get(index);
 		}
-
 		Node child = getChild(a, true);
-
 		return child;
 	}
+	
 
 	public Types.ACTIONS getRandomAction(Random r) {
 		int size = stateObs.getAvailableActions().size();
@@ -143,14 +131,14 @@ public class Node {
 	public Node getChild(Types.ACTIONS a) {
 
 		// copy the state
-		StateObservation tmpStateObs = this.stateObs.copy();
+		StateObservation tmpStateObs = stateObs.copy();
 		tmpStateObs.advance(a);
 
 		// create the node and set the correct values
 		Node child = new Node(tmpStateObs, this, a);
 
 		// set the child that it is not expanded again!
-		int index = map.getInt(a);
+		int index = ActionMap.getInt(stateObs, a);
 		children[index] = child;
 
 		return child;
@@ -164,13 +152,14 @@ public class Node {
 	 * @return
 	 */
 	public Node getChild(Types.ACTIONS a, boolean useCache) {
-		int index = map.getInt(a);
+		int index = ActionMap.getInt(stateObs, a);
 		if (children[index] != null)
 			return children[index];
 		else
 			return getChild(a);
-
 	}
+	
+	
 
 	/**
 	 * Create a list of all possible children that could be created from this
@@ -212,21 +201,35 @@ public class Node {
 		}
 		return true;
 	}
+	
+	public boolean isNotExpanded() {
+		for (int i = 0; i < children.length; i++) {
+			if (children[i] != null)
+				return false;
+		}
+		return true;
+	}
 
 	public String hash() {
+		return hash(stateObs, lastAction);
+	}
+	
+	
+	public static String hash(StateObservation stateObs, Types.ACTIONS action) {
 		Vector2d pos = stateObs.getAvatarPosition();
-		String used = (lastAction == null || lastAction != Types.ACTIONS.ACTION_USE) ? "n"
+		String used = (action == null || action != Types.ACTIONS.ACTION_USE) ? "n"
 				: "y"; 
 		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
 	}
+
 
 	@Override
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
 		String s = String
-				.format("me:[%s,%s] | last:%s | level:%s | Q:%s | visited:%s | utc:%s | fE:%s | children:[",
+				.format("me:[%s,%s] | last:%s | level:%s | Q:%s | visited:%s | utc:%s | fE:%s | score:%s | children:[",
 						pos.x, pos.y, lastAction, level, Q, visited, uct,
-						isFullyExpanded());
+						isFullyExpanded(), score);
 		for (int i = 0; i < children.length; i++) {
 			if (children[i] == null)
 				s += "_,";
@@ -247,6 +250,21 @@ public class Node {
 			return -100;
 		else
 			return stateObs.getGameScore();
+	}
+
+	
+	public String print() {
+		String s = "";
+		for (int i = 0; i < children.length; i++) {
+			if (children[i] == null) continue;
+			for (int j = 0; j < children[i].level; j++) {
+				s += '\t';
+			}
+			s += children[i].toString();
+			s += '\n';
+			s += children[i].print();
+		}
+		return s;
 	}
 
 }

@@ -1,7 +1,7 @@
-package emergence_RL.uct.backpropagation;
+package emergence_RL.strategies.UCT.backpropagation;
 
+import emergence_RL.strategies.UCTSearch;
 import emergence_RL.tree.Node;
-import emergence_RL.uct.UCTSettings;
 
 
 /**
@@ -14,14 +14,14 @@ public class Backpropagation extends ABackPropagation{
 
 
 	@Override
-	public void backpropagate(UCTSettings s, Node n, double reward) {
+	public void backpropagate(UCTSearch search, Node n, double reward) {
 		
 		while (n != null) {
 			// now we visited the node
 			++n.visited;
 			n.Q += reward;
 			// use a discount factor for the as a weight!
-			reward *= s.gamma;
+			reward *= search.gamma;
 			n = n.father;
 		}
 		

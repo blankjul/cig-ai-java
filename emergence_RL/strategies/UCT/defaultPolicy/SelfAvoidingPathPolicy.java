@@ -1,4 +1,4 @@
-package emergence_RL.uct.defaultPoliciy;
+package emergence_RL.strategies.UCT.defaultPolicy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +8,8 @@ import ontology.Types;
 import tools.Vector2d;
 import core.game.StateObservation;
 import emergence_RL.helper.Helper;
+import emergence_RL.strategies.UCTSearch;
 import emergence_RL.tree.Node;
-import emergence_RL.uct.UCTSettings;
 
 /**
  * this class creates a self avoiding path
@@ -32,7 +32,7 @@ public class SelfAvoidingPathPolicy extends ADefaultPolicy {
 
 	@SuppressWarnings("unused")
 	@Override
-	public double expand(UCTSettings s, Node n) {
+	public double expand(UCTSearch s, Node n) {
 		Vector2d sesv = n.father.stateObs.getAvatarPosition();
 		StateObservation currentStateObs = n.stateObs.copy();
 		Types.ACTIONS currentAction = null;
@@ -48,14 +48,14 @@ public class SelfAvoidingPathPolicy extends ADefaultPolicy {
 		//put start Node on the list
 		//SimNode n_ = new SimNode(currentStateObs, n.lastAction);
 		//visitedNodes.put(n_.hash(), n_);
-		SimNode node;
+		Node node;
 		
 		while (!currentStateObs.isGameOver()
 				&& level <= s.maxDepth) {
 			currentAction = Helper.getRandomEntry(allActions, s.r);
 			
 			//actualnode
-			node = new SimNode(currentStateObs, currentAction);
+			node = new Node(currentStateObs);
 
 			int minVisited = Integer.MIN_VALUE;
 			Types.ACTIONS minAction = Types.ACTIONS.ACTION_NIL;

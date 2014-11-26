@@ -1,8 +1,8 @@
-package emergence_RL.uct.actor;
+package emergence_RL.strategies.UCT.actor;
 
-import ontology.Types;
+import emergence_RL.strategies.UCTSearch;
+import emergence_RL.tree.Node;
 import emergence_RL.tree.Tree;
-import emergence_RL.uct.UCTSettings;
 
 /**
  * This is a interface and collects three different methods 
@@ -11,7 +11,7 @@ import emergence_RL.uct.UCTSettings;
  */
 public interface IActor {
 	
-	public Types.ACTIONS act(UCTSettings s, Tree tree);
+	public Node act(UCTSearch search, Tree tree);
 
 
 }

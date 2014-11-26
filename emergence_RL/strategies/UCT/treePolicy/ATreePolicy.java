@@ -1,37 +1,37 @@
-package emergence_RL.uct.treePolicy;
+package emergence_RL.strategies.UCT.treePolicy;
 
 import ontology.Types.WINNER;
 import core.game.StateObservation;
+import emergence_RL.strategies.UCTSearch;
 import emergence_RL.tree.Node;
-import emergence_RL.uct.UCTSettings;
 
 public abstract class ATreePolicy {
 	
 
-	public Node treePolicy(UCTSettings s, Node n) {
-		while (!n.stateObs.isGameOver() && n.level <= s.maxDepth) {
+	abstract public Node bestChild(UCTSearch search, Node n, double c);
+	
+	
+	
+	public Node expand(UCTSearch search, Node n) {
+		while (!n.stateObs.isGameOver() && n.level <= search.maxDepth) {
 			if (!n.isFullyExpanded()) {
-				Node child = n.getRandomChild(s.r, true);
-				
-				if (child.level == 1 && s.pessimisticIterations > 0)
-					pessimisticExploring(child, s.pessimisticIterations);
-				
+				Node child = n.getRandomChild(UCTSearch.r, true);
+				if (child.level == 1 && search.pessimisticIterations > 0)
+					pessimisticExploring(child, search.pessimisticIterations);
 				return child;
 			} else {
-				n = bestChild(s, n, s.c);
+				n = bestChild(search, n, search.c);
 			}
 		}
+		
 		return n;
 	}
-
-	abstract public Node bestChild(UCTSettings s, Node n, double c);
-
 	
-	
+
 	/**
 	 * Pessimistic iteration of the next possible move from the root.
 	 */
-	private void pessimisticExploring(Node n, int iteration) {
+	protected void pessimisticExploring(Node n, int iteration) {
 		StateObservation fatherObs = n.father.stateObs;
 		for (int i = 0; i < iteration; i++) {
 			StateObservation stateObs = fatherObs.copy();
