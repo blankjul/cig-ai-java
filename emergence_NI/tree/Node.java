@@ -1,4 +1,4 @@
-package emergence_RL.tree;
+package emergence_NI.tree;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import ontology.Types;
 import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.StateObservation;
-import emergence_RL.helper.ActionMap;
+import emergence_NI.helper.ActionMap;
 
 /**
  * This class represents a TreeNode. Important is that there is the possibility

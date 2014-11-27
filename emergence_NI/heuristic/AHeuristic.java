@@ -1,4 +1,4 @@
-package emergence_RL.heuristic;
+package emergence_NI.heuristic;
 
 import tools.Vector2d;
 import core.game.StateObservation;

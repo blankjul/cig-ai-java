@@ -1,4 +1,4 @@
-package emergence_RL.heuristic;
+package emergence_NI.heuristic;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -6,12 +6,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
-import emergence_RL.strategies.UCTSearch;
 
 public class TargetHeuristic extends AHeuristic {
 
@@ -60,7 +60,7 @@ public class TargetHeuristic extends AHeuristic {
 			} else {
 				norm = 1 - d / max;
 				if (USE_TIEBREAKER)
-					norm += UCTSearch.epsilon * UCTSearch.r.nextDouble();
+					norm += 0.000001 * (new Random()).nextDouble();
 			}
 			double value = norm * weights[i];
 			distances.set(i, value);

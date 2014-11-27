@@ -5,11 +5,7 @@ public class OneAgentOneGame {
 
 	public static void main(String[] args) {
 
-		String controller = "emergence_RL.Agent";
-		//String controller = "controllers.human.Agent";
-		// controller = "controllers.sampleMCTS.Agent";
-		//String parameter = "actor:emergence_RL.uct.actor.MostVisitedAdvanced tree:emergence_RL.uct.treePolicy.HeuristicTreePolicy default:emergence_RL.uct.defaultPoliciy.RandomDeltaPolicy back:emergence_RL.uct.backpropagation.Backpropagation depth:10 c:1.4142135623730951 gamma:0.9326211765422769 weight[0]:2.089510418050092 weight[1]:2.0665150182207026 weight[2]:1.8947589131807137 weight[3]:1.9357444209255685";
-		//String parameter = UCTFactory.createHeuristic().toString();
+		String controller = "emergence_NI.Agent";
 		String parameter = "";
 		
 		String gameStr = "camelRace";

@@ -2,7 +2,7 @@
 import java.io.File;
 import java.util.concurrent.Callable;
 
-import emergence_RL.GameResult;
+import emergence_NI.GameResult;
 
 /**
  *	This class is used to allow multithreading for one game result.

@@ -1,15 +1,14 @@
-package emergence_RL;
+package emergence_NI;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
 import core.game.StateObservation;
-import emergence_RL.helper.Helper;
-import emergence_RL.strategies.AEvolutionaryStrategy;
-import emergence_RL.strategies.UCTSearch;
-import emergence_RL.tree.Node;
-import emergence_RL.tree.Tree;
+import emergence_NI.helper.Helper;
+import emergence_NI.strategies.AEvolutionaryStrategy;
+import emergence_NI.tree.Node;
+import emergence_NI.tree.Tree;
 
 public class Evolution {
 
@@ -17,18 +16,20 @@ public class Evolution {
 			StateObservation stateObs) {
 		ArrayList<AEvolutionaryStrategy> pool = new ArrayList<AEvolutionaryStrategy>();
 		for (int i = 0; i < count - 1; i++) {
-			AEvolutionaryStrategy search = new UCTSearch().random();
-			search.tree = new Tree(new Node(stateObs));
-			pool.add(search);
+			//AEvolutionaryStrategy search = new UCTSearch().random();
+			//pool.add(search);
 		}
 		return pool;
 	}
 
 	
+	
 	public static ArrayList<AEvolutionaryStrategy> createNextGeneration(
 			StateObservation stateObs, ArrayList<AEvolutionaryStrategy> pool,
 			int numFittest, int poolSize, double mutateProbability) {
 
+		
+		
 		// survival of the fittest
 		Collections.sort(pool);
 
@@ -42,7 +43,7 @@ public class Evolution {
 
 		while (nextPool.size() < poolSize) {
 
-			Random r = UCTSearch.r;
+			Random r = new Random();
 			AEvolutionaryStrategy selected = Helper.getRandomEntry(nextPool, r);
 
 			// result that will be returned

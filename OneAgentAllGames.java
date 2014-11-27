@@ -5,11 +5,11 @@ import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import emergence_RL.GameResult;
+import emergence_NI.GameResult;
 
 public class OneAgentAllGames {
 
-	public static String CONTROLLER = "emergence_RL.Agent";
+	public static String CONTROLLER = "emergence_NI.Agent";
 
 	public static String PARAMETER = "";
 	

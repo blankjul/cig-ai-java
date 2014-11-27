@@ -1,7 +1,7 @@
-package emergence_RL.strategies;
+package emergence_NI.strategies;
 
 import ontology.Types;
-import emergence_RL.tree.Tree;
+import emergence_NI.tree.Tree;
 
 /**
  * This is also an abstract class that adds the feature of a heuristic to the

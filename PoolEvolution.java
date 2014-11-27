@@ -6,14 +6,14 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import emergence_RL.Agent;
-import emergence_RL.GameResult;
-import emergence_RL.helper.Helper;
-import emergence_RL.helper.Pair;
+import emergence_NI.Agent;
+import emergence_NI.GameResult;
+import emergence_NI.helper.Helper;
+import emergence_NI.helper.Pair;
 
 public class PoolEvolution {
 
-	public String CONTROLLER = "emergence_RL.Agent";
+	public String CONTROLLER = "emergence_NI.Agent";
 	public int NUM_LEVELS = 5;
 	public int POOL_SIZE = 6;
 	public int NUM_FITTEST = 3;
@@ -44,10 +44,7 @@ public class PoolEvolution {
 
 			// generate random agent
 			Agent a = new Agent();
-			a.EVO_GAME_TICK = r.nextInt(500 - 20) + 20;
-			a.POOL_SIZE = r.nextInt(50 - 4) + 4;
-			a.POOL_FITTEST = r.nextInt(a.POOL_SIZE - 3) + 3;
-			a.TIME_FOR_EVOLUTION = r.nextInt(34 - 5) + 5;
+
 			
 			int wins = getWins(games, a);
 			pool.add(new Pair<Agent, Integer>(a, wins));
@@ -84,22 +81,7 @@ public class PoolEvolution {
 				
 				// mutate
 				if (r.nextDouble() < 0.6) {
-					if (r.nextDouble() < 0.2)
-						entry.EVO_GAME_TICK = r.nextInt(500 - 20) + 20;
-					else entry.EVO_GAME_TICK = selected.EVO_GAME_TICK;
-					
-					if (r.nextDouble() < 0.2)
-						entry.POOL_SIZE = r.nextInt(50 - 4) + 4;
-					else entry.POOL_SIZE = selected.POOL_SIZE;
-					
-					if (r.nextDouble() < 0.2)
-						entry.POOL_FITTEST =  r.nextInt(entry.POOL_SIZE - 3) + 3;
-					else entry.POOL_FITTEST = selected.POOL_FITTEST;
-					
-					if (r.nextDouble() < 0.2)
-						entry.TIME_FOR_EVOLUTION = r.nextInt(34 - 5) + 5;
-					else entry.TIME_FOR_EVOLUTION = selected.TIME_FOR_EVOLUTION;
-
+	
 					// crossover
 				} else {
 
@@ -113,14 +95,6 @@ public class PoolEvolution {
 					Agent second = Helper.getRandomEntry(tmp, r)
 							.getFirst();
 
-					entry.EVO_GAME_TICK = (r.nextDouble() < 0.5) ? second.EVO_GAME_TICK
-							: selected.EVO_GAME_TICK;
-					entry.POOL_SIZE = (r.nextDouble() < 0.5) ? second.POOL_SIZE
-							: selected.POOL_SIZE;
-					entry.POOL_FITTEST = (r.nextDouble() < 0.5) ? second.POOL_FITTEST
-							: selected.POOL_FITTEST;
-					entry.TIME_FOR_EVOLUTION = (r.nextDouble() < 0.5) ? second.TIME_FOR_EVOLUTION
-							: selected.TIME_FOR_EVOLUTION;
 
 
 				}

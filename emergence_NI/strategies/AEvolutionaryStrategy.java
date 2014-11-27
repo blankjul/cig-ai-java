@@ -1,6 +1,6 @@
-package emergence_RL.strategies;
+package emergence_NI.strategies;
 
-import emergence_RL.tree.Tree;
+import emergence_NI.tree.Tree;
 
 public abstract class AEvolutionaryStrategy extends AStrategy implements
 		Comparable<AEvolutionaryStrategy> {
