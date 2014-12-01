@@ -74,10 +74,10 @@ public class Exec  {
 		 * special parsing of parameter of agent needs it!
 		 */
 		if (controller.equals("emergence_RL.Agent")) {
-			emergence_RL.Agent.VERBOSE = verbose;
+			emergence_NI.Agent.VERBOSE = verbose;
 			if (parameter != null) {
-				player = new emergence_RL.Agent(toPlay.getObservation(), ect);
-				((emergence_RL.Agent) player).initFromString(parameter);
+				player = new emergence_NI.Agent(toPlay.getObservation(), ect);
+				((emergence_NI.Agent) player).createFromString(parameter);
 			}
 		} else {
 			player = ArcadeMachine.createPlayer(controller, actionFile,

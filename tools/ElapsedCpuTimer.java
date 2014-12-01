@@ -118,7 +118,7 @@ public class ElapsedCpuTimer {
 
     public boolean exceededMaxTime() {
         if (elapsed() > maxTime) {
-            return true;
+            return false;
         }
         return false;
     }
