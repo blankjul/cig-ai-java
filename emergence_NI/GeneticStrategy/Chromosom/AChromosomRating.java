@@ -1,13 +1,12 @@
 package emergence_NI.GeneticStrategy.Chromosom;
 
+import core.game.StateObservation;
 import emergence_NI.heuristic.AHeuristic;
 
 public abstract class AChromosomRating {
-	AHeuristic heuristic;
 	
-	public AChromosomRating(AHeuristic heuristic){
-		this.heuristic = heuristic;
+	public AChromosomRating(){
 	}
 	
-	public abstract void rateChromosom(Chromosom chr);
+	public abstract void rateChromosom(StateObservation stateObs, Chromosom chr);
 }

@@ -1,10 +1,10 @@
 package emergence_NI.GeneticStrategy;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import ontology.Types;
 import tools.ElapsedCpuTimer;
+import core.game.StateObservation;
 import emergence_NI.GeneticStrategy.Chromosom.AChromosomRating;
 import emergence_NI.GeneticStrategy.Chromosom.Chromosom;
 import emergence_NI.GeneticStrategy.Chromosom.Population;
@@ -13,7 +13,9 @@ import emergence_NI.helper.ActionTimer;
 
 public abstract class AGeneticStrategy {
 	
-	GeneticSettings settings;
+	public StateObservation stateObs;
+	
+	public GeneticSettings settings;
 	
 	//index = nummer des chromosoms in der population
 	public double[] score;
@@ -24,8 +26,7 @@ public abstract class AGeneticStrategy {
 	//int[] = chromosomes, sorted by Double = score
 	public Population population;
 	
-	public AChromosomRating chromosomRating;
-	
+	public Chromosom bestChromosom;
 	
 	public ActionTimer timer;
 	
@@ -33,16 +34,18 @@ public abstract class AGeneticStrategy {
 	public static Random r = new Random();
 	
 	//to get fast access to the available actions
-	public static ActionMap2 map; 
+	public static ActionMap2 map;
+	
+	public int generation;
 	
 	
-	public AGeneticStrategy(GeneticSettings settings, ElapsedCpuTimer elapsedTimer,
-			AChromosomRating rating){
+	public AGeneticStrategy(StateObservation stateObs, GeneticSettings settings, ElapsedCpuTimer elapsedTimer){
+		this.stateObs = stateObs;
 		this.settings = settings;
 		this.population = new Population(settings.populationSize);
-		ActionTimer timer = new ActionTimer(elapsedTimer);
-		timer.timeRemainingLimit = 2;
-		this.chromosomRating = rating;
+		this.timer = new ActionTimer(elapsedTimer);
+		this.timer.timeRemainingLimit = 2;
+		this.generation = 0;
 	}
 	
 	/**

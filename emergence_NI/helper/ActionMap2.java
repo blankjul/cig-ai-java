@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import ontology.Types;
 import core.game.StateObservation;
+import emergence_NI.GeneticStrategy.MemoryGenStrategy;
 
 /**
  * idea from sampleGA Controller, maybe faster than the normal ActionMap
@@ -42,6 +43,8 @@ public class ActionMap2 {
 		int goalSize = stateObs.getAvailableActions().size();
 		
 		if(numberOfActions != goalSize){
+			MemoryGenStrategy.lastPopValid = false;
+			MemoryGenStrategy.lastPopulation.chromoms.clear();
 			actionToInteger.clear();
 			integerToAction.clear();
 			

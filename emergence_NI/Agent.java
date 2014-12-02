@@ -3,6 +3,10 @@ package emergence_NI;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
+import emergence_NI.GeneticStrategy.AGeneticStrategy;
+import emergence_NI.GeneticStrategy.GeneticSettings;
+import emergence_NI.GeneticStrategy.MemoryGenStrategy;
+import emergence_NI.GeneticStrategy.NormalGenStartegy;
 import emergence_NI.helper.ActionMap2;
 import emergence_NI.helper.LevelInfo;
 
@@ -31,10 +35,34 @@ public class Agent extends AThreadablePlayer {
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
+		/*int counter = 0;
+		StateObservation current = stateObs.copy();
+		ActionTimer timer = new ActionTimer(elapsedTimer);
+		timer.timeRemainingLimit = 2;
+		Random r = new Random();
+		while(timer.isTimeLeft()){
+			counter++;
+			current.advance(Helper.getRandomEntry(current.getAvailableActions(), r));
+		}
+		System.out.println("counter: " + counter);
+		return current.getAvailableActions().get(0);
+		*/
 		map.checkValidation(stateObs);
 		
-		return Types.ACTIONS.ACTION_NIL;
-
+		GeneticSettings settings = new GeneticSettings();
+		
+		settings.setDefaultSettings();
+		
+		AGeneticStrategy strategy = new MemoryGenStrategy(stateObs, settings, elapsedTimer);
+		
+		Types.ACTIONS action = strategy.compute();
+		
+		//System.out.println("aplying action: " + action.toString());
+		//System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
+		//System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
+		//System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
+		return action;
+		
 	}
 
 

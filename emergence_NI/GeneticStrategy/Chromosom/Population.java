@@ -15,6 +15,9 @@ public class Population {
 	
 	public List<Chromosom> chromoms;
 	
+	//added score of all chromosoms, set by GenStrategy.evaluation
+	public double score;
+	
 	/**
 	 * create a Population without knowing the populationSize
 	 */
@@ -34,14 +37,15 @@ public class Population {
 	 * create a Population from an ArrayList of Chromosoms
 	 * @param pop
 	 */
-	public Population(ArrayList<Chromosom> pop){
+	public Population(ArrayList<Chromosom> chroms){
 		this.chromoms = new ArrayList<Chromosom>();
+		this.chromoms.addAll(chroms);
 	}
 	
 	/**
 	 * sort the List acording to the score of the Chromosom
 	 */
 	public void sort(){
-		Collections.sort((List)this.chromoms);
+		Collections.sort((List<Chromosom>)this.chromoms);
 	}
 }

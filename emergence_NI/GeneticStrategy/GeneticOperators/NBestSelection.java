@@ -15,7 +15,7 @@ public class NBestSelection extends ASelection{
 			n = chromosomLength;
 		}
 		//take the first/best n Chromosom and delete all others
-		pop.chromoms.subList(0, n).clear();
+		pop.chromoms.subList(n, pop.chromoms.size()).clear();
 	}
 	
 	public ArrayList<Chromosom> selectCopy(ArrayList<Chromosom> pop, int n, int chromosomLength, Random r){
@@ -28,6 +28,6 @@ public class NBestSelection extends ASelection{
 		ArrayList<Chromosom> selected = new ArrayList<Chromosom>();
 		selected.addAll(pop.subList(0, n));
 		
-		return (ArrayList<Chromosom>) selected.clone();
+		return null;/*(ArrayList<Chromosom>) selected.clone();*/
 	}
 }

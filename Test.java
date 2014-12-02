@@ -16,14 +16,14 @@ public class Test
     public static void main(String[] args)
     {
         //Available controllers:
-        String controller = "emergence_HR.Agent";
+        String controller = "emergence_NI.Agent";
         String controller2 = "controllers.human.Agent";
         String controller3 = "controllers.sampleMCTS.Agent";
 
         //Available games:
         String gamesPath = "examples/gridphysics/";
 
-        String gameStr = "pacman";
+        String gameStr = "aliens";
         int levelIdx = 0; 
         
         
@@ -41,7 +41,7 @@ public class Test
         //Game and level to play
         String game = gamesPath + gameStr + ".txt";
         String level1 = gamesPath + gameStr + "_lvl" + levelIdx +".txt";
-        ArcadeMachine.runOneGame(game, level1, visuals, controller3, recordActionsFile, seed);
+        ArcadeMachine.runOneGame(game, level1, visuals, controller, recordActionsFile, seed);
 
 
     }
