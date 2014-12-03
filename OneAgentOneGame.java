@@ -24,7 +24,7 @@ public class OneAgentOneGame {
 		String game = gamesPath + gameStr + ".txt";
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
 		
-		Exec.execute(controller, game, level1, parameter, true);
+		Exec.execute(controller, game, level1, parameter, true, true);
 
 	}
 }

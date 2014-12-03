@@ -47,7 +47,7 @@ public class PoolEvolution {
 			
 			Agent a = new Agent();
 			a.pessimistic = r.nextInt(7);
-			a.evo.pathLength = r.nextInt(50 - 3) + 3;
+			a.evo.setPathLength(r.nextInt(50 - 3) + 3);
 			a.evo.populationSize = r.nextInt(30 - 5) + 5;
 			a.evo.numFittest = r.nextInt(a.evo.populationSize - 3) + 3;
 			
@@ -90,7 +90,8 @@ public class PoolEvolution {
 				if (r.nextDouble() < 0.7) {
 					
 					entry.pessimistic = (r.nextDouble() < 0.3) ? r.nextInt(7) : selected.pessimistic;
-					entry.evo.pathLength = (r.nextDouble() < 0.3) ? r.nextInt(50 - 3) + 3 : selected.evo.pathLength;
+					int pathLength = (r.nextDouble() < 0.3) ? r.nextInt(50 - 3) + 3 : selected.evo.getPathLength();
+					entry.evo.setPathLength(pathLength);
 					entry.evo.populationSize = (r.nextDouble() < 0.3) ? r.nextInt(30 - 5) + 5 :  selected.evo.populationSize;
 					entry.evo.numFittest = (r.nextDouble() < 0.3) ? r.nextInt(entry.evo.populationSize - 3) + 3 :  selected.evo.numFittest;
 
@@ -108,7 +109,8 @@ public class PoolEvolution {
 							.getFirst();
 
 					entry.pessimistic = (r.nextDouble() < 0.5) ? second.pessimistic : selected.pessimistic;
-					entry.evo.pathLength = (r.nextDouble() < 0.5) ?  second.evo.pathLength : selected.evo.pathLength;
+					int pathLength =(r.nextDouble() < 0.5) ?  second.evo.getPathLength() : selected.evo.getPathLength();
+					entry.evo.setPathLength(pathLength);
 					entry.evo.populationSize = (r.nextDouble() < 0.5) ? second.evo.populationSize :  selected.evo.populationSize;
 					entry.evo.numFittest = (r.nextDouble() < 0.5) ? second.evo.numFittest :  selected.evo.numFittest;
 

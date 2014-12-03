@@ -11,13 +11,13 @@ public class Evolution {
 
 
 	// number of actions that are simulated
-	public int pathLength = 6;
+	private int pathLength = 16;
 	
 	// number of the fittest to save for the next generation
-	public int numFittest = 3;
+	public int numFittest = 4;
 	
 	// how many entries should the population has
-	public int populationSize = 6;
+	public int populationSize = 10;
 	
 	// probability of a mutation
 	public double mutateProbability = 0.7;
@@ -28,12 +28,16 @@ public class Evolution {
 	// number of generations that were applied.
 	private int numGeneration = 0;
 	
+
+
 	// counter for the pool simulation
 	private int counter = 0;
 	
 	// comparator for the ranking
 	public PathComparator comp = new PathComparator();
 	
+	// best path that was found until now!
+	private Path bestPath = null;
 	
 	
 	public Evolution() {
@@ -44,12 +48,12 @@ public class Evolution {
 	 * @return current best element of population
 	 */
 	public Path best() {
-		if (population.isEmpty()) return null;
-		Collections.sort(population, comp);
-		return (Path) population.get(0);
+		return bestPath;
 	}
 
 
+	
+	
 
 	public void expand(StateObservation stateObs) {
 		
@@ -67,6 +71,12 @@ public class Evolution {
 			Path p = (Path) population.get(counter);
 			// simulate always on a copy!
 			p.simulate(stateObs.copy());
+			
+			// save the best path
+			if (bestPath == null || p.getScore() > bestPath.getScore()) {
+				bestPath = p;
+			}
+			
 			++counter;
 		} else {
 			nextGen();
@@ -77,6 +87,7 @@ public class Evolution {
 	
 	public void slidingWindow(StateObservation stateObs) {
 		numGeneration = 0;
+		bestPath = null;
 		for (int i = 0; i < population.size(); i++) {
 			Path evo = (Path) population.get(i);
 			evo.list.remove(0);
@@ -150,6 +161,38 @@ public class Evolution {
 			System.out.println(population.get(i));
 		}
 	}
+
+	
+
+	public int getPathLength() {
+		return pathLength;
+	}
+
+
+	public void setPathLength(int pathLength) {
+		this.pathLength = pathLength;
+		
+		for (int i = 0; i < population.size(); i++) {
+			Path path = (Path) population.get(i);
+			
+			while (path.list.size() < this.pathLength) {
+				path.list.add(Helper.getRandomEntry(path.actions, Agent.r));
+			}
+			
+			while (path.list.size() > this.pathLength) {
+				path.list.remove(path.list.size() - 1);
+			}
+			
+			path.pathLength = this.pathLength;
+
+		}
+		
+	}
+	
+	public int getNumGeneration() {
+		return numGeneration;
+	}
+
 
 	
 	

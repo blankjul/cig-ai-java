@@ -10,6 +10,13 @@ import emergence_NI.heuristic.AHeuristic;
 import emergence_NI.heuristic.DeltaHeuristic;
 import emergence_NI.heuristic.TargetHeuristic;
 
+
+/**
+ * This is just one element that is evolutionary.
+ * It's a path that consists of several actions that could be simulated.
+ * Also it has several scores that could be interesting for the evaluation.
+ *
+ */
 public class Path extends Evolutionary<Path> {
 
 	// all moves that should be performed!
@@ -19,17 +26,19 @@ public class Path extends Evolutionary<Path> {
 	private double score = Double.NEGATIVE_INFINITY;
 
 	// length of the calculated path
-	private int pathLength;
+	public int pathLength;
 
 	// all available actions
-	private ArrayList<Types.ACTIONS> actions;
+	public ArrayList<Types.ACTIONS> actions;
 
 	// heuristic value of this path
 	public double portalValue = 0;
 	
 	// heuristic value of this path
 	public double npcValue = 0;
+	
 
+	
 	public Path(int pathLength, ArrayList<Types.ACTIONS> actions) {
 		this.pathLength = pathLength;
 		this.list = new ArrayList<Types.ACTIONS>();
@@ -84,7 +93,7 @@ public class Path extends Evolutionary<Path> {
 	}
 
 	public double getScore() {
-		// return score + Agent.r.nextDouble()* 0.0000001;
+		//return score + Agent.r.nextDouble()* 0.0000001;
 		return score;
 	}
 
@@ -92,12 +101,12 @@ public class Path extends Evolutionary<Path> {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(String.format("[score:%s , portal:%s] ", score, portalValue));
-		sb.append(super.toString());
 		for (ACTIONS a : list) {
 			sb.append(a + ",");
 		}
 		return sb.toString();
 	}
+
 
 
 	

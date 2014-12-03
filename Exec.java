@@ -33,7 +33,7 @@ public class Exec  {
 		}
 		String parameter = sb.toString();
 		
-		execute(controller, game, level, parameter, false);
+		execute(controller, game, level, parameter, false, false);
 	}
 
 	
@@ -48,7 +48,7 @@ public class Exec  {
 	 * @param parameter
 	 */
 	public static void execute(String controller, String game, String level,
-			String parameter, boolean visuals) {
+			String parameter, boolean visuals, boolean verbose) {
 
 		String actionFile = null;
 		int randomSeed = new Random().nextInt();
@@ -78,6 +78,7 @@ public class Exec  {
 			if (parameter != null) {
 				player = new emergence_NI.Agent(toPlay.getObservation(), ect);
 				((emergence_NI.Agent) player).createFromString(parameter);
+				emergence_NI.Agent.VERBOSE = verbose;
 			}
 		} else {
 			player = ArcadeMachine.createPlayer(controller, actionFile,

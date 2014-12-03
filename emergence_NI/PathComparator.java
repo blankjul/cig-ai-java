@@ -25,8 +25,7 @@ public class PathComparator implements Comparator<Evolutionary<Path>>{
 		for (int i = 0; i < used.length; i++) {
 			if (used[i] + Agent.r.nextDouble() * 0.000001 > maxUsed) maxUsed = used[i];
 		}
-		
-		
+
 		for (int i = 0; i < reward.length; i++) {
 			double exploitation =  (used[i] != 0) ? reward[i] / used[i] : Double.POSITIVE_INFINITY;
 			double exploration = Math.sqrt(Math.log(used[i] / maxUsed));

@@ -23,9 +23,10 @@ public class Agent extends AThreadablePlayer {
 	// current evolution object that should be iterated
 	public Evolution evo = new Evolution();
 
-
+	// so often the next step is simulated. no dead!
 	public int pessimistic = 5;
-	
+
+	public int minGeneration = 4;
 
 	public Agent() {
 	};
@@ -35,17 +36,19 @@ public class Agent extends AThreadablePlayer {
 		if (VERBOSE) {
 			LevelInfo.print(stateObs);
 		}
-		
-		ActionTimer timer = new ActionTimer(elapsedTimer);
-		timer.timeRemainingLimit = 50;
-		while (timer.isTimeLeft()) {
+
+		ActionTimer timerAll = new ActionTimer(elapsedTimer);
+		timerAll.timeRemainingLimit = 50;
+
+		while (timerAll.isTimeLeft()) {
 			evo.expand(stateObs);
 		}
+
 	}
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
-		
+
 		evo.slidingWindow(stateObs);
 
 		ActionTimer timer = new ActionTimer(elapsedTimer);
@@ -54,45 +57,69 @@ public class Agent extends AThreadablePlayer {
 			evo.expand(stateObs);
 		}
 
-		
 		Types.ACTIONS nextAction = ACTIONS.ACTION_NIL;
-		
-		
+
 		boolean isDangerous = true;
-		timer.timeRemainingLimit = 1;
+		timer.timeRemainingLimit = 4;
 		Path p = null;
 		Set<Types.ACTIONS> forbiddenActions = new HashSet<Types.ACTIONS>();
-		for (int i = 0; i < evo.population.size(); i++) {
-			
+		int i = 0;
+		while (i < evo.population.size()) {
+
 			// get the next action
-			p = (Path) evo.population.get(i);
+			if (p == null) {
+				p = evo.best();
+			} else {
+				p = (Path) evo.population.get(i);
+				++i;
+			}
 			nextAction = p.list.get(0);
-			
+
 			// if we tried that action before continue
-			if (forbiddenActions.contains(nextAction)) continue;
+			if (forbiddenActions.contains(nextAction))
+				continue;
 			isDangerous = pessimisticNextAction(stateObs, nextAction, timer);
-			if (!isDangerous) break;
-			else forbiddenActions.add(nextAction);
+			if (!isDangerous)
+				break;
+			else
+				forbiddenActions.add(nextAction);
+
 		}
-		
-		
-		if (p.getScore() != Double.NEGATIVE_INFINITY) PathComparator.reward[PathComparator.TYPE] += p.getScore();
+
+		if (p.getScore() != Double.NEGATIVE_INFINITY)
+			PathComparator.reward[PathComparator.TYPE] += p.getScore();
 		PathComparator.used[PathComparator.TYPE] += 1;
-		
-		if (VERBOSE) {
-			evo.print(3);
-			System.out.println(evo.comp);
+
+		// adaptive path length that we get always four generations!
+
+		int length = evo.getPathLength();
+		System.out.println(evo.getNumGeneration());
+		if (evo.getNumGeneration() < minGeneration) {
+			if (r.nextDouble() > 0.5) {
+				if (length > 2)
+					evo.setPathLength(length - 1);
+			}
+		} else if (evo.getNumGeneration() > minGeneration) {
+			evo.setPathLength(length + 1);
 		}
-		
+
+		if (VERBOSE) {
+			evo.print(evo.populationSize);
+			System.out.println(evo.comp);
+			System.out.println("PATHLENGTH: " + evo.getPathLength());
+		}
+
 		return nextAction;
 
 	}
-	
-	private boolean pessimisticNextAction(StateObservation stateObs, ACTIONS nextAction, ActionTimer timer) {
+
+	private boolean pessimisticNextAction(StateObservation stateObs,
+			ACTIONS nextAction, ActionTimer timer) {
 		boolean dead = false;
 		if (nextAction != null) {
 			for (int i = 0; i < pessimistic; i++) {
-				if (!timer.isTimeLeft()) break;
+				if (!timer.isTimeLeft())
+					break;
 				StateObservation tmp = stateObs.copy();
 				tmp.advance(nextAction);
 				if (tmp.getGameWinner() == WINNER.PLAYER_LOSES) {
@@ -121,22 +148,21 @@ public class Agent extends AThreadablePlayer {
 			if (key.equals("pessimistic")) {
 				this.pessimistic = Integer.valueOf(value);
 			} else if (key.equals("pathLength")) {
-				evo.pathLength = Integer.valueOf(value);
+				evo.setPathLength(Integer.valueOf(value));
 			} else if (key.equals("populationSize")) {
 				evo.populationSize = Integer.valueOf(value);
 			} else if (key.equals("numFittest")) {
 				evo.numFittest = Integer.valueOf(value);
 			}
 		}
-
 	}
-	
 
 	@Override
 	public String printToString() {
 		String s = String.format(
 				"pessimistic:%s pathLength:%s populationSize:%s numFittest:%s",
-				pessimistic, evo.pathLength, evo.populationSize, evo.numFittest);
+				pessimistic, evo.getPathLength(), evo.populationSize,
+				evo.numFittest);
 		return s;
 	}
 
