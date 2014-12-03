@@ -31,6 +31,8 @@ public class OneAgentAllGames {
 	public static void main(String[] args) throws InterruptedException,
 			ExecutionException {
 
+		emergence_NI.Agent.VERBOSE = false;
+		
 		System.out.println(Compile.start());
 		System.out.println("START PLAYING...");
 

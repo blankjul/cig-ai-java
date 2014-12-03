@@ -1,5 +1,7 @@
 package emergence_NI.strategies;
 
+import emergence_NI.Evolutionary;
+import emergence_NI.Path;
 import emergence_NI.tree.Tree;
 
 public abstract class AEvolutionaryStrategy extends AStrategy implements
@@ -41,11 +43,6 @@ public abstract class AEvolutionaryStrategy extends AStrategy implements
 
 	
 	
-	@Override
-	public int compareTo(AEvolutionaryStrategy other) {
-		Double d1 = getScore();
-		Double d2 = other.getScore();
-		return d2.compareTo(d1);
-	}
+
 
 }

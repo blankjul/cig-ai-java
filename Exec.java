@@ -33,7 +33,7 @@ public class Exec  {
 		}
 		String parameter = sb.toString();
 		
-		execute(controller, game, level, parameter, false, false);
+		execute(controller, game, level, parameter, false);
 	}
 
 	
@@ -48,7 +48,7 @@ public class Exec  {
 	 * @param parameter
 	 */
 	public static void execute(String controller, String game, String level,
-			String parameter, boolean visuals, boolean verbose) {
+			String parameter, boolean visuals) {
 
 		String actionFile = null;
 		int randomSeed = new Random().nextInt();
@@ -73,8 +73,8 @@ public class Exec  {
 		/*
 		 * special parsing of parameter of agent needs it!
 		 */
-		if (controller.equals("emergence_RL.Agent")) {
-			emergence_NI.Agent.VERBOSE = verbose;
+		if (controller.equals("emergence_NI.Agent")) {
+			
 			if (parameter != null) {
 				player = new emergence_NI.Agent(toPlay.getObservation(), ect);
 				((emergence_NI.Agent) player).createFromString(parameter);

@@ -15,8 +15,8 @@ public class PoolEvolution {
 
 	public String CONTROLLER = "emergence_NI.Agent";
 	public int NUM_LEVELS = 5;
-	public int POOL_SIZE = 6;
-	public int NUM_FITTEST = 3;
+	public int POOL_SIZE = 14;
+	public int NUM_FITTEST = 4;
 	public int NUM_GENERATION = 10;
 
 	public ArrayList<Pair<Agent, Integer>> pool = new ArrayList<Pair<Agent, Integer>>();
@@ -25,7 +25,7 @@ public class PoolEvolution {
 			Arrays.asList(Configuration.training));
 	
 	//public ArrayList<String> games = new ArrayList<String>(
-	//		Arrays.asList(new String[] {"aliens"}));
+	//	Arrays.asList(new String[] {"aliens"}));
 
 	public Random r = new Random();
 
@@ -43,8 +43,13 @@ public class PoolEvolution {
 		for (int i = 0; i < POOL_SIZE; i++) {
 
 			// generate random agent
+			Random r = new Random();
+			
 			Agent a = new Agent();
-
+			a.pessimistic = r.nextInt(7);
+			a.evo.pathLength = r.nextInt(50 - 3) + 3;
+			a.evo.populationSize = r.nextInt(30 - 5) + 5;
+			a.evo.numFittest = r.nextInt(a.evo.populationSize - 3) + 3;
 			
 			int wins = getWins(games, a);
 			pool.add(new Pair<Agent, Integer>(a, wins));
@@ -55,6 +60,8 @@ public class PoolEvolution {
 
 			// survival of the fittest
 			Collections.sort(pool);
+			
+			Random r = new Random();
 
 			// print the whole pool
 			System.out.println("-----------------------------");
@@ -77,11 +84,16 @@ public class PoolEvolution {
 
 				Agent selected = Helper.getRandomEntry(nextPool, r).getFirst();
 
-				Agent entry = new Agent();
+				emergence_NI.Agent entry = new emergence_NI.Agent();
 				
 				// mutate
-				if (r.nextDouble() < 0.6) {
-	
+				if (r.nextDouble() < 0.7) {
+					
+					entry.pessimistic = (r.nextDouble() < 0.3) ? r.nextInt(7) : selected.pessimistic;
+					entry.evo.pathLength = (r.nextDouble() < 0.3) ? r.nextInt(50 - 3) + 3 : selected.evo.pathLength;
+					entry.evo.populationSize = (r.nextDouble() < 0.3) ? r.nextInt(30 - 5) + 5 :  selected.evo.populationSize;
+					entry.evo.numFittest = (r.nextDouble() < 0.3) ? r.nextInt(entry.evo.populationSize - 3) + 3 :  selected.evo.numFittest;
+
 					// crossover
 				} else {
 
@@ -95,7 +107,10 @@ public class PoolEvolution {
 					Agent second = Helper.getRandomEntry(tmp, r)
 							.getFirst();
 
-
+					entry.pessimistic = (r.nextDouble() < 0.5) ? second.pessimistic : selected.pessimistic;
+					entry.evo.pathLength = (r.nextDouble() < 0.5) ?  second.evo.pathLength : selected.evo.pathLength;
+					entry.evo.populationSize = (r.nextDouble() < 0.5) ? second.evo.populationSize :  selected.evo.populationSize;
+					entry.evo.numFittest = (r.nextDouble() < 0.5) ? second.evo.numFittest :  selected.evo.numFittest;
 
 				}
 				Integer wins = getWins(games, entry);

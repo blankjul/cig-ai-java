@@ -8,8 +8,8 @@ public class OneAgentOneGame {
 		String controller = "emergence_NI.Agent";
 		String parameter = "";
 		
-		String gameStr = "camelRace";
-		int levelIdx = 3;
+		String gameStr = "portals";
+		int levelIdx = 0;
 
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
@@ -24,8 +24,7 @@ public class OneAgentOneGame {
 		String game = gamesPath + gameStr + ".txt";
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
 		
-		boolean verbose = false;
-		Exec.execute(controller, game, level1, parameter, true, verbose);
+		Exec.execute(controller, game, level1, parameter, true);
 
 	}
 }

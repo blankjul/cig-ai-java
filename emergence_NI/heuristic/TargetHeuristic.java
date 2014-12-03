@@ -27,9 +27,8 @@ public class TargetHeuristic extends AHeuristic {
 	// weights for the formula
 	public int[] weights = {0,0,0,0,0,0,0,0,0,0,0,0};
 	
-	public ArrayList<Double> distances = new ArrayList<Double>();
+	public ArrayList<Double> distances = null;
 	
-
 	
 	public TargetHeuristic(int[] weights) {
 		this.weights = weights;
@@ -43,7 +42,7 @@ public class TargetHeuristic extends AHeuristic {
 	public double evaluateState(StateObservation stateObs) {
 
 		// get all the distances to the objects
-		distances = getDistances(stateObs);
+		if (distances == null) distances = getDistances(stateObs);
 
 		// get the maximal distance
 		Dimension dim = stateObs.getWorldDimension();
