@@ -1,7 +1,5 @@
 package emergence_NI.strategies;
 
-import emergence_NI.Evolutionary;
-import emergence_NI.Path;
 import emergence_NI.tree.Tree;
 
 public abstract class AEvolutionaryStrategy extends AStrategy implements

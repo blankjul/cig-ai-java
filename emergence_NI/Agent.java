@@ -21,20 +21,35 @@ public class Agent extends AThreadablePlayer {
 	public static Random r = new Random();
 
 	// current evolution object that should be iterated
-	public Evolution evo = new Evolution();
+	public Evolution evo;
 
 	// so often the next step is simulated. no dead!
 	public int pessimistic = 5;
 
+	// number of generation
 	public int minGeneration = 4;
+
+	// number of actions that are simulated
+	private int pathLength = 20;
+
+	// how many entries should the population has
+	private int populationSize = 12;
+
+	// number of the fittest to save for the next generation
+	private int numFittest = 4;
+	
+	// switch the heuristic every x time steps
+	private int switchHeuristic = 0;
 
 	public Agent() {
 	};
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
+		evo = new Evolution(pathLength, populationSize, numFittest, stateObs);
+
+		LevelInfo.print(stateObs);
 		if (VERBOSE) {
-			LevelInfo.print(stateObs);
 		}
 
 		ActionTimer timerAll = new ActionTimer(elapsedTimer);
@@ -49,31 +64,70 @@ public class Agent extends AThreadablePlayer {
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
+		// slide the complete pool one action into the future
 		evo.slidingWindow(stateObs);
 
+		// start the evolution
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		timer.timeRemainingLimit = 7;
 		while (timer.isTimeLeft()) {
 			evo.expand(stateObs);
 		}
 
-		Types.ACTIONS nextAction = ACTIONS.ACTION_NIL;
+		// get the next action by using pessimistic iterations
+		Path selectedPath = getNextAction(timer, stateObs);
+		ACTIONS nextAction = selectedPath.getFirstAction();
 
+		// update statistics for the comparator at the next round
+		updateStatistics(selectedPath);
+
+		// set the path length adaptive
+		
+		int length = evo.getPathLength();
+		System.out.println(evo.getNumGeneration());
+		if (evo.getNumGeneration() < minGeneration) {
+			if (length > 2)
+				evo.setPathLength(length - 1);
+		} else if (evo.getNumGeneration() > minGeneration) {
+				evo.setPathLength(length + 1);
+		}
+		
+		
+		int tick = stateObs.getGameTick();
+		if (switchHeuristic != 0 && tick > 0 && tick % switchHeuristic == 0) PathComparator.setType();
+		
+		
+		// print the current status
+		if (VERBOSE) {
+			evo.print(evo.getPopulationSize());
+			System.out.println(evo.getComparator());
+			System.out.println(this.printToString());
+			System.out.println("HEURISTIC " + PathComparator.TYPE);
+		}
+
+		// return the best action
+		return nextAction;
+
+	}
+
+	private void updateStatistics(Path p) {
+		if (p.getScore() != Double.NEGATIVE_INFINITY)
+			PathComparator.reward[PathComparator.TYPE] += p.getScore();
+		PathComparator.used[PathComparator.TYPE] += 1;
+
+	}
+
+	private Path getNextAction(ActionTimer timer, StateObservation stateObs) {
+		Types.ACTIONS nextAction = ACTIONS.ACTION_NIL;
 		boolean isDangerous = true;
-		timer.timeRemainingLimit = 4;
+		timer.timeRemainingLimit = 3;
 		Path p = null;
 		Set<Types.ACTIONS> forbiddenActions = new HashSet<Types.ACTIONS>();
 		int i = 0;
-		while (i < evo.population.size()) {
-
-			// get the next action
-			if (p == null) {
-				p = evo.best();
-			} else {
-				p = (Path) evo.population.get(i);
-				++i;
-			}
-			nextAction = p.list.get(0);
+		while (i < evo.getPopulationSize()) {
+			p = (Path) evo.getPopulation().get(i);
+			++i;
+			nextAction = p.getFirstAction();
 
 			// if we tried that action before continue
 			if (forbiddenActions.contains(nextAction))
@@ -83,34 +137,8 @@ public class Agent extends AThreadablePlayer {
 				break;
 			else
 				forbiddenActions.add(nextAction);
-
 		}
-
-		if (p.getScore() != Double.NEGATIVE_INFINITY)
-			PathComparator.reward[PathComparator.TYPE] += p.getScore();
-		PathComparator.used[PathComparator.TYPE] += 1;
-
-		// adaptive path length that we get always four generations!
-
-		int length = evo.getPathLength();
-		System.out.println(evo.getNumGeneration());
-		if (evo.getNumGeneration() < minGeneration) {
-			if (r.nextDouble() > 0.5) {
-				if (length > 2)
-					evo.setPathLength(length - 1);
-			}
-		} else if (evo.getNumGeneration() > minGeneration) {
-			evo.setPathLength(length + 1);
-		}
-
-		if (VERBOSE) {
-			evo.print(evo.populationSize);
-			System.out.println(evo.comp);
-			System.out.println("PATHLENGTH: " + evo.getPathLength());
-		}
-
-		return nextAction;
-
+		return p;
 	}
 
 	private boolean pessimisticNextAction(StateObservation stateObs,
@@ -141,28 +169,27 @@ public class Agent extends AThreadablePlayer {
 		// set the correct actor
 		if (parameter == null || parameter.equals(""))
 			return;
-		String[] array = parameter.split(" ");
-		for (String s : array) {
-			String key = s.split(":")[0];
-			String value = s.split(":")[1];
-			if (key.equals("pessimistic")) {
-				this.pessimistic = Integer.valueOf(value);
-			} else if (key.equals("pathLength")) {
-				evo.setPathLength(Integer.valueOf(value));
-			} else if (key.equals("populationSize")) {
-				evo.populationSize = Integer.valueOf(value);
-			} else if (key.equals("numFittest")) {
-				evo.numFittest = Integer.valueOf(value);
-			}
-		}
+
+		return;
+		/*
+		 * String[] array = parameter.split(" "); for (String s : array) {
+		 * String key = s.split(":")[0]; String value = s.split(":")[1]; if
+		 * (key.equals("pessimistic")) { this.pessimistic =
+		 * Integer.valueOf(value); } else if (key.equals("pathLength")) {
+		 * evo.setPathLength(Integer.valueOf(value)); } else if
+		 * (key.equals("populationSize")) {
+		 * evo.setPopulationSize(Integer.valueOf(value)); } else if
+		 * (key.equals("numFittest")) {
+		 * evo.setNumFittest(Integer.valueOf(value)); } }
+		 */
 	}
 
 	@Override
 	public String printToString() {
 		String s = String.format(
 				"pessimistic:%s pathLength:%s populationSize:%s numFittest:%s",
-				pessimistic, evo.getPathLength(), evo.populationSize,
-				evo.numFittest);
+				pessimistic, evo.getPathLength(), evo.getPopulationSize(),
+				evo.getNumFittest());
 		return s;
 	}
 

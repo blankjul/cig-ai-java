@@ -9,41 +9,48 @@ import emergence_NI.helper.Helper;
 
 public class Evolution {
 
+	// probability of a mutation
+	final private double MUTATE_PROBABILITY = 0.7;
 
 	// number of actions that are simulated
-	private int pathLength = 16;
-	
-	// number of the fittest to save for the next generation
-	public int numFittest = 4;
-	
+	private int pathLength;
+
 	// how many entries should the population has
-	public int populationSize = 10;
-	
-	// probability of a mutation
-	public double mutateProbability = 0.7;
-	
+	private int populationSize;
+
+	// number of the fittest to save for the next generation
+	private int numFittest;
+
 	// the current population
-	protected ArrayList<Evolutionary<Path>> population = new ArrayList<>();
-	
+	private ArrayList<Evolutionary<Path>> population = new ArrayList<>();
+
 	// number of generations that were applied.
 	private int numGeneration = 0;
-	
-
 
 	// counter for the pool simulation
 	private int counter = 0;
-	
+
 	// comparator for the ranking
-	public PathComparator comp = new PathComparator();
-	
+	private PathComparator comp = new PathComparator();
+
 	// best path that was found until now!
 	private Path bestPath = null;
-	
-	
-	public Evolution() {
+
+	public Evolution(int pathLength, int populationSize, int numFittest,
+			StateObservation stateObs) {
+		super();
+		this.pathLength = pathLength;
+		this.populationSize = populationSize;
+		this.numFittest = numFittest;
+
+		// initialize the pool
+		Path generator = new Path(pathLength, stateObs.getAvailableActions());
+		for (int i = 0; i < populationSize; i++) {
+			Path p = generator.random();
+			population.add(p);
+		}
 	}
 
-	
 	/**
 	 * @return current best element of population
 	 */
@@ -52,58 +59,44 @@ public class Evolution {
 	}
 
 
-	
-	
-
 	public void expand(StateObservation stateObs) {
-		
-		// initialize the pool
-		if (population.isEmpty()) {
-			Path generator = new Path(pathLength, stateObs.getAvailableActions());
-			for (int i = 0; i < populationSize; i++) {
-				Path p = generator.random();
-				population.add(p);
-			}
-		}
 
 		// simulate one element
 		if (counter < population.size()) {
 			Path p = (Path) population.get(counter);
 			// simulate always on a copy!
 			p.simulate(stateObs.copy());
-			
+
 			// save the best path
 			if (bestPath == null || p.getScore() > bestPath.getScore()) {
 				bestPath = p;
 			}
-			
 			++counter;
+
 		} else {
 			nextGen();
 			counter = 0;
 		}
 
 	}
-	
+
 	public void slidingWindow(StateObservation stateObs) {
 		numGeneration = 0;
 		bestPath = null;
 		for (int i = 0; i < population.size(); i++) {
-			Path evo = (Path) population.get(i);
-			evo.list.remove(0);
-			evo.list.add(Helper.getRandomEntry(stateObs.getAvailableActions(), Agent.r));
-			evo.reset();
+			Path path = (Path) population.get(i);
+			path.removeFirstAction();
+			path.setPathLength(pathLength);
+			path.resetScore();
 		}
 	}
-	
 
-	
 	public void nextGen() {
 		++numGeneration;
 		counter = 0;
-		
+
 		ArrayList<Evolutionary<Path>> nextPool = new ArrayList<>();
-		
+
 		// save the fittest
 		Collections.sort(population, comp);
 		for (int i = 0; i < numFittest && i < population.size(); i++) {
@@ -111,18 +104,18 @@ public class Evolution {
 			nextPool.add(evo);
 		}
 
-		
 		// create the next generation
 		while (nextPool.size() < populationSize) {
 
 			Random r = new Random();
-			Evolutionary<Path> selected = Helper.getRandomEntry(nextPool, Agent.r);
+			Evolutionary<Path> selected = Helper.getRandomEntry(nextPool,
+					Agent.r);
 
 			// result that will be returned
 			Evolutionary<Path> result = null;
 
 			// mutate
-			if (r.nextDouble() < mutateProbability) {
+			if (r.nextDouble() < MUTATE_PROBABILITY) {
 				result = selected.mutate();
 				// crossover
 			} else {
@@ -134,9 +127,7 @@ public class Evolution {
 						tmp.add(candidate);
 				}
 				Evolutionary<Path> second = Helper.getRandomEntry(tmp, Agent.r);
-				
-			
-				
+
 				result = selected.crossover((Path) second);
 			}
 			nextPool.add(result);
@@ -145,56 +136,70 @@ public class Evolution {
 		population = nextPool;
 	}
 
-
-
 	public void print() {
 		print(3);
 	}
-	
+
 	public void print(int top) {
 		Collections.sort(population, comp);
 		System.out.println("------------------");
 		System.out.println("GENERATION: " + numGeneration);
 		System.out.println("------------------");
 		for (int i = 0; i < population.size() && i < top; i++) {
-			if (i == 0) System.out.print("--> ");
+			if (i == 0)
+				System.out.print("--> ");
 			System.out.println(population.get(i));
 		}
 	}
-
-	
 
 	public int getPathLength() {
 		return pathLength;
 	}
 
-
 	public void setPathLength(int pathLength) {
 		this.pathLength = pathLength;
-		
 		for (int i = 0; i < population.size(); i++) {
 			Path path = (Path) population.get(i);
-			
-			while (path.list.size() < this.pathLength) {
-				path.list.add(Helper.getRandomEntry(path.actions, Agent.r));
-			}
-			
-			while (path.list.size() > this.pathLength) {
-				path.list.remove(path.list.size() - 1);
-			}
-			
-			path.pathLength = this.pathLength;
-
+			path.setPathLength(pathLength);
 		}
-		
 	}
-	
+
 	public int getNumGeneration() {
 		return numGeneration;
 	}
 
+	public int getPopulationSize() {
+		return population.size();
+	}
 
-	
-	
+	public void setPopulationSize(int populationSize) {
+		this.populationSize = populationSize;
+		Collections.sort(population, comp);
+
+		while (population.size() < populationSize) {
+			Path random = population.get(0).random();
+			population.add(random);
+		}
+		while (population.size() > populationSize) {
+			population.remove(population.size() - 1);
+		}
+
+	}
+
+	public int getNumFittest() {
+		return numFittest;
+	}
+
+	public void setNumFittest(int numFittest) {
+		this.numFittest = numFittest;
+	}
+
+	public PathComparator getComparator() {
+		return comp;
+	}
+
+	public ArrayList<Evolutionary<Path>> getPopulation() {
+		return population;
+	}
 
 }

@@ -29,7 +29,7 @@ public class PathComparator implements Comparator<Evolutionary<Path>>{
 		for (int i = 0; i < reward.length; i++) {
 			double exploitation =  (used[i] != 0) ? reward[i] / used[i] : Double.POSITIVE_INFINITY;
 			double exploration = Math.sqrt(Math.log(used[i] / maxUsed));
-			double value = exploitation + exploration;
+			double value = exploitation + Math.sqrt(2) * exploration;
 			avg.add(value);
 		}
 		double max = Collections.max(avg);
@@ -48,11 +48,11 @@ public class PathComparator implements Comparator<Evolutionary<Path>>{
 		int result = d2.compareTo(d1);
 		if (result == 0) {
 			if (TYPE == PORTAL) {
-				d1 = p1.portalValue;
-				d2 = p2.portalValue;
+				d1 = p1.getPortalValue();
+				d2 = p2.getPortalValue();
 			} else if (TYPE == NPC) {
-				d1 = p1.npcValue;
-				d2 = p2.npcValue;
+				d1 = p1.getNPCValue();
+				d2 = p2.getNPCValue();
 			} 
 			result = d2.compareTo(d1);
 			
@@ -70,7 +70,7 @@ public class PathComparator implements Comparator<Evolutionary<Path>>{
 		String s = "";
 		s += "PATHCOMP REWARD: " + Arrays.toString(PathComparator.reward) + '\n';
 		s += "PATHCOMP USED: " + Arrays.toString(PathComparator.used)+ '\n';
-		s += "PATHCOMP TYPE: " + PathComparator.TYPE + '\n';
+		s += "PATHCOMP TYPE: " + PathComparator.TYPE;
 		return s;
 	}
 

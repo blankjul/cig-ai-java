@@ -20,20 +20,18 @@ public class TargetHeuristic extends AHeuristic {
 
 	// all heuristics that are possible!
 	public static Set<TargetHeuristic> heuristics = new HashSet<TargetHeuristic>();
-	
+
 	// add a tie breaker to the normed values or not
 	public final boolean USE_TIEBREAKER = true;
 
 	// weights for the formula
-	public int[] weights = {0,0,0,0,0,0,0,0,0,0,0,0};
-	
+	public int[] weights = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
 	public ArrayList<Double> distances = null;
-	
-	
+
 	public TargetHeuristic(int[] weights) {
 		this.weights = weights;
 	}
-	
 
 	@Override
 	/**
@@ -42,12 +40,14 @@ public class TargetHeuristic extends AHeuristic {
 	public double evaluateState(StateObservation stateObs) {
 
 		// get all the distances to the objects
-		if (distances == null) distances = getDistances(stateObs);
+		if (distances == null)
+			distances = getDistances(stateObs);
 
 		// get the maximal distance
 		Dimension dim = stateObs.getWorldDimension();
-		double max = dim.getHeight() + dim.getWidth();
+		double maxDistance = dim.getHeight() + dim.getWidth();
 
+		
 		// norm all the values!
 		for (int i = 0; i < distances.size(); i++) {
 			double d = distances.get(i);
@@ -57,51 +57,50 @@ public class TargetHeuristic extends AHeuristic {
 			} else if (d == -1) {
 				norm = 0;
 			} else {
-				norm = 1 - d / max;
+				norm = 1 - d / maxDistance;
 				if (USE_TIEBREAKER)
 					norm += 0.000001 * (new Random()).nextDouble();
 			}
 			double value = norm * weights[i];
 			distances.set(i, value);
 		}
-		
+
 		double value = 0;
 		for (int j = 0; j < distances.size(); j++) {
 			value += weights[j] * distances.get(j);
 		}
-		
+
 		return value;
 	}
-	
-	
 
-	
 	public int hashCode() {
 		for (int i = 0; i < weights.length; i++) {
-			if (weights[i] == 1) return i;
+			if (weights[i] == 1)
+				return i;
 		}
 		return weights.length;
-    }
-	
-	
-	@Override
-	public boolean equals(Object other){
-	    if (other == null) return false;
-	    if (other == this) return true;
-	    if (!(other instanceof TargetHeuristic))return false;
-	    TargetHeuristic obj = (TargetHeuristic)other;
-	    for (int i = 0; i < weights.length; i++) {
-			if (obj.weights[i] != weights[i]) return false;
-		}
-	    return true;
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		if (other == this)
+			return true;
+		if (!(other instanceof TargetHeuristic))
+			return false;
+		TargetHeuristic obj = (TargetHeuristic) other;
+		for (int i = 0; i < weights.length; i++) {
+			if (obj.weights[i] != weights[i])
+				return false;
+		}
+		return true;
+	}
+
 	public String toString() {
 		return Arrays.toString(weights);
 	}
-	
-	
+
 	public static TargetHeuristic createRandom() {
 		if (heuristics.size() > 0) {
 			List<TargetHeuristic> asList = new ArrayList<TargetHeuristic>(
@@ -111,10 +110,10 @@ public class TargetHeuristic extends AHeuristic {
 		}
 		return null;
 	}
-	
-	
+
 	/**
 	 * Return all possible good heuristics!
+	 * 
 	 * @param stateObs
 	 * @return
 	 */
@@ -127,12 +126,11 @@ public class TargetHeuristic extends AHeuristic {
 				int[] weights = new int[NUM_TARGETS * 4];
 				weights[i] = 1;
 				// update the target heuristic set all the time!
-				heuristics.add( new TargetHeuristic(weights));
+				heuristics.add(new TargetHeuristic(weights));
 			}
 		}
 		return heuristics;
 	}
-	
 
 	/*
 	 * get all the distances in a list
@@ -184,20 +182,18 @@ public class TargetHeuristic extends AHeuristic {
 		}
 		return eq;
 	}
-	
-	
+
 	/**
 	 * Initialize the set of possible heuristics
 	 */
 	public static void init() {
-		heuristics.add(new TargetHeuristic(new int[] {0,0,0,0,0,0,0,0,0,0,0}));
+		heuristics.add(new TargetHeuristic(new int[] { 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0 }));
 		for (int i = 0; i < NUM_TARGETS * 4; i++) {
-			int[] weights = new int[] {0,0,0,0,0,0,0,0,0,0,0};
+			int[] weights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 			weights[i] = 1;
 			heuristics.add(new TargetHeuristic(weights));
 		}
 	}
-	
-	
 
 }

@@ -8,8 +8,8 @@ public class OneAgentOneGame {
 		String controller = "emergence_NI.Agent";
 		String parameter = "";
 		
-		String gameStr = "portals";
-		int levelIdx = 0;
+		String gameStr = "eggomania";
+		int levelIdx = 2;
 
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",

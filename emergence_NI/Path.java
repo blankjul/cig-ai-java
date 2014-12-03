@@ -1,6 +1,7 @@
 package emergence_NI;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
@@ -10,43 +11,51 @@ import emergence_NI.heuristic.AHeuristic;
 import emergence_NI.heuristic.DeltaHeuristic;
 import emergence_NI.heuristic.TargetHeuristic;
 
-
 /**
- * This is just one element that is evolutionary.
- * It's a path that consists of several actions that could be simulated.
- * Also it has several scores that could be interesting for the evaluation.
+ * This is just one element that is evolutionary. It's a path that consists of
+ * several actions that could be simulated. Also it has several scores that
+ * could be interesting for the evaluation.
  *
  */
 public class Path extends Evolutionary<Path> {
 
 	// all moves that should be performed!
-	public ArrayList<ACTIONS> list = null;
+	private ArrayList<ACTIONS> list = null;
 
-	// current score. null if not calculated yet
-	private double score = Double.NEGATIVE_INFINITY;
+	// all scores that are saved from this path
+	private double[] scores = new double[] { Double.NEGATIVE_INFINITY,
+			Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY };
 
 	// length of the calculated path
-	public int pathLength;
+	private int pathLength;
 
 	// all available actions
-	public ArrayList<Types.ACTIONS> actions;
+	private ArrayList<Types.ACTIONS> actions;
 
-	// heuristic value of this path
-	public double portalValue = 0;
-	
-	// heuristic value of this path
-	public double npcValue = 0;
-	
+	// random variable
+	private Random r;
 
-	
+	/**
+	 * Constructs a path that has the size of path length. Only actions of the
+	 * actions list are used.
+	 * 
+	 * @param pathLength
+	 *            length of the path
+	 * @param actions
+	 *            could be used
+	 */
 	public Path(int pathLength, ArrayList<Types.ACTIONS> actions) {
 		this.pathLength = pathLength;
 		this.list = new ArrayList<Types.ACTIONS>();
 		this.actions = actions;
+		this.r = new Random();
+
+		// generate the path -> depends on the path length
 		for (int i = 0; i < pathLength; i++) {
-			Types.ACTIONS random = Helper.getRandomEntry(actions, Agent.r);
+			Types.ACTIONS random = Helper.getRandomEntry(actions, r);
 			list.add(random);
 		}
+
 	}
 
 	@Override
@@ -57,21 +66,26 @@ public class Path extends Evolutionary<Path> {
 
 	public void simulate(StateObservation stateObs) {
 		AHeuristic heuristic = new DeltaHeuristic(stateObs.getGameScore());
-		score = 0;
+		scores[0] = 0;
 		for (int i = 0; i < pathLength; i++) {
 			Types.ACTIONS a = list.get(i);
 			stateObs.advance(a);
-			score += heuristic.evaluateState(stateObs);
+			scores[0] += heuristic.evaluateState(stateObs);
 		}
-		TargetHeuristic targetHeuristic = new TargetHeuristic(new int[] {0,0,0,1,0,0,0,0,0,0,0,0});
-		portalValue = targetHeuristic.evaluateState(stateObs);
-		targetHeuristic.weights = new int[] {1,0,0,0,0,0,0,0,0,0,0,0};
-		npcValue = targetHeuristic.evaluateState(stateObs);
+		TargetHeuristic targetHeuristic = new TargetHeuristic(new int[] { 0, 0,
+				0, 1, 0, 0, 0, 0, 0, 0, 0, 0 });
 		
+		scores[1] = targetHeuristic.evaluateState(stateObs);
+		targetHeuristic.weights = new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0 };
+		
+		scores[2] = targetHeuristic.evaluateState(stateObs);
+
 	}
 
-	public void reset() {
-		score = Double.NEGATIVE_INFINITY;
+	public void resetScore() {
+		scores = new double[] { Double.NEGATIVE_INFINITY,
+				Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY };
 	}
 
 	@Override
@@ -92,22 +106,57 @@ public class Path extends Evolutionary<Path> {
 		return result;
 	}
 
-	public double getScore() {
-		//return score + Agent.r.nextDouble()* 0.0000001;
-		return score;
-	}
-
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append(String.format("[score:%s , portal:%s] ", score, portalValue));
+		sb.append(String.format("[score:%s , portal:%s, npc:%s] ", scores[0],
+				scores[1], scores[2]));
 		for (ACTIONS a : list) {
 			sb.append(a + ",");
 		}
 		return sb.toString();
 	}
 
+	public double getScore() {
+		return scores[0];
+	}
 
+	public double getPortalValue() {
+		return scores[1];
+	}
+
+	public double getNPCValue() {
+		return scores[2];
+	}
+
+	/**
+	 * Sets the path length of this path by removing or adding actions.
+	 * 
+	 * @param pathLength that should be set!
+	 */
+	public void setPathLength(int pathLength) {
+		this.pathLength = pathLength;
+		while (list.size() < this.pathLength) {
+			list.add(Helper.getRandomEntry(actions, r));
+		}
+		while (list.size() > this.pathLength) {
+			list.remove(list.size() - 1);
+		}
+	}
+	
+	
+	public void removeFirstAction() {
+		if (!list.isEmpty()) {
+			list.remove(0);
+			--pathLength;
+		}
+	}
+
+	public Types.ACTIONS getFirstAction() {
+		if (!list.isEmpty()) {
+			return list.get(0);
+		} else return Types.ACTIONS.ACTION_NIL;
+	}
 
 	
 }

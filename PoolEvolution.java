@@ -13,6 +13,7 @@ import emergence_NI.helper.Pair;
 
 public class PoolEvolution {
 
+	/*
 	public String CONTROLLER = "emergence_NI.Agent";
 	public int NUM_LEVELS = 5;
 	public int POOL_SIZE = 14;
@@ -48,8 +49,8 @@ public class PoolEvolution {
 			Agent a = new Agent();
 			a.pessimistic = r.nextInt(7);
 			a.evo.setPathLength(r.nextInt(50 - 3) + 3);
-			a.evo.populationSize = r.nextInt(30 - 5) + 5;
-			a.evo.numFittest = r.nextInt(a.evo.populationSize - 3) + 3;
+			a.evo.setPopulationSize(r.nextInt(30 - 5) + 5);
+			a.evo.setNumFittest(r.nextInt(a.evo.getPopulationSize() - 3) + 3);
 			
 			int wins = getWins(games, a);
 			pool.add(new Pair<Agent, Integer>(a, wins));
@@ -111,6 +112,8 @@ public class PoolEvolution {
 					entry.pessimistic = (r.nextDouble() < 0.5) ? second.pessimistic : selected.pessimistic;
 					int pathLength =(r.nextDouble() < 0.5) ?  second.evo.getPathLength() : selected.evo.getPathLength();
 					entry.evo.setPathLength(pathLength);
+					
+					int size = 
 					entry.evo.populationSize = (r.nextDouble() < 0.5) ? second.evo.populationSize :  selected.evo.populationSize;
 					entry.evo.numFittest = (r.nextDouble() < 0.5) ? second.evo.numFittest :  selected.evo.numFittest;
 
@@ -161,4 +164,5 @@ public class PoolEvolution {
 
 	}
 
+*/
 }
