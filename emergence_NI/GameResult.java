@@ -13,6 +13,8 @@ public class GameResult {
 	private int level = -1;
 	private int win = -1;
 	private double score = -1;
+	
+	public int hash;
 
 	public GameResult() {
 	}
@@ -88,5 +90,12 @@ public class GameResult {
 	public void setWin(int win) {
 		this.win = win;
 	}
-
+	
+	public int getHash(){
+		return this.hash;
+	}
+	
+	public void setHash(int h){
+		this.hash = h;
+	}
 }

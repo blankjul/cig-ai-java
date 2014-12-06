@@ -10,7 +10,6 @@ import ontology.Types.WINNER;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import emergence_NI.helper.ActionTimer;
-import emergence_NI.helper.LevelInfo;
 
 public class Agent extends AThreadablePlayer {
 
@@ -30,25 +29,33 @@ public class Agent extends AThreadablePlayer {
 	public int minGeneration = 4;
 
 	// number of actions that are simulated
-	private int pathLength = 20;
+	public int pathLength = 20;
 
 	// how many entries should the population has
-	private int populationSize = 12;
+	public int populationSize = 12;
 
 	// number of the fittest to save for the next generation
-	private int numFittest = 4;
-	
+	public int numFittest = 4;
+
 	// switch the heuristic every x time steps
-	private int switchHeuristic = 0;
+	public int switchHeuristic = 0;
+
+	public GameDetection gameDet = new GameDetection();
+
+	public boolean valModifiedByGameDetect = false;
 
 	public Agent() {
 	};
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
+		if (stateObs.getGameTick() == 0) {
+			gameDet.detect(stateObs, this);
+		}
+		
 		evo = new Evolution(pathLength, populationSize, numFittest, stateObs);
 
-		LevelInfo.print(stateObs);
+		// LevelInfo.print(stateObs);
 		if (VERBOSE) {
 		}
 
@@ -63,6 +70,11 @@ public class Agent extends AThreadablePlayer {
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
+
+		// detect game and maipulate the settings
+		if (stateObs.getGameTick() == 0) {
+			gameDet.detect(stateObs, this);
+		}
 
 		// slide the complete pool one action into the future
 		evo.slidingWindow(stateObs);
@@ -82,23 +94,22 @@ public class Agent extends AThreadablePlayer {
 		updateStatistics(selectedPath);
 
 		// set the path length adaptive
-		
+
 		int length = evo.getPathLength();
-		System.out.println(evo.getNumGeneration());
+		// System.out.println(evo.getNumGeneration());
 		if (evo.getNumGeneration() < minGeneration) {
 			if (length > 2)
 				evo.setPathLength(length - 1);
 		} else if (evo.getNumGeneration() > minGeneration) {
-				evo.setPathLength(length + 1);
+			evo.setPathLength(length + 1);
 		}
-		
-		
+
 		int tick = stateObs.getGameTick();
-		if (switchHeuristic != 0 && tick > 0 && tick % switchHeuristic == 0) PathComparator.setType();
-		
-		
+		if (switchHeuristic != 0 && tick > 0 && tick % switchHeuristic == 0)
+			PathComparator.setType();
+
 		// print the current status
-		if (VERBOSE) {
+		if (false) {
 			evo.print(evo.getPopulationSize());
 			System.out.println(evo.getComparator());
 			System.out.println(this.printToString());
