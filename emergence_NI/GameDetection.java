@@ -224,7 +224,7 @@ public class GameDetection {
 			this.setSettings(agent);
 
 			// DEBUG
-			 //System.out.println("detectedGame: " + this.game + this.level);
+			System.out.println("detectedGame: " + this.game + this.level);
 
 			return true;
 
@@ -287,7 +287,10 @@ public class GameDetection {
 			break;
 		case "butterflies":
 			break;
-		case "chase":
+		case "chase"://victorys: 4/5
+			agent.pathLength = 5;
+			PathComparator.TYPE = 2;
+			agent.valModifiedByGameDetect = true;
 			break;
 		case "frogs":
 			break;
@@ -295,17 +298,31 @@ public class GameDetection {
 			break;
 		case "portals":
 			PathComparator.TYPE = 1;
-			agent.pathLength = 2;
-			agent.populationSize = 20;
+			agent.pathLength = 10;
+			//agent.populationSize = 20;
 			agent.switchHeuristic = 2000;
 			agent.valModifiedByGameDetect = true;
-			//System.out.println("modiefied camelrace");
+			//System.out.println("modiefied portals");
 			break;
 		case "sokoban":
 			break;
-		case "survivezombies":
+		case "survivezombies": //victories 3/5
+			agent.pessimistic = 7;
 			break;
 		case "zelda":
+			// standard settings from agent
+			agent.pessimistic = 5;
+			agent.minGeneration = 4;
+			agent.pathLength = 20;
+			agent.populationSize = 12;
+			agent.numFittest = 4;
+			agent.switchHeuristic = 0;
+
+			// standard settings from PathComparator
+			PathComparator.TYPE = 0;
+			PathComparator.RANDOM = 0;
+			PathComparator.PORTAL = 1;
+			PathComparator.NPC = 2;
 			break;
 		// start validation set
 		case "camelRace":
@@ -333,6 +350,9 @@ public class GameDetection {
 		case "whackamole":
 			break;
 		case "eggomania":
+			agent.pathLength = 5;
+			PathComparator.TYPE = 2;
+			agent.valModifiedByGameDetect = true;
 			break;
 
 		default:
@@ -369,3 +389,17 @@ public class GameDetection {
 		return listStr;
 	}
 }
+/*DO N0T DELETE !!!!!!!!!!!!!!!!!!!!!!!!!!
+ * agent.pessimistic = 5;
+			agent.minGeneration = 4;
+			agent.pathLength = 20;
+			agent.populationSize = 12;
+			agent.numFittest = 4;
+			agent.switchHeuristic = 0;
+
+			// standard settings from PathComparator
+			PathComparator.TYPE = 0;
+			PathComparator.RANDOM = 0;
+			PathComparator.PORTAL = 1;
+			PathComparator.NPC = 2;
+*/

@@ -1,15 +1,20 @@
 package emergence_NI;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
 import ontology.Types.WINNER;
 import tools.ElapsedCpuTimer;
+import core.game.Event;
+import core.game.Observation;
 import core.game.StateObservation;
 import emergence_NI.helper.ActionTimer;
+import emergence_NI.helper.LevelInfo;
 
 public class Agent extends AThreadablePlayer {
 
@@ -55,7 +60,7 @@ public class Agent extends AThreadablePlayer {
 		
 		evo = new Evolution(pathLength, populationSize, numFittest, stateObs);
 
-		// LevelInfo.print(stateObs);
+		//LevelInfo.print(stateObs);
 		if (VERBOSE) {
 		}
 
@@ -70,7 +75,24 @@ public class Agent extends AThreadablePlayer {
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
-
+		
+		
+//		System.out.println("--------------------------------");
+//		System.out.println("Tick: " + stateObs.getGameTick() + "   pos:  " + stateObs.getAvatarPosition());
+//		TreeSet<Event> events = stateObs.getEventsHistory();
+//		for(Event event : events){
+//			System.out.println("Event:\n");
+//			System.out.println("active Spriteid: " + event.activeSpriteId);
+//			System.out.println("active typeid: " + event.activeTypeId);
+//			System.out.println("gamestep: " + event.gameStep);
+//			System.out.println("passivesriteid: " + event.passiveSpriteId);
+//			System.out.println("from avata: " + event.fromAvatar);
+//			System.out.println("pos: " + event.position);
+//			System.out.println("passive type id: " + event.passiveTypeId);
+//			
+//		}
+		
+		
 		// detect game and maipulate the settings
 		if (stateObs.getGameTick() == 0) {
 			gameDet.detect(stateObs, this);

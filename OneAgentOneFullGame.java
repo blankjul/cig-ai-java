@@ -1,15 +1,13 @@
 
-
-
-public class OneAgentOneGame {
+public class OneAgentOneFullGame {
 
 	public static void main(String[] args) {
 
 		String controller = "emergence_NI.Agent";
 		String parameter = "";
-		
-		String gameStr = "firestorms";
-		int levelIdx = 4;
+
+		String gameStr = "survivezombies";
+
 		// "aliens", "boulderdash", "buterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
 		// "camelRace", "digdug", "firestorms", "infection", "firecaster",
@@ -20,9 +18,11 @@ public class OneAgentOneGame {
 
 		// Game and level to play
 		String game = gamesPath + gameStr + ".txt";
-		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
-		
-		Exec.execute(controller, game, level1, parameter, true, true);
+
+		for (int i = 0; i < 5; i++) {
+			String level1 = gamesPath + gameStr + "_lvl" + i + ".txt";
+			Exec.execute(controller, game, level1, parameter, true, true);
+		}
 
 	}
 }

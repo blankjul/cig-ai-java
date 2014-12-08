@@ -5,6 +5,7 @@ import java.util.Random;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
+import tools.Vector2d;
 import core.game.StateObservation;
 import emergence_NI.helper.Helper;
 import emergence_NI.heuristic.AHeuristic;
@@ -67,20 +68,35 @@ public class Path extends Evolutionary<Path> {
 	public void simulate(StateObservation stateObs) {
 		AHeuristic heuristic = new DeltaHeuristic(stateObs.getGameScore());
 		scores[0] = 0;
+		Vector2d last_avatar_position = stateObs.getAvatarPosition();
+		double blocksize = stateObs.getBlockSize();
+		boolean portal = false;
+		
 		for (int i = 0; i < pathLength; i++) {
 			Types.ACTIONS a = list.get(i);
 			stateObs.advance(a);
+			//when he used an portal
+			if(last_avatar_position.dist(stateObs.getAvatarPosition()) > blocksize*2 && !stateObs.isGameOver()){
+				portal = true;
+				//System.out.println("USED PORTAL: " + last_avatar_position.toString() + "  new pos " + stateObs.getAvatarPosition() + "  blocksize: " + blocksize);
+			}
 			scores[0] += heuristic.evaluateState(stateObs);
+			last_avatar_position = stateObs.getAvatarPosition().copy();
 		}
 		TargetHeuristic targetHeuristic = new TargetHeuristic(new int[] { 0, 0,
 				0, 1, 0, 0, 0, 0, 0, 0, 0, 0 });
 		
-		scores[1] = targetHeuristic.evaluateState(stateObs);
+		if(!portal){
+			scores[1] = targetHeuristic.evaluateState(stateObs);
+		}else{
+			scores[1] = 10;
+		}
+		
 		targetHeuristic.weights = new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0 };
 		
 		scores[2] = targetHeuristic.evaluateState(stateObs);
-
+		//System.out.println("scores  " + scores[0] + "  " + scores[1] +  "  " + scores[2]);
 	}
 
 	public void resetScore() {

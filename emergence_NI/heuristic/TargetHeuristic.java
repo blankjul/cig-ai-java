@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 import tools.Vector2d;
+import core.game.Event;
 import core.game.Observation;
 import core.game.StateObservation;
 
@@ -51,6 +54,7 @@ public class TargetHeuristic extends AHeuristic {
 		// norm all the values!
 		for (int i = 0; i < distances.size(); i++) {
 			double d = distances.get(i);
+			
 			double norm = -1;
 			if (d == 0) {
 				norm = 1;
@@ -160,10 +164,21 @@ public class TargetHeuristic extends AHeuristic {
 		Vector2d avatarPosition = stateObs.getAvatarPosition();
 		ArrayList<Observation>[] positions = null;
 
+		boolean portals = false;
+		
 		if (type.equals("npc")) {
 			positions = stateObs.getNPCPositions(avatarPosition);
 		} else if (type.equals("portals")) {
 			positions = stateObs.getPortalsPositions(avatarPosition);
+			
+			//catch the portal error
+//			TreeSet<Event> events = stateObs.getEventsHistory();
+//			
+//			Iterator it = events.iterator();	
+//			for(int i = 0; it.hasNext() && i < 5; i++){
+//				
+//			}
+			
 		} else if (type.equals("resource")) {
 			positions = stateObs.getResourcesPositions(avatarPosition);
 		} else if (type.equals("movable")) {
@@ -177,6 +192,7 @@ public class TargetHeuristic extends AHeuristic {
 			ArrayList<Observation> listObs = positions[i];
 			if (listObs == null || listObs.isEmpty())
 				continue;
+			
 			Observation obs = listObs.get(0);
 			eq.set(i, distance(avatarPosition, obs.position));
 		}
