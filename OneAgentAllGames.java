@@ -17,6 +17,7 @@ public class OneAgentAllGames {
 
 	//public static String[] GAMES = Helper.concat(Configuration.training, Configuration.validation);
 	public static String[] GAMES = Configuration.training;
+	//public static String[] GAMES = {"boulderdash"};
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();

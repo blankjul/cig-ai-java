@@ -1,7 +1,6 @@
 package emergence_NI;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 import core.game.StateObservation;
@@ -23,6 +22,9 @@ public class Evolution {
 
 	// the current population
 	private ArrayList<Evolutionary<Path>> population = new ArrayList<>();
+	
+	// always the last generation!
+	private ArrayList<Evolutionary<Path>> lastGeneration = null;
 
 	// number of generations that were applied.
 	private int numGeneration = 0;
@@ -33,8 +35,6 @@ public class Evolution {
 	// comparator for the ranking
 	private PathComparator comp = new PathComparator();
 
-	// best path that was found until now!
-	private Path bestPath = null;
 
 	public Evolution(int pathLength, int populationSize, int numFittest,
 			StateObservation stateObs) {
@@ -51,12 +51,6 @@ public class Evolution {
 		}
 	}
 
-	/**
-	 * @return current best element of population
-	 */
-	public Path best() {
-		return bestPath;
-	}
 
 
 	public void expand(StateObservation stateObs) {
@@ -66,11 +60,6 @@ public class Evolution {
 			Path p = (Path) population.get(counter);
 			// simulate always on a copy!
 			p.simulate(stateObs.copy());
-
-			// save the best path
-			if (bestPath == null || p.getScore() > bestPath.getScore()) {
-				bestPath = p;
-			}
 			++counter;
 
 		} else {
@@ -82,23 +71,34 @@ public class Evolution {
 
 	public void slidingWindow(StateObservation stateObs) {
 		numGeneration = 0;
-		bestPath = null;
+		lastGeneration = null;
+		
+		ArrayList<Evolutionary<Path>> poolNew = new ArrayList<Evolutionary<Path>>();
+		
 		for (int i = 0; i < population.size(); i++) {
 			Path path = (Path) population.get(i);
-			path.removeFirstAction();
-			path.setPathLength(pathLength);
-			path.resetScore();
+			Path pathToAdd = new Path(path.getPathLength(), path.getActions());
+			pathToAdd.removeFirstAction();
+			pathToAdd.setPathLength(path.getPathLength());
+			pathToAdd.resetScore();
+			poolNew.add(pathToAdd);
 		}
+		
+		population = poolNew;
+		
+		
 	}
+	
 
 	public void nextGen() {
 		++numGeneration;
+		lastGeneration = population;
 		counter = 0;
 
 		ArrayList<Evolutionary<Path>> nextPool = new ArrayList<>();
 
 		// save the fittest
-		Collections.sort(population, comp);
+		PathComparator.sort(population, comp);
 		for (int i = 0; i < numFittest && i < population.size(); i++) {
 			Evolutionary<Path> evo = population.get(i);
 			nextPool.add(evo);
@@ -141,14 +141,15 @@ public class Evolution {
 	}
 
 	public void print(int top) {
-		Collections.sort(population, comp);
+		ArrayList<Evolutionary<Path>> pool = getPopulation();
+		PathComparator.sort(pool, comp);
 		System.out.println("------------------");
 		System.out.println("GENERATION: " + numGeneration);
 		System.out.println("------------------");
-		for (int i = 0; i < population.size() && i < top; i++) {
+		for (int i = 0; i < pool.size() && i < top; i++) {
 			if (i == 0)
 				System.out.print("--> ");
-			System.out.println(population.get(i));
+			System.out.println(pool.get(i));
 		}
 	}
 
@@ -174,8 +175,8 @@ public class Evolution {
 
 	public void setPopulationSize(int populationSize) {
 		this.populationSize = populationSize;
-		Collections.sort(population, comp);
-
+		PathComparator.sort(population, comp);
+		
 		while (population.size() < populationSize) {
 			Path random = population.get(0).random();
 			population.add(random);
@@ -199,7 +200,10 @@ public class Evolution {
 	}
 
 	public ArrayList<Evolutionary<Path>> getPopulation() {
-		return population;
+		if (lastGeneration != null) {
+			return lastGeneration;
+		}
+		else return population;
 	}
 
 }

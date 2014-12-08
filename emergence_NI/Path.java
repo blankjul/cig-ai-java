@@ -25,7 +25,7 @@ public class Path extends Evolutionary<Path> {
 
 	// all scores that are saved from this path
 	private double[] scores = new double[] { Double.NEGATIVE_INFINITY,
-			Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY };
+			Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY , Double.NEGATIVE_INFINITY};
 
 	// length of the calculated path
 	private int pathLength;
@@ -36,6 +36,7 @@ public class Path extends Evolutionary<Path> {
 	// random variable
 	private Random r;
 
+	
 	/**
 	 * Constructs a path that has the size of path length. Only actions of the
 	 * actions list are used.
@@ -92,16 +93,20 @@ public class Path extends Evolutionary<Path> {
 			scores[1] = 10;
 		}
 		
-		targetHeuristic.weights = new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0 };
-		
+		targetHeuristic = new TargetHeuristic(new int[] { 1, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
 		scores[2] = targetHeuristic.evaluateState(stateObs);
+		
+		targetHeuristic = new TargetHeuristic(new int[] { 0, 0,
+				0, 0, 1, 0, 0, 0, 0, 0, 0, 0 });
+		scores[3] = targetHeuristic.evaluateState(stateObs);
+		
 		//System.out.println("scores  " + scores[0] + "  " + scores[1] +  "  " + scores[2]);
 	}
 
 	public void resetScore() {
 		scores = new double[] { Double.NEGATIVE_INFINITY,
-				Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY };
+				Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY , Double.NEGATIVE_INFINITY};
 	}
 
 	@Override
@@ -125,8 +130,8 @@ public class Path extends Evolutionary<Path> {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append(String.format("[score:%s , portal:%s, npc:%s] ", scores[0],
-				scores[1], scores[2]));
+		sb.append(String.format("[score:%s , portal:%s, npc:%s, length:%s] ", scores[0],
+				scores[1], scores[2], list.size()));
 		for (ACTIONS a : list) {
 			sb.append(a + ",");
 		}
@@ -143,6 +148,10 @@ public class Path extends Evolutionary<Path> {
 
 	public double getNPCValue() {
 		return scores[2];
+	}
+	
+	public double getPortal2Value() {
+		return scores[3];
 	}
 
 	/**
@@ -172,6 +181,14 @@ public class Path extends Evolutionary<Path> {
 		if (!list.isEmpty()) {
 			return list.get(0);
 		} else return Types.ACTIONS.ACTION_NIL;
+	}
+
+	public int getPathLength() {
+		return pathLength;
+	}
+
+	public ArrayList<Types.ACTIONS> getActions() {
+		return actions;
 	}
 
 	

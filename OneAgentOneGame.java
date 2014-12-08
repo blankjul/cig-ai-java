@@ -1,3 +1,5 @@
+import emergence_NI.Agent;
+
 
 
 
@@ -6,11 +8,13 @@ public class OneAgentOneGame {
 	public static void main(String[] args) {
 
 		String controller = "emergence_NI.Agent";
+		//String controller = "controllers.human.Agent";
+		
 		String parameter = "";
 		
-		String gameStr = "firestorms";
-		int levelIdx = 4;
-		// "aliens", "boulderdash", "buterflies", "chase", "frogs",
+		String gameStr = "boulderdash";
+		int levelIdx = 1;
+		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
 		// "camelRace", "digdug", "firestorms", "infection", "firecaster",
 		// "overload", "pacman", "seaquest", "whackamole", "eggomania"
@@ -22,7 +26,7 @@ public class OneAgentOneGame {
 		String game = gamesPath + gameStr + ".txt";
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
 		
-		Exec.execute(controller, game, level1, parameter, true, true);
+		Exec.execute(controller, game, level1, parameter, true, Agent.VERBOSE);
 
 	}
 }

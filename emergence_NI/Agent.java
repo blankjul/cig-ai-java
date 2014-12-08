@@ -1,17 +1,13 @@
 package emergence_NI;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.TreeSet;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
 import ontology.Types.WINNER;
 import tools.ElapsedCpuTimer;
-import core.game.Event;
-import core.game.Observation;
 import core.game.StateObservation;
 import emergence_NI.helper.ActionTimer;
 import emergence_NI.helper.LevelInfo;
@@ -19,7 +15,7 @@ import emergence_NI.helper.LevelInfo;
 public class Agent extends AThreadablePlayer {
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = false;
+	public static boolean VERBOSE = true;
 
 	// random object
 	public static Random r = new Random();
@@ -48,6 +44,8 @@ public class Agent extends AThreadablePlayer {
 	public GameDetection gameDet = new GameDetection();
 
 	public boolean valModifiedByGameDetect = false;
+	
+	public boolean updatePathLength = true;
 
 	public Agent() {
 	};
@@ -60,8 +58,8 @@ public class Agent extends AThreadablePlayer {
 		
 		evo = new Evolution(pathLength, populationSize, numFittest, stateObs);
 
-		//LevelInfo.print(stateObs);
 		if (VERBOSE) {
+			LevelInfo.print(stateObs);
 		}
 
 		ActionTimer timerAll = new ActionTimer(elapsedTimer);
@@ -75,22 +73,6 @@ public class Agent extends AThreadablePlayer {
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
-		
-		
-//		System.out.println("--------------------------------");
-//		System.out.println("Tick: " + stateObs.getGameTick() + "   pos:  " + stateObs.getAvatarPosition());
-//		TreeSet<Event> events = stateObs.getEventsHistory();
-//		for(Event event : events){
-//			System.out.println("Event:\n");
-//			System.out.println("active Spriteid: " + event.activeSpriteId);
-//			System.out.println("active typeid: " + event.activeTypeId);
-//			System.out.println("gamestep: " + event.gameStep);
-//			System.out.println("passivesriteid: " + event.passiveSpriteId);
-//			System.out.println("from avata: " + event.fromAvatar);
-//			System.out.println("pos: " + event.position);
-//			System.out.println("passive type id: " + event.passiveTypeId);
-//			
-//		}
 		
 		
 		// detect game and maipulate the settings
@@ -116,22 +98,16 @@ public class Agent extends AThreadablePlayer {
 		updateStatistics(selectedPath);
 
 		// set the path length adaptive
-
-		int length = evo.getPathLength();
-		// System.out.println(evo.getNumGeneration());
-		if (evo.getNumGeneration() < minGeneration) {
-			if (length > 2)
-				evo.setPathLength(length - 1);
-		} else if (evo.getNumGeneration() > minGeneration) {
-			evo.setPathLength(length + 1);
-		}
+		if (updatePathLength) updatePathLength();
+		
 
 		int tick = stateObs.getGameTick();
 		if (switchHeuristic != 0 && tick > 0 && tick % switchHeuristic == 0)
 			PathComparator.setType();
 
+		
 		// print the current status
-		if (false) {
+		if (VERBOSE) {
 			evo.print(evo.getPopulationSize());
 			System.out.println(evo.getComparator());
 			System.out.println(this.printToString());
@@ -148,6 +124,18 @@ public class Agent extends AThreadablePlayer {
 			PathComparator.reward[PathComparator.TYPE] += p.getScore();
 		PathComparator.used[PathComparator.TYPE] += 1;
 
+	}
+	
+	private void updatePathLength() {
+		int length = evo.getPathLength();
+		// System.out.println(evo.getNumGeneration());
+		if (evo.getNumGeneration() < minGeneration) {
+			if (length > 2)
+				evo.setPathLength(length - 1);
+		} else if (evo.getNumGeneration() > minGeneration) {
+			if (length < 40) evo.setPathLength(length + 1);
+		}
+		pathLength = evo.getPathLength();
 	}
 
 	private Path getNextAction(ActionTimer timer, StateObservation stateObs) {
@@ -221,8 +209,8 @@ public class Agent extends AThreadablePlayer {
 	public String printToString() {
 		String s = String.format(
 				"pessimistic:%s pathLength:%s populationSize:%s numFittest:%s",
-				pessimistic, evo.getPathLength(), evo.getPopulationSize(),
-				evo.getNumFittest());
+				pessimistic, pathLength, populationSize,
+				numFittest);
 		return s;
 	}
 

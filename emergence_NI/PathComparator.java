@@ -13,10 +13,11 @@ public class PathComparator implements Comparator<Evolutionary<Path>>{
 	public static int RANDOM = 0;
 	public static int PORTAL = 1;
 	public static int NPC = 2;
+	public static int PORTAL2 = 3;
 	
 
-	public static double[] reward = new double[3];
-	public static int[] used = new int[3];
+	public static double[] reward = new double[4];
+	public static int[] used = new int[4];
 	
 	public static void setType() {
 		ArrayList<Double> avg = new ArrayList<>();
@@ -37,6 +38,14 @@ public class PathComparator implements Comparator<Evolutionary<Path>>{
 		PathComparator.TYPE = index;
 	}
 	
+	
+	
+	public static void sort(ArrayList<Evolutionary<Path>> population, PathComparator comp) {
+		Collections.shuffle(population);
+		Collections.sort(population, comp);
+	}
+	
+	
 
 	@Override
 	public int compare(Evolutionary<Path> o1, Evolutionary<Path> o2) {
@@ -53,14 +62,11 @@ public class PathComparator implements Comparator<Evolutionary<Path>>{
 			} else if (TYPE == NPC) {
 				d1 = p1.getNPCValue();
 				d2 = p2.getNPCValue();
+			} else if (TYPE == PORTAL2) {
+				d1 = p1.getPortal2Value();
+				d2 = p2.getPortal2Value();
 			} 
 			result = d2.compareTo(d1);
-			
-			if (TYPE == RANDOM || result == 0) {
-				d1 = Agent.r.nextDouble();
-				d2 = Agent.r.nextDouble();
-				result = d2.compareTo(d1);
-			}
 		}
 		return result;
 	}

@@ -2,7 +2,6 @@ package emergence_NI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import tools.Vector2d;
 import core.game.Observation;
@@ -234,33 +233,9 @@ public class GameDetection {
 			this.game = "";
 			this.level = "";
 			this.detected = false;
-			this.setStandardSettings(agent);
 			agent.valModifiedByGameDetect = false;
 			return false;
 		}
-	}
-
-	/**
-	 * game was not detected (test set) -> set Standard Settings
-	 * 
-	 * @param agent
-	 */
-	public void setStandardSettings(Agent agent) {
-		// standard settings from agent
-		agent.pessimistic = 5;
-		agent.minGeneration = 4;
-		agent.pathLength = 20;
-		agent.populationSize = 12;
-		agent.numFittest = 4;
-		agent.switchHeuristic = 0;
-
-		// standard settings from PathComparator
-		PathComparator.TYPE = 0;
-		PathComparator.RANDOM = 0;
-		PathComparator.PORTAL = 1;
-		PathComparator.NPC = 2;
-		//DEBUG
-		System.out.println("set standard settings");
 	}
 
 	/**
@@ -284,8 +259,13 @@ public class GameDetection {
 		case "aliens":
 			break;
 		case "boulderdash":
+			agent.pessimistic = 10;
+			agent.pathLength = 5;
+			agent.populationSize = 20;
+			agent.updatePathLength = false;
 			break;
 		case "butterflies":
+			PathComparator.TYPE = 2;
 			break;
 		case "chase"://victorys: 4/5
 			agent.pathLength = 5;
@@ -293,6 +273,14 @@ public class GameDetection {
 			agent.valModifiedByGameDetect = true;
 			break;
 		case "frogs":
+			PathComparator.TYPE = 1;
+			agent.pessimistic = 5;
+			agent.minGeneration = 4;
+			agent.pathLength = 5;
+			agent.populationSize = 12;
+			agent.numFittest = 4;
+			agent.switchHeuristic = 0;
+			agent.valModifiedByGameDetect = true;
 			break;
 		case "missilecommand":
 			break;
@@ -308,34 +296,26 @@ public class GameDetection {
 			break;
 		case "survivezombies": //victories 3/5
 			agent.pessimistic = 7;
+			PathComparator.TYPE = 2;
 			break;
 		case "zelda":
-			// standard settings from agent
-			agent.pessimistic = 5;
-			agent.minGeneration = 4;
-			agent.pathLength = 20;
-			agent.populationSize = 12;
-			agent.numFittest = 4;
-			agent.switchHeuristic = 0;
-
-			// standard settings from PathComparator
-			PathComparator.TYPE = 0;
-			PathComparator.RANDOM = 0;
-			PathComparator.PORTAL = 1;
-			PathComparator.NPC = 2;
 			break;
 		// start validation set
 		case "camelRace":
 			PathComparator.TYPE = 1;
 			agent.pathLength = 2;
-			agent.populationSize = 20;
+			agent.populationSize = 50;
 			agent.switchHeuristic = 2000;
 			agent.valModifiedByGameDetect = true;
 			//System.out.println("modiefied camelrace");
 			break;
 		case "digdug":
+			PathComparator.TYPE = 2;
 			break;
 		case "firestorms":
+			PathComparator.TYPE = 3;
+			agent.pessimistic = 20;
+			//agent.switchHeuristic = 200;d
 			break;
 		case "infection":
 			break;
@@ -350,15 +330,17 @@ public class GameDetection {
 		case "whackamole":
 			break;
 		case "eggomania":
-			agent.pathLength = 5;
+			agent.pathLength = 80;
 			PathComparator.TYPE = 2;
 			agent.valModifiedByGameDetect = true;
+			agent.updatePathLength = true;
 			break;
-
 		default:
 			System.out.println("set settings fehler, kein game gefunden");
 			break;
 		}
+		
+		System.out.println(agent.printToString());
 	}
 
 	/**
@@ -389,17 +371,3 @@ public class GameDetection {
 		return listStr;
 	}
 }
-/*DO N0T DELETE !!!!!!!!!!!!!!!!!!!!!!!!!!
- * agent.pessimistic = 5;
-			agent.minGeneration = 4;
-			agent.pathLength = 20;
-			agent.populationSize = 12;
-			agent.numFittest = 4;
-			agent.switchHeuristic = 0;
-
-			// standard settings from PathComparator
-			PathComparator.TYPE = 0;
-			PathComparator.RANDOM = 0;
-			PathComparator.PORTAL = 1;
-			PathComparator.NPC = 2;
-*/
