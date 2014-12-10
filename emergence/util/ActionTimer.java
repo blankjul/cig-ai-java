@@ -1,4 +1,4 @@
-package emergence_NI.helper;
+package emergence.util;
 
 import tools.ElapsedCpuTimer;
 

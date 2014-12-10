@@ -1,4 +1,4 @@
-package emergence_NI.helper;
+package emergence.util;
 
 /**
  * This is a pair class that is always sorted by the value!
@@ -20,19 +20,20 @@ public class Pair<F, S extends Comparable<S>> implements Comparable<Pair<F, S>>{
 		this.second = second;
 	}
 
-	public F getFirst() {
+	public F _1() {
 		return first;
 	}
 
-	public S getSecond() {
+	public S _2() {
 		return second;
 	}
 
 
 	@Override
 	public int compareTo(Pair<F, S> obj) {
-		return obj.getSecond().compareTo(this.getSecond());
+		return obj._2().compareTo(this._2());
 	}
+	
 	
 	@Override
 	public String toString() {

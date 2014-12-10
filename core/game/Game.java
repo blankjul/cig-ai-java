@@ -48,7 +48,7 @@ public abstract class Game
      * collection of sprites of a given type, which is also the index
      * of the array.
      */
-    protected SpriteGroup[] spriteGroups;
+    public SpriteGroup[] spriteGroups;
 
     /**
      * Relationships for collisions: double array of (list of) effects. Interaction between
@@ -530,7 +530,7 @@ public abstract class Game
      * @param player Player that plays this game.
      * @param randomSeed sampleRandom seed for the whole game.
      */
-    private void prepareGame(AbstractPlayer player, int randomSeed)
+    public void prepareGame(AbstractPlayer player, int randomSeed)
     {
         //Start tick counter.
         gameTick = -1;

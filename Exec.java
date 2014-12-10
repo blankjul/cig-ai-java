@@ -73,20 +73,18 @@ public class Exec  {
 		/*
 		 * special parsing of parameter of agent needs it!
 		 */
-		if (controller.equals("emergence_NI.Agent")) {
+		if (controller.equals("emergence.Agent")) {
 			
 			if (parameter != null) {
-				player = new emergence_NI.Agent(toPlay.getObservation(), ect);
-				((emergence_NI.Agent) player).createFromString(parameter);
-				emergence_NI.Agent.VERBOSE = verbose;
+				player = new emergence.Agent(toPlay.getObservation(), ect);
+				//((emergence.Agent) player).createFromString(parameter);
+				emergence.Agent.VERBOSE = verbose;
 			}
 		} else {
 			player = ArcadeMachine.createPlayer(controller, actionFile,
 					toPlay.getObservation(), randomSeed);
 		}
 
-		
-		
 		
 		player.setup(actionFile, randomSeed);
 		// Third, warm the game up.

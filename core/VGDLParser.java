@@ -61,6 +61,8 @@ public class VGDLParser
         constructors = new HashMap<Integer, SpriteContent>();
     }
 
+
+    
     /**
      * Parses a game passed whose file is passed by parameter.
      * @param gamedesc_file filename of the file containing the game

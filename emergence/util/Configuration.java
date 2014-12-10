@@ -1,3 +1,4 @@
+package emergence.util;
 
 
 import java.lang.reflect.Array;
@@ -20,6 +21,7 @@ public class Configuration {
 	
 	public static String[] allGames = concatenate(training,validation);
 
+	
 	public static DateFormat dateFormat = new SimpleDateFormat(
 			"yyyy/MM/dd HH:mm:ss");
 	

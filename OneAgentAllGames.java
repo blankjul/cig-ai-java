@@ -5,7 +5,8 @@ import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import emergence_NI.GameResult;
+import emergence.GameResult;
+import emergence.util.Configuration;
 
 public class OneAgentAllGames {
 

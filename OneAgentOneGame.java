@@ -1,4 +1,4 @@
-import emergence_NI.Agent;
+import emergence.Agent;
 
 
 
@@ -7,13 +7,13 @@ public class OneAgentOneGame {
 
 	public static void main(String[] args) {
 
-		String controller = "emergence_NI.Agent";
+		String controller = "emergence.Agent";
 		//String controller = "controllers.human.Agent";
 		
 		String parameter = "";
 		
-		String gameStr = "boulderdash";
-		int levelIdx = 1;
+		String gameStr = "firestorms";
+		int levelIdx = 6;
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
 		// "camelRace", "digdug", "firestorms", "infection", "firecaster",
