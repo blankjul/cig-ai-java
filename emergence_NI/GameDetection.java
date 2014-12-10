@@ -299,6 +299,8 @@ public class GameDetection {
 			PathComparator.TYPE = 2;
 			break;
 		case "zelda":
+			agent.pessimistic = 15;
+			agent.pathLength = 12;
 			break;
 		// start validation set
 		case "camelRace":

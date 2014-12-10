@@ -30,22 +30,22 @@ public class Agent extends AThreadablePlayer {
 	public int minGeneration = 4;
 
 	// number of actions that are simulated
-	public int pathLength = 20;
+	public int pathLength = 8;
 
 	// how many entries should the population has
-	public int populationSize = 12;
+	public int populationSize = 14;
 
 	// number of the fittest to save for the next generation
-	public int numFittest = 4;
+	public int numFittest = 5;
 
 	// switch the heuristic every x time steps
-	public int switchHeuristic = 0;
+	public int switchHeuristic = 2000;
 
 	public GameDetection gameDet = new GameDetection();
 
 	public boolean valModifiedByGameDetect = false;
 	
-	public boolean updatePathLength = true;
+	public boolean updatePathLength = false;
 
 	public Agent() {
 	};
