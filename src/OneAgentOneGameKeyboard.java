@@ -3,7 +3,7 @@ import emergence.Agent;
 
 
 
-public class OneAgentOneGame {
+public class OneAgentOneGameKeyboard {
 
 	public static void main(String[] args) {
 
@@ -12,7 +12,7 @@ public class OneAgentOneGame {
 		
 		String parameter = "";
 		
-		String gameStr = "butterflies";
+		String gameStr = "aliens";
 		int levelIdx = 0;
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",

@@ -1,9 +1,13 @@
 package emergence.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Color;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.PriorityQueue;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import tools.JEasyFrame;
 import tools.Vector2d;
@@ -19,34 +23,52 @@ public class AStarTest {
 
 	private static Game g;
 	private static StateObservation stateObs = null;
-	private static ArrayList<AStarNode> closed = new ArrayList<>();
 
 	@BeforeClass
 	public static void setUp() {
 		//g = Base.getTestGame("default", 3);
-		g = LevelLoader.loadGame("portals", 0);
+		g = LevelLoader.loadGame("camelRace", 3);
 		stateObs = g.getObservation();
 		System.out.println(MapInfo.info(stateObs));
 	}
+	
+	
+	@Test
+	public void maxSizeTest() {
+		
+	    StateObservation myStateObs = stateObs.copy(); 
+		
+		int maxSize = 5;
+		AStar astar = new AStar(myStateObs, maxSize);
+		boolean lowerThan = true;
+		
+		boolean next = true;
 
+		while (next) {
+			next = astar.expand();
+			lowerThan = astar.getOpenList().size() < maxSize;
+		}
+		assertTrue("open list always lower than 5", lowerThan);
+		
+	}
+
+	
+	
 	@Test
 	public void test() {
-		
-		
-		AStar astar = new AStar(stateObs);
+		StateObservation myStateObs = stateObs.copy(); 
+		AStar astar = new AStar(myStateObs, 10);
 		JEasyFrame frame = LevelLoader.show(g);
-		frame.blockSize = stateObs.getBlockSize();
+		frame.blockSize = myStateObs.getBlockSize();
 
 		boolean next = true;
 
 		while (next) {
 			
 			PriorityQueue<AStarNode> openList = astar.getOpenList();
-			closed.add(astar.getBest());
 			frame.markers.clear();
 			int counter = 0;
-			for (AStarNode node : closed) {
-				Vector2d v = node.stateObs.getAvatarPosition();
+			for (Vector2d v : astar.getClosedSet()) {
 				Point p = new Point((int)v.x, (int) v.y);
 				frame.markers.add(new Pair<Point, Color>(p, Color.BLACK));
 			}
@@ -58,7 +80,6 @@ public class AStarTest {
 				Point p = new Point((int)v.x, (int) v.y);
 				frame.markers.add(new Pair<Point, Color>(p, c));
 			}
-			
 			
 			frame.repaint();
 			astar.printOpenList();
@@ -72,5 +93,6 @@ public class AStarTest {
 		} catch (Exception e) {
 		}
 	}
+	
 
 }

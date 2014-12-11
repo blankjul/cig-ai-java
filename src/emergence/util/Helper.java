@@ -1,10 +1,19 @@
 package emergence.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 import ontology.Types.ACTIONS;
 import tools.Vector2d;
 import core.game.StateObservation;
 
 public class Helper {
+	
+	private static Random r = new Random();
 	
 	public static String hash(StateObservation stateObs) {
 		Vector2d pos = stateObs.getAvatarPosition();
@@ -30,6 +39,45 @@ public class Helper {
 		}
 		
 	}
+
+	public static <T> String toString(Collection<T> coll) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		for (T entry : coll) {
+			sb.append(entry.toString());
+			sb.append(",");
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+	
+	
+	
+	/**
+	 * Return a random entry from a list
+	 */
+	public static <T> T getRandomEntry(List<T> list) {
+		if (list.isEmpty()) return null;
+		else if (list.size() == 1) {
+			return list.get(0);
+		} else {
+			int index = r.nextInt(list.size());
+			return list.get(index);
+		}
+	}
+	
+	public static <T> T getRandomEntry(Set<T> set) {
+		List<T> asList = new ArrayList<>(set);
+		Collections.shuffle(asList);
+		return asList.get(0);
+	}
+	
+	public static ACTIONS getRandomAction(StateObservation stateObs) {
+		ArrayList<ACTIONS> actions = stateObs.getAvailableActions();
+		return getRandomEntry(actions);
+	}
+	
+	
 	
 
 }

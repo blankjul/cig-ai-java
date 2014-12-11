@@ -21,7 +21,6 @@ public class LevelLoader {
 		String pathToGame = String.format("%s/%s/%s/%s.txt", currentDir, "examples", "gridphysics", game);
 		String pathToLevel = String.format("%s/%s/%s/%s_lvl%s.txt", currentDir, "examples", "gridphysics", game, level);
 		Game g = loadGameByPath(pathToGame, pathToLevel);
-		//g.buildLevel(pathToLevel);
 		return g;
 	}
 	
@@ -32,6 +31,8 @@ public class LevelLoader {
 		// First, we create the game to be played..
 		Game toPlay = new VGDLParser().parseGame(pathToGame);
 		toPlay.buildLevel(String.valueOf(pathToLevel));
+		toPlay.initForwardModel();
+		toPlay.prepareGame(new Agent(), new Random().nextInt());
 		return toPlay;
 	}
 	

@@ -5,6 +5,10 @@ import ontology.Types.ACTIONS;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
+import emergence.strategy.AStrategy;
+import emergence.strategy.StayAlive;
+import emergence.util.ActionTimer;
+import emergence.util.Helper;
 import emergence.util.MapInfo;
 
 public class Agent extends AbstractPlayer {
@@ -20,17 +24,38 @@ public class Agent extends AbstractPlayer {
 		System.out.println(MapInfo.info(stateObs));
 		System.out.println(Factory.getGameDetection().detect(stateObs)); 
 		
-		
-		Factory.getSimulator().advance(stateObs, ACTIONS.ACTION_LEFT);
+		ActionTimer timerAll = new ActionTimer(elapsedTimer);
+		timerAll.timeRemainingLimit = 150;
+		StateObservation tmpState = stateObs.copy();
+		while (timerAll.isTimeLeft()) {
+			ACTIONS random = Helper.getRandomAction(stateObs);
+			Factory.getSimulator().advance(tmpState, random);
+			if (tmpState.isGameOver()) tmpState = stateObs.copy();
+			timerAll.addIteration();
+		}
 		
 	}
 
+	
+	
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
+		AStrategy strategy = new StayAlive(stateObs);
+		ACTIONS a = strategy.act();
+		if (stateObs.getGameTick() == 0 || stateObs.getGameTick() % 100 == 0) System.out.println(Factory.getSimulator().toString());
 		
 		
-
-				return null;
+		ActionTimer timerAll = new ActionTimer(elapsedTimer);
+		timerAll.timeRemainingLimit = 2;
+		StateObservation tmpState = stateObs.copy();
+		while (timerAll.isTimeLeft()) {
+			ACTIONS random = Helper.getRandomAction(stateObs);
+			Factory.getSimulator().advance(tmpState, random);
+			if (tmpState.isGameOver()) tmpState = stateObs.copy();
+			timerAll.addIteration();
+		}
+		
+		return a;
 		
 	}
 
