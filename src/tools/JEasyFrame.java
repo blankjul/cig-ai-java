@@ -1,8 +1,13 @@
 package tools;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.WindowEvent;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
 
 /**
  * Frame for the graphics.
@@ -16,6 +21,10 @@ public class JEasyFrame extends JFrame {
      * Main component of the frame.
      */
     public Component comp;
+    
+    public ArrayList<emergence.util.Pair<Point,Color>> markers = new ArrayList<>();
+    
+    public double blockSize = 0;
 
     /**
      * Constructor
@@ -31,6 +40,20 @@ public class JEasyFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         repaint();
     }
+    
+    
+    @Override
+	public void paint(Graphics g) {
+    	super.paint(g);
+    	for (emergence.util.Pair<Point,Color> pair : markers) {
+    		Point p = pair._1();
+            g.setColor(pair._2());
+            int markerSize = 10;
+            g.fillOval(p.x , p.y , markerSize, markerSize);
+        }
+    }
+    
+    
 
     /**
      * Closes this component.
