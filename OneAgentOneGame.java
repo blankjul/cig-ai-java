@@ -12,8 +12,8 @@ public class OneAgentOneGame {
 		
 		String parameter = "";
 		
-		String gameStr = "firestorms";
-		int levelIdx = 6;
+		String gameStr = "aliens";
+		int levelIdx = 0;
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
 		// "camelRace", "digdug", "firestorms", "infection", "firecaster",

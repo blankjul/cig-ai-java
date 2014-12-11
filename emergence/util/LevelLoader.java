@@ -17,19 +17,25 @@ import emergence.Agent;
 public class LevelLoader {
 
 	public static Game loadGame(String game, int level) {
-		VGDLFactory.GetInstance().init();
-		VGDLRegistry.GetInstance().init();
-
 		String currentDir = System.getProperty("user.dir");
-
 		String pathToGame = String.format("%s/%s/%s/%s.txt", currentDir, "examples", "gridphysics", game);
 		String pathToLevel = String.format("%s/%s/%s/%s_lvl%s.txt", currentDir, "examples", "gridphysics", game, level);
-
+		Game g = loadGameByPath(pathToGame, pathToLevel);
+		//g.buildLevel(pathToLevel);
+		return g;
+	}
+	
+	public static Game loadGameByPath(String pathToGame, String pathToLevel) {
+		VGDLFactory.GetInstance().init();
+		VGDLRegistry.GetInstance().init();
+		
 		// First, we create the game to be played..
 		Game toPlay = new VGDLParser().parseGame(pathToGame);
 		toPlay.buildLevel(String.valueOf(pathToLevel));
 		return toPlay;
 	}
+	
+	
 
 	public static StateObservation load(String game, int level) {
 		return loadGame(game, level).getObservation();

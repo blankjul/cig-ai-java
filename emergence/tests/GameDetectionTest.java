@@ -10,14 +10,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import core.VGDLFactory;
-import core.VGDLParser;
-import core.VGDLRegistry;
 import core.game.Game;
 import core.game.StateObservation;
 import emergence.util.Configuration;
 import emergence.util.GameDetection;
-import emergence.util.Pair;
+import emergence.util.LevelLoader;
+import emergence.util.SortedPair;
 
 @RunWith(Parameterized.class)
 public class GameDetectionTest {
@@ -26,7 +24,7 @@ public class GameDetectionTest {
 	private Integer level;
 	private StateObservation stateObs;
 
-	public GameDetectionTest(String game, int level,StateObservation stateObs ) {
+	public GameDetectionTest(String game, int level, StateObservation stateObs) {
 		super();
 		this.game = game;
 		this.level = level;
@@ -35,40 +33,28 @@ public class GameDetectionTest {
 
 	@Test
 	public void testInfoString() {
-		GameDetection d =new GameDetection();
-		Pair<String, Integer> pair = d.detect(stateObs);
+		GameDetection d = new GameDetection();
 		
-		 assertEquals(String.format("Game shoud be %s = %s", game, pair._1()), pair._1(), game);
-		 assertEquals(String.format("Level shoud be %s = %s", level, pair._2()), pair._2(), level);
-		 
+		SortedPair<String, Integer> pair = d.detect(stateObs);
+
+		assertEquals(String.format("Game shoud be %s = %s", game, pair._1()), pair._1(), game);
+		assertEquals(String.format("Level shoud be %s = %s", level, pair._2()), pair._2(), level);
+
 	}
 
-	
-	
 	@Parameters
 	public static List<Object[]> data() {
 		List<Object[]> data = new ArrayList<Object[]>();
 		for (String game : Configuration.allGames) {
 			for (int level = 0; level < 5; level++) {
-				
-				VGDLFactory.GetInstance().init();
-				VGDLRegistry.GetInstance().init();
 
-				String currentDir = System.getProperty("user.dir");
-				
-				String pathToGame = String.format("%s/%s/%s/%s.txt", currentDir, "examples", "gridphysics", game);
-				String pathToLevel = String.format("%s/%s/%s/%s_lvl%s.txt", currentDir, "examples", "gridphysics", game, level);
-				
 				// First, we create the game to be played..
-				Game toPlay = new VGDLParser().parseGame(pathToGame);
-				toPlay.buildLevel(String.valueOf(pathToLevel));
-				
-				data.add(new Object[]{game,level,toPlay.getObservation()});
+				Game toPlay = LevelLoader.loadGame(game, level);
+				data.add(new Object[] { game, level, toPlay.getObservation() });
 			}
 		}
 
 		return data;
 	}
-	
 
 }

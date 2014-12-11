@@ -7,7 +7,6 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import ontology.Types.ACTIONS;
-import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.StateObservation;
 import emergence.Factory;
@@ -28,7 +27,7 @@ public class AStar {
 	// all the hashes of positions where the controller was before
 	private Set<String> closedSet = new HashSet<>();
 	
-	private Vector2d target = new Vector2d(700,140);
+	private Vector2d target = new Vector2d(736.0,80.0);
 	
 
 	public AStar(StateObservation stateObs) {
@@ -60,8 +59,8 @@ public class AStar {
 		for (AStarNode child : n.getChildren(recommendedActions)) {
 
 			boolean found = Helper.distance(child.stateObs.getAvatarPosition(), target) == 0;
-			boolean winner = child.stateObs.getGameWinner() == WINNER.PLAYER_WINS;
-			if (found || winner) {
+			boolean gameOver = child.stateObs.isGameOver();
+			if (found || gameOver) {
 				System.out.println("YEAHHH FOUND");
 				return false;
 			}
@@ -71,31 +70,25 @@ public class AStar {
 				continue;
 
 			// set the tentative g score
-			child.g = n.g + Helper.distance(n.stateObs.getAvatarPosition(), child.stateObs.getAvatarPosition());
 			child.f = child.g + Helper.distance(child.stateObs.getAvatarPosition(), target);
-
 			AStarNode nodeSamePosition = openSet.get(child.hash());
 
-			// if child not in open set
+			// if child is not in open set -> just add
 			if (nodeSamePosition == null) {
 				openSet.put(child.hash(), child);
 				openList.add(child);
-				
 			} else {
-				// if it's in the open set
-
-				// if the node in the open set has a longer way
+				// if it's in the open set so we have a node at the same position
+				// check if the current child has lower costs
 				if (child.g < nodeSamePosition.g) {
 					openSet.remove(nodeSamePosition);
 					openList.remove(nodeSamePosition);
-
+					openSet.put(child.hash(), child);
+					openList.add(child);
 				}
-
 			}
-
 		}
 
-		printOpenList();
 		return true;
 	}
 	
@@ -109,6 +102,14 @@ public class AStar {
 		for (AStarNode n : openList) {
 			System.out.println(n);
 		}
+	}
+
+	public PriorityQueue<AStarNode> getOpenList() {
+		return openList;
+	}
+
+	public Set<String> getClosedSet() {
+		return closedSet;
 	}
 
 }

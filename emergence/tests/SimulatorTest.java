@@ -13,9 +13,6 @@ import org.junit.Test;
 
 import core.game.StateObservation;
 import emergence.Simulator;
-import emergence.util.LevelLoader;
-
-
 
 public class SimulatorTest {
 
@@ -23,7 +20,7 @@ public class SimulatorTest {
 
 	@BeforeClass
 	public static void setUp() {
-		stateObs = LevelLoader.load("firestorms", 5);
+		stateObs = Base.getTestGame("default", 1).getObservation();
 	}
 
 	/**
@@ -55,11 +52,11 @@ public class SimulatorTest {
 				correctNextActions.add(a);
 			}
 		}
-		
+
 		Set<ACTIONS> simNextActions = sim.getRecommendActions(myStateObs);
 		assertEquals(simNextActions, correctNextActions);
 	}
-	
+
 	@Test
 	public void recommendedActionsScratchTest() {
 		StateObservation myStateObs = stateObs.copy();
@@ -68,7 +65,7 @@ public class SimulatorTest {
 		Simulator sim = new Simulator();
 		Set<ACTIONS> correctNextActions = new HashSet<ACTIONS>();
 		for (ACTIONS a : myStateObs.getAvailableActions()) {
-				correctNextActions.add(a);
+			correctNextActions.add(a);
 		}
 		Set<ACTIONS> simNextActions = sim.getRecommendActions(myStateObs);
 		assertEquals(simNextActions, correctNextActions);

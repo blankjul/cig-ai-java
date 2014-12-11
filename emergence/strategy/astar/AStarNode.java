@@ -65,6 +65,7 @@ public class AStarNode implements Comparable<AStarNode> {
 			child.father = this;
 			child.level = level + 1;
 			child.path.add(action);
+			child.g = g + Helper.distance(stateObs.getAvatarPosition(), child.stateObs.getAvatarPosition());
 
 			nodes.add(child);
 		}
