@@ -68,6 +68,7 @@ public class Agent extends AbstractPlayer {
 			Pair<TYPE,Observation> p = TargetFactory.getObservationFromType(itype, stateObs);
 			if (p == null) {
 				bestTarget = null;
+				astar = null;
 			} else {
 				TYPE type = p._1();
 				if (TargetFactory.isImmovable(type)) {
