@@ -1,0 +1,24 @@
+BasicGame
+    SpriteSet
+        goal  > Immovable color=GREEN 
+        point  > Immovable color=YELLOW 
+        monster > Immovable color=RED 
+        wall > Immovable color=BLACK img=wall
+        
+
+    InteractionSet
+        goal avatar  > killSprite scoreChange=1
+        point avatar  > killSprite scoreChange=1
+        avatar wall  > stepBack
+        avatar monster > killSprite scoreChange=-1
+
+    TerminationSet
+        SpriteCounter stype=goal   limit=0 win=True
+        SpriteCounter stype=avatar limit=0 win=False
+    
+    LevelMapping
+        G > goal
+        M > monster
+        P > point
+
+

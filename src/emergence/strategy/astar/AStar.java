@@ -1,7 +1,11 @@
 package emergence.strategy.astar;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -10,6 +14,8 @@ import ontology.Types.ACTIONS;
 import tools.Vector2d;
 import core.game.StateObservation;
 import emergence.Factory;
+import emergence.heuristics.DistanceHeuristic;
+import emergence.nodes.GenericNode;
 import emergence.util.Helper;
 
 /**
@@ -22,113 +28,152 @@ public class AStar {
 	private Map<String, AStarNode> openSet = new HashMap<>();
 
 	// all current stateObservations that could be expanded
-	private PriorityQueue<AStarNode> openList = new PriorityQueue<>(20);
+	private PriorityQueue<AStarNode> openList = new PriorityQueue<>(20, new AStarNodeScoreComparator());
 
 	// all the hashes of positions where the controller was before
-	private Set<String> closedSet = new HashSet<>();
-
-	private Vector2d target = new Vector2d(736.0, 80.0);
+	private Set<String> closedHash = new HashSet<String>();
 
 	// how many states should be saved in the open list!
 	// if zero there is no max!
 	private int maxStates = 0;
 
-	public AStar(StateObservation stateObs) {
-		AStarNode root = new AStarNode(stateObs);
-		openList.add(root);
-		closedSet.add(root.hash());
-	}
+	// heuristic that should be used!
+	private DistanceHeuristic heuristic;
 
-	public AStar(StateObservation stateObs, int maxStates) {
-		this(stateObs);
+	// iterator for the current child iteration
+	private Iterator<GenericNode<AStarInfo>> it;
+
+	// state observation if the node that is iterated by it
+	private StateObservation lastStateObservation;
+	
+	// boolean if the target was found or not!
+	private boolean hasFound = false;
+
+	
+	public AStar(StateObservation stateObs, DistanceHeuristic heuristic) {
+		this.heuristic = heuristic;
+
+		// initialize root node
+		AStarNode root = new AStarNode(stateObs);
+		root.setCosts(0);
+		root.setHeuristic(heuristic.getDistance(stateObs));
+		openList.add(root);
+		openSet.put(root.hash(), root);
+		
+	}
+	
+
+	public AStar(StateObservation stateObs, DistanceHeuristic heuristic, int maxStates) {
+		this(stateObs, heuristic);
 		this.maxStates = maxStates;
 	}
 
+	
 	/**
-	 * This is the core method that expands for one times the tree
+	 * This is the core method of the AStar algorithm. Every step is expanding one node depending on one actions.
+	 * If of one node all the actions are expanded, the new best node of the open list is taken.
+	 * 
+	 * @return the node that was expanded or null if we found the winning node or it's not reachable.
 	 */
-	public boolean expand() {
+	public AStarNode expand() {
 
-		// if there is a max state feature check for it
-		if (maxStates > 0 && openList.size() > maxStates) {
-			resizeOpenNodes((int) (maxStates / 2)); 
+		// if the open list is empty no path will be ever found
+		if (openList.isEmpty()) {
+			return null;
 		}
 		
-		if (openList.isEmpty())
-			return false;
+		// if there is a max state feature check for it
+		if (maxStates > 0 && openList.size() > maxStates) {
+			resizeOpenNodes((int) (maxStates / 2));
+		}
 
-		// best Node. Remove from open set and list. add this position to
-		// closed.
-		AStarNode n = openList.poll();
-		openSet.remove(Helper.hash(n.stateObs));
-		closedSet.add(Helper.hash(n.stateObs));
 
-		// for all the actions that are recommended by the simulator
-		Set<ACTIONS> recommendedActions = Factory.getSimulator().getMoveActions(n.stateObs);
+		// if the current node is completely expanded get the next node
+		if (it == null || !it.hasNext()) {
 
-		// just prune the actions by the opposite of the last - if last was
-		// RIGHT then remove LEFT
-		recommendedActions.remove(Helper.getOppositeAction(n.getLastAction()));
+			// best Node. Remove from open set and list. add this position to
+			// closed.
+			AStarNode n = openList.poll();
+			openSet.remove(n.hash());
+			closedHash.add(n.hash());
 
-		// for each possible child
-		for (AStarNode child : n.getChildren(recommendedActions)) {
+			// for all the actions that are recommended by the simulator
+			Set<ACTIONS> recommendedActions = Factory.getEnvironment().getMoveActions(n.stateObs);
 
-			boolean found = Helper.distance(child.stateObs.getAvatarPosition(), target) == 0;
-			boolean gameOver = child.stateObs.isGameOver();
-			if (found || gameOver) {
-				System.out.println("YEAHHH FOUND");
-				return false;
-			}
+			// just prune the actions by the opposite of the last - if last was
+			// RIGHT then remove LEFT
+			recommendedActions.remove(Helper.getOppositeAction(n.getLastAction()));
 
-			// if the agent were there before continue
-			if (closedSet.contains(child.hash()))
-				continue;
+			lastStateObservation = n.stateObs;
+			it = n.iteratorFromActions(recommendedActions);
+			
+			// get the AStarNode and set the costs
+			if (!it.hasNext()) return n;
 
-			// set the tentative g score
-			child.f = child.g + Helper.distance(child.stateObs.getAvatarPosition(), target);
-			AStarNode nodeSamePosition = openSet.get(child.hash());
+		}
+		
+		
+				
+		AStarNode child = new AStarNode(it.next());
+		child.setCosts(Helper.distance(lastStateObservation.getAvatarPosition(), child.stateObs.getAvatarPosition()));
+		child.setHeuristic(heuristic.getDistance(child.stateObs));
 
-			// if child is not in open set -> just add
-			if (nodeSamePosition == null) {
+		// if the target was found. YEAH!
+		if (child.heuristic() == 0) {
+			openList.clear();
+			openSet.clear();
+			hasFound = true;
+			return child;
+		}
+
+		// if the agent were there before continue
+		if (closedHash.contains(child.hash()))
+			return child;
+
+		// set the tentative g score
+		AStarNode nodeSamePosition = openSet.get(child.hash());
+
+		// if child is not in open set -> just add
+		if (nodeSamePosition == null) {
+			openSet.put(child.hash(), child);
+			openList.add(child);
+		} else {
+			// if it's in the open set so we have a node at the same
+			// position
+			// check if the current child has lower costs
+			if (child.costs() < nodeSamePosition.costs()) {
+				openSet.remove(nodeSamePosition);
+				openList.remove(nodeSamePosition);
 				openSet.put(child.hash(), child);
 				openList.add(child);
-			} else {
-				// if it's in the open set so we have a node at the same
-				// position
-				// check if the current child has lower costs
-				if (child.g < nodeSamePosition.g) {
-					openSet.remove(nodeSamePosition);
-					openList.remove(nodeSamePosition);
-					openSet.put(child.hash(), child);
-					openList.add(child);
-				}
 			}
 		}
 
-		return true;
+		return child;
 	}
+
 	
 	
 	private void resizeOpenNodes(int size) {
 		Map<String, AStarNode> openSetNew = new HashMap<>();
-		PriorityQueue<AStarNode> openListNew = new PriorityQueue<>(size);
-		
+		PriorityQueue<AStarNode> openListNew = new PriorityQueue<>(size, new AStarNodeScoreComparator());
+
 		for (AStarNode n : openList) {
 			openListNew.add(n);
 			openSetNew.put(n.hash(), n);
-			if (openListNew.size() > size) break;
+			if (openListNew.size() > size)
+				break;
 		}
-		
+
 		openList = openListNew;
 		openSet = openSetNew;
-		
+
 	}
 
-	public AStarNode getBest() {
-		return openList.peek();
-	}
-
+	
 	public void printOpenList() {
+		//System.out.println("---------BEST--------");
+		// System.out.println(act().toString());
 		System.out.println("---------OPENLIST--------");
 		for (AStarNode n : openList) {
 			System.out.println(n);
@@ -138,14 +183,46 @@ public class AStar {
 	public PriorityQueue<AStarNode> getOpenList() {
 		return openList;
 	}
-
-	public Set<Vector2d> getClosedSet() {
-		Set<Vector2d> result = new HashSet<Vector2d>();
-		for (String str : closedSet) {
-			String[] strPoint = str.substring(1, str.length() - 1).split(",");
-			result.add(new Vector2d(Double.valueOf(strPoint[0]), Double.valueOf(strPoint[1])));
-		}
-		return result;
+	
+	public boolean isNotReachable() {
+		return openList.isEmpty() && !hasFound;
 	}
+	
+	public boolean hasFound() {
+		return hasFound;
+	}
+
+	
+	
+	public void paint(Graphics g) {
+		int markerSize = 15;
+		
+		for (String str : closedHash) {
+			String[] strPoint = str.substring(1, str.length() - 1).split(",");
+			Vector2d v = new Vector2d(Double.valueOf(strPoint[0]), Double.valueOf(strPoint[1]));
+			Point p = new Point((int) v.x, (int) v.y);
+			g.setColor(Color.BLACK);
+            g.fillOval(p.x + 5 , p.y + 5, markerSize, markerSize);
+		}
+		
+		for (AStarNode node : openList) {
+			g.setColor(Color.YELLOW);
+			Vector2d v = node.stateObs.getAvatarPosition();
+			Point p = new Point((int) v.x, (int) v.y);
+            g.fillOval(p.x , p.y , markerSize, markerSize);
+		}
+		
+		if (lastStateObservation != null) {
+			Vector2d v = lastStateObservation.getAvatarPosition();
+			Point p = new Point((int) v.x, (int) v.y);
+			g.setColor(Color.RED);
+			g.fillOval(p.x , p.y , markerSize, markerSize);
+		}
+		
+	}
+	
+	
+	
+	
 
 }

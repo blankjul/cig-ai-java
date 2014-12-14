@@ -8,12 +8,10 @@ public class OneAgentOneGame {
 	public static void main(String[] args) {
 
 		String controller = "emergence.Agent";
-		//String controller = "controllers.human.Agent";
 		
-		String parameter = "";
-		
-		String gameStr = "butterflies";
+		String gameStr = "zelda";
 		int levelIdx = 0;
+		
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
 		// "camelRace", "digdug", "firestorms", "infection", "firecaster",
@@ -26,7 +24,8 @@ public class OneAgentOneGame {
 		String game = gamesPath + gameStr + ".txt";
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
 		
-		Exec.execute(controller, game, level1, parameter, true, Agent.VERBOSE);
+
+		Exec.execute(controller, game, level1, "", true, Agent.VERBOSE);
 
 	}
 }

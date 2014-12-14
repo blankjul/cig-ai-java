@@ -2,11 +2,14 @@ package emergence;
 
 import emergence.util.GameDetection;
 
+
 public class Factory {
 	
 	
 	// the game detection instance
 	private static GameDetection detection = null;
+	
+	private static Environment env = null;
 	
 	private static Simulator simulator = null;
 	
@@ -21,6 +24,10 @@ public class Factory {
 		return simulator;
 	}
 	
+	public static Environment getEnvironment() {
+		if (env == null) env = new Environment();
+		return env;
+	}
 	
 
 }

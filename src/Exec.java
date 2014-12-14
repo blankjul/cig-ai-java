@@ -96,7 +96,6 @@ public class Exec  {
         else
             toPlay.runGame(player, randomSeed);
 		
-		
 		// Finally, when the game is over, we need to tear the player down.
 		ArcadeMachine.tearPlayerDown(player);
 	}

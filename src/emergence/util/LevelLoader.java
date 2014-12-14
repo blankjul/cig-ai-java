@@ -8,26 +8,36 @@ import core.VGDLParser;
 import core.VGDLRegistry;
 import core.VGDLViewer;
 import core.game.Game;
-import core.game.StateObservation;
 import emergence.Agent;
+import emergence.util.pair.Pair;
 
 /**
  * This level loader allows to load one level for test cases.
  */
 public class LevelLoader {
 
-	public static Game loadGame(String game, int level) {
-		String currentDir = System.getProperty("user.dir");
-		String pathToGame = String.format("%s/%s/%s/%s.txt", currentDir, "examples", "gridphysics", game);
-		String pathToLevel = String.format("%s/%s/%s/%s_lvl%s.txt", currentDir, "examples", "gridphysics", game, level);
-		Game g = loadGameByPath(pathToGame, pathToLevel);
-		return g;
+	private static Pair<String,Integer> parseGameAndLevel(String s) {
+		String game = s.substring(0, s.length() - 1);
+		int level = Integer.valueOf(s.substring(s.length() - 1, s.length()));
+		return new Pair<String,Integer>(game, level);
 	}
 	
-	public static Game loadGameByPath(String pathToGame, String pathToLevel) {
+	
+	public static Game load(String pathToFolder, String gameAndLevel) {
+		Pair<String,Integer> pair = parseGameAndLevel(gameAndLevel);
+		
+		String pathToGame = String.format("%s%s.txt", pathToFolder, pair._1());
+		String pathToLevel = String.format("%s%s_lvl%s.txt", pathToFolder, pair._1(), pair._2());
+		
+		return loadByPath(pathToGame, pathToLevel);
+				
+	}
+	
+	public static Game loadByPath(String pathToGame, String pathToLevel) {
+
 		VGDLFactory.GetInstance().init();
 		VGDLRegistry.GetInstance().init();
-		
+
 		// First, we create the game to be played..
 		Game toPlay = new VGDLParser().parseGame(pathToGame);
 		toPlay.buildLevel(String.valueOf(pathToLevel));
@@ -35,12 +45,20 @@ public class LevelLoader {
 		toPlay.prepareGame(new Agent(), new Random().nextInt());
 		return toPlay;
 	}
-	
-	
 
-	public static StateObservation load(String game, int level) {
-		return loadGame(game, level).getObservation();
+	
+	public static Game load(String gameAndLevel) {
+		String projectPath = System.getProperty("user.dir");
+		String pathToFolder = String.format("%s/%s/%s/", projectPath, "examples", "gridphysics");
+		return load(pathToFolder,gameAndLevel);
 	}
+
+	
+	public static Game load(String game, int level) {
+		return load(game + String.valueOf(level));
+	}
+
+
 
 	public static JEasyFrame show(Game game) {
 		game.prepareGame(new Agent(), new Random().nextInt());
@@ -51,6 +69,7 @@ public class LevelLoader {
 
 		// Draw all sprites in the panel.
 		view.paint(game.spriteGroups);
+		
 		return frame;
 	}
 

@@ -5,15 +5,13 @@ import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import emergence.GameResult;
 import emergence.util.Configuration;
+import emergence.util.GameResult;
 
 public class OneAgentAllGames {
 
-	public static String CONTROLLER = "emergence_NI.Agent";
+	public static String CONTROLLER = "emergence.Agent";
 
-	public static String PARAMETER = "";
-	
 	public static int NUM_LEVELS = 5;
 
 	//public static String[] GAMES = Helper.concat(Configuration.training, Configuration.validation);
@@ -23,7 +21,7 @@ public class OneAgentAllGames {
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();
 		for (int j = 0; j < NUM_LEVELS; j++) {
-			ExecCallable e = new ExecCallable(CONTROLLER, game, j, PARAMETER);
+			ExecCallable e = new ExecCallable(CONTROLLER, game, j, "");
 			Future<GameResult> future = Configuration.SCHEDULER.submit(e);
 			res.add(future);
 		}

@@ -1,13 +1,12 @@
 package tools;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
+
+import emergence.strategy.astar.AStar;
 
 /**
  * Frame for the graphics.
@@ -22,9 +21,7 @@ public class JEasyFrame extends JFrame {
      */
     public Component comp;
     
-    public ArrayList<emergence.util.Pair<Point,Color>> markers = new ArrayList<>();
-    
-    public double blockSize = 0;
+    public AStar astar = null;
 
     /**
      * Constructor
@@ -45,12 +42,7 @@ public class JEasyFrame extends JFrame {
     @Override
 	public void paint(Graphics g) {
     	super.paint(g);
-    	for (emergence.util.Pair<Point,Color> pair : markers) {
-    		Point p = pair._1();
-            g.setColor(pair._2());
-            int markerSize = 10;
-            g.fillOval(p.x , p.y , markerSize, markerSize);
-        }
+    	if (astar != null) astar.paint(g);
     }
     
     

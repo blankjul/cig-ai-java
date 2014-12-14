@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import core.game.StateObservation;
+import emergence.util.pair.SortedPair;
 
 /**
  * Class to detect the game which is played. Parameters from Agent and

@@ -15,7 +15,7 @@ import core.game.StateObservation;
 import emergence.util.Configuration;
 import emergence.util.GameDetection;
 import emergence.util.LevelLoader;
-import emergence.util.SortedPair;
+import emergence.util.pair.SortedPair;
 
 @RunWith(Parameterized.class)
 public class GameDetectionTest {
@@ -47,9 +47,8 @@ public class GameDetectionTest {
 		List<Object[]> data = new ArrayList<Object[]>();
 		for (String game : Configuration.allGames) {
 			for (int level = 0; level < 5; level++) {
-
 				// First, we create the game to be played..
-				Game toPlay = LevelLoader.loadGame(game, level);
+				Game toPlay = LevelLoader.load(game, level);
 				data.add(new Object[] { game, level, toPlay.getObservation() });
 			}
 		}

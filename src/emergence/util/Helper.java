@@ -20,6 +20,11 @@ public class Helper {
 		return String.format("[%s,%s]", pos.x, pos.y);
 	}
 	
+	public static String hash(StateObservation stateObs, ACTIONS lastAction) {
+		Vector2d pos = stateObs.getAvatarPosition();
+		String used = (lastAction == ACTIONS.ACTION_USE) ? "y" : "n";
+		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
+	}
 	
 	public static double distance(Vector2d from, Vector2d to) {
 		return Math.abs(from.x - to.x) + Math.abs(from.y - to.y);

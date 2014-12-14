@@ -1,32 +1,32 @@
-import emergence.Agent;
+import java.util.Random;
 
-
-
+import core.ArcadeMachine;
+import core.game.Game;
+import core.player.AbstractPlayer;
+import emergence.util.LevelLoader;
 
 public class OneAgentOneGameKeyboard {
 
 	public static void main(String[] args) {
 
-		String controller = "emergence.Agent";
-		//String controller = "controllers.human.Agent";
-		
-		String parameter = "";
-		
-		String gameStr = "aliens";
-		int levelIdx = 0;
+		//String controller = "emergence.Agent";
+		String controller = "controllers.human.Agent";
+
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
 		// "camelRace", "digdug", "firestorms", "infection", "firecaster",
 		// "overload", "pacman", "seaquest", "whackamole", "eggomania"
 
-		// Available games:
-		String gamesPath = "examples/gridphysics/";
-
-		// Game and level to play
-		String game = gamesPath + gameStr + ".txt";
-		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
+		String testDir = String.format("%s/examples/tests/", System.getProperty("user.dir"));
+		Game toPlay  = LevelLoader.loadByPath(testDir + "scenario1.txt", testDir + "s1_nextToScore.txt");
 		
-		Exec.execute(controller, game, level1, parameter, true, Agent.VERBOSE);
+		int seed = new Random().nextInt();
+		AbstractPlayer player = ArcadeMachine.createPlayer(controller, null,
+				toPlay.getObservation(), seed);
+		
+		toPlay.playGame(player, seed);
+		
+		//Exec.execute(controller, game, level1, parameter, true, Agent.VERBOSE);
 
 	}
 }

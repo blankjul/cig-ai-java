@@ -1,98 +1,60 @@
 package emergence.strategy.astar;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import ontology.Types.ACTIONS;
-import tools.Vector2d;
 import core.game.StateObservation;
-import emergence.Factory;
-import emergence.Simulator;
-import emergence.util.Helper;
+import emergence.nodes.GenericNode;
 
-public class AStarNode implements Comparable<AStarNode> {
+/**
+ * This is a AStar node that has several info objects e.g. costs, heuristic and both together.
+ *
+ */
+public class AStarNode extends GenericNode<AStarInfo> {
 
-	public StateObservation stateObs;
 
-	public ArrayList<ACTIONS> path = new ArrayList<>();
-
-	// costs until now
-	public double g;
-
-	// total costs
-	public double f;
-
-	// level of this node
-	public int level;
 
 	public AStarNode(StateObservation stateObs) {
-		super();
-		this.stateObs = stateObs;
-		this.f = 0;
-		this.g = 0;
+		super(stateObs);
+		this.info = new AStarInfo();
+	}
+	
+	public AStarNode(GenericNode<AStarInfo> n) {
+		super(n.stateObs);
+		this.path = n.getPath();
+		this.info = new AStarInfo();
 	}
 
-	public ACTIONS getLastAction() {
-		if (path.isEmpty())
-			return ACTIONS.ACTION_NIL;
-		else
-			return path.get(path.size() - 1);
-	}
-
-	/**
-	 * Overwritten method from Class ATree. only create the children
-	 * 
-	 * @param node
-	 *            node that should be expanded
-	 * @return list of all possible children states
-	 */
-	public List<AStarNode> getChildren(Set<ACTIONS> actionSet) {
-
-		// create result list and reserve memory for the temporary state object
-		LinkedList<AStarNode> nodes = new LinkedList<AStarNode>();
-		StateObservation tmpStateObs;
-		
-		Simulator sim = Factory.getSimulator();
-
-		// for each possible action
-		for (ACTIONS action : actionSet) {
-			// create the next state
-			tmpStateObs = stateObs.copy();
-			sim.advance(tmpStateObs, action);
-
-			AStarNode child = new AStarNode(tmpStateObs);
-			child.level = level + 1;
-			child.path.add(action);
-			child.g = g + Helper.distance(stateObs.getAvatarPosition(), child.stateObs.getAvatarPosition());
-
-			nodes.add(child);
-		}
-		tmpStateObs = null;
-		return nodes;
-	}
-
-	/**
-	 * Return a "hash string" of each node.
-	 * 
-	 * @return
-	 */
-	public String hash() {
-		return Helper.hash(stateObs);
-	}
-
-	@Override
-	public int compareTo(AStarNode o) {
-		Double d1 = o.f;
-		Double d2 = this.f;
-		return d2.compareTo(d1);
-	}
-
+	
 	@Override
 	public String toString() {
-		Vector2d pos = stateObs.getAvatarPosition();
-		return String.format("me:[%s,%s] | level%s | g:%s | f:%s", pos.x, pos.y, level, g, f);
+		String s = "";
+		s += String.format("g:%s | h:%s | f:%s | ", costs(), heuristic(), score() );
+		s += super.toString();
+		return s;
 	}
+	
 
+	
+	/*
+	 * Getter and setter for the info object. Law of demeter!
+	 */
+
+	public double costs() {
+		return getInfo().g;
+	}
+	
+	public double heuristic() {
+		return getInfo().h;
+	}
+	
+	public double score() {
+		return costs() + heuristic();
+	}
+	
+	public void setHeuristic(double h) {
+		getInfo().h = h;
+	}
+	
+	public void setCosts(double g) {
+		getInfo().g = g;
+	}
+	
 }
