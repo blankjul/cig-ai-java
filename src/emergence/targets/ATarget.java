@@ -11,7 +11,7 @@ import tools.Vector2d;
 abstract public class ATarget {
 
 	public enum TYPE {
-		Portal, Resource, NPC, Immovable, Movable
+		Portal, Resource, NPC, Immovable, Movable, Unknown
 	};
 
 	// type of this target (portal, npc, ....)
@@ -54,7 +54,7 @@ abstract public class ATarget {
 	 * @param type
 	 * @return true if it's a movable type else false.
 	 */
-	public boolean isImmovable() {
+	public static boolean isImmovable(TYPE type) {
 		if (type.equals(TYPE.Portal) || type.equals(TYPE.Immovable) || type.equals(TYPE.Resource)) {
 			return true;
 		}

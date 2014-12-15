@@ -24,10 +24,6 @@ public class AStarStrategy extends AStrategy {
 	private AStarNode bestNode;
 	private double bestScore = Double.POSITIVE_INFINITY;
 	
-	// maximal number of astar iterations until it's really not reachable
-	private int notFound = 0;
-	private final int MAX_NOT_FOUND = 10;
-
 	
 	public AStarStrategy(ATarget target) {
 		this.target = target;
@@ -58,11 +54,7 @@ public class AStarStrategy extends AStrategy {
 			timer.addIteration();
 		}
 		
-		// check how often the result was not found
-		// if to often return false
-		notFound = (astar.hasFound()) ? 0 : notFound + 1;
-		return notFound < MAX_NOT_FOUND;
-		
+		return true;
 
 	}
 	

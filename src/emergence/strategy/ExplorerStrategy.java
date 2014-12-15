@@ -22,6 +22,10 @@ public class ExplorerStrategy extends AStrategy {
 	// the astar algorithm that is used for exploring
 	private AStar astar;
 
+	public ExplorerStrategy(StateObservation stateObs) {
+		allTargets = TargetFactory.getAllTargets(stateObs);
+	}
+	
 	@Override
 	public boolean expand(StateObservation stateObs, ActionTimer timer) {
 
@@ -37,7 +41,7 @@ public class ExplorerStrategy extends AStrategy {
 					return false;
 
 				// else set the current astar algorithm
-				astar = new AStar(stateObs, currentTarget);
+				astar = new AStar(stateObs, currentTarget, 15);
 			}
 
 			AStarNode n = astar.expand();
@@ -67,6 +71,12 @@ public class ExplorerStrategy extends AStrategy {
 	@Override
 	public ACTIONS act() {
 		return ACTIONS.ACTION_NIL;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return String.format("EXPLORE Target: %s ALL: %s", currentTarget, Helper.toString(allTargets));
 	}
 
 }

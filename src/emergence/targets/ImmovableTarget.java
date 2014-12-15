@@ -16,6 +16,12 @@ public class ImmovableTarget extends ATarget{
 	public Vector2d getPosition(StateObservation stateObs) {
 		return targetPos;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return String.format("(type:%s, itype:%s, pos:[%s,%s])", type.toString(), itype, targetPos.x, targetPos.y);
+	}
 
 
 

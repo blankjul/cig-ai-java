@@ -34,7 +34,8 @@ public class Agent extends AbstractPlayer {
 		currentStateObs = stateObs;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 
-		explorer = new ExplorerStrategy();
+		explorer = new ExplorerStrategy(stateObs);
+		if (VERBOSE)  System.out.println(String.format("[%s] %s",stateObs.getGameTick() ,explorer));
 		explorer.expand(stateObs, timer);
 
 		if (VERBOSE) {
@@ -57,7 +58,6 @@ public class Agent extends AbstractPlayer {
 		if (bestTarget == null) {
 			if (env.getWinningTarget() != null) {
 				bestTarget = env.getWinningTarget();
-				astar = new AStarStrategy(bestTarget);
 			} else if (env.getScoringTarget(stateObs) != null) {
 				bestTarget = env.getScoringTarget(stateObs);
 			}
@@ -66,26 +66,23 @@ public class Agent extends AbstractPlayer {
 		
 
 		if (astar == null) {
-			if (VERBOSE)
-				System.out.println(String.format("[%s] STAY ALIVE AND EXPLORE", stateObs.getGameTick()));
 			a = new SafetyAdvance(5).getOneSafeAction(stateObs);
 			explorer.expand(stateObs, timer);
+			if (VERBOSE)  System.out.println(String.format("[%s] %s",stateObs.getGameTick() ,explorer));
+				
 		} else {
-			boolean notReachable = astar.expand(stateObs, timer);
+			
+			astar.expand(stateObs, timer);
 			a = astar.act();
 				
 			if (VERBOSE) {
 				System.out.println(String.format("[%s] ASTAR: %s | %s | FOUND %s", stateObs.getGameTick(), bestTarget,
 						bestTarget.getPosition(stateObs), astar.hasFound(stateObs)));
-				
-				
 			}
-			if (notReachable || bestTarget.getPosition(stateObs) == null) bestTarget = null;
 		}
 
 		if (stateObs.getGameTick() == 0 || stateObs.getGameTick() % 20 == 0) {
 			System.out.println(Factory.getEnvironment().toString());
-			//Factory.getEnvironment().reset();
 		}
 
 		return a;

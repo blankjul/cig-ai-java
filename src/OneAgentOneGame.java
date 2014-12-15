@@ -9,8 +9,8 @@ public class OneAgentOneGame {
 
 		String controller = "emergence.Agent";
 		
-		String gameStr = "portals";
-		int levelIdx = 0;
+		String gameStr = "frogs";
+		int levelIdx = 3;
 		
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
@@ -23,7 +23,6 @@ public class OneAgentOneGame {
 		// Game and level to play
 		String game = gamesPath + gameStr + ".txt";
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
-		
 
 		Exec.execute(controller, game, level1, "", true, Agent.VERBOSE);
 

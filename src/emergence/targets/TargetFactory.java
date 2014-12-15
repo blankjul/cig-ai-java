@@ -1,6 +1,7 @@
 package emergence.targets;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,20 +24,31 @@ public class TargetFactory {
 	 * @return null if no target exists. else the observation nearest to the
 	 *         agent.
 	 */
-	public static Observation getObservationFromType(TYPE type, int itype, StateObservation stateObs) {
-		ArrayList<Observation>[] obsListArray = getObservations(stateObs, type);
-		if (obsListArray == null)
-			return null;
-		for (ArrayList<Observation> listObs : obsListArray) {
-			// if there is a target with that given type
-			if (!listObs.isEmpty()) {
-				if (listObs.get(0).itype == itype) {
-					return listObs.get(0);
+	public static Observation getObservationFromType(TYPE t, int itype, StateObservation stateObs) {
+		Set<TYPE> typeSet = new HashSet<>();
+		if (t == TYPE.Unknown)
+			typeSet.addAll(Arrays.asList(TYPE.values()));
+		else
+			typeSet.add(t);
+		
+		for (TYPE type : typeSet) {
+			ArrayList<Observation>[] obsListArray = getObservations(stateObs, type);
+			if (obsListArray == null)
+				return null;
+			for (ArrayList<Observation> listObs : obsListArray) {
+				// if there is a target with that given type
+				if (!listObs.isEmpty()) {
+					if (listObs.get(0).itype == itype) {
+						return listObs.get(0);
+					}
 				}
 			}
 		}
+
 		return null;
 	}
+
+
 
 	/**
 	 * Returns all observations at the grid the are of an specific type.
@@ -72,7 +84,8 @@ public class TargetFactory {
 	public static Set<Integer> getAllTypeIds(StateObservation stateObs, TYPE type) {
 		Set<Integer> result = new HashSet<Integer>();
 		ArrayList<Observation>[] obsListArray = getObservations(stateObs, type);
-		if (obsListArray == null) return result;
+		if (obsListArray == null)
+			return result;
 		for (ArrayList<Observation> listObs : obsListArray) {
 			if (!listObs.isEmpty())
 				result.add(listObs.get(0).itype);
@@ -91,7 +104,11 @@ public class TargetFactory {
 		for (TYPE type : TYPE.values()) {
 			Set<Integer> typeSet = getAllTypeIds(stateObs, type);
 			for (Integer itype : typeSet) {
-				result.add(new DynamicTarget(type, itype));
+				Observation obs = getObservationFromType(type, itype, stateObs);
+				if (ATarget.isImmovable(type))
+					result.add(new ImmovableTarget(type, itype, obs.position));
+				else
+					result.add(new DynamicTarget(type, itype));
 			}
 
 		}
@@ -104,7 +121,8 @@ public class TargetFactory {
 	public static TYPE getType(StateObservation stateObs, int itype) {
 		for (TYPE type : TYPE.values()) {
 			ArrayList<Observation>[] obsListArray = getObservations(stateObs, type);
-			if (obsListArray == null) continue;
+			if (obsListArray == null)
+				continue;
 			for (ArrayList<Observation> listObs : obsListArray) {
 				if (!listObs.isEmpty()) {
 					if (listObs.get(0).itype == itype) {
@@ -113,7 +131,7 @@ public class TargetFactory {
 				}
 			}
 		}
-		return null;
+		return TYPE.Unknown;
 	}
 
 }

@@ -47,6 +47,7 @@ public class Helper {
 
 	public static <T> String toString(Collection<T> coll) {
 		StringBuffer sb = new StringBuffer();
+		if (coll == null) return "";
 		sb.append("[");
 		for (T entry : coll) {
 			sb.append(entry.toString());

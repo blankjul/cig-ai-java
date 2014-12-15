@@ -48,19 +48,12 @@ public class Environment {
 	/**
 	 * Updates all the values that might help for the exploration
 	 */
-	public void update(StateObservation stateObs, ACTIONS lastAction, Vector2d oldAvatarPos, double oldScore) {
+	public void update(StateObservation stateObs, ACTIONS lastAction, Vector2d lastAvatarPos, double lastScore) {
 		init(stateObs);
-		updateBlockingSprites(stateObs, oldAvatarPos, lastAction);
+		updateBlockingSprites(stateObs, lastAvatarPos, lastAction);
 		updateGameEndState(stateObs, WINNER.PLAYER_WINS, winSprites);
 		updateGameEndState(stateObs, WINNER.PLAYER_LOSES, looseSprites);
-		updateScoreSprite(stateObs, oldScore);
-	}
-
-	public void reset() {
-		blockingSprites.clear();
-		looseSprites.clear();
-		scoreSprites.clear();
-		winSprites.clear();
+		updateScoreSprite(stateObs, lastScore);
 	}
 
 	// just set initial values if they are not present yet
@@ -81,9 +74,7 @@ public class Environment {
 			Integer itype = ObservationUtil.collisionLastStep(stateObs);
 			if (itype != null) {
 				TYPE t = TargetFactory.getType(stateObs, itype);
-				if (t != null) {
-					scoreSprites.add(new DynamicTarget(t, itype));
-				}
+				scoreSprites.add(new DynamicTarget(t, itype));
 			}
 		}
 	}
@@ -93,9 +84,7 @@ public class Environment {
 			Integer itype = ObservationUtil.collisionLastStep(stateObs);
 			if (itype != null) {
 				TYPE t = TargetFactory.getType(stateObs, itype);
-				if (t != null) {
-					setToAdd.add(new DynamicTarget(t, itype));
-				}
+				setToAdd.add(new DynamicTarget(t, itype));
 			}
 		}
 	}
@@ -121,7 +110,7 @@ public class Environment {
 			if (obsList.size() == 1) {
 				Observation obs = obsList.get(0);
 				TYPE t = TargetFactory.getType(stateObs, obs.itype);
-				if (t != null && t != TYPE.Portal) {
+				if (t != TYPE.Portal) {
 					blockingSprites.add(new DynamicTarget(t, obs.itype));
 				}
 			}
@@ -212,7 +201,8 @@ public class Environment {
 			do {
 				target = Helper.getRandomEntry(scoreSprites);
 				targets.remove(target);
-				if (target.exists(stateObs)) targets.clear();
+				if (target.exists(stateObs))
+					targets.clear();
 
 			} while (target != null && !targets.isEmpty());
 
