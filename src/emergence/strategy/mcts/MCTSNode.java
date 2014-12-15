@@ -1,22 +1,21 @@
 package emergence.strategy.mcts;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import ontology.Types;
+import ontology.Types.ACTIONS;
 import tools.Vector2d;
 import core.game.StateObservation;
 import emergence.nodes.GenericNode;
-import emergence.strategy.astar.AStarInfo;
 
 /**
  * This class represents a TreeNode. Important is that there is the possibility
  * to simulate next steps of a node. This has the consequence that there are
  * always father and children states.
  */
-public class MCTSNode  {
+public class MCTSNode extends GenericNode<Object> {
 
-	/*
+	
 	// father node, if null it's the root
 	public MCTSNode father = null;
 
@@ -31,16 +30,20 @@ public class MCTSNode  {
 	
 	// if at this state the game is lost or not
 	public boolean isLooser = false;
-
+	
+	// children store
+	public HashMap<ACTIONS, MCTSNode> children = new HashMap<>();
 
 
 	public MCTSNode(MCTSNode father, Types.ACTIONS lastAction) {
+		super();
 		this.father = father;
 	}
 
 	public boolean isFullyExpanded(StateObservation stateObs) {
 		return stateObs.getAvailableActions().size() == children.size();
 	}
+	
 
 	public static String hash(StateObservation stateObs, Types.ACTIONS action) {
 		Vector2d pos = stateObs.getAvatarPosition();
@@ -49,25 +52,20 @@ public class MCTSNode  {
 		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
 	}
 
-
-	public static List<MCTSNode> getChildren(MCTSNode n) {
-		List<MCTSNode> result = new ArrayList<MCTSNode>();
-
-		// for each possible action
-		for (Types.ACTIONS a : n.children.keySet()) {
-			MCTSNode nodeToAdd = n.children.get(a);
-			if (nodeToAdd != null)
-				result.add(nodeToAdd);
-			else {
-				// create a new node with father child relation
-				nodeToAdd = new MCTSNode(n, a);
-				result.add(nodeToAdd);
-			}
+	/**
+	 * Removes the first action
+	 */
+	public void removeFirstAction() {
+		if (!path.isEmpty()) {
+			path.remove(0);
 		}
-		return result;
 	}
+	
+	
 
-	*/
+
+
+	
 
 
 }

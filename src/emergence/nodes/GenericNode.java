@@ -19,7 +19,7 @@ import emergence.util.Helper;
 public class GenericNode<T> implements Iterable<GenericNode<T>> {
 
 	// the current state observation
-	public StateObservation stateObs;
+	protected StateObservation stateObs;
 
 	// path to this value
 	protected ArrayList<ACTIONS> path = new ArrayList<>();
@@ -27,6 +27,11 @@ public class GenericNode<T> implements Iterable<GenericNode<T>> {
 	// information that could be saved for that object
 	protected T info;
 
+	
+	public GenericNode() {
+	}
+
+	
 	/**
 	 * Create a Node that has an state observation
 	 * 
@@ -177,6 +182,18 @@ public class GenericNode<T> implements Iterable<GenericNode<T>> {
 	
 	public Iterator<GenericNode<T>> iteratorFromActions(Collection<ACTIONS> actionSet) {
         return new NodeIterator<T>(this, actionSet);
+	}
+
+	public StateObservation getStateObs() {
+		return stateObs;
+	}
+
+	public void setStateObs(StateObservation stateObs) {
+		this.stateObs = stateObs;
+	}
+
+	public void setPath(ArrayList<ACTIONS> path) {
+		this.path = path;
 	}
 	
 	

@@ -31,6 +31,7 @@ public class Agent extends AbstractPlayer {
 	
 	public Agent() {
 	}
+	
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 		
@@ -110,7 +111,6 @@ public class Agent extends AbstractPlayer {
 	 *            Graphics device to draw to.
 	 */
 	public void draw(Graphics2D g) {
-
 		if (astar != null) {
 			// astar.getAstar().paint(g);
 			if (bestTarget != null) {
@@ -118,9 +118,7 @@ public class Agent extends AbstractPlayer {
 				Vector2d v = bestTarget.getPosition(stateObs);
 				g.fillRect((int) v.x, (int) v.y, 10, 10);
 			}
-			
 		}
-
 	}
 
 }

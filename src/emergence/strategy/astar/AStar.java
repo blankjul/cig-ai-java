@@ -114,13 +114,13 @@ public class AStar {
 			closedHash.add(n.hash());
 
 			// for all the actions that are recommended by the simulator
-			Set<ACTIONS> recommendedActions = Factory.getEnvironment().getMoveActions(n.stateObs);
+			Set<ACTIONS> recommendedActions = Factory.getEnvironment().getMoveActions(n.getStateObs());
 
 			// just prune the actions by the opposite of the last - if last was
 			// RIGHT then remove LEFT
 			recommendedActions.remove(Helper.getOppositeAction(n.getLastAction()));
 
-			lastStateObservation = n.stateObs;
+			lastStateObservation = n.getStateObs();
 			it = n.iteratorFromActions(recommendedActions);
 			
 			// get the AStarNode and set the costs
@@ -131,11 +131,11 @@ public class AStar {
 		
 				
 		AStarNode child = new AStarNode(it.next());
-		child.setCosts(Helper.distance(lastStateObservation.getAvatarPosition(), child.stateObs.getAvatarPosition()));
-		child.setHeuristic(heuristic.evaluateState(child.stateObs));
+		child.setCosts(Helper.distance(lastStateObservation.getAvatarPosition(), child.getStateObs().getAvatarPosition()));
+		child.setHeuristic(heuristic.evaluateState(child.getStateObs()));
 		
 		if (safetyStrategy != null && child.getLevel() == 1) {
-			if (! safetyStrategy.isSafe(child.stateObs, child.getLastAction())) {
+			if (! safetyStrategy.isSafe(child.getStateObs(), child.getLastAction())) {
 				child.setHeuristic(Double.POSITIVE_INFINITY);
 			}
 		}
@@ -231,7 +231,7 @@ public class AStar {
 		
 		for (AStarNode node : openList) {
 			g.setColor(Color.YELLOW);
-			Vector2d v = node.stateObs.getAvatarPosition();
+			Vector2d v = node.getStateObs().getAvatarPosition();
 			Point p = new Point((int) v.x, (int) v.y);
             g.fillOval(p.x , p.y , markerSize, markerSize);
 		}

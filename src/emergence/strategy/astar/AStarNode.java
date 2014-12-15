@@ -17,7 +17,7 @@ public class AStarNode extends GenericNode<AStarInfo> {
 	}
 	
 	public AStarNode(GenericNode<AStarInfo> n) {
-		super(n.stateObs);
+		super(n.getStateObs());
 		this.path = n.getPath();
 		this.info = new AStarInfo();
 	}

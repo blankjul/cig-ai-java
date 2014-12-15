@@ -1,9 +1,11 @@
 package emergence.strategy.evolution;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import core.game.StateObservation;
+import emergence.util.ActionTimer;
 import emergence.util.Helper;
 
 public class Evolution {
@@ -21,10 +23,10 @@ public class Evolution {
 	private int numFittest;
 
 	// the current population
-	private ArrayList<Evolutionary<Path>> population = new ArrayList<>();
-	
+	private ArrayList<EvolutionaryNode> population = new ArrayList<>();
+
 	// always the last generation!
-	private ArrayList<Evolutionary<Path>> lastGeneration = null;
+	private ArrayList<EvolutionaryNode> lastGeneration = null;
 
 	// number of generations that were applied.
 	private int numGeneration = 0;
@@ -32,75 +34,66 @@ public class Evolution {
 	// counter for the pool simulation
 	private int counter = 0;
 
-	// comparator for the ranking
-	private PathComparator comp = new PathComparator();
-
-
-	public Evolution(int pathLength, int populationSize, int numFittest,
-			StateObservation stateObs) {
+	public Evolution(int pathLength, int populationSize, int numFittest, StateObservation stateObs) {
 		super();
 		this.pathLength = pathLength;
 		this.populationSize = populationSize;
 		this.numFittest = numFittest;
 
 		// initialize the pool
-		Path generator = new Path(pathLength, stateObs.getAvailableActions());
 		for (int i = 0; i < populationSize; i++) {
-			Path p = generator.random();
-			population.add(p);
+			population.add(EvolutionaryNode.random(stateObs, pathLength));
 		}
 	}
 
+	public void expand(StateObservation stateObs, ActionTimer timer) {
 
+		while (timer.isTimeLeft()) {
 
-	public void expand(StateObservation stateObs) {
+			// simulate one element
+			if (counter < population.size()) {
+				EvolutionaryNode evoNode = population.get(counter);
+				// simulate always on a copy!
+				evoNode.simulate(stateObs.copy());
+				++counter;
 
-		// simulate one element
-		if (counter < population.size()) {
-			Path p = (Path) population.get(counter);
-			// simulate always on a copy!
-			p.simulate(stateObs.copy());
-			++counter;
-
-		} else {
-			nextGen();
-			counter = 0;
+			} else {
+				nextGen();
+				counter = 0;
+			}
+			timer.addIteration();
 		}
-
 	}
 
 	public void slidingWindow(StateObservation stateObs) {
 		numGeneration = 0;
 		lastGeneration = null;
-		
-		ArrayList<Evolutionary<Path>> poolNew = new ArrayList<Evolutionary<Path>>();
-		
+
+		ArrayList<EvolutionaryNode> poolNew = new ArrayList<EvolutionaryNode>();
+
 		for (int i = 0; i < population.size(); i++) {
-			Path path = (Path) population.get(i);
-			Path pathToAdd = new Path(path.getPathLength(), path.getActions());
-			pathToAdd.removeFirstAction();
-			pathToAdd.setPathLength(path.getPathLength());
-			pathToAdd.resetScore();
-			poolNew.add(pathToAdd);
+			EvolutionaryNode evoNode = population.get(i);
+			EvolutionaryNode nodeToAdd = new EvolutionaryNode(stateObs, evoNode.getPath());
+			nodeToAdd.removeFirstAction();
+			nodeToAdd.setLength(evoNode.getLevel() + 1, stateObs);
+			nodeToAdd.setScore(Double.NEGATIVE_INFINITY);
+			poolNew.add(nodeToAdd);
 		}
-		
 		population = poolNew;
-		
-		
 	}
-	
 
 	public void nextGen() {
 		++numGeneration;
 		lastGeneration = population;
 		counter = 0;
 
-		ArrayList<Evolutionary<Path>> nextPool = new ArrayList<>();
+		ArrayList<EvolutionaryNode> nextPool = new ArrayList<>();
 
 		// save the fittest
-		PathComparator.sort(population, comp);
+		Collections.sort(population);
+
 		for (int i = 0; i < numFittest && i < population.size(); i++) {
-			Evolutionary<Path> evo = population.get(i);
+			EvolutionaryNode evo = population.get(i);
 			nextPool.add(evo);
 		}
 
@@ -108,10 +101,10 @@ public class Evolution {
 		while (nextPool.size() < populationSize) {
 
 			Random r = new Random();
-			Evolutionary<Path> selected = Helper.getRandomEntry(nextPool);
+			EvolutionaryNode selected = Helper.getRandomEntry(nextPool);
 
 			// result that will be returned
-			Evolutionary<Path> result = null;
+			EvolutionaryNode result = null;
 
 			// mutate
 			if (r.nextDouble() < MUTATE_PROBABILITY) {
@@ -120,14 +113,14 @@ public class Evolution {
 			} else {
 
 				// select a second one that is not the first!
-				ArrayList<Evolutionary<Path>> tmp = new ArrayList<>();
-				for (Evolutionary<Path> candidate : nextPool) {
+				ArrayList<EvolutionaryNode> tmp = new ArrayList<>();
+				for (EvolutionaryNode candidate : nextPool) {
 					if (candidate != selected)
 						tmp.add(candidate);
 				}
-				Evolutionary<Path> second = Helper.getRandomEntry(tmp);
+				EvolutionaryNode second = Helper.getRandomEntry(tmp);
 
-				result = selected.crossover((Path) second);
+				result = selected.crossover(second);
 			}
 			nextPool.add(result);
 		}
@@ -140,8 +133,8 @@ public class Evolution {
 	}
 
 	public void print(int top) {
-		ArrayList<Evolutionary<Path>> pool = getPopulation();
-		PathComparator.sort(pool, comp);
+		ArrayList<EvolutionaryNode> pool = getPopulation();
+		Collections.sort(population);
 		System.out.println("------------------");
 		System.out.println("GENERATION: " + numGeneration);
 		System.out.println("------------------");
@@ -156,11 +149,11 @@ public class Evolution {
 		return pathLength;
 	}
 
-	public void setPathLength(int pathLength) {
+	public void setPathLength(StateObservation stateObs, int pathLength) {
 		this.pathLength = pathLength;
 		for (int i = 0; i < population.size(); i++) {
-			Path path = (Path) population.get(i);
-			path.setPathLength(pathLength);
+			EvolutionaryNode path = population.get(i);
+			path.setLength(pathLength, stateObs);
 		}
 	}
 
@@ -172,12 +165,12 @@ public class Evolution {
 		return population.size();
 	}
 
-	public void setPopulationSize(int populationSize) {
+	public void setPopulationSize(StateObservation stateObs, int populationSize) {
 		this.populationSize = populationSize;
-		PathComparator.sort(population, comp);
-		
+		Collections.sort(population);
+
 		while (population.size() < populationSize) {
-			Path random = population.get(0).random();
+			EvolutionaryNode random = EvolutionaryNode.random(stateObs, populationSize);
 			population.add(random);
 		}
 		while (population.size() > populationSize) {
@@ -194,15 +187,11 @@ public class Evolution {
 		this.numFittest = numFittest;
 	}
 
-	public PathComparator getComparator() {
-		return comp;
-	}
-
-	public ArrayList<Evolutionary<Path>> getPopulation() {
+	public ArrayList<EvolutionaryNode> getPopulation() {
 		if (lastGeneration != null) {
 			return lastGeneration;
-		}
-		else return population;
+		} else
+			return population;
 	}
 
 }

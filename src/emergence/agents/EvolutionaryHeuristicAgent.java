@@ -10,15 +10,17 @@ import ontology.Types.WINNER;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
+import emergence.Factory;
+import emergence.strategy.ExplorerStrategy;
 import emergence.strategy.evolution.Evolution;
 import emergence.strategy.evolution.EvolutionaryNode;
 import emergence.util.ActionTimer;
 import emergence.util.MapInfo;
 
-public class EvolutionaryAgent extends AbstractPlayer{
+public class EvolutionaryHeuristicAgent extends AbstractPlayer{
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = true;
+	public static boolean VERBOSE = false;
 
 	// random object
 	public static Random r = new Random();
@@ -46,29 +48,40 @@ public class EvolutionaryAgent extends AbstractPlayer{
 
 	
 	
-	public EvolutionaryAgent() {
+	public EvolutionaryHeuristicAgent() {
 	};
 
 	
-	public EvolutionaryAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+	public EvolutionaryHeuristicAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
+		System.out.println(MapInfo.info(stateObs));
 		
 		evo = new Evolution(pathLength, populationSize, numFittest, stateObs);
+		
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		timer.timeRemainingLimit = 50;
-		evo.expand(stateObs, timer);
 		
+		ExplorerStrategy explorer = new ExplorerStrategy(stateObs);
+		if (VERBOSE)  System.out.println(String.format("[%s] %s",stateObs.getGameTick() ,explorer));
+		explorer.expand(stateObs, timer);
 
 	}
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 		
+		
+		ActionTimer timer = new ActionTimer(elapsedTimer);
+		timer.timeRemainingLimit = 25;
+		ExplorerStrategy explorer = new ExplorerStrategy(stateObs);
+		explorer.expand(stateObs, timer);
+		
+		
 		// slide the complete pool one action into the future
 		evo.slidingWindow(stateObs);
 
 		// start the evolution
-		ActionTimer timer = new ActionTimer(elapsedTimer);
+		timer = new ActionTimer(elapsedTimer);
 		timer.timeRemainingLimit = 7;
 		evo.expand(stateObs, timer);
 		
@@ -85,6 +98,12 @@ public class EvolutionaryAgent extends AbstractPlayer{
 		// print the current status
 		if (VERBOSE) {
 			evo.print(evo.getPopulationSize());
+		}
+		
+		
+		if (stateObs.getGameTick() % 20 == 0) {
+			if (VERBOSE) System.out.println(Factory.getEnvironment().toString());
+			Factory.getEnvironment().reset();
 		}
 
 		// return the best action
