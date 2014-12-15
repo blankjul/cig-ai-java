@@ -21,6 +21,7 @@ import emergence.targets.ATarget;
 import emergence.targets.ATarget.TYPE;
 import emergence.targets.ImmovableTarget;
 import emergence.util.LevelLoader;
+import emergence.util.MapInfo;
 import emergence.util.pair.Pair;
 
 public class AStarTest {
@@ -70,10 +71,12 @@ public class AStarTest {
 	
 	public void visualTest(Game game, ATarget t) {
 		
+		System.out.println(MapInfo.info(game.getObservation()));
+		
 		StateObservation myStateObs = game.getObservation();
 		DistanceHeuristic heuristic = new DistanceHeuristic(t);
 		
-		boolean interactive = true;
+		boolean interactive = false;
 		AStar astar = new AStar(myStateObs, heuristic);
 		JEasyFrame frame = LevelLoader.show(game);
 		frame.astar = astar;

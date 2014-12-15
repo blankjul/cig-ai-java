@@ -1,26 +1,18 @@
 package emergence;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
 import tools.ElapsedCpuTimer;
-import tools.Vector2d;
-import core.game.Observation;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import emergence.safety.SafetyAdvance;
 import emergence.strategy.AStarStrategy;
 import emergence.strategy.ExplorerStrategy;
 import emergence.targets.ATarget;
-import emergence.targets.ATarget.TYPE;
-import emergence.targets.ImmovableTarget;
-import emergence.targets.MovableTarget;
-import emergence.targets.TargetFactory;
 import emergence.util.ActionTimer;
 import emergence.util.MapInfo;
-import emergence.util.pair.Pair;
 
 public class Agent extends AbstractPlayer {
 
@@ -32,14 +24,18 @@ public class Agent extends AbstractPlayer {
 	private AStarStrategy astar;
 
 	private ATarget bestTarget = null;
+	
+	private StateObservation currentStateObs;
 
+	public Agent() {
+	}
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-
+		currentStateObs = stateObs;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 
-		explorer = new ExplorerStrategy(stateObs, timer);
-		explorer.expand();
+		explorer = new ExplorerStrategy();
+		explorer.expand(stateObs, timer);
 
 		if (VERBOSE) {
 			System.out.println(MapInfo.info(stateObs));
@@ -50,53 +46,41 @@ public class Agent extends AbstractPlayer {
 
 	public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
-		// return new SafetyGridSearch().getOneSafeAction(stateObs);
-		// return new StayAliveStrategy(stateObs, 10).act();
-
 		// action that will be returned
+		Environment env = Factory.getEnvironment();
+		currentStateObs = stateObs;
 		ACTIONS a = ACTIONS.ACTION_NIL;
 
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		timer.timeRemainingLimit = 2;
 
-		int itype = -1;
-		if (!Factory.getEnvironment().getWinSprites().isEmpty())
-			itype = Factory.getEnvironment().getWinSprites().iterator().next();
-		if (itype == -1 && !Factory.getEnvironment().getScoreSprites().isEmpty())
-			itype = Factory.getEnvironment().getScoreSprites().iterator().next();
-
-		// if a good target was found
-		if (itype != -1) {
-			Pair<TYPE, Observation> p = TargetFactory.getObservationFromType(itype, stateObs);
-			if (p == null) {
-				bestTarget = null;
-				astar = null;
-			} else {
-				TYPE type = p._1();
-				if (TargetFactory.isImmovable(type)) {
-					bestTarget = new ImmovableTarget(type, itype, p._2().position);
-				} else {
-					bestTarget = new MovableTarget(type, itype, stateObs);
-				}
+		if (bestTarget == null) {
+			if (env.getWinningTarget() != null) {
+				bestTarget = env.getWinningTarget();
+				astar = new AStarStrategy(bestTarget);
+			} else if (env.getScoringTarget(stateObs) != null) {
+				bestTarget = env.getScoringTarget(stateObs);
 			}
+			if (bestTarget != null) astar = new AStarStrategy(bestTarget);
 		}
-
-		if (bestTarget != null) {
-			// System.out.println(bestTarget);
-			astar = new AStarStrategy(stateObs, timer, bestTarget);
-		}
+		
 
 		if (astar == null) {
-			if (VERBOSE)  System.out.println("STAY ALIVE AND EXPLORE");
+			if (VERBOSE)
+				System.out.println(String.format("[%s] STAY ALIVE AND EXPLORE", stateObs.getGameTick()));
 			a = new SafetyAdvance(5).getOneSafeAction(stateObs);
-			explorer.reset(stateObs, timer);
-			explorer.expand();
+			explorer.expand(stateObs, timer);
 		} else {
-			astar.reset(stateObs, timer);
-			astar.expand();
-			if (VERBOSE) System.out.println("ASTAR: " + bestTarget + " FOUND " + astar.hasFound());
+			boolean notReachable = astar.expand(stateObs, timer);
 			a = astar.act();
-			
+				
+			if (VERBOSE) {
+				System.out.println(String.format("[%s] ASTAR: %s | %s | FOUND %s", stateObs.getGameTick(), bestTarget,
+						bestTarget.getPosition(stateObs), astar.hasFound(stateObs)));
+				
+				
+			}
+			if (notReachable || bestTarget.getPosition(stateObs) == null) bestTarget = null;
 		}
 
 		if (stateObs.getGameTick() == 0 || stateObs.getGameTick() % 20 == 0) {
@@ -116,14 +100,17 @@ public class Agent extends AbstractPlayer {
 	 *            Graphics device to draw to.
 	 */
 	public void draw(Graphics2D g) {
-		
+
 		if (astar != null) {
-			//astar.getAstar().paint(g);
-			g.setColor(Color.GREEN);
-			Vector2d v = astar.getTarget().position();
-            g.fillRect((int)v.x,(int) v.y, 10, 10);
+			// astar.getAstar().paint(g);
+			if (bestTarget != null) {
+				//g.setColor(Color.GREEN);
+				//Vector2d v = bestTarget.getPosition(currentStateObs);
+				//g.fillRect((int) v.x, (int) v.y, 10, 10);
+			}
+			
 		}
-		
+
 	}
 
 }

@@ -10,6 +10,10 @@ import ontology.Types.WINNER;
 import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
+import emergence.targets.ATarget;
+import emergence.targets.DynamicTarget;
+import emergence.targets.ATarget.TYPE;
+import emergence.targets.TargetFactory;
 import emergence.util.Helper;
 import emergence.util.ObservationUtil;
 
@@ -30,18 +34,17 @@ public class Environment {
 	private int avatarType = -1;
 
 	// this contains all category ids of blocking sprites
-	private Set<Integer> blockingSprites = new HashSet<Integer>();
+	private Set<ATarget> blockingSprites = new HashSet<ATarget>();
 
 	// this set contains all the sprites that followed to a win
-	private Set<Integer> winSprites = new HashSet<Integer>();
+	private Set<ATarget> winSprites = new HashSet<ATarget>();
 
 	// sprites that has a consequence to loose
-	private Set<Integer> looseSprites = new HashSet<Integer>();
+	private Set<ATarget> looseSprites = new HashSet<ATarget>();
 
 	// sprites that causes a score
-	private Set<Integer> scoreSprites = new HashSet<Integer>();
+	private Set<ATarget> scoreSprites = new HashSet<ATarget>();
 
-	
 	/**
 	 * Updates all the values that might help for the exploration
 	 */
@@ -56,6 +59,8 @@ public class Environment {
 	public void reset() {
 		blockingSprites.clear();
 		looseSprites.clear();
+		scoreSprites.clear();
+		winSprites.clear();
 	}
 
 	// just set initial values if they are not present yet
@@ -75,16 +80,22 @@ public class Environment {
 		if (stateObs.getGameScore() > oldScore) {
 			Integer itype = ObservationUtil.collisionLastStep(stateObs);
 			if (itype != null) {
-				scoreSprites.add(itype);
+				TYPE t = TargetFactory.getType(stateObs, itype);
+				if (t != null) {
+					scoreSprites.add(new DynamicTarget(t, itype));
+				}
 			}
 		}
 	}
 
-	private void updateGameEndState(StateObservation stateObs, WINNER w, Set<Integer> setToAdd) {
+	private void updateGameEndState(StateObservation stateObs, WINNER w, Set<ATarget> setToAdd) {
 		if (stateObs.getGameWinner() == w) {
 			Integer itype = ObservationUtil.collisionLastStep(stateObs);
 			if (itype != null) {
-				setToAdd.add(itype);
+				TYPE t = TargetFactory.getType(stateObs, itype);
+				if (t != null) {
+					setToAdd.add(new DynamicTarget(t, itype));
+				}
 			}
 		}
 	}
@@ -109,7 +120,10 @@ public class Environment {
 			// blocking cause
 			if (obsList.size() == 1) {
 				Observation obs = obsList.get(0);
-				blockingSprites.add(obs.itype);
+				TYPE t = TargetFactory.getType(stateObs, obs.itype);
+				if (t != null && t != TYPE.Portal) {
+					blockingSprites.add(new DynamicTarget(t, obs.itype));
+				}
 			}
 		}
 	}
@@ -158,25 +172,23 @@ public class Environment {
 		return result;
 	}
 
-	
-	
 	/*
 	 * Getter methods
 	 */
 
-	public Set<Integer> getBlockingSprites() {
+	public Set<ATarget> getBlockingSprites() {
 		return blockingSprites;
 	}
 
-	public Set<Integer> getWinSprites() {
+	public Set<ATarget> getWinSprites() {
 		return winSprites;
 	}
 
-	public Set<Integer> getLooseSprites() {
+	public Set<ATarget> getLooseSprites() {
 		return looseSprites;
 	}
 
-	public Set<Integer> getScoreSprites() {
+	public Set<ATarget> getScoreSprites() {
 		return scoreSprites;
 	}
 
@@ -184,4 +196,27 @@ public class Environment {
 		return avatarType;
 	}
 
+	public ATarget getWinningTarget() {
+		if (winSprites.isEmpty())
+			return null;
+		else
+			return Helper.getRandomEntry(winSprites);
+	}
+
+	public ATarget getScoringTarget(StateObservation stateObs) {
+		if (scoreSprites.isEmpty())
+			return null;
+		else {
+			Set<ATarget> targets = new HashSet<ATarget>(scoreSprites);
+			ATarget target;
+			do {
+				target = Helper.getRandomEntry(scoreSprites);
+				targets.remove(target);
+				if (target.exists(stateObs)) targets.clear();
+
+			} while (target != null && !targets.isEmpty());
+
+			return target;
+		}
+	}
 }

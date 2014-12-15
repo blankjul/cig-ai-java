@@ -1,7 +1,7 @@
 package emergence.strategy.astar;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,8 +14,11 @@ import ontology.Types.ACTIONS;
 import tools.Vector2d;
 import core.game.StateObservation;
 import emergence.Factory;
+import emergence.heuristics.AHeuristic;
 import emergence.heuristics.DistanceHeuristic;
 import emergence.nodes.GenericNode;
+import emergence.safety.ASafety;
+import emergence.targets.ATarget;
 import emergence.util.Helper;
 
 /**
@@ -38,7 +41,7 @@ public class AStar {
 	private int maxStates = 0;
 
 	// heuristic that should be used!
-	private DistanceHeuristic heuristic;
+	private AHeuristic heuristic;
 
 	// iterator for the current child iteration
 	private Iterator<GenericNode<AStarInfo>> it;
@@ -48,22 +51,35 @@ public class AStar {
 	
 	// boolean if the target was found or not!
 	private boolean hasFound = false;
-
 	
-	public AStar(StateObservation stateObs, DistanceHeuristic heuristic) {
-		this.heuristic = heuristic;
+	// enables to act pessimistic
+	private ASafety safetyStrategy;
 
+	public AStar(StateObservation stateObs, ATarget target) {
+		this(stateObs, new DistanceHeuristic(target));
+	}
+	
+	public AStar(StateObservation stateObs, ATarget target, int maxStates, ASafety safetyStrategy) {
+		this(stateObs, new DistanceHeuristic(target), maxStates);
+		this.safetyStrategy = safetyStrategy;
+	}
+	
+	public AStar(StateObservation stateObs, AHeuristic heuristic) {
+		this.heuristic = heuristic;
+		
 		// initialize root node
 		AStarNode root = new AStarNode(stateObs);
 		root.setCosts(0);
-		root.setHeuristic(heuristic.getDistance(stateObs));
+		root.setHeuristic(heuristic.evaluateState(stateObs));
 		openList.add(root);
 		openSet.put(root.hash(), root);
-		
 	}
 	
+	public AStar(StateObservation stateObs, ATarget target, int maxStates) {
+		this(stateObs, new DistanceHeuristic(target), maxStates);
+	}
 
-	public AStar(StateObservation stateObs, DistanceHeuristic heuristic, int maxStates) {
+	public AStar(StateObservation stateObs, AHeuristic heuristic, int maxStates) {
 		this(stateObs, heuristic);
 		this.maxStates = maxStates;
 	}
@@ -78,7 +94,7 @@ public class AStar {
 	public AStarNode expand() {
 
 		// if the open list is empty no path will be ever found
-		if (openList.isEmpty()) {
+		if (openList.isEmpty() && !it.hasNext()) {
 			return null;
 		}
 		
@@ -116,7 +132,13 @@ public class AStar {
 				
 		AStarNode child = new AStarNode(it.next());
 		child.setCosts(Helper.distance(lastStateObservation.getAvatarPosition(), child.stateObs.getAvatarPosition()));
-		child.setHeuristic(heuristic.getDistance(child.stateObs));
+		child.setHeuristic(heuristic.evaluateState(child.stateObs));
+		
+		if (safetyStrategy != null && child.getLevel() == 1) {
+			if (! safetyStrategy.isSafe(child.stateObs, child.getLastAction())) {
+				child.setHeuristic(Double.POSITIVE_INFINITY);
+			}
+		}
 
 		// if the target was found. YEAH!
 		if (child.heuristic() == 0) {
@@ -127,8 +149,9 @@ public class AStar {
 		}
 
 		// if the agent were there before continue
-		if (closedHash.contains(child.hash()))
+		if (closedHash.contains(child.hash())){
 			return child;
+		}
 
 		// set the tentative g score
 		AStarNode nodeSamePosition = openSet.get(child.hash());
@@ -184,6 +207,7 @@ public class AStar {
 		return openList;
 	}
 	
+
 	public boolean isNotReachable() {
 		return openList.isEmpty() && !hasFound;
 	}
@@ -194,7 +218,7 @@ public class AStar {
 
 	
 	
-	public void paint(Graphics g) {
+	public void paint(Graphics2D g) {
 		int markerSize = 15;
 		
 		

@@ -1,5 +1,6 @@
 package emergence.targets;
 
+import core.game.StateObservation;
 import tools.Vector2d;
 
 public class ImmovableTarget extends ATarget{
@@ -12,7 +13,7 @@ public class ImmovableTarget extends ATarget{
 	}
 	
 	@Override
-	public Vector2d position() {
+	public Vector2d getPosition(StateObservation stateObs) {
 		return targetPos;
 	}
 

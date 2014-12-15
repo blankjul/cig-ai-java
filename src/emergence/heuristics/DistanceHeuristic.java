@@ -7,7 +7,7 @@ import emergence.targets.ATarget;
 import emergence.util.Helper;
 import emergence.util.ObservationUtil;
 
-public class DistanceHeuristic {
+public class DistanceHeuristic extends AHeuristic {
 
 	private ATarget target;
 
@@ -15,18 +15,23 @@ public class DistanceHeuristic {
 		this.target = target;
 	}
 
-	public double getDistance(StateObservation stateObs) {
-		if (stateObs.getGameWinner() == WINNER.PLAYER_WINS) return 0;
-		else if (stateObs.getGameWinner() == WINNER.PLAYER_LOSES) return Double.POSITIVE_INFINITY;
-		
-		if (ObservationUtil.collisionLastStep(stateObs) == target.getItype()) return 0;
+	@Override
+	public double evaluateState(StateObservation stateObs) {
+		if (stateObs.getGameWinner() == WINNER.PLAYER_WINS)
+			return 0;
+		else if (stateObs.getGameWinner() == WINNER.PLAYER_LOSES)
+			return Double.POSITIVE_INFINITY;
 
-		
+		if (ObservationUtil.collisionLastStep(stateObs) == target.getItype())
+			return 0;
+
 		Vector2d pos = stateObs.getAvatarPosition();
-		return Helper.distance(pos, target.position());
 		
+		// if the target does not exists anymore
+		Vector2d targetPos = target.getPosition(stateObs);
+		if (targetPos == null) return 0;
+		
+		return Helper.distance(pos, targetPos);
 	}
-
-
 
 }

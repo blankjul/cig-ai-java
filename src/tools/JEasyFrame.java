@@ -3,6 +3,7 @@ package tools;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 
@@ -42,7 +43,8 @@ public class JEasyFrame extends JFrame {
     @Override
 	public void paint(Graphics g) {
     	super.paint(g);
-    	if (astar != null) astar.paint(g);
+    	Graphics2D g2d = (Graphics2D) g;
+    	if (astar != null) astar.paint(g2d);
     }
     
     

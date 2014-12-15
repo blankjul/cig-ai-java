@@ -72,6 +72,7 @@ public class Helper {
 	}
 	
 	public static <T> T getRandomEntry(Set<T> set) {
+		if (set.isEmpty()) return null;
 		List<T> asList = new ArrayList<>(set);
 		Collections.shuffle(asList);
 		return asList.get(0);

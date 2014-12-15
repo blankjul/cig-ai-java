@@ -4,56 +4,69 @@ import java.util.Set;
 
 import ontology.Types.ACTIONS;
 import core.game.StateObservation;
-import emergence.heuristics.DistanceHeuristic;
 import emergence.strategy.astar.AStar;
+import emergence.strategy.astar.AStarNode;
 import emergence.targets.ATarget;
 import emergence.targets.TargetFactory;
 import emergence.util.ActionTimer;
 import emergence.util.Helper;
 
 public class ExplorerStrategy extends AStrategy {
-	
-	
-	private ATarget currentTarget = null;
-	
-	private Set<ATarget> targets; 
-	
-	private AStar astar;
-	
-	
-	public ExplorerStrategy(StateObservation stateObs,ActionTimer timer) {
-		super(stateObs, timer);
-		targets = TargetFactory.getAllTargets(stateObs);
-	}
 
+	// current target that is explored
+	private ATarget currentTarget = null;
+
+	// all targets that should be explored until refresh
+	private Set<ATarget> allTargets;
+
+	// the astar algorithm that is used for exploring
+	private AStar astar;
 
 	@Override
-	public void expand() {
-		if (!targets.isEmpty()) {
-			currentTarget = Helper.getRandomEntry(targets);
-			targets.remove(currentTarget);
-			astar = new AStar(stateObs, new DistanceHeuristic(currentTarget), 15);
-			
-			while (timer.isTimeLeft()) {
-				
-				boolean next = astar.expand() != null;
-				if (targets == null || targets.isEmpty()) targets = TargetFactory.getAllTargets(stateObs);
-				
-				if (currentTarget == null || !next) {
-					currentTarget = Helper.getRandomEntry(targets);
-					targets.remove(currentTarget);
-					astar = new AStar(stateObs, new DistanceHeuristic(currentTarget));
-				}
-				timer.addIteration();
-			} 
+	public boolean expand(StateObservation stateObs, ActionTimer timer) {
+
+		boolean next = true;
+		
+		while (timer.isTimeLeft()) {
+
+			if (currentTarget == null || !next) {
+				currentTarget = getNextTarget(stateObs);
+
+				// if there is no target to explore just return
+				if (currentTarget == null)
+					return false;
+
+				// else set the current astar algorithm
+				astar = new AStar(stateObs, currentTarget);
+			}
+
+			AStarNode n = astar.expand();
+			next = n != null;
+
+			timer.addIteration();
 		}
-		return;
+		return true;
+	}
+
+	// search for a new target that could be explored
+	private ATarget getNextTarget(StateObservation stateObs) {
+		// get new targets
+		if (allTargets == null || allTargets.isEmpty())
+			allTargets = TargetFactory.getAllTargets(stateObs);
+
+		// if there are still no targets return.
+		if (allTargets.isEmpty())
+			return null;
+
+		ATarget t = Helper.getRandomEntry(allTargets);
+		allTargets.remove(t);
+		return t;
+
 	}
 
 	@Override
 	public ACTIONS act() {
 		return ACTIONS.ACTION_NIL;
 	}
-	
 
 }
