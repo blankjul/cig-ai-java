@@ -1,0 +1,60 @@
+\documentclass{llncs}
+\usepackage{subfigure,graphicx,url,times,multirow,amsmath,amssymb,algorithm,algorithmic,xspace,epsfig,todonotes,array,caption,hyperref}
+
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip\noindent\keywordname\enspace\ignorespaces#1}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\hyphenation{proving}
+
+\begin{document}
+\mainmatter
+
+\title{Title of the Document}%
+%\titlerunning{MCTS for the PTSP}%
+\author{List of Authors}%
+%\authorrunning{Perez et al.}
+\institute{School ... \\ University ..., Germany \\ \{email1, email2, email3\}@ovgu...}
+
+\maketitle
+
+\begin{abstract}
+Summarize the paper in a paragraph of two. It should contain at least 70 and at most 150 words. You should motivate the research done, give some details about the experiments run and briefly mention the most important findings. 
+\end{abstract}
+
+\section{Introduction} \label{sec:intro}
+
+Give an introduction to the problem tackled. Why is it important? Outline the rest of the document.
+
+\section{Literature Review} \label{sec:lit}
+
+Perform a literature review: What has been done before in this field? What is the main technique/s used in the paper, and what has it/they been used for in the literature before? Give references to the most relevant work published. Example:~\cite{Browne2012}.
+
+\section{Benchmark} \label{sec:bench}
+
+Explain the problem that is being solved, including its main difficulties. Also give some hints on how your agent interacts with the framework, how does the framework work, etc. Give references as needed.
+
+\section{Background} \label{sec:back}
+
+Explain in detail the techniques used through this project, citing other papers if needed. Feel free to include diagrams, pictures, pseudocode, and also to organize the section using subsections.
+
+
+
+\section{Techniques Implemented} \label{sec:exp}
+
+Describe the controllers you created. Explain how they work, in which techniques are they based on (probably from previous section), and include figures and pseudocode as needed.
+
+\section{Experimental Study} \label{sec:exp}
+
+Detail the experimental setup used to test the different algorithms. Present the results in an understandable manner (graphics, tables, etc.). Draw conclusions about what things worked (and why) and which didn't (and why). 
+
+\section{Conclusions and Future Work} \label{sec:conc}
+
+Explain the main contributions of this work: what are the most important findings. Finally, explain how could this work be extended. What would be the next steps?
+
+
+\bibliographystyle{IEEEtranS}
+\bibliography{IEEEabrv,Biblio}
+
+\end{document} 
