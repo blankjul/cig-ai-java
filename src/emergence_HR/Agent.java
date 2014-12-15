@@ -17,7 +17,6 @@ import emergence.strategy.ExplorerStrategy;
 import emergence.targets.ATarget;
 import emergence.targets.ATarget.TYPE;
 import emergence.targets.ImmovableTarget;
-import emergence.targets.MovableTarget;
 import emergence.targets.TargetFactory;
 import emergence.util.ActionTimer;
 import emergence.util.MapInfo;
@@ -39,8 +38,8 @@ public class Agent extends AbstractPlayer {
 
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 
-		explorer = new ExplorerStrategy(stateObs, timer);
-		explorer.expand();
+		explorer = new ExplorerStrategy(stateObs);
+		explorer.expand(stateObs);
 
 		if (VERBOSE) {
 			System.out.println(MapInfo.info(stateObs));

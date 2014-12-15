@@ -52,7 +52,6 @@ public class Agent {
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
-
 		evo = new Evolution(pathLength, populationSize, numFittest, stateObs);
 
 		ActionTimer timerAll = new ActionTimer(elapsedTimer);

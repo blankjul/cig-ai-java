@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  15 DEC 2014 12:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  15 DEC 2014 12:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -817,9 +817,9 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]) (./04_techniques.tex)
-(./05_study.tex) (./06_conclusion.tex) [2] (./report.bbl)
+(./05_study.tex) (./06_conclusion.tex) [2] [3] (./report.bbl)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 42.
- [3]
+ [4]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 42.
  (./report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 42.
@@ -833,9 +833,9 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 42.
  ) 
 Here is how much of TeX's memory you used:
- 16604 strings out of 493304
- 289201 string characters out of 6139871
- 366594 words of memory out of 5000000
+ 16612 strings out of 493304
+ 289319 string characters out of 6139871
+ 367594 words of memory out of 5000000
  19698 multiletter control sequences out of 15000+600000
  20813 words of font info for 50 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
@@ -844,10 +844,10 @@ Here is how much of TeX's memory you used:
 e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on report.pdf (3 pages, 48093 bytes).
+Output written on report.pdf (4 pages, 49349 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
- 26 named destinations out of 1000 (max. 500000)
+ 91 PDF objects out of 1000 (max. 8388607)
+ 79 compressed objects within 1 object stream
+ 34 named destinations out of 1000 (max. 500000)
  29 words of extra memory for PDF output out of 10000 (max. 10000000)
 
