@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
+import emergence.agents.EvolutionaryAgent;
+
 public class PathComparator implements Comparator<Evolutionary<Path>>{
 
 	
@@ -24,7 +26,7 @@ public class PathComparator implements Comparator<Evolutionary<Path>>{
 		
 		int maxUsed = -1;
 		for (int i = 0; i < used.length; i++) {
-			if (used[i] + Agent.r.nextDouble() * 0.000001 > maxUsed) maxUsed = used[i];
+			if (used[i] + EvolutionaryAgent.r.nextDouble() * 0.000001 > maxUsed) maxUsed = used[i];
 		}
 
 		for (int i = 0; i < reward.length; i++) {

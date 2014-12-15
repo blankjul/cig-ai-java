@@ -34,16 +34,16 @@ public class Environment {
 	private int avatarType = -1;
 
 	// this contains all category ids of blocking sprites
-	private Set<ATarget> blockingSprites = new HashSet<ATarget>();
+	private Set<Integer> blockingSprites = new HashSet<Integer>();
 
 	// this set contains all the sprites that followed to a win
-	private Set<ATarget> winSprites = new HashSet<ATarget>();
+	private Set<Integer> winSprites = new HashSet<Integer>();
 
 	// sprites that has a consequence to loose
-	private Set<ATarget> looseSprites = new HashSet<ATarget>();
+	private Set<Integer> looseSprites = new HashSet<Integer>();
 
 	// sprites that causes a score
-	private Set<ATarget> scoreSprites = new HashSet<ATarget>();
+	private Set<Integer> scoreSprites = new HashSet<Integer>();
 
 	/**
 	 * Updates all the values that might help for the exploration
@@ -54,6 +54,12 @@ public class Environment {
 		updateGameEndState(stateObs, WINNER.PLAYER_WINS, winSprites);
 		updateGameEndState(stateObs, WINNER.PLAYER_LOSES, looseSprites);
 		updateScoreSprite(stateObs, lastScore);
+	}
+	
+	public void reset() {
+		blockingSprites.clear();
+		looseSprites.clear();
+		scoreSprites.clear();
 	}
 
 	// just set initial values if they are not present yet
@@ -73,18 +79,16 @@ public class Environment {
 		if (stateObs.getGameScore() > oldScore) {
 			Integer itype = ObservationUtil.collisionLastStep(stateObs);
 			if (itype != null) {
-				TYPE t = TargetFactory.getType(stateObs, itype);
-				scoreSprites.add(new DynamicTarget(t, itype));
+				scoreSprites.add(itype);
 			}
 		}
 	}
 
-	private void updateGameEndState(StateObservation stateObs, WINNER w, Set<ATarget> setToAdd) {
+	private void updateGameEndState(StateObservation stateObs, WINNER w, Set<Integer> setToAdd) {
 		if (stateObs.getGameWinner() == w) {
 			Integer itype = ObservationUtil.collisionLastStep(stateObs);
 			if (itype != null) {
-				TYPE t = TargetFactory.getType(stateObs, itype);
-				setToAdd.add(new DynamicTarget(t, itype));
+				setToAdd.add(itype);
 			}
 		}
 	}
@@ -111,7 +115,7 @@ public class Environment {
 				Observation obs = obsList.get(0);
 				TYPE t = TargetFactory.getType(stateObs, obs.itype);
 				if (t != TYPE.Portal) {
-					blockingSprites.add(new DynamicTarget(t, obs.itype));
+					blockingSprites.add(obs.itype);
 				}
 			}
 		}
@@ -165,19 +169,19 @@ public class Environment {
 	 * Getter methods
 	 */
 
-	public Set<ATarget> getBlockingSprites() {
+	public Set<Integer> getBlockingSprites() {
 		return blockingSprites;
 	}
 
-	public Set<ATarget> getWinSprites() {
+	public Set<Integer> getWinSprites() {
 		return winSprites;
 	}
 
-	public Set<ATarget> getLooseSprites() {
+	public Set<Integer> getLooseSprites() {
 		return looseSprites;
 	}
 
-	public Set<ATarget> getScoreSprites() {
+	public Set<Integer> getScoreSprites() {
 		return scoreSprites;
 	}
 
@@ -185,28 +189,36 @@ public class Environment {
 		return avatarType;
 	}
 
-	public ATarget getWinningTarget() {
+	public ATarget getWinningTarget(StateObservation stateObs) {
 		if (winSprites.isEmpty())
 			return null;
-		else
-			return Helper.getRandomEntry(winSprites);
+		else {
+			int itype = Helper.getRandomEntry(winSprites);
+			TYPE type = TargetFactory.getType(stateObs, itype);
+			return new DynamicTarget(type, itype);
+		}
 	}
 
+	
 	public ATarget getScoringTarget(StateObservation stateObs) {
 		if (scoreSprites.isEmpty())
 			return null;
 		else {
-			Set<ATarget> targets = new HashSet<ATarget>(scoreSprites);
-			ATarget target;
-			do {
-				target = Helper.getRandomEntry(scoreSprites);
-				targets.remove(target);
-				if (target.exists(stateObs))
-					targets.clear();
-
-			} while (target != null && !targets.isEmpty());
-
-			return target;
+			Set<ATarget> targetSet = new HashSet<>();
+			for (Integer itype : scoreSprites) {
+				TYPE type = TargetFactory.getType(stateObs, itype);
+				Observation obs = TargetFactory.getObservationFromType(type,itype, stateObs);
+				// check if this target is present
+				if (obs != null) {
+					targetSet.add(new DynamicTarget(type, itype));
+				}
+			}
+			
+			if (targetSet.isEmpty()) return null;
+			else {
+				return Helper.getRandomEntry(targetSet);
+			}
+			
 		}
 	}
 }

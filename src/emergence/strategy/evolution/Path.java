@@ -6,6 +6,7 @@ import ontology.Types;
 import ontology.Types.ACTIONS;
 import tools.Vector2d;
 import core.game.StateObservation;
+import emergence.agents.EvolutionaryAgent;
 import emergence.heuristics.AHeuristic;
 import emergence.heuristics.DeltaScoreHeuristic;
 import emergence.heuristics.TargetHeuristic;
@@ -115,7 +116,7 @@ public class Path extends Evolutionary<Path> {
 		Path result = new Path(pathLength, actions);
 		result.list.clear();
 		for (int i = 0; i < list.size(); i++) {
-			ACTIONS a = (Agent.r.nextDouble() < 0.5) ? list.get(i) : p.list
+			ACTIONS a = (EvolutionaryAgent.r.nextDouble() < 0.5) ? list.get(i) : p.list
 					.get(i);
 			result.list.add(a);
 		}

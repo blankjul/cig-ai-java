@@ -29,7 +29,7 @@ public class DistanceHeuristic extends AHeuristic {
 		
 		// if the target does not exists anymore
 		Vector2d targetPos = target.getPosition(stateObs);
-		if (targetPos == null) return 0;
+		if (targetPos == null) return Double.POSITIVE_INFINITY;
 		
 		return Helper.distance(pos, targetPos);
 	}

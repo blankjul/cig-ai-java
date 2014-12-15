@@ -1,4 +1,4 @@
-package emergence.strategy.evolution;
+package emergence.agents;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -9,10 +9,13 @@ import ontology.Types.ACTIONS;
 import ontology.Types.WINNER;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
+import emergence.strategy.evolution.Evolution;
+import emergence.strategy.evolution.Path;
+import emergence.strategy.evolution.PathComparator;
 import emergence.util.ActionTimer;
 import emergence.util.GameDetection;
 
-public class Agent {
+public class EvolutionaryAgent {
 
 	// print out information. only DEBUG!
 	public static boolean VERBOSE = true;
@@ -47,10 +50,12 @@ public class Agent {
 	
 	public boolean updatePathLength = false;
 
-	public Agent() {
+	public EvolutionaryAgent() {
 	};
 
-	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+	
+	
+	public EvolutionaryAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
 		evo = new Evolution(pathLength, populationSize, numFittest, stateObs);
 

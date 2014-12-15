@@ -7,6 +7,7 @@ import java.util.concurrent.Future;
 
 import emergence.util.Configuration;
 import emergence.util.GameResult;
+import emergence.util.Helper;
 
 public class OneAgentAllGames {
 
@@ -15,8 +16,8 @@ public class OneAgentAllGames {
 	public static int NUM_LEVELS = 5;
 
 	//public static String[] GAMES = Helper.concat(Configuration.training, Configuration.validation);
-	public static String[] GAMES = Configuration.training;
-	//public static String[] GAMES = {"boulderdash"};
+	public static String[] GAMES = Configuration.allGames;
+	//public static String[] GAMES = {"zelda"};
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();

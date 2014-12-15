@@ -24,6 +24,9 @@ public class AStarStrategy extends AStrategy {
 	private AStarNode bestNode;
 	private double bestScore = Double.POSITIVE_INFINITY;
 	
+	private final int MAX_NOT_FOUND = 15;
+	private int counter = 0;
+	
 	
 	public AStarStrategy(ATarget target) {
 		this.target = target;
@@ -37,7 +40,7 @@ public class AStarStrategy extends AStrategy {
 		bestNode = null;
 		
 		// if there was no path to the target found or the next step is not safe
-		this.astar = new AStar(stateObs, target, 15, new SafetyAdvance(5));
+		this.astar = new AStar(stateObs, target, 100, new SafetyAdvance(5));
 		
 		// expanding the astar algorithm while there is time
 		while (timer.isTimeLeft()) {
@@ -54,7 +57,9 @@ public class AStarStrategy extends AStrategy {
 			timer.addIteration();
 		}
 		
-		return true;
+		// look if the astar algorithm was successfully
+		counter = (astar.hasFound()) ? 0 : counter + 1;
+		return counter < MAX_NOT_FOUND;
 
 	}
 	

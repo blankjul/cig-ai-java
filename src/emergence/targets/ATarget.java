@@ -11,7 +11,7 @@ import tools.Vector2d;
 abstract public class ATarget {
 
 	public enum TYPE {
-		Portal, Resource, NPC, Immovable, Movable, Unknown
+		Portal, Resource, NPC, Immovable, Movable
 	};
 
 	// type of this target (portal, npc, ....)

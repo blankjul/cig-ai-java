@@ -8,9 +8,10 @@ public class OneAgentOneGame {
 	public static void main(String[] args) {
 
 		String controller = "emergence.Agent";
+		//String controller = "emergence.agents.StayAliveAgent"
 		
-		String gameStr = "frogs";
-		int levelIdx = 3;
+		String gameStr = "aliens";
+		int levelIdx = 4;
 		
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",

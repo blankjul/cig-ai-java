@@ -1,4 +1,4 @@
-package emergence;
+package emergence.agents;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -9,6 +9,8 @@ import tools.ElapsedCpuTimer;
 import tools.Vector2d;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
+import emergence.Environment;
+import emergence.Factory;
 import emergence.safety.SafetyAdvance;
 import emergence.strategy.AStarStrategy;
 import emergence.strategy.ExplorerStrategy;
@@ -16,7 +18,7 @@ import emergence.targets.ATarget;
 import emergence.util.ActionTimer;
 import emergence.util.MapInfo;
 
-public class Agent extends AbstractPlayer {
+public class HeuristicAgent extends AbstractPlayer {
 
 	// print out information. only DEBUG!
 	public static boolean VERBOSE = true;
@@ -29,10 +31,10 @@ public class Agent extends AbstractPlayer {
 	
 	private StateObservation stateObs;
 	
-	public Agent() {
+	public HeuristicAgent() {
 	}
 
-	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+	public HeuristicAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 		
 		this.stateObs = stateObs;
 		ActionTimer timer = new ActionTimer(elapsedTimer);

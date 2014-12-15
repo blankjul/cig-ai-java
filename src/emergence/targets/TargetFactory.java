@@ -14,9 +14,10 @@ public class TargetFactory {
 
 	/**
 	 * Searched at the level for the target that has the type and itype.
+	 * if type is null the observation is searched over all possible types.
 	 * 
 	 * @param type
-	 *            TYPE of the target (portal, npc, ...)
+	 *            TYPE of the target (portal, npc, ...). null of unknown.
 	 * @param itype
 	 *            type id of the target integer (0...n)
 	 * @param stateObs
@@ -26,7 +27,7 @@ public class TargetFactory {
 	 */
 	public static Observation getObservationFromType(TYPE t, int itype, StateObservation stateObs) {
 		Set<TYPE> typeSet = new HashSet<>();
-		if (t == TYPE.Unknown)
+		if (t == null)
 			typeSet.addAll(Arrays.asList(TYPE.values()));
 		else
 			typeSet.add(t);
@@ -44,8 +45,12 @@ public class TargetFactory {
 				}
 			}
 		}
-
 		return null;
+	}
+
+	public static Observation getObservationFromType(int itype, StateObservation stateObs) {
+		return getObservationFromType(null, itype, stateObs );
+		
 	}
 
 
@@ -131,7 +136,7 @@ public class TargetFactory {
 				}
 			}
 		}
-		return TYPE.Unknown;
+		return null;
 	}
 
 }

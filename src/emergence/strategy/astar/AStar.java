@@ -94,7 +94,7 @@ public class AStar {
 	public AStarNode expand() {
 
 		// if the open list is empty no path will be ever found
-		if (openList.isEmpty() && !it.hasNext()) {
+		if ((openList.isEmpty() && !it.hasNext())) {
 			return null;
 		}
 		
@@ -149,7 +149,7 @@ public class AStar {
 		}
 
 		// if the agent were there before continue
-		if (closedHash.contains(child.hash())){
+		if (closedHash.contains(child.hash()) || child.heuristic() == Double.POSITIVE_INFINITY){
 			return child;
 		}
 
@@ -171,7 +171,6 @@ public class AStar {
 				openList.add(child);
 			}
 		}
-
 		return child;
 	}
 
