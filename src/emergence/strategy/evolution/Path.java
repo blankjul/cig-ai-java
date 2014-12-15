@@ -7,7 +7,7 @@ import ontology.Types.ACTIONS;
 import tools.Vector2d;
 import core.game.StateObservation;
 import emergence.heuristics.AHeuristic;
-import emergence.heuristics.DeltaHeuristic;
+import emergence.heuristics.DeltaScoreHeuristic;
 import emergence.heuristics.TargetHeuristic;
 import emergence.util.Helper;
 
@@ -62,7 +62,7 @@ public class Path extends Evolutionary<Path> {
 	}
 
 	public void simulate(StateObservation stateObs) {
-		AHeuristic heuristic = new DeltaHeuristic(stateObs.getGameScore());
+		AHeuristic heuristic = new DeltaScoreHeuristic(stateObs.getGameScore());
 		scores[0] = 0;
 		Vector2d last_avatar_position = stateObs.getAvatarPosition();
 		double blocksize = stateObs.getBlockSize();

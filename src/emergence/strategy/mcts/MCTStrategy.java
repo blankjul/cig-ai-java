@@ -16,8 +16,10 @@ import emergence.util.Helper;
 import emergence.util.pair.Pair;
 import emergence.util.pair.SortedPair;
 
-public class MCTStrategy extends AStrategy {
+public class MCTStrategy {
 
+	/*
+	
 	// maximal depth of the tree -> 10 per default!
 	public int maxDepth = 8;
 
@@ -199,12 +201,8 @@ public class MCTStrategy extends AStrategy {
 		else
 			return null;
 	}
+	
 
-	/**
-	 * Set the given MCTSNode as the new tree
-	 * this means to set level = level -1
-	 * @param MCTSNode
-	 */
 	public void rollingHorizon(MCTSNode MCTSNode) {
 		
 		// rolling horizon
@@ -232,5 +230,7 @@ public class MCTStrategy extends AStrategy {
 		s += "---------------------";
 		return s;
 	}
+	
+	*/
 
 }

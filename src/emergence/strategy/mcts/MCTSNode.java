@@ -14,8 +14,9 @@ import emergence.strategy.astar.AStarInfo;
  * to simulate next steps of a node. This has the consequence that there are
  * always father and children states.
  */
-public class MCTSNode extends GenericNode<AStarInfo> {
+public class MCTSNode  {
 
+	/*
 	// father node, if null it's the root
 	public MCTSNode father = null;
 
@@ -32,23 +33,11 @@ public class MCTSNode extends GenericNode<AStarInfo> {
 	public boolean isLooser = false;
 
 
-	/**
-	 * Node with father and saved last action
-	 * 
-	 * @param father
-	 *            father of this node
-	 * @param lastAction
-	 *            last action to come to this state
-	 */
+
 	public MCTSNode(MCTSNode father, Types.ACTIONS lastAction) {
 		this.father = father;
 	}
 
-	/**
-	 * Return if this node is fully expanded or not!
-	 * 
-	 * @return whether all children exists or some are missing
-	 */
 	public boolean isFullyExpanded(StateObservation stateObs) {
 		return stateObs.getAvailableActions().size() == children.size();
 	}
@@ -60,12 +49,7 @@ public class MCTSNode extends GenericNode<AStarInfo> {
 		return String.format("[%s,%s,%s]", pos.x, pos.y, used);
 	}
 
-	/**
-	 * Returns all children of a node without saving the state.
-	 * 
-	 * @param stateObsOfFather
-	 * @return children nodes.
-	 */
+
 	public static List<MCTSNode> getChildren(MCTSNode n) {
 		List<MCTSNode> result = new ArrayList<MCTSNode>();
 
@@ -83,6 +67,7 @@ public class MCTSNode extends GenericNode<AStarInfo> {
 		return result;
 	}
 
+	*/
 
 
 }

@@ -9,7 +9,7 @@ public class OneAgentOneGame {
 
 		String controller = "emergence.Agent";
 		
-		String gameStr = "zelda";
+		String gameStr = "portals";
 		int levelIdx = 0;
 		
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",

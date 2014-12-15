@@ -1,6 +1,7 @@
 package emergence.strategy.mcts;
 
 import ontology.Types;
+import ontology.Types.ACTIONS;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
@@ -8,6 +9,13 @@ import emergence.util.ActionTimer;
 
 public class Agent extends AbstractPlayer {
 
+	@Override
+	public ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
 	
 	public static final boolean VERBOSE = false;
 	
@@ -55,5 +63,6 @@ public class Agent extends AbstractPlayer {
 	}
 
 
+*/
 
 }

@@ -197,6 +197,7 @@ public class AStar {
 	public void paint(Graphics g) {
 		int markerSize = 15;
 		
+		
 		for (String str : closedHash) {
 			String[] strPoint = str.substring(1, str.length() - 1).split(",");
 			Vector2d v = new Vector2d(Double.valueOf(strPoint[0]), Double.valueOf(strPoint[1]));

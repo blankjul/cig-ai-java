@@ -1,8 +1,12 @@
 package emergence;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 import ontology.Types;
 import ontology.Types.ACTIONS;
 import tools.ElapsedCpuTimer;
+import tools.Vector2d;
 import core.game.Observation;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
@@ -29,8 +33,6 @@ public class Agent extends AbstractPlayer {
 
 	private ATarget bestTarget = null;
 
-	public Agent() {
-	};
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
@@ -62,10 +64,10 @@ public class Agent extends AbstractPlayer {
 			itype = Factory.getEnvironment().getWinSprites().iterator().next();
 		if (itype == -1 && !Factory.getEnvironment().getScoreSprites().isEmpty())
 			itype = Factory.getEnvironment().getScoreSprites().iterator().next();
-		
+
 		// if a good target was found
 		if (itype != -1) {
-			Pair<TYPE,Observation> p = TargetFactory.getObservationFromType(itype, stateObs);
+			Pair<TYPE, Observation> p = TargetFactory.getObservationFromType(itype, stateObs);
 			if (p == null) {
 				bestTarget = null;
 				astar = null;
@@ -79,30 +81,49 @@ public class Agent extends AbstractPlayer {
 			}
 		}
 
-
 		if (bestTarget != null) {
-			System.out.println(bestTarget);
+			// System.out.println(bestTarget);
 			astar = new AStarStrategy(stateObs, timer, bestTarget);
 		}
 
 		if (astar == null) {
-			//System.out.println("STAY ALIVE");
+			if (VERBOSE)  System.out.println("STAY ALIVE AND EXPLORE");
 			a = new SafetyAdvance(5).getOneSafeAction(stateObs);
 			explorer.reset(stateObs, timer);
 			explorer.expand();
 		} else {
-			//System.out.println("ASTAR");
 			astar.reset(stateObs, timer);
 			astar.expand();
+			if (VERBOSE) System.out.println("ASTAR: " + bestTarget + " FOUND " + astar.hasFound());
 			a = astar.act();
+			
 		}
 
 		if (stateObs.getGameTick() == 0 || stateObs.getGameTick() % 20 == 0) {
 			System.out.println(Factory.getEnvironment().toString());
+			//Factory.getEnvironment().reset();
 		}
 
 		return a;
 
+	}
+
+	/**
+	 * Gets the player the control to draw something on the screen. It can be
+	 * used for debug purposes.
+	 * 
+	 * @param g
+	 *            Graphics device to draw to.
+	 */
+	public void draw(Graphics2D g) {
+		
+		if (astar != null) {
+			//astar.getAstar().paint(g);
+			g.setColor(Color.GREEN);
+			Vector2d v = astar.getTarget().position();
+            g.fillRect((int)v.x,(int) v.y, 10, 10);
+		}
+		
 	}
 
 }

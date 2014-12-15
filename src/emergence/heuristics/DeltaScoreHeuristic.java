@@ -3,11 +3,11 @@ package emergence.heuristics;
 import ontology.Types.WINNER;
 import core.game.StateObservation;
 
-public class DeltaHeuristic extends AHeuristic {
+public class DeltaScoreHeuristic extends AHeuristic {
 
 	double startScore;
 	
-	public DeltaHeuristic(double startScore) {
+	public DeltaScoreHeuristic(double startScore) {
 		this.startScore = startScore;
 	}
 	

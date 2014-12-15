@@ -13,6 +13,14 @@ import core.game.StateObservation;
 import emergence.util.Helper;
 import emergence.util.ObservationUtil;
 
+/**
+ * The Environment class safes all the observation of the environment that were
+ * made by simulating using the simulator class. It tracks the blocking,
+ * scoring, loosing and winning sprites. For that there are some information
+ * before and after advancing are needed. Use the update method to keep the
+ * environment really up to date.
+ *
+ */
 public class Environment {
 
 	// store the blocksize
@@ -33,6 +41,7 @@ public class Environment {
 	// sprites that causes a score
 	private Set<Integer> scoreSprites = new HashSet<Integer>();
 
+	
 	/**
 	 * Updates all the values that might help for the exploration
 	 */
@@ -42,6 +51,11 @@ public class Environment {
 		updateGameEndState(stateObs, WINNER.PLAYER_WINS, winSprites);
 		updateGameEndState(stateObs, WINNER.PLAYER_LOSES, looseSprites);
 		updateScoreSprite(stateObs, oldScore);
+	}
+
+	public void reset() {
+		blockingSprites.clear();
+		looseSprites.clear();
 	}
 
 	// just set initial values if they are not present yet
@@ -144,6 +158,8 @@ public class Environment {
 		return result;
 	}
 
+	
+	
 	/*
 	 * Getter methods
 	 */
