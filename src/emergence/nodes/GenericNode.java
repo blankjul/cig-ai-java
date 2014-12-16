@@ -156,6 +156,7 @@ public class GenericNode<T> implements Iterable<GenericNode<T>> {
 		return Helper.hash(stateObs, getLastAction());
 	}
 
+	
 	@Override
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();

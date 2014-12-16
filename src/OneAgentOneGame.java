@@ -7,15 +7,15 @@ public class OneAgentOneGame {
 
 	public static void main(String[] args) {
 
-		String controller = "emergence.Agent";
+		//String controller = "emergence.Agent";
 		//String controller = "emergence.agents.StayAliveAgent";
-		//String controller = "emergence.agents.MCTSAgent";
+		String controller = "emergence.agents.MCTSHeuristicAgent";
 		//String controller = "emergence.agents.EvolutionaryAgent";
 		//String controller = "emergence.agents.EvolutionaryHeuristicAgent";
 		
 		
-		String gameStr = "boulderdash";
-		int levelIdx = 3;
+		String gameStr = "zelda";
+		int levelIdx = 2;
 		
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",

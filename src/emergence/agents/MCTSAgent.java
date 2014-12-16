@@ -4,26 +4,24 @@ import ontology.Types.ACTIONS;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
+import emergence.strategy.mcts.FieldTracker;
+import emergence.strategy.mcts.MCTSNode;
+import emergence.strategy.mcts.MCTStrategy;
+import emergence.util.ActionTimer;
 
 public class MCTSAgent extends AbstractPlayer {
 
-	@Override
-	public ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-/*
-	public static final boolean VERBOSE = true;
+	public static final boolean VERBOSE = false;
 	
 	private MCTStrategy strategy = null;
 	
-
 	
 	public MCTSAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 		strategy = new MCTStrategy();
-		strategy.root = new MCTSNode(null, ACTIONS.ACTION_NIL);
+		strategy.root = new MCTSNode(null);
 		ActionTimer timer = new ActionTimer(elapsedTimer);
+		timer.timeRemainingLimit = 100;
 		strategy.expand(stateObs, timer);
 	}
 	
@@ -32,25 +30,22 @@ public class MCTSAgent extends AbstractPlayer {
 	public ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
 
-		// set the current state observation of the last root
-		strategy.root = new MCTSNode(null, ACTIONS.ACTION_NIL);
-		
-		// get the next best action that will be executed
 		ActionTimer timer = new ActionTimer(elapsedTimer);
+		timer.timeRemainingLimit = 3;
 		strategy.expand(stateObs, timer);
-		
 		
 		ACTIONS a = strategy.act();
 		
 		strategy.rollingHorizon();
 		
 		FieldTracker.lastAction = a;
+		
 		if (VERBOSE) System.out.println(strategy);
 
 		return a;
 	}
 
-*/
+
 
 
 }
