@@ -13,7 +13,6 @@ import core.player.AbstractPlayer;
 import emergence.strategy.evolution.Evolution;
 import emergence.strategy.evolution.EvolutionaryNode;
 import emergence.util.ActionTimer;
-import emergence.util.MapInfo;
 
 public class EvolutionaryAgent extends AbstractPlayer{
 

@@ -10,10 +10,13 @@ import ontology.Types.WINNER;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
+import emergence.Environment;
 import emergence.Factory;
+import emergence.strategy.AStarStrategy;
 import emergence.strategy.ExplorerStrategy;
 import emergence.strategy.evolution.Evolution;
 import emergence.strategy.evolution.EvolutionaryNode;
+import emergence.targets.ATarget;
 import emergence.util.ActionTimer;
 import emergence.util.MapInfo;
 
@@ -32,7 +35,7 @@ public class EvolutionaryHeuristicAgent extends AbstractPlayer{
 	public int pessimistic = 5;
 
 	// number of actions that are simulated
-	public int pathLength = 8;
+	public int pathLength = 6;
 
 	// how many entries should the population has
 	public int populationSize = 14;
@@ -45,6 +48,10 @@ public class EvolutionaryHeuristicAgent extends AbstractPlayer{
 	
 	// if update path length the target generation
 	public int minGeneration = 4;
+	
+	
+	private ATarget bestTarget = null;
+	public AStarStrategy strategy;
 
 	
 	
@@ -75,6 +82,21 @@ public class EvolutionaryHeuristicAgent extends AbstractPlayer{
 		timer.timeRemainingLimit = 25;
 		ExplorerStrategy explorer = new ExplorerStrategy(stateObs);
 		explorer.expand(stateObs, timer);
+		
+		
+		Environment env = Factory.getEnvironment();
+		if (bestTarget == null) {
+			if (env.getWinningTarget(stateObs) != null) {
+				bestTarget = env.getWinningTarget(stateObs);
+			} 
+			if (bestTarget != null) strategy = new AStarStrategy(bestTarget);
+		}
+		
+		timer.timeRemainingLimit = 2;
+		if (strategy != null) {
+			strategy.expand(stateObs, timer);
+			return strategy.act();
+		}
 		
 		
 		// slide the complete pool one action into the future

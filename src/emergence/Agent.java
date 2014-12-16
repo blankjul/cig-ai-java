@@ -29,6 +29,8 @@ public class Agent extends AbstractPlayer {
 	
 	private StateObservation stateObs;
 	
+	
+	
 	public Agent() {
 	}
 	
@@ -116,7 +118,7 @@ public class Agent extends AbstractPlayer {
 			if (bestTarget != null) {
 				g.setColor(Color.GREEN);
 				Vector2d v = bestTarget.getPosition(stateObs);
-				g.fillRect((int) v.x, (int) v.y, 10, 10);
+				if (v != null) g.fillRect((int) v.x, (int) v.y, 10, 10);
 			}
 		}
 	}

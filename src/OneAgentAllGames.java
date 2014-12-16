@@ -7,16 +7,16 @@ import java.util.concurrent.Future;
 
 import emergence.util.Configuration;
 import emergence.util.GameResult;
-import emergence.util.Helper;
 
 public class OneAgentAllGames {
 
 	public static String CONTROLLER = "emergence.Agent";
+	//public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
 
 	public static int NUM_LEVELS = 5;
 
 	//public static String[] GAMES = Helper.concat(Configuration.training, Configuration.validation);
-	public static String[] GAMES = Configuration.training;
+	public static String[] GAMES = Configuration.validation;
 	//public static String[] GAMES = {"zelda"};
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {

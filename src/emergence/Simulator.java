@@ -11,7 +11,6 @@ import core.game.StateObservation;
 public class Simulator {
 
 	
-
 	public StateObservation advance(StateObservation stateObs, ACTIONS a) {
 
 		Vector2d oldAvatarPosition = stateObs.getAvatarPosition();
@@ -22,10 +21,6 @@ public class Simulator {
 
 		return stateObs;
 	}
-
-
-	
-
 
 
 

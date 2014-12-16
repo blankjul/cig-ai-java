@@ -54,6 +54,25 @@ public class Environment {
 		updateGameEndState(stateObs, WINNER.PLAYER_WINS, winSprites);
 		updateGameEndState(stateObs, WINNER.PLAYER_LOSES, looseSprites);
 		updateScoreSprite(stateObs, lastScore);
+		
+		
+		ArrayList<Integer> tmp = new ArrayList<>(scoreSprites);
+		for (Integer scoreSprite : tmp) {
+			if (ObservationUtil.collisionLastStep(stateObs) == scoreSprite && lastScore == stateObs.getGameScore()) {
+				scoreSprites.remove(scoreSprite);
+			}
+		}
+		
+		tmp = new ArrayList<>(blockingSprites);
+		for (Integer blockSprite : tmp) {
+			if (ObservationUtil.collisionLastStep(stateObs) == blockSprite && stateObs.getAvatarPosition().equals(lastAvatarPos) && lastAction != ACTIONS.ACTION_USE
+					&& lastAction != ACTIONS.ACTION_NIL) {
+				scoreSprites.remove(blockingSprites);
+			}
+		}
+		
+		
+		
 	}
 	
 	public void reset() {
