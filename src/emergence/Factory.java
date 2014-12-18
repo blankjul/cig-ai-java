@@ -1,5 +1,6 @@
 package emergence;
 
+import emergence.strategy.mcts.FieldTracker;
 import emergence.util.GameDetection;
 
 
@@ -12,6 +13,8 @@ public class Factory {
 	private static Environment env = null;
 	
 	private static Simulator simulator = null;
+	
+	private static FieldTracker fieldTracker = null;
 	
 	
 	public static GameDetection getGameDetection() {
@@ -29,5 +32,9 @@ public class Factory {
 		return env;
 	}
 	
+	public static FieldTracker getFieldTracker() {
+		if (fieldTracker == null) fieldTracker = new FieldTracker();
+		return fieldTracker;
+	}
 
 }

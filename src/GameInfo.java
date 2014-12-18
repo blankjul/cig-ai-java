@@ -1,5 +1,7 @@
-package emergence.util;
+
 import core.game.StateObservation;
+import emergence.util.Configuration;
+import emergence.util.MapInfo;
 
 
 /**

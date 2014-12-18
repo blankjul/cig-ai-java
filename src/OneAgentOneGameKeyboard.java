@@ -3,7 +3,6 @@ import java.util.Random;
 import core.ArcadeMachine;
 import core.game.Game;
 import core.player.AbstractPlayer;
-import emergence.util.LevelLoader;
 
 public class OneAgentOneGameKeyboard {
 

@@ -72,10 +72,12 @@ public class EvolutionaryNode extends GenericNode<Object> implements Comparable<
 		StateObservation simulatedState = stateObs.copy();
 		for (ACTIONS a : path) {
 			AHeuristic heuristic = new DeltaScoreHeuristic(simulatedState.getGameScore());
-			Factory.getSimulator().advance(simulatedState, a);
+			simulatedState.advance(a);
+			//Factory.getSimulator().advance(simulatedState, a);
 			score += heuristic.evaluateState(simulatedState);
 		}
 		
+		/*
 		ATarget winningTarget = Factory.getEnvironment().getWinningTarget(stateObs);
 		ATarget scoringTarget = Factory.getEnvironment().getScoringTarget(stateObs);
 		if (winningTarget != null) {
@@ -87,7 +89,7 @@ public class EvolutionaryNode extends GenericNode<Object> implements Comparable<
 			if (targetPos == null) heuristicValue = 0;
 			else heuristicValue = Helper.distance(targetPos, simulatedState.getAvatarPosition());
 		}
-		
+		*/
 	}
 	
 

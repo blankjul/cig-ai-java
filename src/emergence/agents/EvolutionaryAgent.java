@@ -17,7 +17,7 @@ import emergence.util.ActionTimer;
 public class EvolutionaryAgent extends AbstractPlayer{
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = true;
+	public static boolean VERBOSE = false;
 
 	// random object
 	public static Random r = new Random();
@@ -29,7 +29,7 @@ public class EvolutionaryAgent extends AbstractPlayer{
 	public int pessimistic = 5;
 
 	// number of actions that are simulated
-	public int pathLength = 8;
+	public int pathLength = 6;
 
 	// how many entries should the population has
 	public int populationSize = 14;
@@ -51,7 +51,6 @@ public class EvolutionaryAgent extends AbstractPlayer{
 	
 	public EvolutionaryAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
-		
 		evo = new Evolution(pathLength, populationSize, numFittest, stateObs);
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		timer.timeRemainingLimit = 50;

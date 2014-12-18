@@ -1,4 +1,4 @@
-import emergence.Agent;
+import emergence.AgentPrimary;
 
 
 
@@ -7,15 +7,15 @@ public class OneAgentOneGame {
 
 	public static void main(String[] args) {
 
-		//String controller = "emergence.Agent";
+		String controller = "emergence.Agent";
 		//String controller = "emergence.agents.StayAliveAgent";
-		String controller = "emergence.agents.MCTSHeuristicAgent";
+		//String controller = "emergence.agents.EvolutionaryAgent";
 		//String controller = "emergence.agents.EvolutionaryAgent";
 		//String controller = "emergence.agents.EvolutionaryHeuristicAgent";
 		
 		
-		String gameStr = "zelda";
-		int levelIdx = 2;
+		String gameStr = "missilecommand";
+		int levelIdx = 4;
 		
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
@@ -29,7 +29,7 @@ public class OneAgentOneGame {
 		String game = gamesPath + gameStr + ".txt";
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
 
-		Exec.execute(controller, game, level1, "", true, Agent.VERBOSE);
+		Exec.execute(controller, game, level1, "", true, AgentPrimary.VERBOSE);
 
 	}
 }

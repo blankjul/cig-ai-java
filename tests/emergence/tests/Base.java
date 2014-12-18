@@ -1,7 +1,7 @@
 package emergence.tests;
 
+import LevelLoader;
 import core.game.Game;
-import emergence.util.LevelLoader;
 
 
 public class Base {

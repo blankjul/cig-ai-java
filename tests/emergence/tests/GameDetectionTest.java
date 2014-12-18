@@ -1,6 +1,7 @@
 package emergence.tests;
 
 import static org.junit.Assert.assertEquals;
+import LevelLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,6 @@ import core.game.Game;
 import core.game.StateObservation;
 import emergence.util.Configuration;
 import emergence.util.GameDetection;
-import emergence.util.LevelLoader;
 import emergence.util.pair.SortedPair;
 
 @RunWith(Parameterized.class)

@@ -2,10 +2,11 @@ package emergence.strategy.mcts;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Random;
+import java.util.Set;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
@@ -17,8 +18,6 @@ import emergence.nodes.GenericNode;
 import emergence.strategy.AStrategy;
 import emergence.util.ActionTimer;
 import emergence.util.Helper;
-import emergence.util.pair.Pair;
-import emergence.util.pair.SortedPair;
 
 public class MCTStrategy extends AStrategy {
 
@@ -34,33 +33,42 @@ public class MCTStrategy extends AStrategy {
 
 	public int currentTreeDepth = 0;
 
-	private Random r = new Random();
-
+	public AHeuristic heuristic = null;
+	
 	private MCTSNode bestNode;
 	
-	private AHeuristic heuristic = null;
 
+	
+	public MCTStrategy(MCTSNode root) {
+		super();
+		this.root = root;
+		bestNode = root;
+	}
 
+	
 	@Override
 	public boolean expand(StateObservation stateObs, ActionTimer timer) {
+		
+		// get all actions that are available
+		Set<ACTIONS> allActions = new HashSet<ACTIONS>(stateObs.getAvailableActions());
+		
 
 		while (timer.isTimeLeft()) {
 
 			// tree policy by iteration through the tree
-			Pair<MCTSNode, StateObservation> pair = treePolicy(new Pair<MCTSNode, StateObservation>(root, stateObs.copy()));
-			
-			if (!timer.isTimeLeft()) return true;
+			MCTSNode n = treePolicy(root, allActions);
 			
 			// adapt the current tree depth
-			if (pair._1().getLevel() > currentTreeDepth) currentTreeDepth = pair._1().getLevel();
+			if (n.getLevel() > currentTreeDepth) currentTreeDepth = n.getLevel();
 			
+			// check if there is enough time
 			if (!timer.isTimeLeft()) return true;
 			
 			// default policy by looking for a random path
-			double reward = defaultPolicy(pair);
+			double reward = defaultPolicy(n, stateObs.copy());
 			
 			// backpropagate the reward
-			backPropagation(pair._1(), reward);
+			backPropagation(n, reward);
 
 			timer.addIteration();
 		}
@@ -77,46 +85,40 @@ public class MCTStrategy extends AStrategy {
 		}
 	}
 
-	private double defaultPolicy(Pair<MCTSNode, StateObservation> pair) {
+	private double defaultPolicy(MCTSNode n, StateObservation stateObs) {
 
-		MCTSNode n = pair._1();
-		StateObservation stateObs = pair._2();
-		DeltaScoreHeuristic heuristic = new DeltaScoreHeuristic(stateObs.getGameScore());
+		DeltaScoreHeuristic deltaHeuristic = new DeltaScoreHeuristic(stateObs.getGameScore());
+		
+		// simulate this node and the given state obs
+		n.simulate(stateObs);
+		if (heuristic != null) n.heuristicValue = heuristic.evaluateState(stateObs);
 
+		// add random simulation
 		int level = n.getLevel();
 		while (!stateObs.isGameOver() && level <= maxDepth) {
 			Types.ACTIONS a = Helper.getRandomEntry(stateObs.getAvailableActions());
-			stateObs.advance(a);
+			Factory.getSimulator().advance(stateObs, a);
 			++level;
 		}
 
-		double delta = heuristic.evaluateState(stateObs);
+		// calculate the heuristic value
+		double delta = deltaHeuristic.evaluateState(stateObs);
 		return delta;
 	}
 
-	private Pair<MCTSNode, StateObservation> treePolicy(Pair<MCTSNode, StateObservation> pair) {
-
+	
+	private MCTSNode treePolicy(MCTSNode n, Set<ACTIONS> allActions) {
 		// get the MCTSNode and the state observation
-		MCTSNode n = pair._1();
-		StateObservation stateObs = pair._2();
-
-		while (!stateObs.isGameOver() && n.getLevel() <= maxDepth) {
-
-			if (!n.isFullyExpanded(stateObs)) {
-
-				MCTSNode child = (MCTSNode) n.getRandomUnexpandedChildren(stateObs);
-				Factory.getSimulator().advance(stateObs, child.getLastAction());
-				child.checkLoosing(stateObs);
-				
-				return new Pair<MCTSNode, StateObservation>(child, stateObs);
-
+		while (n.getLevel() <= maxDepth) {
+			if (!n.isFullyExpanded(allActions)) {
+				MCTSNode child = (MCTSNode) n.getRandomUnexpandedChildren(allActions);
+				return child;
 			} else {
-				Pair<MCTSNode, StateObservation> result = n.bestChild(new Pair<MCTSNode, StateObservation>(n, stateObs), heuristic);
-				n = result._1();
-				stateObs = result._2();
+				MCTSNode result = n.bestChild(n);
+				n = result;
 			}
 		}
-		return new Pair<MCTSNode, StateObservation>(n, stateObs);
+		return n;
 	}
 	
 
@@ -124,36 +126,42 @@ public class MCTStrategy extends AStrategy {
 
 	@Override
 	public ACTIONS act() {
-		
-		// select the best child!
-		List<SortedPair<MCTSNode, Double>> nodes = new ArrayList<SortedPair<MCTSNode, Double>>();
-		
+		// get all the children and compare the visited integer
+		List<MCTSNode> nodeList = new ArrayList<>();
 		for (GenericNode<Object>  childGeneric : root.getAllChildren()) {
-			
 			MCTSNode child = (MCTSNode) childGeneric;
-			
-			if (child.isLoosingAtSimulation() == true)
-				continue;
-			
-			double tiebreak = r.nextDouble() * MCTSNode.epsilon;
-			
-			nodes.add(new SortedPair<MCTSNode, Double>(child, child.getVisited() + tiebreak));
+			nodeList.add(child);
 		}
-		Collections.sort(nodes);
-		if (nodes.size() > 0) {
-			bestNode = nodes.get(0)._1();
-			//System.out.println(bestNode);
+		MostVisitedNodeComparator comp = new MostVisitedNodeComparator();
+		Collections.sort(nodeList, comp);
+		
+		// get all the best nodes. Could be that more than one have the max values
+		if (nodeList.size() == 0) return ACTIONS.ACTION_NIL;
+		else {
+			// find the first point where they are not equal
+			int i = 0;
+			for (; i < nodeList.size() - 1; i++) {
+				if (comp.compare(nodeList.get(i), nodeList.get(i+1)) != 0) break;
+			}
+			nodeList = nodeList.subList(0, i + 1);
+			// now the nodeList contains all nodes with the maximal equal result
+			if (heuristic == null) {
+				bestNode = Helper.getRandomEntry(nodeList);
+			} else {
+				List<MCTSNode> heuristicList = new ArrayList<>(nodeList);
+				Collections.sort(heuristicList, new BestHeuristicNodeComparator());
+				bestNode = heuristicList.get(0);
+			}
 			return bestNode.getFirstAction();
-		} else
-			return ACTIONS.ACTION_NIL;
+		}
 		
 	}
 
 	
 	
-	public void rollingHorizon() {
+	public void rollingHorizon(ACTIONS lastAction) {
 
-		if (bestNode == null) return;
+		MCTSNode bestNode = (MCTSNode) root.getChild(lastAction);
 		
 		// rolling horizon
 		bestNode.setFather(null);
@@ -170,7 +178,6 @@ public class MCTStrategy extends AStrategy {
 			for(GenericNode<Object> childGeneric : n.getAllChildren()) {
 				queue.add((MCTSNode) childGeneric);
 			}
-			
 		}
 	}
 
@@ -179,9 +186,8 @@ public class MCTStrategy extends AStrategy {
 		act();
 		String s = String.format("Best:%s | \nDepth:%s \n", bestNode.toString(), currentTreeDepth);
 		s += "---------------------\n";
-		for (GenericNode<Object> child : root.getAllChildren()) {
-			s += child.toString() + '\n';
-		}
+		root.print(1);
+		if (heuristic != null) System.out.println(heuristic);
 		s += "---------------------";
 		return s;
 	}

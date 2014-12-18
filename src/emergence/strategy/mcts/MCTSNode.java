@@ -8,13 +8,10 @@ import java.util.Set;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
-import ontology.Types.WINNER;
 import core.game.StateObservation;
 import emergence.Factory;
-import emergence.heuristics.AHeuristic;
 import emergence.nodes.GenericNode;
 import emergence.util.Helper;
-import emergence.util.pair.Pair;
 
 /**
  * This class represents a TreeNode. Important is that there is the possibility
@@ -39,9 +36,6 @@ public class MCTSNode extends GenericNode<Object> {
 	// random generator
 	private Random r = new Random();
 	
-	// if this node was one time is loosing node
-	private boolean loosingAtSimulation;
-
 	// very small value
 	public static double epsilon = 0.0000000001d;
 	
@@ -51,8 +45,9 @@ public class MCTSNode extends GenericNode<Object> {
 	// the uct value
 	public double uct = 0d;
 	
-	private double heuristicValue;
-
+	// heuristic value of this node
+	public double heuristicValue = 0;
+	
 	
 	
 	public MCTSNode(MCTSNode father) {
@@ -82,8 +77,13 @@ public class MCTSNode extends GenericNode<Object> {
 	 * @param stateObs
 	 * @return false if there could be new children
 	 */
-	public boolean isFullyExpanded(StateObservation stateObs) {
-		return stateObs.getAvailableActions().size() == children.size();
+	public boolean isFullyExpanded(Set<ACTIONS> allActions) {
+		Set<ACTIONS>  actions = new HashSet<>(allActions);
+		actions.removeAll(children.keySet());
+		if (actions.isEmpty()) {
+			return true;
+		} 
+		return false;
 	}
 
 	/**
@@ -98,6 +98,7 @@ public class MCTSNode extends GenericNode<Object> {
 
 	@Override
 	public GenericNode<Object> getChild(ACTIONS lastAction) {
+		if (this.children.containsKey(lastAction)) return children.get(lastAction);
 		MCTSNode child = new MCTSNode(this, lastAction);
 		this.children.put(lastAction, child);
 		return child;
@@ -115,12 +116,14 @@ public class MCTSNode extends GenericNode<Object> {
 	}
 	
 	
-	public GenericNode<Object> getRandomUnexpandedChildren(StateObservation stateObs) {
-		Set<ACTIONS> allActions = new HashSet<>(stateObs.getAvailableActions());
-		allActions.removeAll(children.keySet());
+	public GenericNode<Object> getRandomUnexpandedChildren(Set<ACTIONS> allActions) {
+		Set<ACTIONS>  actions = new HashSet<>(allActions);
+		actions.removeAll(children.keySet());
 		
-		if (allActions.isEmpty()) return null;
-		ACTIONS rndAction = Helper.getRandomEntry(allActions);
+		if (actions.isEmpty()) {
+			return null;
+		}
+		ACTIONS rndAction = Helper.getRandomEntry(actions);
 		GenericNode<Object> child = getChild(rndAction);
 		
 		return child;
@@ -136,58 +139,34 @@ public class MCTSNode extends GenericNode<Object> {
 	}
 	
 	
-	public Pair<MCTSNode, StateObservation> bestChild(Pair<MCTSNode, StateObservation> pair, AHeuristic heuristic) {
+	public MCTSNode bestChild(MCTSNode n) {
 		
-		MCTSNode n = pair._1();
-		StateObservation stateObs = pair._2();
-
 		// always the best child is saved here
 		MCTSNode bestChild = null;
 		double bestValue = Double.NEGATIVE_INFINITY;
-		StateObservation bestStateObs = null;
 		
-
 		for (GenericNode<Object> childGeneric : getAllChildren()) {
 
 			MCTSNode child = (MCTSNode) childGeneric;
 			
-			// get the current state observation from the child
-			StateObservation stateObsChild = stateObs.copy();
-			Factory.getSimulator().advance(stateObsChild, child.getLastAction());
-			child.checkLoosing(stateObs);
-			
 			double exploitation = child.Q / (child.visited + epsilon * r.nextDouble());
 			double exploration = Math.sqrt(Math.log(n.visited + 1) / (child.visited));
-			double history = getHistoryValue(stateObsChild, child.getLastAction());
-			child.heuristicValue = (heuristic == null) ? 0 : heuristic.evaluateState(stateObsChild);
+			//double history = getHistoryValue(stateObsChild, child.getLastAction());
+			//child.heuristicValue = (heuristic == null) ? 0 : heuristic.evaluateState(stateObsChild);
 			double tiebreak = r.nextDouble() * epsilon;
 
-			child.uct = exploitation + c * exploration  + history + child.heuristicValue + tiebreak;
+			child.uct = exploitation + c * exploration  +  tiebreak;
 
 			if (child.uct >= bestValue) {
 				bestChild = child;
 				bestValue = child.uct;
-				bestStateObs = stateObsChild;
 			}
 		}
-		return new Pair<MCTSNode, StateObservation>(bestChild, bestStateObs); 
+		return bestChild;
 	}
 	
-	
-	public Pair<MCTSNode, StateObservation> bestChild(Pair<MCTSNode, StateObservation> pair) {
-		return bestChild(pair, null);
-	}
 	
 
-	public boolean isLoosingAtSimulation() {
-		return loosingAtSimulation;
-	}
-	
-	public void checkLoosing(StateObservation stateobs) {
-		if (stateobs.getGameWinner() == WINNER.PLAYER_LOSES) {
-			loosingAtSimulation = true;
-		}
-	}
 	
 	public int getVisited() {
 		return visited;
@@ -195,6 +174,10 @@ public class MCTSNode extends GenericNode<Object> {
 
 	public void addVisited() {
 		this.visited += 1;
+	}
+
+	public void setVisited(int visited) {
+		this.visited = visited;
 	}
 
 	@Override
@@ -205,14 +188,41 @@ public class MCTSNode extends GenericNode<Object> {
 	
 	public double getHistoryValue(StateObservation stateObs, ACTIONS lastAction) {
 		String h = Helper.hash(stateObs, lastAction);
-		Integer visitsOfField = FieldTracker.fieldVisits.get(h);
+		
+		Integer visitsOfField = Factory.getFieldTracker().fieldVisits.get(h);
 		double historyValue = 1;
-		if (visitsOfField != null && FieldTracker.maxVisitedField > 0) {
+		if (visitsOfField != null && Factory.getFieldTracker().maxVisitedField > 0) {
 			historyValue = Math.sqrt((1 - visitsOfField
-					/ (double) FieldTracker.maxVisitedField));
+					/ (double) Factory.getFieldTracker().maxVisitedField));
 		}
 		return historyValue;
 	}
 
+	
+	
+	
+	public void print(int levelLimit) {
+		print(this,0, levelLimit);
+	}
+	
+	private void print(MCTSNode node, int level, int levelLimit) {
+		if (level > levelLimit) return;
+		for (int i = 0; i < level; i++) {
+			System.out.print('\t');
+		}
+		System.out.println(node);
+		for (GenericNode<Object> childGeneric : node.getAllChildren()) {
+			MCTSNode child = (MCTSNode) childGeneric;
+			print(child,level+1, levelLimit);
+		}
+	}
+	
+	public StateObservation simulate(StateObservation stateObs) {
+		for (ACTIONS a : path) {
+			Factory.getSimulator().advance(stateObs, a);
+		}
+		return stateObs;
+	}
+	
 
 }

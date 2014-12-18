@@ -12,13 +12,13 @@ public class OneAgentAllGames {
 
 	public static String CONTROLLER = "emergence.Agent";
 	//public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
-	//public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
+	//public static String CONTROLLER = "emergence.agents.EvolutionaryAgent";
 
 	public static int NUM_LEVELS = 5;
 
 	//public static String[] GAMES = Helper.concat(Configuration.training, Configuration.validation);
 	public static String[] GAMES = Configuration.training;
-	//public static String[] GAMES = {"zelda"};
+	//public static String[] GAMES = {"frogs"};
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();

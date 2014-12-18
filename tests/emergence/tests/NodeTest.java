@@ -2,6 +2,7 @@ package emergence.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import LevelLoader;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,7 +17,6 @@ import core.game.Game;
 import core.game.StateObservation;
 import emergence.nodes.GenericNode;
 import emergence.nodes.Node;
-import emergence.util.LevelLoader;
 
 public class NodeTest {
 

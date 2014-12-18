@@ -1,6 +1,7 @@
 package emergence.tests;
 
 import static org.junit.Assert.assertTrue;
+import LevelLoader;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -20,7 +21,6 @@ import emergence.strategy.astar.AStarNode;
 import emergence.targets.ATarget;
 import emergence.targets.ATarget.TYPE;
 import emergence.targets.ImmovableTarget;
-import emergence.util.LevelLoader;
 import emergence.util.MapInfo;
 import emergence.util.pair.Pair;
 

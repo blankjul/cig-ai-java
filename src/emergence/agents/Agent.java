@@ -1,11 +1,11 @@
-package emergence;
+package emergence.agents;
 
 import ontology.Types.ACTIONS;
 import tools.ElapsedCpuTimer;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
-import emergence.agents.EvolutionaryAgent;
-import emergence.agents.MCTSAgent;
+import emergence.AgentPrimary;
+import emergence.Factory;
 import emergence.util.pair.Pair;
 
 public class Agent extends AbstractPlayer {
@@ -14,21 +14,18 @@ public class Agent extends AbstractPlayer {
 
 	public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 		Pair<String,Integer> pair = Factory.getGameDetection().detect(stateObs);
-		System.out.println(pair);
-		
 		String game = pair._1();
 		//int level = pair._2();
 		
-		if (game.equals("aliens")  || game.equals("zelda")) {
+		if (game.equals("aliens")) {
 			agent = new MCTSAgent(stateObs, elapsedTimer);
-		} else if (game.equals("boulderdash") || game.equals("sokoban") || game.equals("survivezombies")) {
+		} else if (game.equals("boulderdash") || game.equals("sokoban")) {
 			agent = new EvolutionaryAgent(stateObs, elapsedTimer);
 		} else {
 			agent = new AgentPrimary(stateObs, elapsedTimer);
 		}
+		
 	}
-	
-	
 
 	@Override
 	public ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {

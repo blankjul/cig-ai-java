@@ -1,21 +1,19 @@
 package emergence.strategy.mcts;
 
-
 import java.util.HashMap;
 
-import ontology.Types;
+import ontology.Types.ACTIONS;
 import core.game.StateObservation;
 import emergence.util.Helper;
 
 public class FieldTracker {
-	
+
 	// track the visited fields until yet!
-	public static HashMap<String, Integer> fieldVisits = new HashMap<String, Integer>();
-	public static int maxVisitedField = 0;
-	public static Types.ACTIONS lastAction = Types.ACTIONS.ACTION_NIL;
-	
-	
-	public static void track(StateObservation stateObs) {
+	public HashMap<String, Integer> fieldVisits = new HashMap<String, Integer>();
+
+	public int maxVisitedField = 0;
+
+	public void track(StateObservation stateObs, ACTIONS lastAction) {
 		// track the statistic of each field!
 		String fieldHash = Helper.hash(stateObs, lastAction);
 		boolean visited = fieldVisits.containsKey(fieldHash);
@@ -30,13 +28,10 @@ public class FieldTracker {
 			fieldVisits.put(fieldHash, 1);
 		}
 	}
-	
-	public static void reset() {
+
+	public void reset() {
 		maxVisitedField = 0;
 		fieldVisits.clear();
-		lastAction = Types.ACTIONS.ACTION_NIL;
 	}
-	
-	
 
 }
