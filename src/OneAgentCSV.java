@@ -1,7 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -96,10 +95,11 @@ public class OneAgentCSV {
 		PrintStream out = new PrintStream(new FileOutputStream(outputPath));
 		System.setOut(out);
 
-		System.out.println("timestamp,agent,game,level,win,score,timesteps,parameters");
+		System.out.println("timestamp,id,agent,game,level,win,score,timesteps,parameters");
+		int id = 0;
 		for (GameResult csvResult : allResultCSV) {
 	        long timestamp=  System.currentTimeMillis() / 1000L;
-			String entry = String.format("%s,%s,%s", timestamp, controllerAsName, csvResult.toCSVString());
+			String entry = String.format("%s,%s,%s,%s", timestamp, id++, controllerAsName, csvResult.toCSVString());
 			System.out.println( entry );
 		}
 		out.close();
