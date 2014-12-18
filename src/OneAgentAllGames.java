@@ -10,8 +10,8 @@ import emergence.util.GameResult;
 
 public class OneAgentAllGames {
 
-	public static String CONTROLLER = "emergence.Agent";
-	//public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
+	//public static String CONTROLLER = "emergence.Agent";
+	public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
 	//public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
 
 	public static int NUM_LEVELS = 5;
@@ -55,6 +55,7 @@ public class OneAgentAllGames {
 			ArrayList<Future<GameResult>> gameResult = allResult.get(i);
 			int gameScore = 0;
 			int gameWins = 0;
+			
 			for (Future<GameResult> levelResult : gameResult) {
 				GameResult g;
 				g = levelResult.get();

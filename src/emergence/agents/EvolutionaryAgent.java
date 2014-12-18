@@ -17,7 +17,7 @@ import emergence.util.ActionTimer;
 public class EvolutionaryAgent extends AbstractPlayer{
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = true;
+	public static boolean VERBOSE = false;
 
 	// random object
 	public static Random r = new Random();

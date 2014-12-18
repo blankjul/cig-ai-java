@@ -84,7 +84,28 @@ public class Helper {
 		return getRandomEntry(actions);
 	}
 	
-	
+	/**
+	 * print parameters from one executed game, contains all parameters which can be extracted from
+	 * the game
+	 */
+	public static void printParameter(String[] par){
+		String print = "";
+		String err = "";
+		String start = "[PARAMETER_START,";
+		String end = "PARAMETER_ENDE]";
+		
+		print += start;
+		
+		for(int i = 0; i < par.length; i++){
+			if(par[i].contains(",")){err = "[FATAL_CSV_ERROR]";}
+			print += par[i] + ",";
+		}
+		
+		print += end;
+		print += err;
+		
+		System.out.println(print);
+	}
 	
 
 }

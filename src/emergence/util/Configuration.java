@@ -25,6 +25,7 @@ public class Configuration {
 	public static DateFormat dateFormat = new SimpleDateFormat(
 			"yyyy/MM/dd HH:mm:ss");
 	
+	public static DateFormat dateformatCSV = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 	
 	public final static int NUM_THREADS = 4;
 	public static ExecutorService SCHEDULER = Executors
