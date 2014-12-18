@@ -1,0 +1,11 @@
+timestamp,agent,game,level,win,score,timesteps,parameters
+1418886924,EvolutionaryAgent,butterflies,0,1,66,547,-1
+1418886924,EvolutionaryAgent,butterflies,1,1,34,378,-1
+1418886924,EvolutionaryAgent,butterflies,2,1,48,142,-1
+1418886924,EvolutionaryAgent,butterflies,3,1,20,60,-1
+1418886924,EvolutionaryAgent,butterflies,4,1,14,1600,-1
+1418886924,EvolutionaryAgent,butterflies,0,1,40,161,-1
+1418886924,EvolutionaryAgent,butterflies,1,1,28,321,-1
+1418886924,EvolutionaryAgent,butterflies,2,1,54,332,-1
+1418886924,EvolutionaryAgent,butterflies,3,1,20,40,-1
+1418886924,EvolutionaryAgent,butterflies,4,1,14,95,-1

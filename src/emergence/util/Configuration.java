@@ -1,7 +1,6 @@
 package emergence.util;
 
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.ExecutorService;
@@ -19,29 +18,18 @@ public class Configuration {
 		"firestorms", "infection", "firecaster", "overload", "pacman",
 		"seaquest", "whackamole", "eggomania" };
 	
-	public static String[] allGames = concatenate(training,validation);
+	public static String[] allGames = Helper.concatenate(training,validation);
 
 	
 	public static DateFormat dateFormat = new SimpleDateFormat(
 			"yyyy/MM/dd HH:mm:ss");
 	
-	public static DateFormat dateformatCSV = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+	public static DateFormat dateformatCSV = new SimpleDateFormat("hh_mm_ss_dd_MM_yyyy");
 	
 	public final static int NUM_THREADS = 4;
 	public static ExecutorService SCHEDULER = Executors
 			.newFixedThreadPool(NUM_THREADS);
 
-	
-	public static <T> T[] concatenate (T[] A, T[] B) {
-	    int aLen = A.length;
-	    int bLen = B.length;
 
-	    @SuppressWarnings("unchecked")
-	    T[] C = (T[]) Array.newInstance(A.getClass().getComponentType(), aLen+bLen);
-	    System.arraycopy(A, 0, C, 0, aLen);
-	    System.arraycopy(B, 0, C, aLen, bLen);
-
-	    return C;
-	}
 
 }

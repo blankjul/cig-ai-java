@@ -1,6 +1,5 @@
 package emergence.util;
 
-import java.util.Date;
 
 
 /**
@@ -46,14 +45,13 @@ public class GameResult {
 
 	public String toCSVString(){
 		String csv = "";
-		csv += Configuration.dateFormat.format(new Date()) + ",";
+		//csv += Configuration.dateFormat.format(new Date()) + ",";
 		csv += game + ",";
 		csv += level + ",";
 		csv += win + ",";
 		csv += (int) score + ",";
 		csv += timesteps + ",";
 		csv += parameterAgent;
-		
 		return csv;
 	}
 	

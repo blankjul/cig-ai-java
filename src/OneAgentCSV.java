@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,11 +13,11 @@ import emergence.util.GameResult;
 
 public class OneAgentCSV {
 
-	// public static String CONTROLLER = "emergence.Agent";
+	//public static String CONTROLLER = "emergence.Agent";
 	// public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
-	public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
+	//public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
 	// public static String CONTROLLER = "emergence.agents.StayAliveAgent";
-	// public static String CONTROLLER = "emergence.agents.EvolutionaryAgent";
+	public static String CONTROLLER = "emergence.agents.EvolutionaryAgent";
 
 	// CSV Format for EvolutionaryHeuristicAgent
 	// date, game, level, win, score, timesteps, Agent, pessimistic, pathLegth,
@@ -30,7 +31,7 @@ public class OneAgentCSV {
 	// Configuration.validation);
 	 //public static String[] GAMES = Configuration.training;
 
-	public static String[] GAMES = { "zelda" };
+	public static String[] GAMES = { "butterflies" };
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();
@@ -89,13 +90,17 @@ public class OneAgentCSV {
 		System.out.printf("Overall wins:%s Overall Games:%s \n", allWins, allGames);
 
 		System.out.println(Configuration.dateFormat.format(new Date()));
-
-		String outputPath = "CSV_OUTPUT/" + Configuration.dateformatCSV.format(new Date()) + ".txt";
+		
+		String controllerAsName = (CONTROLLER.contains(".")) ? CONTROLLER.split("\\.")[CONTROLLER.split("\\.").length - 1] : CONTROLLER;
+		String outputPath = String.format("output/%s_%s.csv", controllerAsName, Configuration.dateformatCSV.format(new Date()));
 		PrintStream out = new PrintStream(new FileOutputStream(outputPath));
 		System.setOut(out);
 
+		System.out.println("timestamp,agent,game,level,win,score,timesteps,parameters");
 		for (GameResult csvResult : allResultCSV) {
-			System.out.println(csvResult.toCSVString());
+	        long timestamp=  System.currentTimeMillis() / 1000L;
+			String entry = String.format("%s,%s,%s", timestamp, controllerAsName, csvResult.toCSVString());
+			System.out.println( entry );
 		}
 		out.close();
 
