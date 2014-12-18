@@ -54,7 +54,10 @@ public class ExecCallable implements Callable<GameResult> {
 		
 		int win = parseWinner(log);
 		double score = parseScore(log);
-		return new GameResult(log, game, level, win, score);
+		String timesteps = parseTimesteps(log);
+		String parameterAgent = parseParameter(log);
+		
+		return new GameResult(log, game, level, win, score, timesteps, parameterAgent);
 	}
 	
 	
@@ -75,9 +78,16 @@ public class ExecCallable implements Callable<GameResult> {
 		return Double.parseDouble(strScore);
 	}
 	
+	private String parseTimesteps(String s) {
+		if(!s.contains("timesteps")) return "-1";
+		s = s.substring(s.lastIndexOf("timesteps:")+10, s.length()-1);
+		return s;
+	}
 	
+	private String parseParameter(String s) {
+		if(!s.contains("PARAMETER_START")) return "-1";
+		s  = s.substring(s.indexOf("PARAMETER_START")+16, s.indexOf("PARAMETER_ENDE")-1);
+		return s;
+	}
 	
-
-
-
 }

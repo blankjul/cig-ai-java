@@ -18,6 +18,7 @@ import emergence.strategy.evolution.Evolution;
 import emergence.strategy.evolution.EvolutionaryNode;
 import emergence.targets.ATarget;
 import emergence.util.ActionTimer;
+import emergence.util.Helper;
 import emergence.util.MapInfo;
 
 public class EvolutionaryHeuristicAgent extends AbstractPlayer{
@@ -60,7 +61,7 @@ public class EvolutionaryHeuristicAgent extends AbstractPlayer{
 
 	
 	public EvolutionaryHeuristicAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-
+		//printParam();
 		System.out.println(MapInfo.info(stateObs));
 		
 		evo = new Evolution(pathLength, populationSize, numFittest, stateObs);
@@ -76,7 +77,7 @@ public class EvolutionaryHeuristicAgent extends AbstractPlayer{
 
 	public Types.ACTIONS act(StateObservation stateObs,
 			ElapsedCpuTimer elapsedTimer) {
-		
+		if(stateObs.getGameTick() == 0){printParam();}
 		
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		timer.timeRemainingLimit = 25;
@@ -193,6 +194,19 @@ public class EvolutionaryHeuristicAgent extends AbstractPlayer{
 		}
 		return dead;
 	}
-
+	
+	public void printParam(){
+		String[] params = new String[7];
+		
+		params[0] = "EvolutionaryHeuristicAgent";
+		params[1] = Integer.toString(pessimistic);
+		params[2] = Integer.toString(pathLength);
+		params[3] = Integer.toString(populationSize);
+		params[4] = Integer.toString(numFittest);
+		params[5] = Boolean.toString(updatePathLength);
+		params[6] = Integer.toString(minGeneration);
+		
+		Helper.printParameter(params);
+	}
 
 }

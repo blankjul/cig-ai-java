@@ -1,4 +1,5 @@
 .classpath
 .project
-/bin
-/bin1/
+bin
+bin1/
+classes/

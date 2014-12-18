@@ -1,5 +1,7 @@
 package emergence.util;
 
+import java.util.Date;
+
 
 /**
  * This is the result of a game simulation. This is needed to have a callback
@@ -13,20 +15,24 @@ public class GameResult {
 	private int level = -1;
 	private int win = -1;
 	private double score = -1;
+	private String timesteps = "NO TIMESTEPS";
+	private String parameterAgent = "NO PARAMETER AGENT";
 
 	public GameResult() {
 	}
 
 	public GameResult(String output, String game, int level, int win,
-			double score) {
+			double score, String timesteps, String parameterAgent) {
 		super();
 		this.output = output;
 		this.game = game;
 		this.level = level;
 		this.win = win;
 		this.score = score;
+		this.timesteps = timesteps;
+		this.parameterAgent = parameterAgent;
 	}
-
+	
 	public void parseString(String s) {
 		if (!s.contains("Result"))
 			return;
@@ -38,6 +44,19 @@ public class GameResult {
 		this.score = Double.parseDouble(strScore);
 	}
 
+	public String toCSVString(){
+		String csv = "";
+		csv += Configuration.dateFormat.format(new Date()) + ",";
+		csv += game + ",";
+		csv += level + ",";
+		csv += win + ",";
+		csv += (int) score + ",";
+		csv += timesteps + ",";
+		csv += parameterAgent;
+		
+		return csv;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("Game:%s, Level:%d, Winner:%d, Score:%f",
