@@ -33,22 +33,22 @@ public class EvolutionaryHeuristicAgent extends AbstractPlayer{
 	public Evolution evo;
 
 	// so often the next step is simulated. no dead!
-	public int pessimistic = 5;
+	public int pessimistic = 5; //den hier ändern!!!! in 8!!!!!
 
 	// number of actions that are simulated
 	public int pathLength = 6;
 
 	// how many entries should the population has
-	public int populationSize = 14;
+	public int populationSize = 13;
 
 	// number of the fittest to save for the next generation
-	public int numFittest = 5;
+	public int numFittest = 4;
 
 	// update path length
-	public boolean updatePathLength = false;
+	public boolean updatePathLength = true;
 	
 	// if update path length the target generation
-	public int minGeneration = 4;
+	public int minGeneration = 5;
 	
 	
 	private ATarget bestTarget = null;

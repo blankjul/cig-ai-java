@@ -9,14 +9,15 @@ import java.util.concurrent.Future;
 
 import emergence.util.Configuration;
 import emergence.util.GameResult;
+import emergence.util.Helper;
 
 public class OneAgentCSV {
 
 	//public static String CONTROLLER = "emergence.Agent";
 	// public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
-	//public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
+	public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
 	// public static String CONTROLLER = "emergence.agents.StayAliveAgent";
-	public static String CONTROLLER = "emergence.agents.EvolutionaryAgent";
+	//public static String CONTROLLER = "emergence.agents.EvolutionaryAgent";
 
 	// CSV Format for EvolutionaryHeuristicAgent
 	// date, game, level, win, score, timesteps, Agent, pessimistic, pathLegth,
@@ -24,13 +25,13 @@ public class OneAgentCSV {
 
 	public static int NUM_LEVELS = 5;
 
-	public static int iterationsWholeGame = 2;
+	public static int iterationsWholeGame = 10;
 
-	// public static String[] GAMES = Helper.concat(Configuration.training,
-	// Configuration.validation);
-	 //public static String[] GAMES = Configuration.training;
+	public static String[] GAMES = Helper.concatenate(Configuration.training,
+	Configuration.validation);
+	// public static String[] GAMES = Configuration.training;
 
-	public static String[] GAMES = { "butterflies" };
+	//public static String[] GAMES = { "butterflies" };
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();
@@ -95,7 +96,7 @@ public class OneAgentCSV {
 		PrintStream out = new PrintStream(new FileOutputStream(outputPath));
 		System.setOut(out);
 
-		System.out.println("timestamp,id,agent,game,level,win,score,timesteps,parameters");
+		System.out.println("timestamp,id,agent,execTime,game,level,win,score,timesteps,parameters");
 		int id = 0;
 		for (GameResult csvResult : allResultCSV) {
 	        long timestamp=  System.currentTimeMillis() / 1000L;
