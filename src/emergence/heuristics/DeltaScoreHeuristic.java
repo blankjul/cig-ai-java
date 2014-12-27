@@ -24,6 +24,8 @@ public class DeltaScoreHeuristic extends AHeuristic {
 		
 	}
 	
-	
+	public String toCSVString(){
+		return "DeltaScoreHeuristic";
+	}
 
 }

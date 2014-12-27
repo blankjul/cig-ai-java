@@ -1,0 +1,22 @@
+pessimistic, pathlength, populationSize, numFittest, updatePathlength, minGeneration
+
+001:	5,6,14,5,false,4   (standard)
+
+002:	2,6,14,5,false,4
+003:	8,6,14,5,false,4
+
+004:	5,4,14,5,false,4
+005:	5,8,14,5,false,4
+
+006:	5,6,10,5,false,4
+007:	5,6,18,5,false,4
+
+008:	5,6,14,3,false,4
+009:	5,6,14,7,false,4
+
+010:	5,6,14,5,true,4
+
+011:	5,6,14,5,true,2
+012:	5,6,14,5,true,6
+
+013:	5,6,13,4,true,5

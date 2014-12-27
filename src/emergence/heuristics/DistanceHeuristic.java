@@ -34,4 +34,10 @@ public class DistanceHeuristic extends AHeuristic {
 		return Helper.distance(pos, targetPos);
 	}
 
+	@Override
+	public String toCSVString() {
+		return "DistanceHeuristic";
+	}
+
+	
 }

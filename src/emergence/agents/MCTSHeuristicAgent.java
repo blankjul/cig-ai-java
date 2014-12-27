@@ -12,6 +12,7 @@ import emergence.strategy.mcts.MCTSNode;
 import emergence.strategy.mcts.MCTStrategy;
 import emergence.targets.ATarget;
 import emergence.util.ActionTimer;
+import emergence.util.Helper;
 import emergence.util.MapInfo;
 
 public class MCTSHeuristicAgent extends AbstractPlayer {
@@ -27,7 +28,7 @@ public class MCTSHeuristicAgent extends AbstractPlayer {
 	private ATarget bestTarget = null;
 
 	public MCTSHeuristicAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-		System.out.println(MapInfo.info(stateObs));
+		//System.out.println(MapInfo.info(stateObs));
 		strategy = new MCTStrategy(new MCTSNode(null));
 		strategy.root = new MCTSNode(null);
 
@@ -47,6 +48,8 @@ public class MCTSHeuristicAgent extends AbstractPlayer {
 
 	public ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
+		if(stateObs.getGameTick() == 0){printParam();}
+		
 		// track the last action
 		Factory.getFieldTracker().track(stateObs, lastAction);
 		Environment env = Factory.getEnvironment();
@@ -88,6 +91,17 @@ public class MCTSHeuristicAgent extends AbstractPlayer {
 		}
 
 		return a;
+	}
+	
+	public void printParam(){
+		String[] params = new String[3];
+		
+		params[0] = "MCTSHeuristicAgent";
+		params[1] = Boolean.toString(this.rollingHorizon);
+		//values from MCTSStrategy
+		params[2] = this.strategy.toCSVString();
+		
+		Helper.printParameter(params);
 	}
 
 }

@@ -14,10 +14,10 @@ import emergence.util.Helper;
 public class OneAgentCSV {
 
 	//public static String CONTROLLER = "emergence.Agent";
-	// public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
-	public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
+	 public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
+	 //public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
 	// public static String CONTROLLER = "emergence.agents.StayAliveAgent";
-	//public static String CONTROLLER = "emergence.agents.EvolutionaryAgent";
+	// public static String CONTROLLER = "emergence.agents.EvolutionaryAgent";
 
 	// CSV Format for EvolutionaryHeuristicAgent
 	// date, game, level, win, score, timesteps, Agent, pessimistic, pathLegth,
@@ -100,7 +100,7 @@ public class OneAgentCSV {
 		int id = 0;
 		for (GameResult csvResult : allResultCSV) {
 	        long timestamp=  System.currentTimeMillis() / 1000L;
-			String entry = String.format("%s,%s,%s,%s", timestamp, id++, controllerAsName, csvResult.toCSVString());
+			String entry = String.format("%s,%s,%s,%s,%s", timestamp, id++, controllerAsName, Configuration.dateFormat.format(new Date()), csvResult.toCSVString());
 			System.out.println( entry );
 		}
 		out.close();

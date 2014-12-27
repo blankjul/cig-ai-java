@@ -26,7 +26,7 @@ public class MCTStrategy extends AStrategy {
 	public int maxDepth = 10;
 
 	// this is the discounting factor. it's one so disabled default
-	public double gamma = 0.9;
+	public double gamma = 0.1;
 
 	// game tree that should be expanded by this class
 	public MCTSNode root;
@@ -200,5 +200,13 @@ public class MCTStrategy extends AStrategy {
 		return heuristic;
 	}
 	
+	public String toCSVString(){
+		String csv = "";
+		csv += Integer.toString(this.maxDepth) + ",";
+		csv += Double.toString(this.gamma) + ",";
+		csv += (this.heuristic == null ? "null" : this.heuristic.toCSVString());
+		
+		return csv;
+	}
 
 }

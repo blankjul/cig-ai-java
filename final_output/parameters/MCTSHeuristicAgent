@@ -1,0 +1,19 @@
+rollingHorizon, maxDepth, gamma, heuristic
+
+(rollingHorizon -> MCTSHeuristicAgent)
+(maxDepth, gamma and heuristic -> MCTSStrategy)
+
+001:	true, 10, 0.9, null (standard)
+
+002:	false, 10, 0.9, null
+
+003:	true, 15, 0.9, null
+004:	true, 5, 0.9, null
+
+005:	true, 10, 0.1, null
+006:	true, 10, 0.4, null
+007:	true, 10, 1.2, null
+008:	true, 10, 2.0, null
+
+
+

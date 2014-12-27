@@ -20,7 +20,7 @@ public abstract class AHeuristic {
 	 */
 	abstract public double evaluateState(StateObservation stateObs);
 
-
+	abstract public String toCSVString();
 	
 
 }

@@ -200,4 +200,11 @@ public class TargetHeuristic extends AHeuristic {
 		}
 	}
 
+	@Override
+	public String toCSVString() {
+		return "TargetHeuristic";
+	}
+	
+	
+
 }

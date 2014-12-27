@@ -27,6 +27,11 @@ public class DistanceRangeAscendingHeuristic extends AHeuristic{
 		double norm = 1 - Helper.distance(stateObs.getAvatarPosition(), targetPos) / maxDistance;
 		return norm;
 	}
+
+	@Override
+	public String toCSVString() {
+		return "DistanceRangeAscendingHeuristic";
+	}
 	
 	
 
