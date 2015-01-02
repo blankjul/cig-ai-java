@@ -23,10 +23,10 @@ public class MCTStrategy extends AStrategy {
 
 	
 	// maximal depth of the tree
-	public int maxDepth = 10;
+	public int maxDepth = 4;
 
 	// this is the discounting factor. it's one so disabled default
-	public double gamma = 0.1;
+	public double gamma = 1.0;
 
 	// game tree that should be expanded by this class
 	public MCTSNode root;
