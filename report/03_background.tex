@@ -33,22 +33,40 @@ A* contains two sets of nodes, the openlist and the closedlist. In every step of
 
 \subsection{Reinforcement learning} 
  
-Reinforcement learning, below RL, is a field in Machine learning which is a section of Artificial Intelligence. RL methods are mostly used by agents in an environment called Markov decision process, below MDP. MDP is a mathematical description of decision processes. They have different states S and some actions A which are available in the actual state. Every timestep the agent chooses an action A and the process switches from state S to S'. The probability to go over form S to S' by the choosen action A can be described as
-
+Reinforcement learning, below RL, is a field in Machine learning which is a section of Artificial Intelligence. RL methods are mostly used by agents in an environment called Markov decision process, below MDP. MDP is a mathematical description of decision processes. They have different states S and some actions A which are available in the actual state. Every timestep the agent chooses an action $a$ and the process switches from state $s_a$ to $s_n$. The probability to go over form a state S to another state S' by any action A can be described as
 \[
 	G: S*S*A \rightarrow [0,1] 
 \] 
-	so that
+and the reward given to the agent can be described by this:
+\[
+	R: S*S*A \rightarrow \mathbb{R}
+\]
+So that
 \[
 	(s_a, s_n, a) \rightarrow p(s_n|s_a, a)
 \]
+would describe the probability $p$ to go over in the state $s_n$, given the actual state $s_a$ and the choosen action $a$ and 
+\[
+	(s_a, s_n, a) \rightarrow r
+\]
+shows its corresponding reward.  
 
-would describe the probability $p$ to go over in the state $s_n$, given the actual state $s_a$ and the actual choosen action $a$.
 
+In differ to other learn methods and approaches like the (semi)supervised learning, RL algorithms never use information which they do not figured out themselves, so no correct samples were given to the algorithm. The only information is the reward given to the agent and some additional information like heuristic values, depending of the specific algorithm. 
+A big problem problem in RL is the conflict between exploration of new and unvisited areas of the solution room and exploitation which is the improvement of already found solutions.
+...
 \subsubsection{Monte Carlo Tree Search} 
-\subsubsection{Temporal difference methods} 
-\subsubsection{Q-learning} 
 
+Monte Carlo Tree Search, below MCTS, is a class of RL algorithms. It is the most important concept in this paper. MCTS needs a tree of nodes which represent the different states, the edges represent the actions used by the agent to get to this node. The MCTS algorithm traverses to this tree and expands it. To find the global optimum a good balancing ratio between exploration and exploitation is required. 
+
+[maybe picture from his paper and pseudocode]
+
+The general MCTS algorithm has four steps, selection, expansion, simulation and backpropagation. In the selection the algorithm starts at  
+freddy working on it 
+\subsubsection{Temporal difference methods} 
+freddy working on it
+\subsubsection{Q-learning} 
+freddy working on it
 
 \subsection{Nature inspired} 
 

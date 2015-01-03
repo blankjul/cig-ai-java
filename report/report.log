@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.12.15)  3 JAN 2015 14:29
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.12.15)  3 JAN 2015 17:50
 entering extended mode
 **report.tex
 (C:\Users\spakken\Desktop\test\report\report.tex
@@ -844,8 +844,8 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2])
-(C:\Users\spakken\Desktop\test\report\04_techniques.tex)
-(C:\Users\spakken\Desktop\test\report\05_study.tex [3])
+(C:\Users\spakken\Desktop\test\report\04_techniques.tex [3])
+(C:\Users\spakken\Desktop\test\report\05_study.tex)
 (C:\Users\spakken\Desktop\test\report\06_conclusion.tex) [4]
 (C:\Users\spakken\Desktop\test\report\report.bbl) [5]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 42.
@@ -874,12 +874,13 @@ Here is how much of TeX's memory you used:
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/font
 s/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times
-/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (5 pages, 99766 bytes).
+ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/ut
+mb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on report.pdf (5 pages, 104162 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
+ 113 PDF objects out of 1000 (max. 8388607)
  35 named destinations out of 1000 (max. 500000)
  29 words of extra memory for PDF output out of 10000 (max. 10000000)
 
