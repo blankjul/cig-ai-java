@@ -23,7 +23,9 @@ rollingHorizon, maxDepth, gamma, heuristic
 013:	true, 10, 1.0, null	//standard ist das beste, 013 zum vergleich mit 001
 
 014:	true, 3, 1.0, null 	//vergleich mit 004
-015:	true, 7, 1.0, null	//bergleich mit 004
+015:	true, 7, 1.0, null	//vergleich mit 004
+016:	true, 2, 1.0, null	//vergleich mit 004
+017:	true, 4, 1.0, null	//vergleich mit 004
 
 
 
