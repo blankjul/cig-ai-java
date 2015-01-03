@@ -4,23 +4,46 @@
 
 Explain in detail the techniques used through this project, citing other papers if needed. Feel free to include diagrams, pictures, pseudocode, and also to organize the section using subsections.
 
+Some techniques and ideas from other papers, internet articles and lectures used by us to implement the controllers. The strategies and the ideas behind them, which should be known to understand our implementation, are described in this Section. 
 
 \subsection{Heuristic Based Search} 
+
 
 game unknown. which heuristic?
 ~\cite{DesurvireCT04}
 
 
-\subsubsection{One Step Look Ahead}
 \subsubsection{Greedy}
+
+Greedy-algorithms are a whole class of algorithms and strategies. All of them follow a specific scheme/rule. They are iterative and choose in every step the state with the best reward. The state is in most cases a node which represents the state of the algorithm. The advantage of greedy algorithms is that they are very fast but on the other hand they are not optimal they often only find a local optima and not the global one. The advantage and disadvantage is caused by the greedy approach.  
+
+\subsubsection{One Step Lookahead}
+
+One step lookahead is a very simple tree search algorithm which follows the greedy approach. The actual state is the root node. From this node we only look one step ahead to all nodes which are connected by one egde and compute a heuristic value or another kind of reward value for these nodes. After that the algorithm terminates and we pick the node with the best value.
+
 \subsubsection{AStar}
 
+The A* tree search algorithm is a modification of the dijkstra algorithm and also belongs to the class of greedy algorithms. The Algorithm finds the shortest path between two nodes. In difference to normal greedy algorithms A* is a optimal algorithm, it finds a solution when a solution exists (in this case the shortest path). The algorithm uses a heuristic to estimate the shortest path. The value f(x) of a node N is the sum of its heuristic value h(x) and the costs from the start-node to N g(x).
 
+\[
+	f(x)=h(x)+g(x)
+\]   
 
+A* contains two sets of nodes, the openlist and the closedlist. In every step of the algorithm the Node N with the lowest f(x) value in the openlist is put on the closedlist and all its connected nodes, which are not in the closedlist, are put in the openlist (with reference to their fahter N). If a connected node is already in the closedlist but the new generated value f'(x) is lower than f(x) then f(x) will be replaced by f'(x) and the new father-reference is N. The openlist contains all the nodes to which the path is already known and which can be checked in the next step, the closedlist contains every visited and checked node. When the actual node is the goal-node, the algorithm terminates. To generate the path, the algorithm goes back from the goal-node to the start node (guided by the father-references). 
 
-
-\subsection{Reinforcment learning} 
+\subsection{Reinforcement learning} 
  
+Reinforcement learning, below RL, is a field in Machine learning which is a section of Artificial Intelligence. RL methods are mostly used by agents in an environment called Markov decision process, below MDP. MDP is a mathematical description of decision processes. They have different states S and some actions A which are available in the actual state. Every timestep the agent chooses an action A and the process switches from state S to S'. The probability to go over form S to S' by the choosen action A can be described as
+
+\[
+	G: S*S*A \rightarrow [0,1] 
+\] 
+	so that
+\[
+	(s_a, s_n, a) \rightarrow p(s_n|s_a, a)
+\]
+
+would describe the probability $p$ to go over in the state $s_n$, given the actual state $s_a$ and the actual choosen action $a$.
 
 \subsubsection{Monte Carlo Tree Search} 
 \subsubsection{Temporal difference methods} 
@@ -32,9 +55,6 @@ game unknown. which heuristic?
 \subsubsection{Neural nets} 
 \subsubsection{Evolutionary algorithm} 
 \subsubsection{pheromones} 
-
-
-
 
 
 
