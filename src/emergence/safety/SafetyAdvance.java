@@ -24,6 +24,9 @@ public class SafetyAdvance extends ASafety{
 		return true;
 	}
 
-	
+	@Override
+	public String toCSVString() {
+		return "SafetyAdvance," + Integer.toString(numOfIterations);
+	}
 
 }

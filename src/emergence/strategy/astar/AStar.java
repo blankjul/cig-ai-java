@@ -18,6 +18,7 @@ import emergence.heuristics.AHeuristic;
 import emergence.heuristics.DistanceHeuristic;
 import emergence.nodes.GenericNode;
 import emergence.safety.ASafety;
+import emergence.safety.SafetyAdvance;
 import emergence.targets.ATarget;
 import emergence.util.Helper;
 
@@ -53,7 +54,7 @@ public class AStar {
 	private boolean hasFound = false;
 	
 	// enables to act pessimistic
-	private ASafety safetyStrategy;
+	private ASafety safetyStrategy;// = new SafetyAdvance(4);
 
 	public AStar(StateObservation stateObs, ATarget target) {
 		this(stateObs, new DistanceHeuristic(target));
@@ -245,8 +246,11 @@ public class AStar {
 		
 	}
 	
-	
-	
-	
-
+	public String toCSVString(){
+		String par = "";
+		par += "DistanceHeuristic,";
+		par += (safetyStrategy == null ? "null,null" : safetyStrategy.toCSVString());
+		
+		return par;
+	}
 }

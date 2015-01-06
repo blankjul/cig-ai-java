@@ -14,7 +14,8 @@ import emergence.util.Helper;
 public class OneAgentCSV {
 
 	//public static String CONTROLLER = "emergence.Agent";
-	 public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
+	// public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
+	 public static String CONTROLLER = "emergence.agents.HeuristicAgent";
 	 //public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
 	// public static String CONTROLLER = "emergence.agents.StayAliveAgent";
 	// public static String CONTROLLER = "emergence.agents.EvolutionaryAgent";
@@ -31,7 +32,7 @@ public class OneAgentCSV {
 	Configuration.validation);
 	// public static String[] GAMES = Configuration.training;
 
-	//public static String[] GAMES = { "butterflies" };
+//	public static String[] GAMES = { "butterflies" };
 
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();

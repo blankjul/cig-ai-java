@@ -10,7 +10,8 @@ public class OneAgentOneGame {
 		//String controller = "emergence.Agent";
 		//String controller = "emergence.agents.StayAliveAgent";
 		//String controller = "emergence.agents.EvolutionaryAgent";
-		String controller = "emergence.agents.MCTSHeuristicAgent";
+		//String controller = "emergence.agents.MCTSHeuristicAgent";
+		String controller = "emergence.agents.HeuristicAgent";
 		//String controller = "emergence.agents.EvolutionaryAgent";
 		//String controller = "emergence.agents.EvolutionaryHeuristicAgent";
 		

@@ -16,12 +16,13 @@ import emergence.strategy.AStarStrategy;
 import emergence.strategy.ExplorerStrategy;
 import emergence.targets.ATarget;
 import emergence.util.ActionTimer;
+import emergence.util.Helper;
 import emergence.util.MapInfo;
 
 public class HeuristicAgent extends AbstractPlayer {
 
 	// print out information. only DEBUG!
-	public static boolean VERBOSE = true;
+	public static boolean VERBOSE = false;
 
 	private ExplorerStrategy explorer;
 
@@ -52,6 +53,8 @@ public class HeuristicAgent extends AbstractPlayer {
 
 	public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
+		if(stateObs.getGameTick() == 0) {printParam();}
+		
 		// action that will be returned
 		this.stateObs = stateObs;
 		Environment env = Factory.getEnvironment();
@@ -123,6 +126,19 @@ public class HeuristicAgent extends AbstractPlayer {
 			
 		}
 
+	}
+	
+	public void printParam(){
+		String[] params = new String[2];
+		
+		params[0] = "HeuristicAgent";
+		
+		//parameters from class AStarStrategy
+		
+		//parameters from class ExplorerStrategy and subclasses
+		params[1] = explorer.toCSVString();
+		
+		Helper.printParameter(params);
 	}
 
 }

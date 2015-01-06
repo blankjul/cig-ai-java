@@ -19,7 +19,10 @@ public class SafetyIntelligent extends ASafety{
 		} else return advanceSafety.isSafe(stateObs, a);
 	}
 
-	
+	@Override
+	public String toCSVString() {
+		return "SafetyIntelligent,1";
+	}
 
 
 }

@@ -89,5 +89,7 @@ public class AStarStrategy extends AStrategy {
 		return target;
 	}
 
-
+	public String toCSVString(){
+		return Integer.toString(MAX_NOT_FOUND);
+	}
 }

@@ -45,5 +45,5 @@ public abstract class ASafety {
 		return ACTIONS.ACTION_NIL;
 	}
 	
-
+	public abstract String toCSVString();
 }

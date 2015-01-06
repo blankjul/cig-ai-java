@@ -1,0 +1,11 @@
+maxStates(in class AStar, set it in ExplorerStrategy)
+Heuristic(in class AStar, set it by modifing the Constructors of AStar and the toCSVString method)
+SafetyAdvance(in Safety classes
+numOfIterations(in Safety classes -> only in SafetyAdvance != 1) 
+
+001:	15,DistanceHeuristic,null,null	(standard)
+
+002:	5, DistanceHeuristic,null,null
+003:	25,DistanceHeuristic,null,null
+004:	20,DistanceHeuristic,null,null
+

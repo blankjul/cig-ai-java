@@ -43,4 +43,9 @@ public class SafetyGridSearch extends ASafety{
 		return sprites.isEmpty();
 	}
 
+	@Override
+	public String toCSVString() {
+		return "SafetyGridSearch,1";
+	}
+
 }
