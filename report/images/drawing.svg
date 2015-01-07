@@ -2,6 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -15,9 +16,18 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="drawing.svg">
+   sodipodi:docname="euclidean.pdf">
   <defs
-     id="defs4" />
+     id="defs4">
+    <linearGradient
+       id="linearGradient5351"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop5353" />
+    </linearGradient>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,9 +35,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="225.99893"
-     inkscape:cy="163.33484"
+     inkscape:zoom="1.4"
+     inkscape:cx="257.48564"
+     inkscape:cy="308.09803"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -39,7 +49,9 @@
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-bottom="0"
+     inkscape:snap-grids="true"
+     inkscape:snap-bbox="true" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -122,12 +134,12 @@ AyBJwABIEjAAktbM7NNLAMBXPjAAkv4BaTwYX1Uyk94AAAAASUVORK5CYII=
        x="120.22845"
        y="230.73001" />
     <rect
-       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.00986493px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="rect3002-0-3"
-       width="107.07617"
-       height="108.08632"
-       x="229.30463"
-       y="12.537064" />
+       width="109.20917"
+       height="108.07645"
+       x="227.30956"
+       y="12.541996" />
     <path
        sodipodi:type="arc"
        style="fill:#008000"
@@ -138,5 +150,11 @@ AyBJwABIEjAAktbM7NNLAMBXPjAAkv4BaTwYX1Uyk94AAAAASUVORK5CYII=
        sodipodi:ry="25.253813"
        d="m 418.20317,186.66145 c 0,13.9473 -12.21104,25.25382 -27.27412,25.25382 -15.06308,0 -27.27412,-11.30652 -27.27412,-25.25382 0,-13.94729 12.21104,-25.25381 27.27412,-25.25381 15.06308,0 27.27412,11.30652 27.27412,25.25381 z"
        transform="matrix(1.0185185,0,0,1.08,-8.7140455,-135.01414)" />
+    <path
+       style="fill:none;stroke:#da0000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 62.857143,159.31043 378.57143,55.739"
+       id="path5456"
+       inkscape:connector-curvature="0"
+       transform="translate(12.31478,12.037064)" />
   </g>
 </svg>
