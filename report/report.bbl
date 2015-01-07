@@ -21,6 +21,12 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{distance_metrics}
+P.~Barrett, ``Euclidean distance: raw, normalized, and double‐scaled
+  coefficients,'' September 2005,
+  \href{http://www.pbarrett.net/techpapers/euclid.pdf}{pbarrett.net/} {[Online;
+  posted 7-January-2015]}.
+
 \bibitem{BrowneMCTSurvey}
 \BIBentryALTinterwordspacing
 C.~Browne, E.~J. Powley, D.~Whitehouse, S.~M. Lucas, P.~I. Cowling,
@@ -29,15 +35,6 @@ C.~Browne, E.~J. Powley, D.~Whitehouse, S.~M. Lucas, P.~I. Cowling,
   Intellig. and AI in Games}, vol.~4, no.~1, pp. 1--43, 2012. [Online].
   Available:
   \url{http://dblp.uni-trier.de/db/journals/tciaig/tciaig4.html#BrownePWLCRTPSC12}
-\BIBentrySTDinterwordspacing
-
-\bibitem{DesurvireCT04}
-\BIBentryALTinterwordspacing
-H.~Desurvire, M.~Caplan, and J.~A. Toth, ``Using heuristics to evaluate the
-  playability of games.'' in \emph{CHI Extended Abstracts}, E.~Dykstra-Erickson
-  and M.~Tscheligi, Eds.\hskip 1em plus 0.5em minus 0.4em\relax ACM, 2004, pp.
-  1509--1512. [Online]. Available:
-  \url{http://dblp.uni-trier.de/db/conf/chi/chi2004a.html#DesurvireCT04}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}

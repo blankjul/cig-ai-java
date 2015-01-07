@@ -1,16 +1,36 @@
 
 
-\section{Background} \label{sec:back}
+\section{Background} 
+\label{sec:back}
 
-Explain in detail the techniques used through this project, citing other papers if needed. Feel free to include diagrams, pictures, pseudocode, and also to organize the section using subsections.
+There are several basic approaches to write an artificial intelligence (AI) for a game. In this project we were forced to investigate different ideas at three different research areas: heuristic based search, reinforcement learning and nature inspired algorithm. 
+Of course there is an overlap between these approach. All of them try to find the next best step for the agent by iterating through a search tree. This is build in base of all possible game steps that could done by the agent.
+One naive approach of iterating through the whole search tree is not possible, because there is a time limitation.
+Generally this leads to solve the trade-off between iterating similar to a breadth-first or depth-first search.
+The heuristic approach forces the second by using a estimation function for looking many steps ahead.
 
-Some techniques and ideas from other papers, internet articles and lectures used by us to implement the controllers. The strategies and the ideas behind them, which should be known to understand our implementation, are described in this Section. 
 
 \subsection{Heuristic Based Search} 
 
+A heuristic is used to evaluate a game state by putting several facts into one number. When we have to decide which current active branch of a search tree should be iterated this score might help us. 
+One common idea to estimate the distance to the target is the manhatten distance~\cite{distance_metrics}. 
 
-game unknown. which heuristic?
-~\cite{DesurvireCT04}
+In a two dimensional space the manhatten distance is calculated by
+
+\begin{equation}
+dist(u,v) = |x_{1} - x_{2}| + |y_{1} - y_{2}|
+\end{equation}
+
+adding the absolute value of the difference for the $x$ and the $y$ axis. The input consists always of the points that have one value for each dimension. This could be extended for a n-dimensional space as well. When thinking of a way at a grid this is always a path with one rectangle waypoint ~\ref{fig:manhatten}.
+
+\begin{figure}
+
+\centering
+\includegraphics[scale=0.3]{images/manhatten.pdf}
+\caption{Manhatten distance}
+\label{fig:manhatten}
+\end{figure}
+
 
 
 \subsubsection{Greedy}
@@ -19,15 +39,16 @@ Greedy-algorithms are a whole class of algorithms and strategies. All of them fo
 
 \subsubsection{One Step Lookahead}
 
-One step lookahead is a very simple tree search algorithm which follows the greedy approach. The actual state is the root node. From this node we only look one step ahead to all nodes which are connected by one egde and compute a heuristic value or another kind of reward value for these nodes. After that the algorithm terminates and we pick the node with the best value.
+One step lookahead is a very simple tree search algorithm which follows the greedy approach. The actual state is the root node. From this node we only look one step ahead to all nodes which are connected by one edge and compute a heuristic value or another kind of reward value for these nodes. After that the algorithm terminates and we pick the node with the best value.
 
 \subsubsection{AStar}
 
 The A* tree search algorithm is a modification of the dijkstra algorithm and also belongs to the class of greedy algorithms. The Algorithm finds the shortest path between two nodes. In difference to normal greedy algorithms A* is a optimal algorithm, it finds a solution when a solution exists (in this case the shortest path). The algorithm uses a heuristic to estimate the shortest path. The value f(x) of a node N is the sum of its heuristic value h(x) and the costs from the start-node to N g(x).
 
-\[
-	f(x)=h(x)+g(x)
-\]   
+\begin{equation}
+f(x)=h(x)+g(x)
+\end{equation}
+
 
 A* contains two sets of nodes, the openlist and the closedlist. In every step of the algorithm the Node N with the lowest f(x) value in the openlist is put on the closedlist and all its connected nodes, which are not in the closedlist, are put in the openlist (with reference to their fahter N). If a connected node is already in the closedlist but the new generated value f'(x) is lower than f(x) then f(x) will be replaced by f'(x) and the new father-reference is N. The openlist contains all the nodes to which the path is already known and which can be checked in the next step, the closedlist contains every visited and checked node. When the actual node is the goal-node, the algorithm terminates. To generate the path, the algorithm goes back from the goal-node to the start node (guided by the father-references). 
 
