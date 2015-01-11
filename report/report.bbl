@@ -37,4 +37,19 @@ C.~Browne, E.~J. Powley, D.~Whitehouse, S.~M. Lucas, P.~I. Cowling,
   \url{http://dblp.uni-trier.de/db/journals/tciaig/tciaig4.html#BrownePWLCRTPSC12}
 \BIBentrySTDinterwordspacing
 
+\bibitem{evo}
+A.~E. Eiben and J.~E. Smith, \emph{Introduction to Evolutionary
+  Computing}.\hskip 1em plus 0.5em minus 0.4em\relax SpringerVerlag, 2003.
+
+\bibitem{ci_kruse}
+R.~Kruse, C.~Borgelt, F.~Klawonn, C.~Moewes, M.~Steinbrecher, and P.~Held,
+  \emph{Computational Intelligence - A Methodological Introduction.}, ser.
+  Texts in Computer Science.\hskip 1em plus 0.5em minus 0.4em\relax Springer,
+  2013.
+
+\bibitem{nn_intro}
+R.~Rojas, \emph{Neural Networks: A Systematic Introduction}.\hskip 1em plus
+  0.5em minus 0.4em\relax New York, NY, USA: Springer-Verlag New York, Inc.,
+  1996.
+
 \end{thebibliography}

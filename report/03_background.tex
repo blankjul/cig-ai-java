@@ -4,7 +4,7 @@
 \label{sec:back}
 
 There are several basic approaches to write an artificial intelligence (AI) for a game. In this project we were forced to investigate different ideas at three different research areas: heuristic based search, reinforcement learning and nature inspired algorithm. 
-Of course there is an overlap between these approach. All of them try to find the next best step for the agent by iterating through a search tree. This is build in base of all possible game steps that could done by the agent.
+Of course there is an overlap between these approaches. All of them try to find the next best step for the agent by iterating through a search tree. This is build in base of all possible game steps that could done by the agent.
 One naive approach of iterating through the whole search tree is not possible, because there is a time limitation.
 Generally this leads to solve the trade-off between iterating similar to a breadth-first or depth-first search.
 The heuristic approach forces the second by using a estimation function for looking many steps ahead.
@@ -21,7 +21,7 @@ In a two dimensional space the manhatten distance is calculated by
 dist(u,v) = |x_{1} - x_{2}| + |y_{1} - y_{2}|
 \end{equation}
 
-adding the absolute value of the difference for the $x$ and the $y$ axis. The input consists always of the points that have one value for each dimension. This could be extended for a n-dimensional space as well. When thinking of a way at a grid this is always a path with one rectangle waypoint ~\ref{fig:manhatten}.
+adding the absolute value of the difference for the $x$ and the $y$ axis. The input consists always of the points that have one value for each dimension. This could be extended for a n-dimensional space as well. When thinking of a way at a grid this is always a path with one rectangle waypoint (see Figure ~\ref{fig:manhatten}).
 
 \begin{figure}
 \centering
@@ -102,16 +102,41 @@ freddy working on it
 The nature is solving problems by applying different approaches instinctively. 
 
 \subsubsection{Neural nets} 
-Our brain solves many problems that could not be solved by algorithms yet. Many researcher tries to explore the process of the human brain. Since there are a lot of results by now the neural nets were born that do in principle the same as neurons.
+Our brain solves many problems that could not be solved by algorithms yet. Many researcher tries to explore the process of the human brain. Neural networks tries to model the nervous system and to adapt all the processes~\cite{nn_intro}. The neurons are modeled as \textit{threshold logic units} (TLU) that consists of several input values $x_1$ to $x_n$ and one output value $y$~\cite{ci_kruse}. 
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{images/tlu.pdf}
+\caption{threshold logic units ~\cite{ci_kruse}}
+\label{fig:tlu}
+\end{figure}
+
+
+For computing the output value is always for every input value one weight $w_i$ and the threshold $\theta$. The formula 
+
+\begin{equation}
+    y = 
+\begin{dcases}
+    1, & \text{if } \sum_{i=1}^n w_{i} x_{i} \geq \theta \text{,} \\
+    0, & \text{otherwise.}
+\end{dcases}
+\end{equation}
+
+is used to calculate the output $y$ that is either 0 or 1.
+Normally the input and the output is given and the weights has to be learned. With only one TLU there only linear separable spaces could be learned perfectly.
+To solve that problem there is the possibility to create a network of TLU's and map that problem to a higher dimensional space~\cite{ci_kruse}.
 
 
 
 
 \subsubsection{Evolutionary algorithm} 
+An \textit{Evolutionary Algorithm} (EA) tries to use the biological behavior of the population~\cite{evo}. 
 
 
 
-\subsubsection{pheromones} 
+
+\subsubsection{Pheromones} 
 
 
 
