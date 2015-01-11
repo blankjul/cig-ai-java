@@ -2,7 +2,7 @@ BasicGame
     SpriteSet
         goal  > Immovable color=GREEN 
         point  > Immovable color=YELLOW 
-        monster > Immovable color=RED 
+        monster > Immovable color=RED img=monster
         wall > Immovable color=BLACK img=wall
         
 

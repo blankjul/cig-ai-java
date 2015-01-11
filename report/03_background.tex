@@ -134,6 +134,23 @@ To solve that problem there is the possibility to create a network of TLU's and 
 An \textit{Evolutionary Algorithm} (EA) tries to use the biological behavior of the population~\cite{evo}. 
 
 
+\begin{algorithm}
+\caption{Evolutionary Algorithm~\cite{evo}}
+\label{alg:evo}
+\begin{algorithmic}
+\State \emph{Initialize} Population with random candidate solutions;
+\State \emph{Evaluate} each candidate;
+\While{Termination condition not satisfied} 
+\State \emph{Select} parents;
+\State \emph{Recombine} pairs of parents;
+\State \emph{Mutate} the resulting offspring;
+\State \emph{Evaluate} new candidates;
+\State \emph{Select} individuals for the next generation;
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+
 
 
 \subsubsection{Pheromones} 

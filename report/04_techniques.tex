@@ -1,13 +1,54 @@
-\section{Techniques Implemented} \label{sec:exp}
+\section{Techniques Implemented} 
+\label{sec:exp}
 
-Describe the controllers you created. Explain how they work, in which techniques are they based on (probably from previous section), and include figures and pseudocode as needed.
+After explaining the theory of several approaches we now describe our implementations. The proposed algorithm are not always fitting to 
+the principle of the games or has a lot of parameter that has to be adjusted to have good results. We first point out same basic strategies
+for example staying alive.
 
 
 \subsection{Stay Alive} 
 
-pessimistic iteration
+We implemented two different Stay Alive Agents that has the aim just to act safe and hopefully randomly win the game.
+Even if there is the possibility to simulation an action, there is all the time an uncertainty. All objects of the games in our competition
+could - but has not - to act randomly. If we are using the \textit{advance} function that allows us to simulate one step that just
+one possible state of the future. This implies even if we are not dying at our simulation we could die at the real game.
 
-grid search
+One approach is to simulate the next action $n$ times. If the agent does not die for this simulations the next action should be safe.
+The problem is to set a good value for $n$. If the value is to large not all the possible actions could be tested. Otherwise 
+if it's to small the probability that it's even unsafe grows.
+From the resulting safe action set there could be randomly choosen the final action.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{images/safe.pdf}
+\caption{Advancing safe actions}
+\label{fig:safe}
+\end{figure}
+
+Suppose there is a game situation like in figure~\ref{fig:safe} the action \textit{RIGHT} is definitely unsafe what 
+should after an amount of $n$-action be clear.
+
+Another idea is to analyse the grid around the agent. Assume that each enemy could only move one field at the grid
+at one game step there is a $5x5$ grid that needs to be analyzed. If an enemy at this grid exists one action is
+maybe unsafe. If not the enemy won't die for sure.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{images/safe_grid.pdf}
+\caption{Grid search for safe actions}
+\label{fig:safe_grid}
+\end{figure}
+
+At the figure~\ref{fig:safe_grid} you can see the action that could be excluded without doing any simulation at the game.
+The possible next fields (excluded the current position if agent does nothing) are marked green. The possible positions
+of the enemy are red. The action RIGHT is by using the grid search unsafe. 
+At first glance it looks faster and better to only look at the grid, but there might be some problems for unknown games:
+
+\begin{itemize}
+  \item One problem is to classify the game objects at the grid. The grid search is only good if we know that this objects represents an enemy. Otherwise
+  we also classify walls as unsafe.
+  \item Not every enemy could move to all directions. have a look at the figure 
+\end{itemize}
 
 
 
@@ -28,13 +69,77 @@ grid search
 
 \subsection{Evolutionary algorithm} 
 
-\begin{itemize}
-  \item basics mutation score crossover
-  \item sliding window
-  \item adaptive path length
-  \item heuristic switch
-\end{itemize}
+The theory of the evolution has to be mapped to the gaming problem. Each candidate of our population is
+a list of actions that could be executed. To evaluate the fitness of a candidate we are using the
+simulation function that is provided by the game. 
+The score
+
+\begin{equation}
+s = \sum_{t=0}^n (H(s_t) - H(s_{t-1}))
+\end{equation}
+
+is calculated by using the function
+
+\begin{equation}
+    H(s_i, s_{i-1}) = 
+\begin{dcases}
+    10, & \text{if isWinner}  \\
+    -10, & \text{if isLooser}  \\
+    score(s_i) - score(s_{i-1}), & \text{otherwise.}
+\end{dcases}
+\end{equation}
+
+what we called delta heuristic function.
+
+We implemented two very naive operations on the pool. The crossover is done by
+select for 50 \% the action of the first or the second individual (Figure ~\ref{fig:crossover}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{images/crossover.pdf}
+\caption{Crossover of an individual}
+\label{fig:crossover}
+\end{figure}
+
+The mutation is implemented by doing an crossover with an random individual.
+We fixed for all evaluations runs the mutation probability to $0.7$ which implies a crossover 
+probability of $0.3$.
+
+We had several problems with the limited time for the evolution.
+For that we want to have always a good starting pool and use our information from the last
+game step. All candidates from the last final pool of the last game step are used for the initialization.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{images/sliding_window.pdf}
+\caption{Sliding Window}
+\label{fig:sliding_window}
+\end{figure}
+
+For that we use the principle of a sliding window (Figure~\ref{fig:sliding_window}). The first
+action from the last pool is removed because the agent was acting like this at the last game step. Then
+to keep the action length fix there is added one random action to the action path.
+By using that principle we are not throwing our last simulations away.
+
+There is also the problem that for different games the simulation time differs. If we have many game objects that 
+need to be updated and checked for collision, the simulation time increases.
+But to find a good value for the pool size we need to know the calculation time.
+As a fix for this we introduced the adaptive path length that reduces or increases the actions
+of every individual.
+For that we forced to get always the fourth generation. On the one hand if we stay for example at the initial
+pool because the evaluation takes to long we will reduce the path length. On the other hand if the agents acts like 
+the seventh generation we force to have a long time planing by increasing the path length.
+
+Another problem that we tried to fix is to avoid situations where no individual has a positive score or many has a score of zero. That means each 
+candidate is not gaining points. Our first implementations solved such a tie randomly. 
+The randomness could be disabled by using a heuristic. If we would always use the same heuristic that would not work
+for all the games because they have different aims. 
+So we used a heuristic switch after $n$ time steps to have also a long time planing strategy.
+
+
+  
   
 \subsection{Game Detection} 
   
-  Another technique we have implemented is a detection of a known game. We know the 10 games from the test-set and the 10 games from the validation-set, the 10 test-set games are unknown. The Goal of the Gamedetection is to improve the score and the number of wins in the two known game-sets without decreasing the score and the number of wins in the unknown test-set. To do that, the standard parameters of the Algorithm are used when no game is detected, otherwise the optimal parameters for this game are used. These parameters we figured out for some difficult games in which the standard parameters give bad results. To detect a game we generate a String of all Objects (npc, movable, immovable, ect...) and store the Hash value of this String. All the hashes from the known games are stored, in a running Game we generate another String of these Objects and compare the generated hash value to the stored ones. 
+Another technique we have implemented is a detection of a known game. We know the 10 games from the test-set and the 10 games from the validation-set, the 10 test-set games are unknown. The Goal of the Gamedetection is to improve the score and the number of wins in the two known game-sets without decreasing the score and the number of wins in the unknown test-set. To do that, the standard parameters of the Algorithm are used when no game is detected, otherwise the optimal parameters for this game are used. These parameters we figured out for some difficult games in which the standard parameters give bad results. To detect a game we generate a String of all Objects (npc, movable, immovable, ect...) and store the Hash value of this String. All the hashes from the known games are stored, in a running Game we generate another String of these Objects and compare the generated hash value to the stored ones. 

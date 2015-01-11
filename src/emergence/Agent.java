@@ -30,6 +30,11 @@ public class Agent extends AbstractPlayer {
 	
 	
 
+	public Agent() {
+	}
+
+
+
 	@Override
 	public ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 		return agent.act(stateObs, elapsedTimer);
