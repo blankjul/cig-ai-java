@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  12 JAN 2015 16:55
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  12 JAN 2015 18:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -744,21 +744,21 @@ LaTeX Warning: Label `sec:exp' multiply defined.
 )
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 21.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
@@ -796,7 +796,7 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box68
-Package hyperref Info: Link coloring OFF on input line 20.
+Package hyperref Info: Link coloring OFF on input line 21.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -806,22 +806,22 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count184
 )
-LaTeX Info: Redefining \ref on input line 20.
-LaTeX Info: Redefining \pageref on input line 20.
-LaTeX Info: Redefining \nameref on input line 20.
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
+LaTeX Info: Redefining \nameref on input line 21.
 
 (./report.out) (./report.out)
 \@outlinefile=\write4
 \openout4 = `report.out'.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 30.
-LaTeX Font Info:    Try loading font information for U+msa on input line 30.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 29.
+LaTeX Font Info:    Try loading font information for U+msa on input line 29.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 30.
+LaTeX Font Info:    Try loading font information for U+msb on input line 29.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -833,7 +833,7 @@ Package hyperref Warning: bookmark level for unknown title defaults to 0.
 Package hyperref Warning: bookmark level for unknown author defaults to 0.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 31.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 30.
 (./01_introduction.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
@@ -862,37 +862,34 @@ Package pdftex.def Info: images/onestep_lookahead.pdf used on input line 45.
 <images/tlu.pdf, id=81, 310.72922pt x 118.6289pt>
 File: images/tlu.pdf Graphic file (type pdf)
  <use images/tlu.pdf>
-Package pdftex.def Info: images/tlu.pdf used on input line 107.
+Package pdftex.def Info: images/tlu.pdf used on input line 115.
 (pdftex.def)             Requested size: 93.21948pt x 35.58893pt.
  [4]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 135.
+put line 143.
 )
 (./04_techniques.tex [5 <./images/tlu.pdf>]
-<images/safe.pdf, id=139, 140.525pt x 140.525pt>
+<images/safe.pdf, id=142, 140.525pt x 140.525pt>
 File: images/safe.pdf Graphic file (type pdf)
  <use images/safe.pdf>
 Package pdftex.def Info: images/safe.pdf used on input line 23.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
 
-<images/safe_grid.pdf, id=141, 140.525pt x 140.525pt>
+<images/safe_grid.pdf, id=144, 140.525pt x 140.525pt>
 File: images/safe_grid.pdf Graphic file (type pdf)
 
 <use images/safe_grid.pdf>
 Package pdftex.def Info: images/safe_grid.pdf used on input line 37.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
  [6 <./images/safe.pdf>]
-<images/crossover.pdf, id=177, 299.79146pt x 170.84969pt>
+<images/crossover.pdf, id=181, 299.79146pt x 170.84969pt>
 File: images/crossover.pdf Graphic file (type pdf)
 
 <use images/crossover.pdf>
 Package pdftex.def Info: images/crossover.pdf used on input line 99.
 (pdftex.def)             Requested size: 179.87625pt x 102.51059pt.
-
-Underfull \vbox (badness 1248) has occurred while \output is active []
-
  [7 <./images/safe_grid.pdf>]
-<images/sliding_window.pdf, id=210, 484.54187pt x 224.42944pt>
+<images/sliding_window.pdf, id=214, 484.54187pt x 224.42944pt>
 File: images/sliding_window.pdf Graphic file (type pdf)
 
 <use images/sliding_window.pdf>
@@ -902,31 +899,46 @@ Package pdftex.def Info: images/sliding_window.pdf used on input line 115.
 
 pdfTeX warning: pdflatex (file ./images/sliding_window.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
->]) (./05_study.tex) (./06_conclusion.tex) [9] (./report.bbl
+>]) (./05_study.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9]
+<images/eval_evolutionary.pdf, id=242, 587.19376pt x 442.65375pt>
+File: images/eval_evolutionary.pdf Graphic file (type pdf)
+
+<use images/eval_evolutionary.pdf>
+Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 45.
+(pdftex.def)             Requested size: 411.03282pt x 309.8555pt.
+
+Overfull \hbox (63.90929pt too wide) in paragraph at lines 45--46
+ [][] 
+ []
+
+) (./06_conclusion.tex) [10] [11 <./images/eval_evolutionary.pdf>]
+(./report.bbl
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 49.
- [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 49.
-
-(./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 49.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 49.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 48.
+ [12]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 48.
+ (./report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 48.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 48.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 5FCF2293C6E9A540E4A7B82565AF304E;135.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 49.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 48.
  ) 
 Here is how much of TeX's memory you used:
- 17528 strings out of 493304
- 304519 string characters out of 6139871
- 386113 words of memory out of 5000000
- 20568 multiletter control sequences out of 15000+600000
+ 17546 strings out of 493304
+ 304830 string characters out of 6139871
+ 389214 words of memory out of 5000000
+ 20577 multiletter control sequences out of 15000+600000
  26174 words of font info for 57 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
  63i,10n,92p,954b,492s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -941,10 +953,10 @@ sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (10 pages, 175074 bytes).
+Output written on report.pdf (12 pages, 187192 bytes).
 PDF statistics:
- 303 PDF objects out of 1000 (max. 8388607)
- 225 compressed objects within 3 object streams
- 58 named destinations out of 1000 (max. 500000)
- 64 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 351 PDF objects out of 1000 (max. 8388607)
+ 244 compressed objects within 3 object streams
+ 66 named destinations out of 1000 (max. 500000)
+ 69 words of extra memory for PDF output out of 10000 (max. 10000000)
 

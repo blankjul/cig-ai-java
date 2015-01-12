@@ -64,21 +64,29 @@ A* contains two sets of nodes, the openlist and the closedlist. In every step of
 \subsection{Reinforcement learning} 
  
 Reinforcement learning, below RL, is a field in Machine learning which is a section of Artificial Intelligence. RL methods are mostly used by agents in an environment called Markov decision process, below MDP. MDP is a mathematical description of decision processes. They have different states S and some actions A which are available in the actual state. Every timestep the agent chooses an action $a$ and the process switches from state $s_a$ to $s_n$. The probability to go over form a state S to another state S' by any action A can be described as
-\[
+
+\begin{equation}
 	G: S*S*A \rightarrow [0,1] 
-\] 
+\end{equation}
+
 and the reward given to the agent can be described by this:
-\[
+
+\begin{equation}
 	R: S*S*A \rightarrow \mathbb{R}
-\]
+\end{equation}
+
 So that
-\[
+
+\begin{equation}
 	(s_a, s_n, a) \rightarrow p(s_n|s_a, a)
-\]
+\end{equation}
+
 would describe the probability $p$ to go over in the state $s_n$, given the actual state $s_a$ and the choosen action $a$ and 
-\[
+
+\begin{equation}
 	(s_a, s_n, a) \rightarrow r
-\]
+\end{equation}
+
 shows its corresponding reward.  
 
 
@@ -92,7 +100,7 @@ Monte Carlo Tree Search, below MCTS, is a class of RL algorithms. It is the most
 [maybe picture from his paper and pseudocode]
 
 The general MCTS algorithm has four steps, selection, expansion, simulation and backpropagation. In the selection the algorithm starts at  
-freddy working on it 
+
 
 
 \subsection{Nature inspired} 
