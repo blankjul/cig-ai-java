@@ -3,9 +3,16 @@ Heuristic(in class AStar, set it by modifing the Constructors of AStar and the t
 SafetyAdvance(in Safety classes
 numOfIterations(in Safety classes -> only in SafetyAdvance != 1) 
 
-001:	15,DistanceHeuristic,null,null	(standard)
+001:	15,DistanceHeuristic,safetyAdvance,5	(standard)
 
 002:	5, DistanceHeuristic,null,null
 003:	25,DistanceHeuristic,null,null
+004:	20,DistanceHeuristic,null,null
 
-004:
+005	best,DistanceHeurictic,
+
+
+
+Im Heuristic Agent die werte ändern! nicht in der anderen klasse
+wieder auf null setzten
+in den dateien 001-004 die werte auf 
