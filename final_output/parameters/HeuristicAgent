@@ -3,13 +3,21 @@ Heuristic(in class AStar, set it by modifing the Constructors of AStar and the t
 SafetyAdvance(in Safety classes
 numOfIterations(in Safety classes -> only in SafetyAdvance != 1) 
 
+//in the simulation results 001-004 is "null,null" stored instead of
+//"safetyAdvance,5", but they were executed with "safetyAdvance,5"
+
 001:	15,DistanceHeuristic,safetyAdvance,5	(standard)
 
 002:	5, DistanceHeuristic,safetyAdvance,5
 003:	25,DistanceHeuristic,safetyAdvance,5
 004:	20,DistanceHeuristic,safetyAdvance,5
 
-005	best,DistanceHeurictic,
+005	20,DistanceHeuristic,SafetyGridSearch,1	//last value "numOfIterations" doesnt exist 1 = dummy!
+006	20,DistanceHeuristic,SafetyIntelligent,1// - " -
+
+//when we have engough time and 004 was the best result:
+007:	20,DistanceHeuristic,safetyAdvance,3
+008:	20,DistanceHeuristic,safetyAdvance,7
 
 
 
