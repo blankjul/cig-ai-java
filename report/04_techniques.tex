@@ -54,7 +54,47 @@ At first glance it looks faster and better to only look at the grid, but there m
 
 \subsection{Heuristic based} 
  
+If the action is only safe the will be the problem that no target is forced because the selection happens randomly.
+Therefore a heuristic is used to evaluate one state and get a score. When we previously know the game
+that would be one good approach. But whenever the game is unknown the result will be completely different.
+One heuristic could be very good for example where the agent could kill an enemy. But if in another game
+the enemy will kill us the heuristic let commit us suicide.
 
+To fix that we had two different ideas. On the one hand we could implement a dynamic heuristic that is changing over time
+and learn from the environment. On the other hand there could be a third instance that we called \textit{Explorer} 
+that is learning from the environment and creating a knowledge-base. 
+To use this idea always for further approaches we forced on the second idea.
+
+During the construction time the agent only explores the environment. 
+First of all he creates a list with all interesting targets that exists at the level. For all of them he sends pheromones into the grid
+and simulate until the agent dies. 
+For all the simulation there is a global class the \textit{Simulator} that automatically make inferences from the observations.
+The knowledge base is the environment class that contains information to blocking, scoring, winning and loosing game objects (sprites).
+This two classes follows the singleton pattern and could be created by using the factory (Figure~\ref{fig:sim_classes}).
+Additional information that you can see at the figure is the game detection that is explained later and the field tracker that keeps 
+information about all fields at the grid and how often the agent visited each one.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{images/classes.png}
+\caption{Class diagram of the simulator and environment structure}
+\label{fig:sim_classes}
+\end{figure}
+
+
+When the explorer find the winning or scoring objects a heuristic is initialized. We used a heuristic with that 
+calculates the distance to one target by using the mannhatten distance. To reach this target we use an astar 
+algorithm with three modifications.
+
+Every game step the astar algorithm is executed from scratch even if we found the target in the last iteration.
+We use an safety approach for the first action to ensure the next action we maybe choose is safe. For that we
+use the principle of the stay alive agent. The astar algorithm needs to hold all the states in memory.
+This leads to a very fast growing open list with a lot of states. We introduce a \textit{maxStates} variable. 
+Whenever the open list of the astar algorithm is larger than this variable the list is cut in a half.
+Additionally we use for our simulations the simulator and use the knowledge base. Normally all children of
+a state are added to the open list. We only add all the children to the list of that we assume we will get a 
+new position. Since we know from the Environment class which objects are blocking, we could use that information
+for a smarter iteration.
 
 
 \subsection{MCTS Tree} 

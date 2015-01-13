@@ -1,0 +1,2 @@
+csvsql --db oracle+cx_oracle://dwt_15:Cu#7fKp815@oban.cs.uni-magdeburg.de:1521/tox evo_result.csv --table cigevo
+

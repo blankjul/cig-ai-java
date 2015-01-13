@@ -1,4 +1,8 @@
 import matplotlib.pyplot as plt
+import numpy as np
+
+
+
 x = [[0.48, 0.49, 0.45, 0.47, 0.44, 0.44, 0.41, 0.48, 0.47, 0.46],
 [0.43, 0.45, 0.42, 0.5, 0.44, 0.47, 0.44, 0.49, 0.43 , 0.44],
 [0.46, 0.42, 0.51, 0.49, 0.49, 0.46, 0.47, 0.43, 0.44, 0.49],
@@ -18,5 +22,12 @@ plt.xlabel('EA parameters')
 plt.ylabel('average wins')
 
 
+means = [np.mean(px) for px in x]
+plt.scatter([1, 2, 3,4,5,6,7,8,9,10,11,12,13,14], means)
+
 plt.boxplot(x)
 plt.show()
+
+
+
+

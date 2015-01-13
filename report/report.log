@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.9)  12 JAN 2015 23:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  13 JAN 2015 11:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -741,6 +741,9 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 
 LaTeX Warning: Label `sec:exp' multiply defined.
 
+
+LaTeX Warning: Label `fig:eval_evo' multiply defined.
+
 )
 \openout1 = `report.aux'.
 
@@ -859,7 +862,7 @@ File: images/onestep_lookahead.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/onestep_lookahead.pdf used on input line 45.
 (pdftex.def)             Requested size: 126.64957pt x 57.85318pt.
  [3 <./images/onestep_lookahead.pdf>]
-<images/tlu.pdf, id=81, 310.72922pt x 118.6289pt>
+<images/tlu.pdf, id=82, 310.72922pt x 118.6289pt>
 File: images/tlu.pdf Graphic file (type pdf)
  <use images/tlu.pdf>
 Package pdftex.def Info: images/tlu.pdf used on input line 115.
@@ -869,59 +872,78 @@ Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 143.
 )
 (./04_techniques.tex [5 <./images/tlu.pdf>]
-<images/safe.pdf, id=142, 140.525pt x 140.525pt>
+<images/safe.pdf, id=143, 140.525pt x 140.525pt>
 File: images/safe.pdf Graphic file (type pdf)
  <use images/safe.pdf>
 Package pdftex.def Info: images/safe.pdf used on input line 23.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
 
-<images/safe_grid.pdf, id=144, 140.525pt x 140.525pt>
+<images/safe_grid.pdf, id=145, 140.525pt x 140.525pt>
 File: images/safe_grid.pdf Graphic file (type pdf)
 
 <use images/safe_grid.pdf>
 Package pdftex.def Info: images/safe_grid.pdf used on input line 37.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
  [6 <./images/safe.pdf>]
-<images/crossover.pdf, id=181, 299.79146pt x 170.84969pt>
-File: images/crossover.pdf Graphic file (type pdf)
+<images/classes.png, id=181, 708.6475pt x 495.8525pt>
+File: images/classes.png Graphic file (type png)
+ <use images/classes.png>
+Package pdftex.def Info: images/classes.png used on input line 79.
+(pdftex.def)             Requested size: 354.32289pt x 247.92564pt.
 
-<use images/crossover.pdf>
-Package pdftex.def Info: images/crossover.pdf used on input line 99.
-(pdftex.def)             Requested size: 179.87625pt x 102.51059pt.
- [7 <./images/safe_grid.pdf>]
-<images/sliding_window.pdf, id=214, 484.54187pt x 224.42944pt>
-File: images/sliding_window.pdf Graphic file (type pdf)
-
-<use images/sliding_window.pdf>
-Package pdftex.def Info: images/sliding_window.pdf used on input line 115.
-(pdftex.def)             Requested size: 290.72736pt x 134.65869pt.
- [8 <./images/crossover.pdf> <./images/sliding_window.pdf
-
-pdfTeX warning: pdflatex (file ./images/sliding_window.pdf): PDF inclusion: mul
-tiple pdfs with page group included in a single page
->]) (./05_study.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [9]
-<images/eval_evolutionary.pdf, id=242, 587.19376pt x 442.65375pt>
-File: images/eval_evolutionary.pdf Graphic file (type pdf)
-
-<use images/eval_evolutionary.pdf>
-Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 45.
-(pdftex.def)             Requested size: 411.03282pt x 309.8555pt.
-
-Overfull \hbox (63.90929pt too wide) in paragraph at lines 45--46
+Overfull \hbox (7.19936pt too wide) in paragraph at lines 79--80
  [][] 
  []
 
-) (./06_conclusion.tex) [10] [11 <./images/eval_evolutionary.pdf>]
+[7 <./images/safe_grid.pdf>] [8 <./images/classes.png (PNG copy)>]
+<images/crossover.pdf, id=218, 299.79146pt x 170.84969pt>
+File: images/crossover.pdf Graphic file (type pdf)
+
+<use images/crossover.pdf>
+Package pdftex.def Info: images/crossover.pdf used on input line 139.
+(pdftex.def)             Requested size: 179.87625pt x 102.51059pt.
+
+<images/sliding_window.pdf, id=219, 484.54187pt x 224.42944pt>
+File: images/sliding_window.pdf Graphic file (type pdf)
+
+<use images/sliding_window.pdf>
+Package pdftex.def Info: images/sliding_window.pdf used on input line 155.
+(pdftex.def)             Requested size: 290.72736pt x 134.65869pt.
+ [9 <./images/crossover.pdf> <./images/sliding_window.pdf
+
+pdfTeX warning: pdflatex (file ./images/sliding_window.pdf): PDF inclusion: mul
+tiple pdfs with page group included in a single page
+>]) (./05_study.tex <images/eval_heur.pdf, id=243, 587.19376pt x 442.65375pt>
+File: images/eval_heur.pdf Graphic file (type pdf)
+
+<use images/eval_heur.pdf>
+Package pdftex.def Info: images/eval_heur.pdf used on input line 13.
+(pdftex.def)             Requested size: 352.31897pt x 265.59428pt.
+
+Overfull \hbox (5.19543pt too wide) in paragraph at lines 13--14
+ [][] 
+ []
+
+[10] [11 <./images/eval_heur.pdf>]
+<images/eval_evolutionary.pdf, id=290, 587.19376pt x 442.65375pt>
+File: images/eval_evolutionary.pdf Graphic file (type pdf)
+
+<use images/eval_evolutionary.pdf>
+Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 80.
+(pdftex.def)             Requested size: 411.03282pt x 309.8555pt.
+
+Overfull \hbox (63.90929pt too wide) in paragraph at lines 80--81
+ [][] 
+ []
+
+) (./06_conclusion.tex) [12] [13 <./images/eval_evolutionary.pdf>]
 (./report.bbl
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 48.
- [12]
+ [14]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 48.
  (./report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 48.
@@ -935,10 +957,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 48.
  ) 
 Here is how much of TeX's memory you used:
- 17546 strings out of 493304
- 304830 string characters out of 6139872
- 389214 words of memory out of 5000000
- 20577 multiletter control sequences out of 15000+600000
+ 17565 strings out of 493304
+ 305147 string characters out of 6139871
+ 394337 words of memory out of 5000000
+ 20587 multiletter control sequences out of 15000+600000
  26174 words of font info for 57 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
  63i,10n,92p,954b,492s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -953,10 +975,10 @@ sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (12 pages, 187192 bytes).
+Output written on report.pdf (14 pages, 251242 bytes).
 PDF statistics:
- 351 PDF objects out of 1000 (max. 8388607)
- 244 compressed objects within 3 object streams
- 66 named destinations out of 1000 (max. 500000)
- 69 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 401 PDF objects out of 1000 (max. 8388607)
+ 263 compressed objects within 3 object streams
+ 72 named destinations out of 1000 (max. 500000)
+ 79 words of extra memory for PDF output out of 10000 (max. 10000000)
 
