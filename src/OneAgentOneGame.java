@@ -1,24 +1,33 @@
 import emergence.AgentPrimary;
 
-
-
-
+/**
+ * Executes one agent in one game
+ * 
+ * @author spakken
+ *
+ */
 public class OneAgentOneGame {
 
+	/**
+	 * executes one agent in one game and displays the result in the console
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
-		//String controller = "emergence.Agent";
-		//String controller = "emergence.agents.StayAliveAgent";
-		//String controller = "emergence.agents.EvolutionaryAgent";
-		//String controller = "emergence.agents.MCTSHeuristicAgent";
+		// String controller = "emergence.Agent";
+		// String controller = "emergence.agents.StayAliveAgent";
+		// String controller = "emergence.agents.EvolutionaryAgent";
+		// String controller = "emergence.agents.MCTSHeuristicAgent";
 		String controller = "emergence.agents.HeuristicAgent";
-		//String controller = "emergence.agents.EvolutionaryAgent";
-		//String controller = "emergence.agents.EvolutionaryHeuristicAgent";
-		
-		
+		// String controller = "emergence.agents.EvolutionaryAgent";
+		// String controller = "emergence.agents.EvolutionaryHeuristicAgent";
+
+		/** game to be played */
 		String gameStr = "butterflies";
+		/** level to be played */
 		int levelIdx = 2;
-		
+
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
 		// "camelRace", "digdug", "firestorms", "infection", "firecaster",

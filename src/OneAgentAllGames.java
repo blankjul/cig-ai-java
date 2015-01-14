@@ -8,8 +8,14 @@ import java.util.concurrent.Future;
 import emergence.util.Configuration;
 import emergence.util.GameResult;
 
+/**
+ * Plays the Agent in all levels and displays the result
+ * @author spakken
+ *
+ */
 public class OneAgentAllGames {
 
+	/** the agent which is executed*/
 	public static String CONTROLLER = "emergence.Agent";
 	//public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
 	//public static String CONTROLLER = "emergence.agents.EvolutionaryAgent";
@@ -17,12 +23,18 @@ public class OneAgentAllGames {
 	//public static String CONTROLLER = "emergence.agents.MCTSHeuristicAgent";
 	//public static String CONTROLLER = "emergence.agents.EvolutionaryHeuristicAgent";
 
+	/** the number of levels to be played */
 	public static int NUM_LEVELS = 5;
 
 	//public static String[] GAMES = Helper.concat(Configuration.training, Configuration.validation);
 	public static String[] GAMES = Configuration.training;
 	//public static String[] GAMES = {"frogs"};
 
+	/**
+	 * add the games which will be played in the execution-queue 
+	 * @param game
+	 * @return
+	 */
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();
 		for (int j = 0; j < NUM_LEVELS; j++) {
@@ -33,6 +45,12 @@ public class OneAgentAllGames {
 		return res;
 	}
 
+	/**
+	 * Executes and agent in all levels, displays the result in the console
+	 * @param args
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
 	public static void main(String[] args) throws InterruptedException,
 			ExecutionException {
 

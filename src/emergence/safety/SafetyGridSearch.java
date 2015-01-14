@@ -12,10 +12,20 @@ import emergence.Environment;
 import emergence.Factory;
 import emergence.util.ObservationUtil;
 
-public class SafetyGridSearch extends ASafety{
-	
+/**
+ * A Safety which checks if a action is safe by analyzing the neighbourhood of
+ * the avatar.
+ * 
+ * @author spakken
+ *
+ */
+public class SafetyGridSearch extends ASafety {
 
-	// index where we are now.
+	/**
+	 * Returns true if the action is safe, false otherwise. A grid is build with
+	 * all sprites which sourround the avatar. When the grid contains dangerous
+	 * sprites it returns false.
+	 */
 	public boolean isSafe(StateObservation stateObs, ACTIONS a) {
 		Set<Integer> sprites = new HashSet<>();
 
@@ -26,13 +36,14 @@ public class SafetyGridSearch extends ASafety{
 		// check all fields around for observations
 		for (ACTIONS m : stateObs.getAvailableActions()) {
 			Point moveIndex = ObservationUtil.getMoveIndex(newPositionIndex, m);
-			ArrayList<Observation> obsList = ObservationUtil.getObservations(stateObs, moveIndex);
+			ArrayList<Observation> obsList = ObservationUtil.getObservations(
+					stateObs, moveIndex);
 			for (Observation obs : obsList) {
 				sprites.add(obs.itype);
 			}
 		}
 		Environment env = Factory.getEnvironment();
-		
+
 		// now all the sprites around that move are collected
 		// remove all sprites that are not dangerous
 		sprites.removeAll(env.getBlockingSprites());
@@ -43,6 +54,9 @@ public class SafetyGridSearch extends ASafety{
 		return sprites.isEmpty();
 	}
 
+	/**
+	 * Generate a String object which is used in csv files.
+	 */
 	@Override
 	public String toCSVString() {
 		return "SafetyGridSearch,1";

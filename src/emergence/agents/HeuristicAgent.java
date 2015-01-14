@@ -19,29 +19,56 @@ import emergence.util.ActionTimer;
 import emergence.util.Helper;
 import emergence.util.MapInfo;
 
+/**
+ * Heuristic agent (1st controller). It choses the next action by using a
+ * heuristic value
+ * 
+ * @author spakken
+ *
+ */
 public class HeuristicAgent extends AbstractPlayer {
 
-	// print out information. only DEBUG!
+	/** print out information. only DEBUG! */
 	public static boolean VERBOSE = false;
 
+	/** explorer startegy which is used */
 	private ExplorerStrategy explorer;
 
+	/** astar startegy which is used */
 	private AStarStrategy astar;
 
+	/** actual best target */
 	private ATarget bestTarget = null;
-	
+
+	/** actual state observation */
 	private StateObservation stateObs;
-	
+
+	/**
+	 * default constructor unused
+	 * 
+	 * @deprecated
+	 */
 	public HeuristicAgent() {
 	}
 
-	public HeuristicAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-		
+	/**
+	 * Generates a new heuristic agent. It uses a heuristic and explorer
+	 * strategy.
+	 * 
+	 * @param stateObs
+	 *            state observation
+	 * @param elapsedTimer
+	 */
+	public HeuristicAgent(StateObservation stateObs,
+			ElapsedCpuTimer elapsedTimer) {
+
 		this.stateObs = stateObs;
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 
 		explorer = new ExplorerStrategy(stateObs);
-		if (VERBOSE)  System.out.println(String.format("[%s] %s",stateObs.getGameTick() ,explorer));
+		if (VERBOSE)
+			System.out.println(String.format("[%s] %s", stateObs.getGameTick(),
+					explorer));
 		explorer.expand(stateObs, timer);
 
 		if (VERBOSE) {
@@ -51,10 +78,18 @@ public class HeuristicAgent extends AbstractPlayer {
 
 	}
 
-	public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+	/**
+	 * Returns the action which will be executed. Uses a heuristic, a explorer
+	 * strategy and the astar algorithm
+	 */
+	public Types.ACTIONS act(StateObservation stateObs,
+			ElapsedCpuTimer elapsedTimer) {
 
-		if(stateObs.getGameTick() == 0) {printParam();}
-		
+		// print paramesters for cvs output
+		if (stateObs.getGameTick() == 0) {
+			printParam();
+		}
+
 		// action that will be returned
 		this.stateObs = stateObs;
 		Environment env = Factory.getEnvironment();
@@ -63,41 +98,46 @@ public class HeuristicAgent extends AbstractPlayer {
 		ActionTimer timer = new ActionTimer(elapsedTimer);
 		timer.timeRemainingLimit = 2;
 
-		
 		if (bestTarget == null) {
 			if (env.getWinningTarget(stateObs) != null) {
 				bestTarget = env.getWinningTarget(stateObs);
 			} else if (env.getScoringTarget(stateObs) != null) {
 				bestTarget = env.getScoringTarget(stateObs);
 			}
-			if (bestTarget != null) astar = new AStarStrategy(bestTarget);
+			if (bestTarget != null)
+				astar = new AStarStrategy(bestTarget);
 		}
-		
 
 		if (astar == null) {
 			a = new SafetyAdvance(5).getOneSafeAction(stateObs);
 			explorer.expand(stateObs, timer);
-			if (VERBOSE)  System.out.println(String.format("[%s] %s",stateObs.getGameTick() ,explorer));
-				
+			if (VERBOSE)
+				System.out.println(String.format("[%s] %s",
+						stateObs.getGameTick(), explorer));
+
 		} else {
-			
+
 			boolean successfull = astar.expand(stateObs, timer);
 			a = astar.act();
-			
+
 			if (VERBOSE) {
-				System.out.println(String.format("[%s] ASTAR: %s | %s | FOUND %s", stateObs.getGameTick(), bestTarget,
-						bestTarget.getPosition(stateObs), astar.hasFound(stateObs)));
+				System.out.println(String.format(
+						"[%s] ASTAR: %s | %s | FOUND %s",
+						stateObs.getGameTick(), bestTarget,
+						bestTarget.getPosition(stateObs),
+						astar.hasFound(stateObs)));
 			}
-			
+
 			if (!successfull) {
 				bestTarget = null;
 				astar = null;
 			}
-			
+
 		}
 
 		if (stateObs.getGameTick() % 20 == 0) {
-			if (VERBOSE) System.out.println(Factory.getEnvironment().toString());
+			if (VERBOSE)
+				System.out.println(Factory.getEnvironment().toString());
 			Factory.getEnvironment().reset();
 			bestTarget = null;
 			astar = null;
@@ -123,21 +163,24 @@ public class HeuristicAgent extends AbstractPlayer {
 				Vector2d v = bestTarget.getPosition(stateObs);
 				g.fillRect((int) v.x, (int) v.y, 10, 10);
 			}
-			
+
 		}
 
 	}
-	
-	public void printParam(){
+
+	/**
+	 * Prints the parameters, used for csv output
+	 */
+	public void printParam() {
 		String[] params = new String[2];
-		
+
 		params[0] = "HeuristicAgent";
-		
-		//parameters from class AStarStrategy
-		
-		//parameters from class ExplorerStrategy and subclasses
+
+		// parameters from class AStarStrategy
+
+		// parameters from class ExplorerStrategy and subclasses
 		params[1] = explorer.toCSVString();
-		
+
 		Helper.printParameter(params);
 	}
 
