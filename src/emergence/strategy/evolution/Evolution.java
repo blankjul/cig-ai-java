@@ -10,30 +10,31 @@ import emergence.util.Helper;
 
 public class Evolution {
 
-	// probability of a mutation
+	/** probability of a mutation */
 	final private double MUTATE_PROBABILITY = 0.7;
 
-	// number of actions that are simulated
+	/** number of actions that are simulated*/
 	private int pathLength;
 
-	// how many entries should the population has
+	/** how many entries should the population has*/
 	private int populationSize;
 
-	// number of the fittest to save for the next generation
+	/** number of the fittest to save for the next generation*/
 	private int numFittest;
 
-	// the current population
+	/** the current population*/
 	private ArrayList<EvolutionaryNode> population = new ArrayList<>();
 
-	// always the last generation!
+	/** always the last generation!*/
 	private ArrayList<EvolutionaryNode> lastGeneration = null;
 
-	// number of generations that were applied.
+	/** number of generations that were applied.*/
 	private int numGeneration = 0;
 
-	// counter for the pool simulation
+	/** counter for the pool simulation*/
 	private int counter = 0;
 
+	
 	public Evolution(int pathLength, int populationSize, int numFittest, StateObservation stateObs) {
 		super();
 		this.pathLength = pathLength;

@@ -10,8 +10,6 @@ import emergence.util.Helper;
 /**
  * A Heuristic which is based on the distance to a target.
  * 
- * @author spakken
- *
  */
 public class DistanceRangeAscendingHeuristic extends AHeuristic {
 

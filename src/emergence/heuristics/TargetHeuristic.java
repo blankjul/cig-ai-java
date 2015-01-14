@@ -16,10 +16,8 @@ import emergence.util.Helper;
 
 /**
  * A heuristic which is based on different weighted targets
- * 
- * @author spakken
- *
  */
+
 public class TargetHeuristic extends AHeuristic {
 
 	/** number of targets of category that could be followed */

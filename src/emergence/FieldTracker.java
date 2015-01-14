@@ -1,4 +1,4 @@
-package emergence.strategy.mcts;
+package emergence;
 
 import java.util.HashMap;
 

@@ -94,7 +94,6 @@ public class Helper {
 		String err = "";
 		String start = "[PARAMETER_START,";
 		String end = "PARAMETER_ENDE]";
-		int g = par.length;
 		
 		print += start;
 		

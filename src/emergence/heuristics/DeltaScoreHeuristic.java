@@ -6,9 +6,6 @@ import core.game.StateObservation;
 /**
  * A simple Heuristic to compute the reward of a new state by just consider the
  * win, loss and the score.
- * 
- * @author spakken
- *
  */
 public class DeltaScoreHeuristic extends AHeuristic {
 

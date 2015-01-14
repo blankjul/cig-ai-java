@@ -4,16 +4,18 @@ import java.util.ArrayList;
 
 import ontology.Types;
 import ontology.Types.ACTIONS;
-import tools.Vector2d;
 import core.game.StateObservation;
-import emergence.Factory;
 import emergence.agents.EvolutionaryAgent;
 import emergence.heuristics.AHeuristic;
 import emergence.heuristics.DeltaScoreHeuristic;
 import emergence.nodes.GenericNode;
-import emergence.targets.ATarget;
 import emergence.util.Helper;
 
+/**
+ * This is an evolutionary node that inherits from a generic node. it's used for the 
+ * evolution operations like crossover and mutation.
+ *
+ */
 public class EvolutionaryNode extends GenericNode<Object> implements Comparable<EvolutionaryNode>{
 
 	private double score = Double.NEGATIVE_INFINITY;

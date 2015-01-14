@@ -7,20 +7,11 @@ import core.player.AbstractPlayer;
 import emergence.safety.SafetyAdvance;
 
 /**
- * Agent which returns an action which is very save
- * 
- * @author spakken
- *
+ * Agent which returns an action which is very safe.
  */
 public class StayAliveAgent extends AbstractPlayer {
 
-	/**
-	 * default constructor
-	 * 
-	 * @deprecated
-	 */
-	public StayAliveAgent() {
-	}
+
 
 	/**
 	 * Constructs an StayAliveAgent.
@@ -39,5 +30,6 @@ public class StayAliveAgent extends AbstractPlayer {
 			ElapsedCpuTimer elapsedTimer) {
 		return new SafetyAdvance(10).getOneSafeAction(stateObs);
 	}
+	
 
 }

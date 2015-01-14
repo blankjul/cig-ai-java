@@ -1,6 +1,7 @@
 
 import core.game.StateObservation;
 import emergence.util.Configuration;
+import emergence.util.LevelLoader;
 import emergence.util.MapInfo;
 
 

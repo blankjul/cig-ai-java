@@ -18,43 +18,41 @@ import emergence.heuristics.AHeuristic;
 import emergence.heuristics.DistanceHeuristic;
 import emergence.nodes.GenericNode;
 import emergence.safety.ASafety;
-import emergence.safety.SafetyAdvance;
 import emergence.targets.ATarget;
 import emergence.util.Helper;
 
 /**
  * This AStar algorithm finds the path to a given target.
- *
  */
 public class AStar {
 
-	// all AStarNodes that are in the openList for fast access
+	/** all AStarNodes that are in the openList for fast access*/
 	private Map<String, AStarNode> openSet = new HashMap<>();
 
-	// all current stateObservations that could be expanded
+	/** all current stateObservations that could be expanded */
 	private PriorityQueue<AStarNode> openList = new PriorityQueue<>(20, new AStarNodeScoreComparator());
 
-	// all the hashes of positions where the controller was before
+	/** all the hashes of positions where the controller was before*/
 	private Set<String> closedHash = new HashSet<String>();
 
-	// how many states should be saved in the open list!
-	// if zero there is no max!
+	/** how many states should be saved in the open list!
+	/** if zero there is no max!*/
 	private int maxStates = 0;
 
-	// heuristic that should be used!
+	/** heuristic that should be used!*/
 	private AHeuristic heuristic;
 
-	// iterator for the current child iteration
+	/** iterator for the current child iteration*/
 	private Iterator<GenericNode<AStarInfo>> it;
 
-	// state observation if the node that is iterated by it
+	/** state observation if the node that is iterated by it*/
 	private StateObservation lastStateObservation;
 	
-	// boolean if the target was found or not!
+	/** boolean if the target was found or not!*/
 	private boolean hasFound = false;
 	
-	// enables to act pessimistic
-	private ASafety safetyStrategy;// = new SafetyAdvance(4);
+	/** enables to act pessimistic*/
+	private ASafety safetyStrategy;
 
 	public AStar(StateObservation stateObs, ATarget target) {
 		this(stateObs, new DistanceHeuristic(target));

@@ -2,12 +2,12 @@
  	-abstract			(zusammen)
 	-introduction			(julian)
 	-Literatue Review		(freddy)
-	3.3.3 Pheromone			(julian)
+	3.3.3 Pheromone			(julian) Ist nicht notwendig. wir verwenden das nichtmal ;)
 	-MCTS fertig machen		(freddy)
 	4.2Heuristic based		(julian)
 	4.3 implementierung MCTS	(freddy) (MCTSAgent, rollinghorizon, openloop, node auswahl->meist besuchte)
-	4.4 Evolutionary		(julain)
-	4.5 Improvements and com.	(julian) (MCTSHeuristicAgent EvolutionaryHeuristicAgent)
+	4.4 Evolutionary		(julian) erledigt.
+	4.5 Improvements and com.	(julian) (MCTSHeuristicAgent EvolutionaryHeuristicAgent) unsicher ob sinnvoll.
 	4.6 GameDetection		(freddy)
 	5 Experimental
 	5.1 Test Aufbau (Titel!)	(freddy)

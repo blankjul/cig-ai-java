@@ -27,22 +27,22 @@ import emergence.util.ObservationUtil;
  */
 public class Environment {
 
-	// store the blocksize
+	/** store the blocksize */
 	private Double blocksize;
 
-	// type of the agent
+	/** type of the agent*/
 	private int avatarType = -1;
 
-	// this contains all category ids of blocking sprites
+	/** this contains all category ids of blocking sprites*/
 	private Set<Integer> blockingSprites = new HashSet<Integer>();
 
-	// this set contains all the sprites that followed to a win
+	/** this set contains all the sprites that followed to a win*/
 	private Set<Integer> winSprites = new HashSet<Integer>();
 
-	// sprites that has a consequence to loose
+	/** sprites that has a consequence to loose*/
 	private Set<Integer> looseSprites = new HashSet<Integer>();
 
-	// sprites that causes a score
+	/** sprites that causes a score*/
 	private Set<Integer> scoreSprites = new HashSet<Integer>();
 
 	/**

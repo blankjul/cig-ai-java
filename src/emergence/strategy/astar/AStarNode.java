@@ -5,10 +5,8 @@ import emergence.nodes.GenericNode;
 
 /**
  * This is a AStar node that has several info objects e.g. costs, heuristic and both together.
- *
  */
 public class AStarNode extends GenericNode<AStarInfo> {
-
 
 
 	public AStarNode(StateObservation stateObs) {

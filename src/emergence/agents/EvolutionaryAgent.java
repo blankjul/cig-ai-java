@@ -17,8 +17,6 @@ import emergence.util.ActionTimer;
 /**
  * The evolutionary agent (3rd controller). It uses an evolutionary algorithm to
  * choose the next action which will be executed
- * 
- * @author spakken
  *
  */
 public class EvolutionaryAgent extends AbstractPlayer {
@@ -50,13 +48,7 @@ public class EvolutionaryAgent extends AbstractPlayer {
 	/** if update path length the target generation */
 	public int minGeneration = 4;
 
-	/**
-	 * default constructor unused!
-	 * 
-	 * @deprecated
-	 */
-	public EvolutionaryAgent() {
-	};
+
 
 	/**
 	 * Generates a new evolutionary agent and starts the evolution.

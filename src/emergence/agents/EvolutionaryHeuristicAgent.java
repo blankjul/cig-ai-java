@@ -24,8 +24,6 @@ import emergence.util.MapInfo;
 /**
  * The evolutionary-heuristic agent (3rd controller). It uses an evolutionary
  * algorithm and a heuristic to choose the next action which will be executed
- * 
- * @author spakken
  *
  */
 public class EvolutionaryHeuristicAgent extends AbstractPlayer {
@@ -63,13 +61,6 @@ public class EvolutionaryHeuristicAgent extends AbstractPlayer {
 	/** the actual strategy */
 	public AStarStrategy strategy;
 
-	/**
-	 * default controller unused
-	 * 
-	 * @deprecated
-	 */
-	public EvolutionaryHeuristicAgent() {
-	};
 
 	/**
 	 * Generates a new evolutionary heuristic agent and starts the evolution.

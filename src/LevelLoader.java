@@ -8,7 +8,7 @@ import core.VGDLParser;
 import core.VGDLRegistry;
 import core.VGDLViewer;
 import core.game.Game;
-import emergence.AgentPrimary;
+import emergence.Agent;
 import emergence.util.pair.Pair;
 
 /**
@@ -42,7 +42,7 @@ public class LevelLoader {
 		Game toPlay = new VGDLParser().parseGame(pathToGame);
 		toPlay.buildLevel(String.valueOf(pathToLevel));
 		toPlay.initForwardModel();
-		toPlay.prepareGame(new AgentPrimary(), new Random().nextInt());
+		toPlay.prepareGame(new Agent(), new Random().nextInt());
 		return toPlay;
 	}
 
@@ -61,9 +61,9 @@ public class LevelLoader {
 
 
 	public static JEasyFrame show(Game game) {
-		game.prepareGame(new AgentPrimary(), new Random().nextInt());
+		game.prepareGame(new Agent(), new Random().nextInt());
 		// Create and initialize the panel for the graphics.
-		VGDLViewer view = new VGDLViewer(game, new AgentPrimary());
+		VGDLViewer view = new VGDLViewer(game, new Agent());
 		JEasyFrame frame;
 		frame = new JEasyFrame(view, "Java-VGDL");
 

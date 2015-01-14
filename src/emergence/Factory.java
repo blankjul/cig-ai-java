@@ -1,13 +1,14 @@
 package emergence;
 
-import emergence.strategy.mcts.FieldTracker;
 import emergence.util.GameDetection;
 
-
+/**
+ * This is the global factory that provides access to all
+ * single objects of the games.
+ */
 public class Factory {
 	
 	
-	// the game detection instance
 	private static GameDetection detection = null;
 	
 	private static Environment env = null;

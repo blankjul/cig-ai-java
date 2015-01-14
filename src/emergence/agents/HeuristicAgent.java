@@ -20,11 +20,8 @@ import emergence.util.Helper;
 import emergence.util.MapInfo;
 
 /**
- * Heuristic agent (1st controller). It choses the next action by using a
+ * Heuristic agent (1st controller). It chooses the next action by using a
  * heuristic value
- * 
- * @author spakken
- *
  */
 public class HeuristicAgent extends AbstractPlayer {
 
@@ -43,13 +40,7 @@ public class HeuristicAgent extends AbstractPlayer {
 	/** actual state observation */
 	private StateObservation stateObs;
 
-	/**
-	 * default constructor unused
-	 * 
-	 * @deprecated
-	 */
-	public HeuristicAgent() {
-	}
+
 
 	/**
 	 * Generates a new heuristic agent. It uses a heuristic and explorer

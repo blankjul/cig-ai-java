@@ -9,8 +9,6 @@ import emergence.util.ObservationUtil;
 
 /**
  * A Heuristic which is based on the distance to a target.
- * @author spakken
- *
  */
 public class DistanceHeuristic extends AHeuristic {
 

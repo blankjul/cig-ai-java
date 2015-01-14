@@ -21,31 +21,31 @@ import emergence.util.Helper;
 public class MCTSNode extends GenericNode<Object> {
 
 
-	// father node, if null it's the root
+	/** father node, if null it's the root */
 	private MCTSNode father = null;
 
-	// children store
+	/** children store */
 	private HashMap<ACTIONS, MCTSNode> children = new HashMap<>();
 	
-	// the value for the exploration term
+	/** the value for the exploration term */
 	private double c = Math.sqrt(2);
 	
-	// number of visits
+	/** number of visits */
 	private int visited = 0;
 	
-	// random generator
+	/** random generator */
 	private Random r = new Random();
 	
-	// very small value
+	/** very small value */
 	public static double epsilon = 0.0000000001d;
 	
-	// reward of this node
+	/** reward of this node */
 	public double Q = 0d;
 
-	// the uct value
+	/** the uct value */
 	public double uct = 0d;
 	
-	// heuristic value of this node
+	/** heuristic value of this node */
 	public double heuristicValue = 0;
 	
 	

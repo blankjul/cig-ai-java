@@ -8,13 +8,10 @@ import emergence.Factory;
 import emergence.strategy.mcts.MCTSNode;
 import emergence.strategy.mcts.MCTStrategy;
 import emergence.util.ActionTimer;
-import emergence.util.MapInfo;
 
 /**
  * MCTS agent (2nd controller). Uses MCTS-tree-search to build and search in a
  * tree.
- * 
- * @author spakken
  *
  */
 public class MCTSAgent extends AbstractPlayer {
