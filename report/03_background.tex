@@ -58,6 +58,7 @@ The A* tree search algorithm is a modification of the dijkstra algorithm and als
 f(x)=h(x)+g(x)
 \end{equation}
 
+\todo{any picture?}
 
 A* contains two sets of nodes, the openlist and the closedlist. In every step of the algorithm the Node N with the lowest f(x) value in the openlist is put on the closedlist and all its connected nodes, which are not in the closedlist, are put in the openlist (with reference to their fahter N). If a connected node is already in the closedlist but the new generated value f'(x) is lower than f(x) then f(x) will be replaced by f'(x) and the new father-reference is N. The openlist contains all the nodes to which the path is already known and which can be checked in the next step, the closedlist contains every visited and checked node. When the actual node is the goal-node, the algorithm terminates. To generate the path, the algorithm goes back from the goal-node to the start node (guided by the father-references). 
 
@@ -97,10 +98,11 @@ A big problem problem in RL is the conflict between exploration of new and unvis
 
 Monte Carlo Tree Search, below MCTS, is a class of RL algorithms. It is the most important concept in this paper. MCTS needs a tree of nodes which represent the different states, the edges represent the actions used by the agent to get to this node. The MCTS algorithm traverses to this tree and expands it. To find the global optimum a good balancing ratio between exploration and exploitation is required. 
 
-[maybe picture from his paper and pseudocode]
+\todo{[maybe picture from his paper and pseudocode]}
+
 
 The general MCTS algorithm has four steps, selection, expansion, simulation and backpropagation. In the selection the algorithm starts at  
-
+\todo{write the rest.}
 
 
 \subsection{Nature inspired} 
@@ -112,7 +114,7 @@ Our brain solves many problems that could not be solved by algorithms yet. Many 
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.3]{images/tlu.pdf}
+\includegraphics[scale=0.5]{images/tlu.pdf}
 \caption{threshold logic units ~\cite{ci_kruse}}
 \label{fig:tlu}
 \end{figure}
@@ -137,6 +139,10 @@ To solve that problem there is the possibility to create a network of TLU's and 
 
 \subsubsection{Evolutionary algorithm} 
 An \textit{Evolutionary Algorithm} (EA) tries to use the biological behavior of the population~\cite{evo}. 
+This algorithms follow to main ideas. Firstly there are operator like the recombination (crossover) or
+mutation that allows to create different individuals. Secondly every iteration is a selection to guarantee
+a good quality.
+The procedure is shown at the algorithm~\ref{alg:evo}. 
 
 
 \begin{algorithm}
@@ -155,10 +161,19 @@ An \textit{Evolutionary Algorithm} (EA) tries to use the biological behavior of 
 \end{algorithmic}
 \end{algorithm}
 
+First of all there is the initialization phase to create a pool with random
+individuals. After that the score of each of them has to be evaluated. Often there
+is a problem for optimization problems with a fast evaluation. This duration is
+strictly linked with the duration of the whole algorithm.
 
+The while loop needs to have a termination condition. On the one hand this could be
+a predefined score that the best individual in one generation could have. On the other 
+hand it could be a time limit that should not be exceeded.
+Every iterations starts with a selection of the parents.
+These are used to create new individuals by performing crossovers and mutations.
+The challenge is made of finding good functions for that operations. 
+Since the pool size is limit there is a selection of the fittest in every iteration.
 
-
-\subsubsection{Pheromones} 
-
-
+Often evolutionary algorithms are used for optimization problems because there
+hopefully better than a random search.
 
