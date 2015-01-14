@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  14 JAN 2015 10:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  14 JAN 2015 12:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -741,9 +741,6 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 
 LaTeX Warning: Label `sec:exp' multiply defined.
 
-
-LaTeX Warning: Label `fig:eval_evo' multiply defined.
-
 )
 \openout1 = `report.aux'.
 
@@ -818,169 +815,194 @@ LaTeX Info: Redefining \nameref on input line 21.
 \openout4 = `report.out'.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 29.
-LaTeX Font Info:    Try loading font information for U+msa on input line 29.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 25.
+ (./report.tdo
+LaTeX Font Info:    Try loading font information for U+msa on input line 1.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 29.
+LaTeX Font Info:    Try loading font information for U+msb on input line 1.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+))
+\tf@tdo=\write5
+\openout5 = `report.tdo'.
+
+ [1
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
+
+]
 
 Package hyperref Warning: bookmark level for unknown title defaults to 0.
 
 
 Package hyperref Warning: bookmark level for unknown author defaults to 0.
 
-[1
-
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./report.tdo)
-\tf@tdo=\write5
-\openout5 = `report.tdo'.
-
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 36.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 37.
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 39.
-
+ine 40.
 (./01_introduction.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
- [2
-
-]) (./02_literatur_review.tex) (./03_background.tex
+) (./02_literatur_review.tex) (./03_background.texpdfTeX warning (ext4): destin
+ation with the same identifier (name{page.1}) has been already used, duplicate 
+ignored
+<to be read again> 
+                   \relax 
+l.11 
+      [1]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 13.
-
-<images/manhatten.pdf, id=94, 346.89601pt x 347.03058pt>
+ <images/manhatten.pdf, id=107, 346.89601pt x 347.03058pt>
 File: images/manhatten.pdf Graphic file (type pdf)
 
 <use images/manhatten.pdf>
 Package pdftex.def Info: images/manhatten.pdf used on input line 28.
 (pdftex.def)             Requested size: 104.0696pt x 104.10997pt.
-
-<images/onestep_lookahead.pdf, id=95, 422.16197pt x 192.8425pt>
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.42 
+      [2 <./images/manhatten.pdf>]
+<images/onestep_lookahead.pdf, id=132, 422.16197pt x 192.8425pt>
 File: images/onestep_lookahead.pdf Graphic file (type pdf)
 
 <use images/onestep_lookahead.pdf>
 Package pdftex.def Info: images/onestep_lookahead.pdf used on input line 45.
 (pdftex.def)             Requested size: 126.64957pt x 57.85318pt.
- [3] [4 <./images/manhatten.pdf> <./images/onestep_lookahead.pdf
+ [3 <./images/onestep_lookahead.pdf>]
 
-pdfTeX warning: pdflatex (file ./images/onestep_lookahead.pdf): PDF inclusion: 
-multiple pdfs with page group included in a single page
->]
+LaTeX Warning: Marginpar on page 4 moved.
 
-LaTeX Warning: Marginpar on page 5 moved.
-
-[5] <images/tlu.pdf, id=146, 310.72922pt x 118.6289pt>
+<images/tlu.pdf, id=149, 310.72922pt x 118.6289pt>
 File: images/tlu.pdf Graphic file (type pdf)
  <use images/tlu.pdf>
 Package pdftex.def Info: images/tlu.pdf used on input line 117.
 (pdftex.def)             Requested size: 155.36423pt x 59.3143pt.
+
+[4]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 147.
-
-[6 <./images/tlu.pdf>]) (./04_techniques.tex
-<images/safe.pdf, id=197, 140.525pt x 140.525pt>
+ [5 <./images/tlu.pdf>]) (./04_techniques.tex
+<images/safe.pdf, id=211, 140.525pt x 140.525pt>
 File: images/safe.pdf Graphic file (type pdf)
  <use images/safe.pdf>
-Package pdftex.def Info: images/safe.pdf used on input line 23.
+Package pdftex.def Info: images/safe.pdf used on input line 25.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
 
-<images/safe_grid.pdf, id=199, 140.525pt x 140.525pt>
+<images/safe_grid.pdf, id=212, 140.525pt x 140.525pt>
 File: images/safe_grid.pdf Graphic file (type pdf)
 
 <use images/safe_grid.pdf>
-Package pdftex.def Info: images/safe_grid.pdf used on input line 37.
+Package pdftex.def Info: images/safe_grid.pdf used on input line 31.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
- [7] [8 <./images/safe.pdf> <./images/safe_grid.pdf
+ [6 <./images/safe.pdf> <./images/safe_grid.pdf
 
 pdfTeX warning: pdflatex (file ./images/safe_grid.pdf): PDF inclusion: multiple
  pdfs with page group included in a single page
->] <images/classes.png, id=258, 708.6475pt x 495.8525pt>
+>] <images/classes.png, id=266, 708.6475pt x 495.8525pt>
 File: images/classes.png Graphic file (type png)
 
 <use images/classes.png>
-Package pdftex.def Info: images/classes.png used on input line 79.
+Package pdftex.def Info: images/classes.png used on input line 86.
 (pdftex.def)             Requested size: 354.32289pt x 247.92564pt.
 
-Overfull \hbox (7.19936pt too wide) in paragraph at lines 79--80
+Overfull \hbox (7.19936pt too wide) in paragraph at lines 86--87
  [][] 
  []
 
-[9] <images/crossover.pdf, id=266, 299.79146pt x 170.84969pt>
+[7] [8 <./images/classes.png (PNG copy)>]
+<images/crossover.pdf, id=282, 299.79146pt x 170.84969pt>
 File: images/crossover.pdf Graphic file (type pdf)
 
 <use images/crossover.pdf>
-Package pdftex.def Info: images/crossover.pdf used on input line 139.
+Package pdftex.def Info: images/crossover.pdf used on input line 146.
 (pdftex.def)             Requested size: 179.87625pt x 102.51059pt.
- [10 <./images/classes.png (PNG copy)>]
-<images/sliding_window.pdf, id=276, 484.54187pt x 224.42944pt>
+
+<images/sliding_window.pdf, id=283, 484.54187pt x 224.42944pt>
 File: images/sliding_window.pdf Graphic file (type pdf)
 
 <use images/sliding_window.pdf>
-Package pdftex.def Info: images/sliding_window.pdf used on input line 155.
+Package pdftex.def Info: images/sliding_window.pdf used on input line 162.
 (pdftex.def)             Requested size: 290.72736pt x 134.65869pt.
- [11 <./images/crossover.pdf> <./images/sliding_window.pdf
+ [9 <./images/crossover.pdf> <./images/sliding_window.pdf
 
 pdfTeX warning: pdflatex (file ./images/sliding_window.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
->]) (./05_study.tex <images/eval_heur.pdf, id=299, 587.19376pt x 442.65375pt>
+>]) (./05_study.tex
+
+LaTeX Warning: Marginpar on page 10 moved.
+
+
+LaTeX Warning: Marginpar on page 10 moved.
+
+
+Package caption Warning: \label without proper \caption on input line 45.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:heur' on page 10 undefined on input line 21.
+
+[10] <images/eval_heur.pdf, id=314, 587.19376pt x 442.65375pt>
 File: images/eval_heur.pdf Graphic file (type pdf)
 
 <use images/eval_heur.pdf>
-Package pdftex.def Info: images/eval_heur.pdf used on input line 19.
+Package pdftex.def Info: images/eval_heur.pdf used on input line 57.
 (pdftex.def)             Requested size: 352.31897pt x 265.59428pt.
 
-Overfull \hbox (5.19543pt too wide) in paragraph at lines 19--20
+Overfull \hbox (5.19543pt too wide) in paragraph at lines 57--58
  [][] 
  []
 
-[12] [13 <./images/eval_heur.pdf>]
-<images/eval_evolutionary.pdf, id=348, 587.19376pt x 442.65375pt>
+[11] [12 <./images/eval_heur.pdf>]
+<images/eval_evolutionary.pdf, id=362, 587.19376pt x 442.65375pt>
 File: images/eval_evolutionary.pdf Graphic file (type pdf)
 
 <use images/eval_evolutionary.pdf>
-Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 89.
+Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 113.
 (pdftex.def)             Requested size: 411.03282pt x 309.8555pt.
 
-Overfull \hbox (63.90929pt too wide) in paragraph at lines 89--90
+Overfull \hbox (63.90929pt too wide) in paragraph at lines 113--114
  [][] 
  []
 
-) (./06_conclusion.tex) [14] [15 <./images/eval_evolutionary.pdf>]
+) (./06_conclusion.tex) [13] [14 <./images/eval_evolutionary.pdf>]
 (./report.bbl
 Missing character: There is no ‚ in font ptmr7t!
 Missing character: There is no Ä in font ptmr7t!
 Missing character: There is no ê in font ptmr7t!
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 57.
- [16]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 57.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 58.
+ [15]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 58.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 57.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 57.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 58.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 58.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 0B1970BAD1758A2E0A71511F5C8CF2BE;517.
 
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 57.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 58.
  ) 
 Here is how much of TeX's memory you used:
- 17677 strings out of 493304
- 307540 string characters out of 6139871
- 401818 words of memory out of 5000000
- 20687 multiletter control sequences out of 15000+600000
+ 17694 strings out of 493304
+ 307992 string characters out of 6139871
+ 396175 words of memory out of 5000000
+ 20703 multiletter control sequences out of 15000+600000
  26174 words of font info for 57 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
- 63i,10n,92p,954b,876s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,10n,92p,954b,878s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -992,10 +1014,10 @@ sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (16 pages, 256832 bytes).
+Output written on report.pdf (17 pages, 260456 bytes).
 PDF statistics:
- 460 PDF objects out of 1000 (max. 8388607)
- 313 compressed objects within 4 object streams
- 81 named destinations out of 1000 (max. 500000)
+ 474 PDF objects out of 1000 (max. 8388607)
+ 326 compressed objects within 4 object streams
+ 82 named destinations out of 1000 (max. 500000)
  127 words of extra memory for PDF output out of 10000 (max. 10000000)
 

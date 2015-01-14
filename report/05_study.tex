@@ -10,21 +10,24 @@ All the results are also visualized by boxplots. There you can see the minimum a
 the qartile values. The red line in the middle is the median and the blue dot is the mean (average wins).
 Do not mix quartiles with the standard deviation that is something completely different.
 
-\todo{combinatations really failed. explain it.}
+In the following sections each of the approaches is evaluated. 
+
+\todo{combinations really failed. explain it.}
+\todo{why we use this parameters??? something is missing...why not an exhaustive search for finding the best parameter..no time? 
+to less computational power...}
 
 \subsection{Heuristic based Algorithm} 
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.6]{images/eval_heur.pdf}
-\caption{result of the heuristic based algorithms}
-\label{fig:eval_evo}
-\end{figure}
+The heuristic based algorithm has several parameter that changes the behaviour of the agent (figure~\ref{fig:heur}).
+Firstly we just changed the maximal states field that provides a limit for saved states at
+the AStar algorithm. As you can see the average winning rate increases by changing to a higher maximal states limit up to 20.
+But if the variable is set to 25 we had a worse result. This might be that if this value is to low the target is not found 
+by the AStar algorithm. Moreover if it is to large to many states are saved and we get trouble with the memory or the
+garbage collector.
 
 
 \begin{table}[htbp]
 \center
-\caption{}
 \begin{tabular}{*9c}  \hline
 \multicolumn{1}{p{1cm}}{\centering ID} & 
 \multicolumn{1}{p{2cm}}{\centering Max.\\ States} & 
@@ -34,17 +37,38 @@ Do not mix quartiles with the standard deviation that is something completely di
 \multicolumn{1}{p{1cm}}{\centering Std of Wins} \\ \hline
 1 & 5 & SafetyAdvance & 5 & 0.517 & 0.0257099203 \\ \hline
 2 & 15 & SafetyAdvance & 5 & 0.529 & 0.0197230829 \\ \hline
-3 & 20 & SafetyAdvance & 5 & 0.532 & 0.0271293199 \\ \hline
-4 & 20 & SafetyGridSearch & - & 0.498 & 0.0235796522 \\ \hline
-5 & 20 & SafetyIntelligent & 5 & 0.527 & 0.0184661853 \\ \hline
-6 & 25 & SafetyAdvance & 5 & 0.521 & 0.0192093727 \\ \hline
+3 & 20 & SafetyAdvance & 5 & \textbf{0.532} & 0.0271293199 \\ \hline
+4 & 25 & SafetyAdvance & 5 & 0.521 & 0.0192093727 \\ \hline
+5 & 20 & SafetyGridSearch & - & 0.498 & 0.0235796522 \\ \hline
+6 & 20 & SafetyIntelligent & 5 & 0.527 & 0.0184661853 \\ \hline
 \end{tabular}
-\label{}
+\label{fig:heur}
+\caption{results of the heuristic based algorithms}
 \end{table}
 
+After that we tried to change the safety strategy to the grid and the intelligent search. Both results
+are worse than the SafetyAdvance Strategy. Since the SafeGridSearch highly depends on the Explorer and the
+classification of the object this might be the cause.
+With the SafetyIntelligent we got no further improvement but it is nearly good as the SafetyAdvance approach.
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{images/eval_heur.pdf}
+\caption{boxplot of the heuristic based algorithms}
+\label{fig:eval_heur}
+\end{figure}
+
+The boxsplot (figure~\ref{fig:eval_heur}) visualizes the quartiles. The best parameter setup has also the largest
+quartile range. When you look at the table also the largest standard deviation (which doesn't have to be the same).
+If the target is not found the agent is staying alive. The risk of a longer search to reach a simulation state
+that collides with the target could be the reason for the higher variance of the results.
+
+
+
 \subsection{MCTS} 
-
-
+We also tried to combine several approaches for example using the heuristic explorer 
+for a better mcts iteration. 
 
 
 \subsection{Evolutionary Algorithm} 

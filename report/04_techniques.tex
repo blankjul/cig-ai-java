@@ -20,10 +20,21 @@ From the resulting safe action set there could be randomly choosen the final act
 
 \begin{figure}
 \centering
+\begin{minipage}{.5\textwidth}
+  \centering
 \includegraphics[scale=0.8]{images/safe.pdf}
 \caption{Advancing safe actions}
 \label{fig:safe}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.8]{images/safe_grid.pdf}
+\caption{Grid search for safe actions}
+\label{fig:safe_grid}
+\end{minipage}
 \end{figure}
+
+
 
 Suppose there is a game situation like in figure~\ref{fig:safe} the action \textit{RIGHT} is definitely unsafe what 
 should after an amount of $n$-action be clear.
@@ -32,12 +43,8 @@ Another idea is to analyse the grid around the agent. Assume that each enemy cou
 at one game step there is a $5x5$ grid that needs to be analyzed. If an enemy at this grid exists one action is
 maybe unsafe. If not the enemy won't die for sure.
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.8]{images/safe_grid.pdf}
-\caption{Grid search for safe actions}
-\label{fig:safe_grid}
-\end{figure}
+
+
 
 At the figure~\ref{fig:safe_grid} you can see the action that could be excluded without doing any simulation at the game.
 The possible next fields (excluded the current position if agent does nothing) are marked green. The possible positions

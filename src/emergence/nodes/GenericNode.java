@@ -28,7 +28,7 @@ public class GenericNode<T> implements Iterable<GenericNode<T>> {
 	protected T info;
 
 	/**
-	 * Constructor, unused!
+	 * Create a generic node with no state observation.
 	 */
 	public GenericNode() {
 	}
