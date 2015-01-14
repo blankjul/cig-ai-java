@@ -3,7 +3,11 @@
 import java.io.IOException;
 
 
-
+/**
+ * compile the application
+ * @author spakken
+ *
+ */
 public class Compile {
 	
 	

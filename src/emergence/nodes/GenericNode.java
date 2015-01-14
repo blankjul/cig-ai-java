@@ -18,20 +18,21 @@ import emergence.util.Helper;
  */
 public class GenericNode<T> implements Iterable<GenericNode<T>> {
 
-	// the current state observation
+	/** the current state observation */
 	protected StateObservation stateObs;
 
-	// path to this value
+	/** path to this value */
 	protected ArrayList<ACTIONS> path = new ArrayList<>();
 
-	// information that could be saved for that object
+	/** information that could be saved for that object */
 	protected T info;
 
-	
+	/**
+	 * Constructor, unused!
+	 */
 	public GenericNode() {
 	}
 
-	
 	/**
 	 * Create a Node that has an state observation
 	 * 
@@ -43,6 +44,12 @@ public class GenericNode<T> implements Iterable<GenericNode<T>> {
 		this.stateObs = stateObs;
 	}
 
+	/**
+	 * Create a node that has a state observation and a path.
+	 * 
+	 * @param stateObs
+	 * @param path
+	 */
 	public GenericNode(StateObservation stateObs, ArrayList<ACTIONS> path) {
 		this(stateObs);
 		this.path = path;
@@ -63,17 +70,16 @@ public class GenericNode<T> implements Iterable<GenericNode<T>> {
 
 		// for each possible action
 		for (ACTIONS action : actionSet) {
-			GenericNode<T>  child = getChild(action);
+			GenericNode<T> child = getChild(action);
 			nodes.add(child);
 		}
 
 		return nodes;
 	}
-	
-	
 
 	/**
 	 * Returns that child if the action is performed.
+	 * 
 	 * @param action
 	 * @return child node.
 	 */
@@ -91,8 +97,6 @@ public class GenericNode<T> implements Iterable<GenericNode<T>> {
 		GenericNode<T> child = new GenericNode<T>(tmpStateObs, pathOfChild);
 		return child;
 	}
-	
-	
 
 	/**
 	 * Return all children with all available actions!
@@ -156,47 +160,69 @@ public class GenericNode<T> implements Iterable<GenericNode<T>> {
 		return Helper.hash(stateObs, getLastAction());
 	}
 
-	
+	/**
+	 * String representation of the attributes.
+	 */
 	@Override
 	public String toString() {
 		Vector2d pos = stateObs.getAvatarPosition();
-		return String.format("me:[%s,%s] | level%s | path:%s", pos.x, pos.y, getLevel(), Helper.toString(path));
+		return String.format("me:[%s,%s] | level%s | path:%s", pos.x, pos.y,
+				getLevel(), Helper.toString(path));
 	}
-	
-	
 
+	/**
+	 * Get the specified info object.
+	 * 
+	 * @return
+	 */
 	public T getInfo() {
 		return info;
 	}
-	
 
-	
-	/*
+	/**
 	 * Iterator implementations.
 	 */
-	
 	@Override
 	public Iterator<GenericNode<T>> iterator() {
-        return new NodeIterator<T>(this, new HashSet<>(stateObs.getAvailableActions()));
-	}
-	
-	
-	public Iterator<GenericNode<T>> iteratorFromActions(Collection<ACTIONS> actionSet) {
-        return new NodeIterator<T>(this, actionSet);
+		return new NodeIterator<T>(this, new HashSet<>(
+				stateObs.getAvailableActions()));
 	}
 
+	/**
+	 * Iterator implementation.
+	 * 
+	 * @param actionSet
+	 * @return
+	 */
+	public Iterator<GenericNode<T>> iteratorFromActions(
+			Collection<ACTIONS> actionSet) {
+		return new NodeIterator<T>(this, actionSet);
+	}
+
+	/**
+	 * Returns the state observation.
+	 * 
+	 * @return
+	 */
 	public StateObservation getStateObs() {
 		return stateObs;
 	}
 
+	/**
+	 * Sets the state observation.
+	 * 
+	 * @param stateObs
+	 */
 	public void setStateObs(StateObservation stateObs) {
 		this.stateObs = stateObs;
 	}
 
+	/**
+	 * Sets the path of this node.
+	 * 
+	 * @param path
+	 */
 	public void setPath(ArrayList<ACTIONS> path) {
 		this.path = path;
 	}
-	
-	
-
 }

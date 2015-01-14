@@ -1,11 +1,26 @@
 
+
+
+/**
+ * One agent is executed in one full game
+ * @author spakken
+ *
+ */
 public class OneAgentOneFullGame {
 
+	/**
+	 * Executes one agent in all levels of one game, displays the result in the
+	 * console
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
+		/** cntroller which will be executed */
 		String controller = "emergence_NI.Agent";
 		String parameter = "";
 
+		/** game which will be played */
 		String gameStr = "survivezombies";
 
 		// "aliens", "boulderdash", "buterflies", "chase", "frogs",
@@ -13,7 +28,7 @@ public class OneAgentOneFullGame {
 		// "camelRace", "digdug", "firestorms", "infection", "firecaster",
 		// "overload", "pacman", "seaquest", "whackamole", "eggomania"
 
-		// Available games:
+		/** available games */
 		String gamesPath = "examples/gridphysics/";
 
 		// Game and level to play

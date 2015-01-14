@@ -14,28 +14,41 @@ import core.game.Observation;
 import core.game.StateObservation;
 import emergence.util.Helper;
 
+/**
+ * A heuristic which is based on different weighted targets
+ * 
+ * @author spakken
+ *
+ */
 public class TargetHeuristic extends AHeuristic {
 
-	// number of targets of category that could be followed
+	/** number of targets of category that could be followed */
 	public static final int NUM_TARGETS = 3;
 
-	// all heuristics that are possible!
+	/** all heuristics that are possible! */
 	public static Set<TargetHeuristic> heuristics = new HashSet<TargetHeuristic>();
 
-	// add a tie breaker to the normed values or not
+	/** add a tie breaker to the normed values or not */
 	public final boolean USE_TIEBREAKER = true;
 
-	// weights for the formula
+	/** weights for the formula */
 	public int[] weights = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
+	/** list of known distances to targets */
 	public ArrayList<Double> distances = null;
 
+	/**
+	 * Construct an Instance by setting the weights.
+	 * 
+	 * @param weights
+	 */
 	public TargetHeuristic(int[] weights) {
 		this.weights = weights;
 	}
 
 	@Override
 	/**
+	 * Returns the weighted distances.
 	 * This method does not fit into the interface
 	 */
 	public double evaluateState(StateObservation stateObs) {
@@ -48,11 +61,10 @@ public class TargetHeuristic extends AHeuristic {
 		Dimension dim = stateObs.getWorldDimension();
 		double maxDistance = dim.getHeight() + dim.getWidth();
 
-		
 		// norm all the values!
 		for (int i = 0; i < distances.size(); i++) {
 			double d = distances.get(i);
-			
+
 			double norm = -1;
 			if (d == 0) {
 				norm = 1;
@@ -75,6 +87,9 @@ public class TargetHeuristic extends AHeuristic {
 		return value;
 	}
 
+	/**
+	 * Generate the hash code.
+	 */
 	public int hashCode() {
 		for (int i = 0; i < weights.length; i++) {
 			if (weights[i] == 1)
@@ -83,6 +98,11 @@ public class TargetHeuristic extends AHeuristic {
 		return weights.length;
 	}
 
+	/**
+	 * Overwrittes the equals method. If all weights are equal it returns true,
+	 * false otherwise.
+	 * 
+	 */
 	@Override
 	public boolean equals(Object other) {
 		if (other == null)
@@ -99,10 +119,18 @@ public class TargetHeuristic extends AHeuristic {
 		return true;
 	}
 
+	/**
+	 * Returns the parameters as a string object.
+	 */
 	public String toString() {
 		return Arrays.toString(weights);
 	}
 
+	/**
+	 * Get a random TargetHeuristic.
+	 * 
+	 * @return
+	 */
 	public static TargetHeuristic createRandom() {
 		if (heuristics.size() > 0) {
 			List<TargetHeuristic> asList = new ArrayList<TargetHeuristic>(
@@ -134,7 +162,7 @@ public class TargetHeuristic extends AHeuristic {
 		return heuristics;
 	}
 
-	/*
+	/**
 	 * get all the distances in a list
 	 */
 	public static ArrayList<Double> getDistances(StateObservation stateObs) {
@@ -147,7 +175,7 @@ public class TargetHeuristic extends AHeuristic {
 		return distances;
 	}
 
-	/*
+	/**
 	 * This function returns always an array with the next few distances. It is
 	 * an double array. If there exists not so many targets like the parameter
 	 * num says, the distance is infinity!
@@ -162,7 +190,6 @@ public class TargetHeuristic extends AHeuristic {
 		Vector2d avatarPosition = stateObs.getAvatarPosition();
 		ArrayList<Observation>[] positions = null;
 
-		
 		if (type.equals("npc")) {
 			positions = stateObs.getNPCPositions(avatarPosition);
 		} else if (type.equals("portals")) {
@@ -180,7 +207,7 @@ public class TargetHeuristic extends AHeuristic {
 			ArrayList<Observation> listObs = positions[i];
 			if (listObs == null || listObs.isEmpty())
 				continue;
-			
+
 			Observation obs = listObs.get(0);
 			eq.set(i, Helper.distance(avatarPosition, obs.position));
 		}
@@ -200,11 +227,12 @@ public class TargetHeuristic extends AHeuristic {
 		}
 	}
 
+	/**
+	 * Generate a String object which is used in csv files.
+	 */
 	@Override
 	public String toCSVString() {
 		return "TargetHeuristic";
 	}
-	
-	
 
 }

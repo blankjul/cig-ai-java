@@ -17,18 +17,31 @@ import emergence.util.MapInfo;
 
 public class MCTSHeuristicAgent extends AbstractPlayer {
 
+	/** print out information. only DEBUG! */
 	public static final boolean VERBOSE = false;
 
+	/** use the rolling horizon */
 	public boolean rollingHorizon = true;
 
+	/** the MCTS strategy used */
 	private MCTStrategy strategy = null;
 
+	/** the actual best action */
 	private ACTIONS lastAction = ACTIONS.ACTION_NIL;
 
+	/** the actual best action */
 	private ATarget bestTarget = null;
 
-	public MCTSHeuristicAgent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-		//System.out.println(MapInfo.info(stateObs));
+	/**
+	 * Constructs a new MCTSHeuristic agent. Uses MCST starteies and rolling
+	 * horizon.
+	 * 
+	 * @param stateObs
+	 * @param elapsedTimer
+	 */
+	public MCTSHeuristicAgent(StateObservation stateObs,
+			ElapsedCpuTimer elapsedTimer) {
+		// System.out.println(MapInfo.info(stateObs));
 		strategy = new MCTStrategy(new MCTSNode(null));
 		strategy.root = new MCTSNode(null);
 
@@ -36,7 +49,8 @@ public class MCTSHeuristicAgent extends AbstractPlayer {
 		timer.timeRemainingLimit = 100;
 		ExplorerStrategy explorer = new ExplorerStrategy(stateObs);
 		if (VERBOSE)
-			System.out.println(String.format("[%s] %s", stateObs.getGameTick(), explorer));
+			System.out.println(String.format("[%s] %s", stateObs.getGameTick(),
+					explorer));
 		explorer.expand(stateObs, timer);
 
 		if (VERBOSE) {
@@ -46,10 +60,17 @@ public class MCTSHeuristicAgent extends AbstractPlayer {
 
 	}
 
+	/**
+	 * Returns the action which will be executed. Uses MCTS startegies and
+	 * heuristic.
+	 */
 	public ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
-		if(stateObs.getGameTick() == 0){printParam();}
-		
+		// print parameters for csv output
+		if (stateObs.getGameTick() == 0) {
+			printParam();
+		}
+
 		// track the last action
 		Factory.getFieldTracker().track(stateObs, lastAction);
 		Environment env = Factory.getEnvironment();
@@ -59,7 +80,8 @@ public class MCTSHeuristicAgent extends AbstractPlayer {
 		timer.timeRemainingLimit = 25;
 		ExplorerStrategy explorer = new ExplorerStrategy(stateObs);
 		if (VERBOSE)
-			System.out.println(String.format("[%s] %s", stateObs.getGameTick(), explorer));
+			System.out.println(String.format("[%s] %s", stateObs.getGameTick(),
+					explorer));
 		explorer.expand(stateObs, timer);
 
 		if (env.getWinningTarget(stateObs) != null) {
@@ -70,8 +92,6 @@ public class MCTSHeuristicAgent extends AbstractPlayer {
 		if (bestTarget != null)
 			strategy.heuristic = new DistanceHeuristic(bestTarget);
 
-		
-		
 		timer.timeRemainingLimit = 3;
 		if (stateObs.getGameTick() != 0) {
 			if (rollingHorizon) {
@@ -92,15 +112,18 @@ public class MCTSHeuristicAgent extends AbstractPlayer {
 
 		return a;
 	}
-	
-	public void printParam(){
+
+	/**
+	 * print parameters
+	 */
+	public void printParam() {
 		String[] params = new String[3];
-		
+
 		params[0] = "MCTSHeuristicAgent";
 		params[1] = Boolean.toString(this.rollingHorizon);
-		//values from MCTSStrategy
+		// values from MCTSStrategy
 		params[2] = this.strategy.toCSVString();
-		
+
 		Helper.printParameter(params);
 	}
 

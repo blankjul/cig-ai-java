@@ -11,6 +11,11 @@ import emergence.util.Configuration;
 import emergence.util.GameResult;
 import emergence.util.Helper;
 
+/**
+ * For the execution of one agent and to store the results in a CSV File
+ * @author spakken
+ *
+ */
 public class OneAgentCSV {
 
 	//public static String CONTROLLER = "emergence.Agent";
@@ -24,27 +29,41 @@ public class OneAgentCSV {
 	// date, game, level, win, score, timesteps, Agent, pessimistic, pathLegth,
 	// populationsize, numFittest, updatePathLength, minGeneration
 
+	/** the number of levels which will be executed */
 	public static int NUM_LEVELS = 5;
 
+	/** the number of iterations over all Games */
 	public static int iterationsWholeGame = 10;
 
+	/** games whoch will be executed */
 	public static String[] GAMES = Helper.concatenate(Configuration.training,
 	Configuration.validation);
 	// public static String[] GAMES = Configuration.training;
 
 //	public static String[] GAMES = { "butterflies" };
 
+	/**
+	 * add the games which will be played in the execution-queue 
+	 * @param game
+	 * @return Arraylist of the results of the execution
+	 */
 	public static ArrayList<Future<GameResult>> playOneGame(String game) {
 		ArrayList<Future<GameResult>> res = new ArrayList<Future<GameResult>>();
 		for (int j = 0; j < NUM_LEVELS; j++) {
 			ExecCallable e = new ExecCallable(CONTROLLER, game, j, "");
 			Future<GameResult> future = Configuration.SCHEDULER.submit(e);
 			res.add(future);
-			// System.out.println("Wteeeeeeeeeeeeeeeeeeeeeeeeeeeese");
 		}
 		return res;
 	}
 
+	/**
+	 * plays the specified games (and levels) and stores the results in an CSV file
+	 * @param args
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws FileNotFoundException
+	 */
 	public static void main(String[] args) throws InterruptedException,
 			ExecutionException, FileNotFoundException {
 

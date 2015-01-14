@@ -12,12 +12,12 @@ package emergence.nodes;
  */
 public class Tree<T> {
 
-	
+	/** root node of the tree */
 	public GenericNode<T> root;
-	
+
+	/** sets a root and generates a tree */
 	public Tree(GenericNode<T> root) {
 		this.root = root;
 	}
-	
-	
+
 }
