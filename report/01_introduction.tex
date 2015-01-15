@@ -3,25 +3,24 @@
 
 
 Due to the fact that the game industry was growing over the past years~\cite{gartner}
-constructing good game artificial intelligences (AI) comes more and more important.
-Normally a game AI is created for one specific game. Often if a human plays against
-enemies there are different levels of difficulties that could adjusted.
+constructing good game artificial intelligences \ac{AI} comes more and more important.
+Normally a game \ac{AI} is created for one specific game. Often if humans play against
+enemies there are different levels of difficulties that could adjusted for example easy, middle and hard.
 Our aim of the course "Computational Intelligence in Games"~\footnote{http://is.cs.ovgu.de/Courses/Team+Projects/Computational+Intelligence+in+Games.html} at the Otto-von-Guericke-University Magdeburg in Germany~\footnote{http://www.ovgu.de/} was
 to evaluate three different approaches on the General Video Game AI Competition~\footnote{http://www.gvgai.net/}.
-The task is to create a game AI that play unknown games as best as possible. The agent can observe the
-whole grid with game objects that move. Besides he gets information of all the collision that happened.
+The game AI should play unknown games as effectively as possible. The agent can observe the
+whole grid with game objects that are moving. Besides he gets information of all the collision that happened.
 Moreover the agent has 40 ms for each game step to act. All actions - depending on the game - are  LEFT, UP, RIGHT, DOWN, USE and NIL.
-To find the best action the agent could simulate steps and so predict the next state.
-But there is uncertainty because the game objects move randomly.
+To find the best action the agent could simulate steps and so predict the next state. But there is uncertainty because the game objects move randomly.
 
-All this facts form a difficult problem to solve. The agent should play tight to win the most games as fast as possible. 
-Also the advancement has to be general because he should dynamically find out what is the target of the current game.
+All this facts form a complex problem to solve. The agent should play tight in order to win most of the games as fast as possible. 
+Before each of the games is starting the aim of the controller is unknown. Therefore he should dynamically find out what is the target of the current game.
 
-There are different approach to create an game AI. Therefore we first outline our literature review and explain after that
-the background of the approaches. The theory could not always be implemented like it was proposed because it has to
+In this paper we introduce three general approaches for a game \ac{AI}. Therefore we first outline our literature review and explain after that
+the background. The theory could not always be implemented like it was proposed because it has to
 fit the requirements of the games. For this reason we explain at the chapter 4 the details of our implementations.
-Then we evaluate first the best setting of each approach. Thereafter the best agents of them are compared and the
-winner comes out ahead.
+Then we evaluate first the best parameters of each approach and thereafter find out which agent is our winner.
+
 
 
 

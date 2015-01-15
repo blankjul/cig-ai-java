@@ -16,9 +16,18 @@
 \usepackage{algorithmicx}
 \usepackage{hyperref}
 \usepackage{todonotes}
+\usepackage[printonlyused]{acronym}
+
+
+
+
 
 
 \begin{document}
+
+
+
+
 
 \setcounter{tocdepth}{1}
 \listoftodos
@@ -49,8 +58,20 @@ Summarize the paper in a paragraph of two. It should contain at least 70 and at 
 \input{05_study.tex}
 \input{06_conclusion.tex}
 
-
 \newpage
+
+\section*{Acronyms}
+\begin{acronym}[YTM]
+\setlength{\itemsep}{-\parsep}
+\acro{AI}{Artificial Intelligence}
+\acro{EA}{Evolutionary Algorithm}
+\acro{RL}{Reinforcement learning}
+\acro{MDP}{Markov decision process}
+\acro{MCTS}{Monte Carlo Tree Search}
+\acro{TLU}{Threshold Logic Unit}
+\end{acronym}
+
+
 
 \bibliographystyle{IEEEtranS}
 \bibliography{IEEEabrv,literature}
