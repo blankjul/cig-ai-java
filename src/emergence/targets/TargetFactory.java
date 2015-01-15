@@ -10,11 +10,16 @@ import core.game.Observation;
 import core.game.StateObservation;
 import emergence.targets.ATarget.TYPE;
 
+/**
+ * This class is used to search specified targets and to get general information
+ * about the environment of the avatar.
+ *
+ */
 public class TargetFactory {
 
 	/**
-	 * Searched at the level for the target that has the type and itype.
-	 * if type is null the observation is searched over all possible types.
+	 * Searched at the level for the target that has the type and itype. if type
+	 * is null the observation is searched over all possible types.
 	 * 
 	 * @param type
 	 *            TYPE of the target (portal, npc, ...). null of unknown.
@@ -25,15 +30,17 @@ public class TargetFactory {
 	 * @return null if no target exists. else the observation nearest to the
 	 *         agent.
 	 */
-	public static Observation getObservationFromType(TYPE t, int itype, StateObservation stateObs) {
+	public static Observation getObservationFromType(TYPE t, int itype,
+			StateObservation stateObs) {
 		Set<TYPE> typeSet = new HashSet<>();
 		if (t == null)
 			typeSet.addAll(Arrays.asList(TYPE.values()));
 		else
 			typeSet.add(t);
-		
+
 		for (TYPE type : typeSet) {
-			ArrayList<Observation>[] obsListArray = getObservations(stateObs, type);
+			ArrayList<Observation>[] obsListArray = getObservations(stateObs,
+					type);
 			if (obsListArray == null)
 				return null;
 			for (ArrayList<Observation> listObs : obsListArray) {
@@ -48,12 +55,18 @@ public class TargetFactory {
 		return null;
 	}
 
-	public static Observation getObservationFromType(int itype, StateObservation stateObs) {
-		return getObservationFromType(null, itype, stateObs );
-		
+	/**
+	 * Searches the observation over all possible types.
+	 * 
+	 * @param itype
+	 * @param stateObs
+	 * @return
+	 */
+	public static Observation getObservationFromType(int itype,
+			StateObservation stateObs) {
+		return getObservationFromType(null, itype, stateObs);
+
 	}
-
-
 
 	/**
 	 * Returns all observations at the grid the are of an specific type.
@@ -64,7 +77,8 @@ public class TargetFactory {
 	 *            that should be returned.
 	 * @return
 	 */
-	public static ArrayList<Observation>[] getObservations(StateObservation stateObs, TYPE type) {
+	public static ArrayList<Observation>[] getObservations(
+			StateObservation stateObs, TYPE type) {
 		ArrayList<Observation>[] result = null;
 		Vector2d agentPos = stateObs.getAvatarPosition();
 		if (type.equals(TYPE.NPC)) {
@@ -86,7 +100,8 @@ public class TargetFactory {
 	 * 
 	 * @return set with all type id of TYPE type.
 	 */
-	public static Set<Integer> getAllTypeIds(StateObservation stateObs, TYPE type) {
+	public static Set<Integer> getAllTypeIds(StateObservation stateObs,
+			TYPE type) {
 		Set<Integer> result = new HashSet<Integer>();
 		ArrayList<Observation>[] obsListArray = getObservations(stateObs, type);
 		if (obsListArray == null)
@@ -125,7 +140,8 @@ public class TargetFactory {
 	 */
 	public static TYPE getType(StateObservation stateObs, int itype) {
 		for (TYPE type : TYPE.values()) {
-			ArrayList<Observation>[] obsListArray = getObservations(stateObs, type);
+			ArrayList<Observation>[] obsListArray = getObservations(stateObs,
+					type);
 			if (obsListArray == null)
 				continue;
 			for (ArrayList<Observation> listObs : obsListArray) {

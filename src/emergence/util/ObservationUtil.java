@@ -10,6 +10,11 @@ import core.game.Event;
 import core.game.Observation;
 import core.game.StateObservation;
 
+/**
+ * This class provides static methods to do some operations and checks in
+ * connection to the grid or the state observation.
+ *
+ */
 public class ObservationUtil {
 
 	/**
@@ -30,11 +35,19 @@ public class ObservationUtil {
 		return null;
 	}
 
-	// returns all the observation at a given point. if index is not present the
-	// list is empty
-	public static ArrayList<Observation> getObservations(StateObservation stateObs, Point index) {
+	/**
+	 * returns all the observations at a given point. if index is not present
+	 * the list is empty
+	 * 
+	 * @param stateObs
+	 * @param index
+	 * @return
+	 */
+	public static ArrayList<Observation> getObservations(
+			StateObservation stateObs, Point index) {
 		ArrayList<Observation>[][] grid = stateObs.getObservationGrid();
-		if (index.x >= 0 && index.x < grid.length && index.y >= 0 && index.y < grid[0].length) {
+		if (index.x >= 0 && index.x < grid.length && index.y >= 0
+				&& index.y < grid[0].length) {
 			return grid[index.x][index.y];
 		} else {
 			return new ArrayList<Observation>();
@@ -42,8 +55,14 @@ public class ObservationUtil {
 
 	}
 
-	// return the new index at the grid if the actions is performed
-	// and the controller is really moving
+	/**
+	 * return the new index at the grid if the actions is performed and the
+	 * avatar is really moving
+	 * 
+	 * @param index
+	 * @param a
+	 * @return
+	 */
 	public static Point getMoveIndex(Point index, ACTIONS a) {
 		if (a == ACTIONS.ACTION_DOWN) {
 			return new Point(index.x, index.y + 1);
@@ -58,7 +77,12 @@ public class ObservationUtil {
 		}
 	}
 
-	// return the index of the grid calculated from the position
+	/**
+	 * return the index of the grid calculated from the position
+	 * 
+	 * @param stateObs
+	 * @return
+	 */
 	public static Point avatarPosToGridIndex(StateObservation stateObs) {
 		Vector2d avatarPosition = stateObs.getAvatarPosition();
 		int iX = (int) (avatarPosition.x / stateObs.getBlockSize());
@@ -66,7 +90,16 @@ public class ObservationUtil {
 		return new Point(iX, iY);
 	}
 
-	public static Vector2d getNextPositionIfMove(Vector2d avatarPosition, ACTIONS a, double blocksize) {
+	/**
+	 * Returns the next position if the avatar uses the action a.
+	 * 
+	 * @param avatarPosition
+	 * @param a
+	 * @param blocksize
+	 * @return
+	 */
+	public static Vector2d getNextPositionIfMove(Vector2d avatarPosition,
+			ACTIONS a, double blocksize) {
 		double x = avatarPosition.x;
 		double y = avatarPosition.y;
 		if (a == ACTIONS.ACTION_LEFT)
@@ -79,7 +112,5 @@ public class ObservationUtil {
 			new Vector2d(x, y + blocksize);
 
 		return new Vector2d(x, y);
-
 	}
-
 }

@@ -10,14 +10,15 @@ import tools.Vector2d;
  */
 abstract public class ATarget {
 
+	/** the different types of a target. */
 	public enum TYPE {
 		Portal, Resource, NPC, Immovable, Movable
 	};
 
-	// type of this target (portal, npc, ....)
+	/** type of this target (portal, npc, ....) */
 	protected TYPE type;
 
-	// type id of this target
+	/** type id of this target */
 	protected Integer itype;
 
 	/**
@@ -55,16 +56,26 @@ abstract public class ATarget {
 	 * @return true if it's a movable type else false.
 	 */
 	public static boolean isImmovable(TYPE type) {
-		if (type.equals(TYPE.Portal) || type.equals(TYPE.Immovable) || type.equals(TYPE.Resource)) {
+		if (type.equals(TYPE.Portal) || type.equals(TYPE.Immovable)
+				|| type.equals(TYPE.Resource)) {
 			return true;
 		}
 		return false;
 	}
-	
+
+	/**
+	 * Checks if the target exists in the given state observation.
+	 * 
+	 * @param stateObs
+	 * @return
+	 */
 	public boolean exists(StateObservation stateObs) {
 		return TargetFactory.getObservationFromType(type, itype, stateObs) != null;
 	}
 
+	/**
+	 * Returns true if the itype of the targets is the same.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof ATarget))
@@ -74,15 +85,28 @@ abstract public class ATarget {
 		return this.itype == ((ATarget) obj).itype;
 	}
 
+	/**
+	 * Returns the itype of the target, is used a hashvalue.
+	 */
 	@Override
 	public int hashCode() {
 		return itype;
 	}
 
+	/**
+	 * Returns the type.
+	 * 
+	 * @return
+	 */
 	public TYPE getType() {
 		return type;
 	}
 
+	/**
+	 * Returns the itype.
+	 * 
+	 * @return
+	 */
 	public Integer getItype() {
 		return itype;
 	}

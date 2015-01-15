@@ -23,7 +23,6 @@ import emergence.util.Helper;
  * A MCTS strategy which builds the tree and searches in this tree using
  * default-and tree policy and some other methods.
  * 
- * @author spakken
  *
  */
 public class MCTStrategy extends AStrategy {

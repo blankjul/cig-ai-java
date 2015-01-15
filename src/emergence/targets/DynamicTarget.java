@@ -11,10 +11,19 @@ import core.game.StateObservation;
  */
 public class DynamicTarget extends ATarget {
 
+	/**
+	 * Creates a target (just calls the super constructor).
+	 * 
+	 * @param type
+	 * @param itype
+	 */
 	public DynamicTarget(TYPE type, Integer itype) {
 		super(type, itype);
 	}
 
+	/**
+	 * Returns the position of the target.
+	 */
 	@Override
 	public Vector2d getPosition(StateObservation stateObs) {
 		Observation obs = null;

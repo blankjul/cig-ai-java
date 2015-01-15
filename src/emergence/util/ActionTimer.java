@@ -11,22 +11,21 @@ import tools.ElapsedCpuTimer;
  */
 public class ActionTimer {
 
-	// variable for defining a safety time limit
+	/** variable for defining a safety time limit */
 	public int timeRemainingLimit = 4;
 
-	// multiplicator of the average time
+	/** multiplicator of the average time */
 	public double timeAvgMultiplicator = 2;
-	
-	// number of iterations
+
+	/** number of iterations */
 	protected int iteration = 0;
 
-	// timer for the act method. is need for the remaining time
+	/** timer for the act method. is need for the remaining time */
 	protected ElapsedCpuTimer cpuTimer;
 
-	// timer for the act method. is need for the remaining time
+	/** timer for the act method. is need for the remaining time */
 	protected double startTime;
-		
-		
+
 	/**
 	 * This is the constructor for the Timer object. The elapsedTimer that is
 	 * given to the act method of the controller is needed to get the remaining
@@ -40,6 +39,9 @@ public class ActionTimer {
 		iteration = 0;
 	}
 
+	/**
+	 * Adds one iteration to the timer.
+	 */
 	public void addIteration() {
 		++this.iteration;
 	}
@@ -50,7 +52,8 @@ public class ActionTimer {
 	 * @return average time or zero if there were no iterations.
 	 */
 	double getAVG() {
-		return (iteration != 0) ? (startTime - getRemaining()) / (double) iteration : 0;
+		return (iteration != 0) ? (startTime - getRemaining())
+				/ (double) iteration : 0;
 	}
 
 	/**
