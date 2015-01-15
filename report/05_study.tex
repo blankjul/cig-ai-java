@@ -18,7 +18,7 @@ to less computational power...}
 
 \subsection{Heuristic based Algorithm} 
 
-The heuristic based algorithm has several parameter that changes the behaviour of the agent (cf. figure~\ref{fig:heur}).
+The heuristic based algorithm has several parameter that changes the behaviour of the agent (cf.~\cref{tbl:heur}).
 Firstly we just changed the maximal states field that provides a limit for saved states at
 the AStar algorithm. As you can see the average winning rate increases by changing to a higher maximal states limit up to 20.
 But if the variable is set to 25 we had a worse result. This might be that if this value is to low the target is not found 
@@ -42,8 +42,8 @@ garbage collector.
 5 & 20 & SafetyGridSearch & - & 0.498 & 0.0235796522 \\ \hline
 6 & 20 & SafetyIntelligent & 5 & 0.527 & 0.0184661853 \\ \hline
 \end{tabular}
-\label{fig:heur}
 \caption{results of the heuristic based algorithms}
+\label{tbl:heur}
 \end{table}
 
 After that we tried to change the safety strategy to the grid and the intelligent search. Both results
@@ -59,7 +59,7 @@ With the SafetyIntelligent we got no further improvement but it is nearly good a
 \label{fig:eval_heur}
 \end{figure}
 
-The boxplot (cf. figure~\ref{fig:eval_heur}) visualizes the quartiles. The best parameter setup has also the largest
+The boxplot (cf.~\cref{fig:eval_heur}) visualizes the quartiles. The best parameter setup has also the largest
 quartile range. When you look at the table also the largest standard deviation (which doesn't have to be the same).
 If the target is not found the agent is staying alive. The risk of a longer search to reach a simulation state
 that collides with the target could be the reason for the higher variance of the results.
