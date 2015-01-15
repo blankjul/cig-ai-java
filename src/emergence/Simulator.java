@@ -5,7 +5,7 @@ import tools.Vector2d;
 import core.game.StateObservation;
 
 /**
- * This class provides same advanced simulation and tracks statistics of it.
+ * This class provides some advanced simulation and tracks statistics of it.
  * This should be used for all the simulation of recommended moves is used.
  */
 public class Simulator {

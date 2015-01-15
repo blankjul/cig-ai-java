@@ -7,7 +7,7 @@ import core.player.AbstractPlayer;
 import emergence.agents.MCTSAgent;
 
 /**
- * This is just a wrapper class for for executing antoher controller.
+ * This is just a wrapper class for for executing another controller.
  */
 public class Agent extends AbstractPlayer {
 

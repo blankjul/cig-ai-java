@@ -77,7 +77,7 @@ First of all he creates a list with all interesting targets that exists at the l
 and simulate until the agent dies. 
 For all the simulation there is a global class the \textit{Simulator} that automatically make inferences from the observations.
 The knowledge base is the environment class that contains information to blocking, scoring, winning and loosing game objects (sprites).
-This two classes follows the singleton pattern and could be created by using the factory (Figure~\ref{fig:sim_classes}).
+This two classes follows the singleton pattern and could be created by using the factory (cf. figure~\ref{fig:sim_classes}).
 Additional information that you can see at the figure is the game detection that is explained later and the field tracker that keeps 
 information about all fields at the grid and how often the agent visited each one.
 
@@ -139,7 +139,7 @@ is calculated by using the function
 what we called delta heuristic function.
 
 We implemented two very naive operations on the pool. The crossover is done by
-select for 50 \% the action of the first or the second individual (Figure ~\ref{fig:crossover}).
+select for 50 \% the action of the first or the second individual (cf. figure ~\ref{fig:crossover}).
 
 \begin{figure}[H]
 \centering
@@ -164,7 +164,7 @@ game step. All candidates from the last final pool of the last game step are use
 \label{fig:sliding_window}
 \end{figure}
 
-For that we use the principle of a sliding window (Figure~\ref{fig:sliding_window}). The first
+For that we use the principle of a sliding window (cf. figure~\ref{fig:sliding_window}). The first
 action from the last pool is removed because the agent was acting like this at the last game step. Then
 to keep the action length fix there is added one random action to the action path.
 By using that principle we are not throwing our last simulations away.
