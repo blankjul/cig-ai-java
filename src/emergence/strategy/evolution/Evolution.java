@@ -8,34 +8,47 @@ import core.game.StateObservation;
 import emergence.util.ActionTimer;
 import emergence.util.Helper;
 
+/**
+ * Main class for the evolutionary agent (3rd controller).
+ * 
+ *
+ */
 public class Evolution {
 
 	/** probability of a mutation */
 	final private double MUTATE_PROBABILITY = 0.7;
 
-	/** number of actions that are simulated*/
+	/** number of actions that are simulated */
 	private int pathLength;
 
-	/** how many entries should the population has*/
+	/** how many entries should the population has */
 	private int populationSize;
 
-	/** number of the fittest to save for the next generation*/
+	/** number of the fittest to save for the next generation */
 	private int numFittest;
 
-	/** the current population*/
+	/** the current population */
 	private ArrayList<EvolutionaryNode> population = new ArrayList<>();
 
-	/** always the last generation!*/
+	/** always the last generation! */
 	private ArrayList<EvolutionaryNode> lastGeneration = null;
 
-	/** number of generations that were applied.*/
+	/** number of generations that were applied. */
 	private int numGeneration = 0;
 
-	/** counter for the pool simulation*/
+	/** counter for the pool simulation */
 	private int counter = 0;
 
-	
-	public Evolution(int pathLength, int populationSize, int numFittest, StateObservation stateObs) {
+	/**
+	 * Creates an Instance of this class, defines several parameters of the EA-
+	 * 
+	 * @param pathLength
+	 * @param populationSize
+	 * @param numFittest
+	 * @param stateObs
+	 */
+	public Evolution(int pathLength, int populationSize, int numFittest,
+			StateObservation stateObs) {
 		super();
 		this.pathLength = pathLength;
 		this.populationSize = populationSize;
@@ -47,6 +60,12 @@ public class Evolution {
 		}
 	}
 
+	/**
+	 * This is the main loop in which the evolution process takes place.
+	 * 
+	 * @param stateObs
+	 * @param timer
+	 */
 	public void expand(StateObservation stateObs, ActionTimer timer) {
 
 		while (timer.isTimeLeft()) {
@@ -66,6 +85,13 @@ public class Evolution {
 		}
 	}
 
+	/**
+	 * The sliding window is used to store the information from the last
+	 * generation. It cuts of the first action of the path and appends one new
+	 * random action at the end.
+	 * 
+	 * @param stateObs
+	 */
 	public void slidingWindow(StateObservation stateObs) {
 		numGeneration = 0;
 		lastGeneration = null;
@@ -74,7 +100,8 @@ public class Evolution {
 
 		for (int i = 0; i < population.size(); i++) {
 			EvolutionaryNode evoNode = population.get(i);
-			EvolutionaryNode nodeToAdd = new EvolutionaryNode(stateObs, evoNode.getPath());
+			EvolutionaryNode nodeToAdd = new EvolutionaryNode(stateObs,
+					evoNode.getPath());
 			nodeToAdd.removeFirstAction();
 			nodeToAdd.setLength(evoNode.getLevel() + 1, stateObs);
 			nodeToAdd.setScore(Double.NEGATIVE_INFINITY);
@@ -83,6 +110,9 @@ public class Evolution {
 		population = poolNew;
 	}
 
+	/**
+	 * Create the next generation.
+	 */
 	public void nextGen() {
 		++numGeneration;
 		lastGeneration = population;
@@ -129,10 +159,18 @@ public class Evolution {
 		population = nextPool;
 	}
 
+	/**
+	 * print 3 generations.
+	 */
 	public void print() {
 		print(3);
 	}
 
+	/**
+	 * print generations.
+	 * 
+	 * @param top
+	 */
 	public void print(int top) {
 		ArrayList<EvolutionaryNode> pool = getPopulation();
 		Collections.sort(population);
@@ -146,10 +184,21 @@ public class Evolution {
 		}
 	}
 
+	/**
+	 * Returns the pathlength.
+	 * 
+	 * @return
+	 */
 	public int getPathLength() {
 		return pathLength;
 	}
 
+	/**
+	 * Set the path length.
+	 * 
+	 * @param stateObs
+	 * @param pathLength
+	 */
 	public void setPathLength(StateObservation stateObs, int pathLength) {
 		this.pathLength = pathLength;
 		for (int i = 0; i < population.size(); i++) {
@@ -158,20 +207,37 @@ public class Evolution {
 		}
 	}
 
+	/**
+	 * Get the number of generations.
+	 * 
+	 * @return
+	 */
 	public int getNumGeneration() {
 		return numGeneration;
 	}
 
+	/**
+	 * Returns the populationsize.
+	 * 
+	 * @return
+	 */
 	public int getPopulationSize() {
 		return population.size();
 	}
 
+	/**
+	 * Set the populationsize by removing or adding nodes to the population.
+	 * 
+	 * @param stateObs
+	 * @param populationSize
+	 */
 	public void setPopulationSize(StateObservation stateObs, int populationSize) {
 		this.populationSize = populationSize;
 		Collections.sort(population);
 
 		while (population.size() < populationSize) {
-			EvolutionaryNode random = EvolutionaryNode.random(stateObs, populationSize);
+			EvolutionaryNode random = EvolutionaryNode.random(stateObs,
+					populationSize);
 			population.add(random);
 		}
 		while (population.size() > populationSize) {
@@ -180,14 +246,31 @@ public class Evolution {
 
 	}
 
+	/**
+	 * Get the number of the individuals which will be saved for the next
+	 * generation.
+	 * 
+	 * @return
+	 */
 	public int getNumFittest() {
 		return numFittest;
 	}
 
+	/**
+	 * Set the number of the individuals which will be saved for the next
+	 * generation.
+	 * 
+	 * @param numFittest
+	 */
 	public void setNumFittest(int numFittest) {
 		this.numFittest = numFittest;
 	}
 
+	/**
+	 * Return the population
+	 * 
+	 * @return
+	 */
 	public ArrayList<EvolutionaryNode> getPopulation() {
 		if (lastGeneration != null) {
 			return lastGeneration;

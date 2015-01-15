@@ -29,7 +29,7 @@ import emergence.util.Helper;
 public class MCTStrategy extends AStrategy {
 
 	/** maximal depth of the tree */
-	public int maxDepth = 4;
+	public int maxDepth = 15;
 
 	/** this is the discounting factor. it's one so disabled default */
 	public double gamma = 1.0;
@@ -281,8 +281,7 @@ public class MCTStrategy extends AStrategy {
 	public String toCSVString() {
 		String csv = "";
 		csv += Integer.toString(this.maxDepth) + ",";
-		csv += Double.toString(this.gamma) + ",";
-		csv += (this.heuristic == null ? "null" : this.heuristic.toCSVString());
+		csv += Double.toString(this.gamma);
 
 		return csv;
 	}

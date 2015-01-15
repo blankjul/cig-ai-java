@@ -13,7 +13,6 @@ import core.game.StateObservation;
  * A Safety is a method to check if a action is safe. The different approaches
  * should inherit from this class.
  * 
- * @author spakken
  *
  */
 public abstract class ASafety {

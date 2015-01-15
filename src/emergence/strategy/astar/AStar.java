@@ -18,54 +18,85 @@ import emergence.heuristics.AHeuristic;
 import emergence.heuristics.DistanceHeuristic;
 import emergence.nodes.GenericNode;
 import emergence.safety.ASafety;
+import emergence.safety.SafetyAdvance;
 import emergence.targets.ATarget;
 import emergence.util.Helper;
 
 /**
- * This AStar algorithm finds the path to a given target.
+ * This AStar algorithm finds the shortest path to a given target.
+ *
  */
 public class AStar {
 
-	/** all AStarNodes that are in the openList for fast access*/
+	/** all AStarNodes that are in the openList for fast access */
 	private Map<String, AStarNode> openSet = new HashMap<>();
 
 	/** all current stateObservations that could be expanded */
-	private PriorityQueue<AStarNode> openList = new PriorityQueue<>(20, new AStarNodeScoreComparator());
+	private PriorityQueue<AStarNode> openList = new PriorityQueue<>(20,
+			new AStarNodeScoreComparator());
 
-	/** all the hashes of positions where the controller was before*/
+	/** all the hashes of positions where the controller was before */
 	private Set<String> closedHash = new HashSet<String>();
 
-	/** how many states should be saved in the open list!
-	/** if zero there is no max!*/
+	/**
+	 * how many states should be saved in the open list! If zero there is no
+	 * max!
+	 */
 	private int maxStates = 0;
 
-	/** heuristic that should be used!*/
+	/** heuristic that should be used! */
 	private AHeuristic heuristic;
 
-	/** iterator for the current child iteration*/
+	/** iterator for the current child iteration */
 	private Iterator<GenericNode<AStarInfo>> it;
 
-	/** state observation if the node that is iterated by it*/
+	/** state observation if the node that is iterated by it */
 	private StateObservation lastStateObservation;
-	
-	/** boolean if the target was found or not!*/
-	private boolean hasFound = false;
-	
-	/** enables to act pessimistic*/
-	private ASafety safetyStrategy;
 
+	/** boolean if the target was found or not! */
+	private boolean hasFound = false;
+
+	/** enables to act pessimistic */
+	private ASafety safetyStrategy;// = new SafetyAdvance(4);
+
+	/**
+	 * Creates a AStar object given a state observation and a target by calling
+	 * another Constructor of this class.
+	 * 
+	 * @param stateObs
+	 * @param target
+	 */
 	public AStar(StateObservation stateObs, ATarget target) {
 		this(stateObs, new DistanceHeuristic(target));
 	}
-	
-	public AStar(StateObservation stateObs, ATarget target, int maxStates, ASafety safetyStrategy) {
+
+	/**
+	 * Creates a AStar object given the state observation and a target and
+	 * allows to specify the maximum number of states which are stored in the
+	 * openlist and a safetystrategy. It calls another constructor of this
+	 * class.
+	 * 
+	 * @param stateObs
+	 * @param target
+	 * @param maxStates
+	 * @param safetyStrategy
+	 */
+	public AStar(StateObservation stateObs, ATarget target, int maxStates,
+			ASafety safetyStrategy) {
 		this(stateObs, new DistanceHeuristic(target), maxStates);
 		this.safetyStrategy = safetyStrategy;
 	}
-	
+
+	/**
+	 * Creates a AStar object given the state observation and a heuristic. It is
+	 * called from the other constructors in this class.
+	 * 
+	 * @param stateObs
+	 * @param heuristic
+	 */
 	public AStar(StateObservation stateObs, AHeuristic heuristic) {
 		this.heuristic = heuristic;
-		
+
 		// initialize root node
 		AStarNode root = new AStarNode(stateObs);
 		root.setCosts(0);
@@ -73,22 +104,41 @@ public class AStar {
 		openList.add(root);
 		openSet.put(root.hash(), root);
 	}
-	
+
+	/**
+	 * Creates a AStar object given the state observation, the target, and the
+	 * maximum number of states in the openlist. It calls another constructor of
+	 * this class.
+	 * 
+	 * @param stateObs
+	 * @param target
+	 * @param maxStates
+	 */
 	public AStar(StateObservation stateObs, ATarget target, int maxStates) {
 		this(stateObs, new DistanceHeuristic(target), maxStates);
 	}
 
+	/**
+	 * Creates a AStar object given the state observation, the heuristic, and
+	 * the maximum number of states in the openlist. It calls another
+	 * constructor of this class.
+	 * 
+	 * @param stateObs
+	 * @param heuristic
+	 * @param maxStates
+	 */
 	public AStar(StateObservation stateObs, AHeuristic heuristic, int maxStates) {
 		this(stateObs, heuristic);
 		this.maxStates = maxStates;
 	}
 
-	
 	/**
-	 * This is the core method of the AStar algorithm. Every step is expanding one node depending on one actions.
-	 * If of one node all the actions are expanded, the new best node of the open list is taken.
+	 * This is the core method of the AStar algorithm. Every step is expanding
+	 * one node depending on one actions. If of one node all the actions are
+	 * expanded, the new best node of the open list is taken.
 	 * 
-	 * @return the node that was expanded or null if we found the winning node or it's not reachable.
+	 * @return the node that was expanded or null if we found the winning node
+	 *         or it's not reachable.
 	 */
 	public AStarNode expand() {
 
@@ -96,12 +146,11 @@ public class AStar {
 		if ((openList.isEmpty() && !it.hasNext())) {
 			return null;
 		}
-		
+
 		// if there is a max state feature check for it
 		if (maxStates > 0 && openList.size() > maxStates) {
 			resizeOpenNodes((int) (maxStates / 2));
 		}
-
 
 		// if the current node is completely expanded get the next node
 		if (it == null || !it.hasNext()) {
@@ -113,28 +162,32 @@ public class AStar {
 			closedHash.add(n.hash());
 
 			// for all the actions that are recommended by the simulator
-			Set<ACTIONS> recommendedActions = Factory.getEnvironment().getMoveActions(n.getStateObs());
+			Set<ACTIONS> recommendedActions = Factory.getEnvironment()
+					.getMoveActions(n.getStateObs());
 
 			// just prune the actions by the opposite of the last - if last was
 			// RIGHT then remove LEFT
-			recommendedActions.remove(Helper.getOppositeAction(n.getLastAction()));
+			recommendedActions.remove(Helper.getOppositeAction(n
+					.getLastAction()));
 
 			lastStateObservation = n.getStateObs();
 			it = n.iteratorFromActions(recommendedActions);
-			
+
 			// get the AStarNode and set the costs
-			if (!it.hasNext()) return n;
+			if (!it.hasNext())
+				return n;
 
 		}
-		
-		
-				
+
 		AStarNode child = new AStarNode(it.next());
-		child.setCosts(Helper.distance(lastStateObservation.getAvatarPosition(), child.getStateObs().getAvatarPosition()));
+		child.setCosts(Helper.distance(
+				lastStateObservation.getAvatarPosition(), child.getStateObs()
+						.getAvatarPosition()));
 		child.setHeuristic(heuristic.evaluateState(child.getStateObs()));
-		
+
 		if (safetyStrategy != null && child.getLevel() == 1) {
-			if (! safetyStrategy.isSafe(child.getStateObs(), child.getLastAction())) {
+			if (!safetyStrategy.isSafe(child.getStateObs(),
+					child.getLastAction())) {
 				child.setHeuristic(Double.POSITIVE_INFINITY);
 			}
 		}
@@ -148,7 +201,8 @@ public class AStar {
 		}
 
 		// if the agent were there before continue
-		if (closedHash.contains(child.hash()) || child.heuristic() == Double.POSITIVE_INFINITY){
+		if (closedHash.contains(child.hash())
+				|| child.heuristic() == Double.POSITIVE_INFINITY) {
 			return child;
 		}
 
@@ -173,11 +227,16 @@ public class AStar {
 		return child;
 	}
 
-	
-	
+	/**
+	 * Change the size of the openlist by changing the size of members openList
+	 * and openSet.
+	 * 
+	 * @param size
+	 */
 	private void resizeOpenNodes(int size) {
 		Map<String, AStarNode> openSetNew = new HashMap<>();
-		PriorityQueue<AStarNode> openListNew = new PriorityQueue<>(size, new AStarNodeScoreComparator());
+		PriorityQueue<AStarNode> openListNew = new PriorityQueue<>(size,
+				new AStarNodeScoreComparator());
 
 		for (AStarNode n : openList) {
 			openListNew.add(n);
@@ -191,9 +250,11 @@ public class AStar {
 
 	}
 
-	
+	/**
+	 * Prints the nodes in the openlist.
+	 */
 	public void printOpenList() {
-		//System.out.println("---------BEST--------");
+		// System.out.println("---------BEST--------");
 		// System.out.println(act().toString());
 		System.out.println("---------OPENLIST--------");
 		for (AStarNode n : openList) {
@@ -201,54 +262,78 @@ public class AStar {
 		}
 	}
 
+	/**
+	 * Returns the actual openlist.
+	 * 
+	 * @return
+	 */
 	public PriorityQueue<AStarNode> getOpenList() {
 		return openList;
 	}
-	
 
+	/**
+	 * Returns true if the astar algorithm does not find a solution, false
+	 * otherwise.
+	 * 
+	 * @return
+	 */
 	public boolean isNotReachable() {
 		return openList.isEmpty() && !hasFound;
 	}
-	
+
+	/**
+	 * Returns true if the algorithm has found a path, false otherwise.
+	 * 
+	 * @return
+	 */
 	public boolean hasFound() {
 		return hasFound;
 	}
 
-	
-	
+	/**
+	 * Prints debug information in the displayed window
+	 * 
+	 * @param
+	 */
 	public void paint(Graphics2D g) {
 		int markerSize = 15;
-		
-		
+
 		for (String str : closedHash) {
 			String[] strPoint = str.substring(1, str.length() - 1).split(",");
-			Vector2d v = new Vector2d(Double.valueOf(strPoint[0]), Double.valueOf(strPoint[1]));
+			Vector2d v = new Vector2d(Double.valueOf(strPoint[0]),
+					Double.valueOf(strPoint[1]));
 			Point p = new Point((int) v.x, (int) v.y);
 			g.setColor(Color.BLACK);
-            g.fillOval(p.x + 5 , p.y + 5, markerSize, markerSize);
+			g.fillOval(p.x + 5, p.y + 5, markerSize, markerSize);
 		}
-		
+
 		for (AStarNode node : openList) {
 			g.setColor(Color.YELLOW);
 			Vector2d v = node.getStateObs().getAvatarPosition();
 			Point p = new Point((int) v.x, (int) v.y);
-            g.fillOval(p.x , p.y , markerSize, markerSize);
+			g.fillOval(p.x, p.y, markerSize, markerSize);
 		}
-		
+
 		if (lastStateObservation != null) {
 			Vector2d v = lastStateObservation.getAvatarPosition();
 			Point p = new Point((int) v.x, (int) v.y);
 			g.setColor(Color.RED);
-			g.fillOval(p.x , p.y , markerSize, markerSize);
+			g.fillOval(p.x, p.y, markerSize, markerSize);
 		}
-		
+
 	}
-	
-	public String toCSVString(){
+
+	/**
+	 * Returns the parameters, used for csv output.
+	 * 
+	 * @return
+	 */
+	public String toCSVString() {
 		String par = "";
 		par += "DistanceHeuristic,";
-		par += (safetyStrategy == null ? "null,null" : safetyStrategy.toCSVString());
-		
+		par += (safetyStrategy == null ? "null,null" : safetyStrategy
+				.toCSVString());
+
 		return par;
 	}
 }
