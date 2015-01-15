@@ -1,15 +1,18 @@
 \documentclass{llncs}
-\usepackage{subfigure,graphicx,url,times,multirow,amsmath,amssymb,xspace,epsfig,todonotes,array,caption}
-
-\newcommand{\keywords}[1]{\par\addvspace\baselineskip\noindent\keywordname\enspace\ignorespaces#1}
-\newcommand{\vect}[1]{\boldsymbol{#1}}
-\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
-\DeclareMathOperator*{\argmax}{arg\,max}
-
-\hyphenation{proving}
-\setcounter{secnumdepth}{5}
 
 \usepackage{hyperref} 
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{times}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xspace}
+\usepackage{epsfig}
+\usepackage{todonotes}
+\usepackage{array}
+\usepackage{caption}
 \usepackage{graphicx}
 \usepackage{mathtools}
 \usepackage{algorithm}
@@ -19,14 +22,35 @@
 \usepackage[printonlyused]{acronym}
 \usepackage{microtype}
 \usepackage{cleveref}
-
 \usepackage{xcolor}
+
+
+\title{Computational Intelligence in Games}%
+\author{Julian Blank, Frederick Sander}%
+\institute{Otto-von-Guericke-University Magdeburg, Germany \\ julian.blank@st.ovgu.de \\ frederick.sander@st.ovgu.de}
+
 \hypersetup{
     colorlinks,
     linkcolor={red!50!black},
     citecolor={blue!50!black},
-    urlcolor={blue!80!black}
+    urlcolor={blue!80!black},
+    pdftitle = {\@title},
+    pdfauthor = {\@author}
 }
+
+
+
+
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip\noindent\keywordname\enspace\ignorespaces#1}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\hyphenation{proving}
+\setcounter{secnumdepth}{5}
+
+
+
 
 \begin{document}
 
@@ -34,14 +58,10 @@
 \setcounter{tocdepth}{1}
 \listoftodos
 
+
+
 \mainmatter
-
-\title{Computational Intelligence in Games}%
-\author{Julian Blank, Frederick Sander}%
-\institute{Otto-von-Guericke-University Magdeburg, Germany \\ julian.blank@st.ovgu.de \\ frederick.sander@st.ovgu.de}
-
 \maketitle
-
 
 
 
@@ -62,7 +82,7 @@ Summarize the paper in a paragraph of two. It should contain at least 70 and at 
 
 \newpage
 
-\section{Acronyms}
+\section*{Acronyms}
 \begin{acronym}[YTM]
 \setlength{\itemsep}{-\parsep}
 \acro{AI}{Artificial Intelligence}
