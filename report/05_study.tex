@@ -3,7 +3,21 @@
 \label{sec:exp}
 
 \todo{Detail the experimental setup used to test the different algorithms. Present the results in an understandable manner (graphics, tables, etc.). Draw conclusions about what things worked (and why) and which didn't (and why).  \ldots}
+\todo{maybe the wrong place for this paragraph, introduction and describes the test environment}
 
+To test how well the implemented algorithms work we executed the games a lot of times. We have the 20 games from the trainings- and validationset to test the algorithms. We had no acces to the origial test set. First of all we want to compare the 3 different controllers with each other but the several different parameters we can change in the controllers are also interesting.
+To test a agent we ran 1000 Games, one game 50 times and one single level 10 times. The following machine was used to run all of the simulations:
+
+\begin{table}
+\begin{tabular}{*9c} \hline
+CPU & 4x Inted(R) Core(TM) i5-4210U CPU @ 1.70Ghz \\
+Memory & 8 GB DDR3 L \\
+Operating System & Ubuntu 14.04.1 LTS \\
+\end{tabular}
+
+\end{table}
+
+Only this machine was used because with the same agent and parameters we achived on different machines very different results. The computational power from the cpu was ?ausschlaggebend for our choice. The reason of the different results is that the agent every gametick only has 40ms to return an action. The results from a powerful CPU were better and more stable (the derivation was ?kleiner) than the results from an ?schlechter CPU. To evaluate the results we stored them in csv files and generated tables.
 
 For every evaluation is first of all a table with all there parameter settings. Additionally there are the average winning rate and the standard deviation listed.
 All the results are also visualized by boxplots. There you can see the minimum and maximum average wins overall iterations. Furthermore the blue rectangle shows 

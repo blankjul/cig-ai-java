@@ -106,11 +106,53 @@ for a smarter iteration.
 
 \subsection{MCTS Tree} 
 
+The theory of MCTS-treesearch is described in section 3. The standard approach was modified to fit our problem. The whole MCTS algorithm is computed in the class \textit{MCTSStrategy} which is used by the \textit{MCTSAgent} and the \textit{MCTSHeuristicAgent}.
+
+\subsubsection{tree policy}
+Our tree policy iterates trough the tree, starting at the root node. When a node is not fully expanded, a randomly chosen children node is generated. We tried out some other ways to chose the children, but random selection worked best. If we reach a fully expanded node the tree policy uses a modified UCT formula
+
+\begin{equation}
+ 	UCT = \frac{c.Q}{c.V + ep * r} + \sqrt{\frac{\ln (n.V+1)}{c.V}}
+\end{equation} 
+
+to chose the children node. Where \textit{n} is the node and \textit{c} the actual children. \textit{Q} is the reward of a node and \textit{V} the number of visits, more precise the number of times the tree policy had chosen this node. The exploitation term is computetd by dividing the reward of the child trough the number of vistis aand a random factor to avoid divisions with zero. This term will be big at the beginning of the search because \textit{c.V} is ?klein.
+When the childs number of visits are ?klein in comparison to the others the second term (exploration) will grow. We tried out some other varaints and factors but this solution has the best results. It is very coles to the original UCT formua (see sction 3).   
+
+			double exploitation = child.Q
+					/ (child.visited + epsilon * r.nextDouble());
+			double exploration = Math.sqrt(Math.log(n.visited + 1)
+					/ (child.visited));
+
+	 * The tree policy iterates trough the tree, starting at the node n, until
+	 * one node is not fully expanded. When a node is not fully expanded, it
+	 * returns a random unexpected children of this node.
+
 \begin{itemize}
-  \item act choosig -> most visited node
   \item tree policy
   \item default policy
+  \item act choosig -> most visited node
 \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

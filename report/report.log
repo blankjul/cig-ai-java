@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  16 JAN 2015 11:44
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.9)  16 JAN 2015 17:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -784,23 +784,23 @@ LaTeX Info: Redefining \labelcref on input line 2230.
 LaTeX Info: Redefining \labelcpageref on input line 2230.
 Package cleveref Info: `algorithmicx' support loaded on input line 2939.
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 41.
+Package hyperref Info: Option `colorlinks' set `true' on input line 39.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\spacefactor' on input line 41.
+(hyperref)                removing `\spacefactor' on input line 39.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@m' on input line 41.
+(hyperref)                removing `\@m' on input line 39.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\spacefactor' on input line 41.
+(hyperref)                removing `\spacefactor' on input line 39.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@m' on input line 41.
+(hyperref)                removing `\@m' on input line 39.
 
 (./report.aux
 
@@ -809,59 +809,29 @@ LaTeX Warning: Label `sec:exp' multiply defined.
 
 LaTeX Warning: Label `sec:exp@cref' multiply defined.
 
-
-LaTeX Warning: Label `fig:eval_evo' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo@cref' multiply defined.
-
-
-LaTeX Warning: Label `ea_result' multiply defined.
-
-
-LaTeX Warning: Label `ea_result@cref' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo@cref' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo@cref' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo@cref' multiply defined.
-
 )
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 57.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 55.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 \AtBeginShipoutBox=\box67
-Package hyperref Info: Link coloring ON on input line 57.
+Package hyperref Info: Link coloring ON on input line 55.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -871,9 +841,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count182
 )
-LaTeX Info: Redefining \ref on input line 57.
-LaTeX Info: Redefining \pageref on input line 57.
-LaTeX Info: Redefining \nameref on input line 57.
+LaTeX Info: Redefining \ref on input line 55.
+LaTeX Info: Redefining \pageref on input line 55.
+LaTeX Info: Redefining \nameref on input line 55.
 
 (./report.out) (./report.out)
 \@outlinefile=\write5
@@ -912,7 +882,7 @@ ABD: EveryShipout initializing macros
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Info: Redefining \microtypecontext on input line 57.
+LaTeX Info: Redefining \microtypecontext on input line 55.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -927,7 +897,7 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
  (./report.tdo
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
@@ -965,9 +935,9 @@ Package hyperref Warning: bookmark level for unknown title defaults to 0.
 Package hyperref Warning: bookmark level for unknown author defaults to 0.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 70.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 68.
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 73.
+ine 71.
 (./01_introduction.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
@@ -1058,112 +1028,55 @@ Overfull \hbox (7.19936pt too wide) in paragraph at lines 86--87
  []
 
 [7] [8 <./images/classes.png (PNG copy)>]
-<images/crossover.pdf, id=329, 299.79146pt x 170.84969pt>
+<images/crossover.pdf, id=328, 299.79146pt x 170.84969pt>
 File: images/crossover.pdf Graphic file (type pdf)
 
 <use images/crossover.pdf>
-Package pdftex.def Info: images/crossover.pdf used on input line 146.
+Package pdftex.def Info: images/crossover.pdf used on input line 187.
 (pdftex.def)             Requested size: 179.87625pt x 102.51059pt.
 
-<images/sliding_window.pdf, id=330, 484.54187pt x 224.42944pt>
+<images/sliding_window.pdf, id=329, 484.54187pt x 224.42944pt>
 File: images/sliding_window.pdf Graphic file (type pdf)
 
 <use images/sliding_window.pdf>
-Package pdftex.def Info: images/sliding_window.pdf used on input line 162.
+Package pdftex.def Info: images/sliding_window.pdf used on input line 203.
 (pdftex.def)             Requested size: 290.72736pt x 134.65869pt.
- [9 <./images/crossover.pdf> <./images/sliding_window.pdf
+ [9 <./images/crossover.pdf>]) (./05_study.tex
+[10 <./images/sliding_window.pdf>]
 
-pdfTeX warning: pdflatex (file ./images/sliding_window.pdf): PDF inclusion: mul
-tiple pdfs with page group included in a single page
->]) (./05_study.tex
+LaTeX Warning: Marginpar on page 11 moved.
 
-LaTeX Warning: Marginpar on page 10 moved.
-
-
-LaTeX Warning: Marginpar on page 10 moved.
-
-[10] <images/eval_heur.pdf, id=362, 587.19376pt x 442.65375pt>
+<images/eval_heur.pdf, id=363, 587.19376pt x 442.65375pt>
 File: images/eval_heur.pdf Graphic file (type pdf)
 
 <use images/eval_heur.pdf>
-Package pdftex.def Info: images/eval_heur.pdf used on input line 50.
-(pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
- [11 <./images/eval_heur.pdf>]
-<images/eval_mcts.pdf, id=406, 587.19376pt x 442.65375pt>
-File: images/eval_mcts.pdf Graphic file (type pdf)
-
-<use images/eval_mcts.pdf>
-Package pdftex.def Info: images/eval_mcts.pdf used on input line 96.
+Package pdftex.def Info: images/eval_heur.pdf used on input line 69.
 (pdftex.def)             Requested size: 352.31897pt x 265.59428pt.
 
-Overfull \hbox (5.19543pt too wide) in paragraph at lines 96--97
+Overfull \hbox (5.19543pt too wide) in paragraph at lines 69--70
  [][] 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [12]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [13 <./images/eval_mcts.pdf>]
-<images/eval_evolutionary.pdf, id=458, 587.19376pt x 442.65375pt>
+[11] [12 <./images/eval_heur.pdf>]
+<images/eval_evolutionary.pdf, id=410, 587.19376pt x 442.65375pt>
 File: images/eval_evolutionary.pdf Graphic file (type pdf)
 
 <use images/eval_evolutionary.pdf>
-Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 141.
-(pdftex.def)             Requested size: 352.31897pt x 265.59428pt.
+Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 125.
+(pdftex.def)             Requested size: 411.03282pt x 309.8555pt.
 
-Overfull \hbox (5.19543pt too wide) in paragraph at lines 141--142
+Overfull \hbox (63.90929pt too wide) in paragraph at lines 125--126
  [][] 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [14]
-Overfull \hbox (3.87234pt too wide) in paragraph at lines 159--159
- []|\OT1/ptm/m/n/9 (-20) approach| 
- []
-
-<images/eval_all_wins.pdf, id=466, 587.19376pt x 442.65375pt>
-File: images/eval_all_wins.pdf Graphic file (type pdf)
-
-<use images/eval_all_wins.pdf>
-Package pdftex.def Info: images/eval_all_wins.pdf used on input line 177.
-(pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [15 <./images/eval_evolutionary.pdf>]
-<images/eval_all_score.pdf, id=507, 587.19376pt x 442.65375pt>
-File: images/eval_all_score.pdf Graphic file (type pdf)
-
-<use images/eval_all_score.pdf>
-Package pdftex.def Info: images/eval_all_score.pdf used on input line 185.
-(pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
-
-<images/eval_all_timesteps.pdf, id=508, 587.19376pt x 442.65375pt>
-File: images/eval_all_timesteps.pdf Graphic file (type pdf)
-
-<use images/eval_all_timesteps.pdf>
-Package pdftex.def Info: images/eval_all_timesteps.pdf used on input line 193.
-(pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
-
-Underfull \vbox (badness 6348) has occurred while \output is active []
-
- [16 <./images/eval_all_wins.pdf> <./images/eval_all_score.pdf
-
-pdfTeX warning: pdflatex (file ./images/eval_all_score.pdf): PDF inclusion: mul
-tiple pdfs with page group included in a single page
->]) (./06_conclusion.tex) [17 <./images/eval_all_timesteps.pdf>]
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 88.
+) (./06_conclusion.tex [13] [14 <./images/eval_evolutionary.pdf>]) [15]
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 86.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 88.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 86.
 Package microtype Info: Loading generic settings for font family
 (microtype)             `phv' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1173,27 +1086,27 @@ Missing character: There is no ‚ in font ptmr7t!
 Missing character: There is no Ä in font ptmr7t!
 Missing character: There is no ê in font ptmr7t!
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 105.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 103.
 
-[18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 105.
+[16]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 103.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 105.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 105.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 103.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 103.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 0B1970BAD1758A2E0A71511F5C8CF2BE;517.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 105.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 103.
  ) 
 Here is how much of TeX's memory you used:
- 21499 strings out of 493304
- 378292 string characters out of 6139871
- 512694 words of memory out of 5000000
- 24250 multiletter control sequences out of 15000+600000
- 35768 words of font info for 175 fonts, out of 8000000 for 9000
+ 21472 strings out of 493304
+ 377633 string characters out of 6139872
+ 517694 words of memory out of 5000000
+ 24229 multiletter control sequences out of 15000+600000
+ 35887 words of font info for 177 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
  63i,10n,92p,954b,880s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -1208,10 +1121,10 @@ s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (20 pages, 313073 bytes).
+Output written on report.pdf (18 pages, 275999 bytes).
 PDF statistics:
- 704 PDF objects out of 1000 (max. 8388607)
- 428 compressed objects within 5 object streams
- 117 named destinations out of 1000 (max. 500000)
- 25747 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 541 PDF objects out of 1000 (max. 8388607)
+ 390 compressed objects within 4 object streams
+ 112 named destinations out of 1000 (max. 500000)
+ 25727 words of extra memory for PDF output out of 29859 (max. 10000000)
 
