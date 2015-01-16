@@ -1,4 +1,4 @@
-timestamp,id,passid,agent,execTime,game,level,win,score,timesteps,rollinghorizon,maxdepth,gamma
+vtimestamp,id,passid,agent,execTime,game,level,win,score,timesteps,rollinghorizon,maxdepth,gamma
 1419528344,0,1,MCTSHeuristicAgent,2014/12/25 18:25:44,aliens,0,1,81,484,true,10,0.9
 1419528344,1,1,MCTSHeuristicAgent,2014/12/25 18:25:44,aliens,1,1,77,496,true,10,0.9
 1419528344,2,1,MCTSHeuristicAgent,2014/12/25 18:25:44,aliens,2,1,75,428,true,10,0.9
