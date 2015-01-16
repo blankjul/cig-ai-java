@@ -25,7 +25,7 @@ rollingHorizon, maxDepth, gamma, heuristic
 014:	true, 3, 1.0, null 	//vergleich mit 004
 015:	true, 7, 1.0, null	//vergleich mit 004
 016:	true, 2, 1.0, null	//vergleich mit 004
-017:	true, 4, 1.0, null	//vergleich mit 004
+017:	true, 4, 1.0, null	//vergleich mit 004 running
 
 
 

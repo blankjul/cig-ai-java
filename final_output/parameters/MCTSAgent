@@ -1,0 +1,22 @@
+rollingHorizon, maxDepth, gamma
+
+(rollingHorizon -> MCTSAgent)
+(maxDepth, gamma -> MCTSStrategy)
+
+001:	true, 10, 0.9 	(standard)
+002:	true, 10, 1.0   //gamma 1.0 besser als 0.9 -> in nachfolgenden simulationen nehmen
+
+//entsprechend anpassen:
+
+003:	false, 10, 1.0
+
+004:	true, 25, 1.0
+005:	true, 20, 1.0
+006:	true, 15, 1.0
+007:	true, 10, 1.0
+008:	true, 7, 1.0
+009:	true, 5, 1.0
+010:	true, 3, 1.0
+
+
+
