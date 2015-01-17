@@ -168,7 +168,7 @@ For the evolutionary algorithm we had a set up with different parameters.
 Finally we compare the best parameter setups of the three approaches. We defined the best as the agent with the highest average winning rate.
 The selected agents are printed bold at each of the result tables.
 For a complete comparison there are also the average score and the played time steps evaluated.
-The highest winning rate is reached by the heuristic controller (cf.~\cref{all_result}).
+The highest winning rate is reached by the heuristic controller (cf.~\cref{tbl:all_result}).
 But for the highest score we can see that the \ac{MCTS} approaches reaches more points than the others.
 For that we can suppose, that the \ac{HR} is playing tighter than the other. This is supported by the least played time steps as well.
 Playing tight leads to an earlier win. But there are some games where we could first of all collect points and increase the score and
@@ -189,11 +189,11 @@ HR & \textbf{0.532} & 0.027 & 173.7 & 69.39 & \textbf{703.13} & \textbf{19.00} \
 MCTS & 0.422 & 0.033 & \textbf{222.92} & 63.30 & 1033.01 & 41.20 \\ \hline
 EA & 0.479 & \textbf{0.021} & 168.82 & \textbf{42.20} & 827.96 & 42.61 \\ \hline
 \end{tabular}
-\label{all_result}
 \caption{results of all algorithms}
+\label{tbl:all_result}
 \end{table}
 
-By looking at the boxsplit of the winning rate (cf.~\cref{all_result})
+By looking at the boxplot of the winning rate (cf.~\cref{fig:eval_all_wins})
 
 
 
@@ -210,15 +210,12 @@ By looking at the boxsplit of the winning rate (cf.~\cref{all_result})
 \caption{boxplot of score}
 \label{fig:eval_all_score}
 \end{minipage}
-\end{figure}
-
-
-
-
-\begin{figure}[H]
+\begin{minipage}{1\textwidth}
 \centering
 \includegraphics[scale=0.3]{images/eval_all_timesteps.pdf}
 \caption{boxplot of timesteps}
 \label{fig:eval_all_timesteps}
+\end{minipage}
 \end{figure}
+
 
