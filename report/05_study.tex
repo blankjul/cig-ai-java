@@ -9,13 +9,16 @@ To test how well the implemented algorithms work we executed the games a lot of 
 To test a agent we ran 1000 Games, one game 50 times and one single level 10 times. The following machine was used to run all of the simulations:
 
 \begin{table}
-\begin{tabular}{*9c} \hline
-CPU & 4x Inted(R) Core(TM) i5-4210U CPU @ 1.70Ghz \\
-Memory & 8 GB DDR3 L \\
-Operating System & Ubuntu 14.04.1 LTS \\
+\center
+\begin{tabular}{ll} 
+\textbf{CPU} & 4x Inted(R) Core(TM) i5-4210U CPU @ 1.70Ghz \\ \hline
+\textbf{Memory} & 8 GB DDR3 L \\  \hline
+\textbf{Operating System} \mbox{   } & Ubuntu 14.04.1 LTS \\  \hline
+\textbf{Java Version} &  \\  
 \end{tabular}
-
+\caption{experiment setup}
 \end{table}
+
 
 Only this machine was used because with the same agent and parameters we achived on different machines very different results. The computational power from the cpu was ?ausschlaggebend for our choice. The reason of the different results is that the agent every gametick only has 40ms to return an action. The results from a powerful CPU were better and more stable (the derivation was ?kleiner) than the results from an ?schlechter CPU. To evaluate the results we stored them in csv files and generated tables.
 
@@ -51,7 +54,7 @@ garbage collector.
 \multicolumn{1}{p{1cm}}{\centering Std of Wins} \\ \hline
 1 & 5 & SafetyAdvance & 5 & 0.517 & 0.026 \\ \hline
 2 & 15 & SafetyAdvance & 5 & 0.529 & 0.020\\ \hline
-3 & 20 & SafetyAdvance & 5 & \textbf{0.532} & 0.027 \\ \hline
+\textbf{3} & \textbf{20} & \textbf{SafetyAdvance} & \textbf{5} & \textbf{0.532} & \textbf{0.027} \\ \hline
 4 & 25 & SafetyAdvance & 5 & 0.521 & 0.019 \\ \hline
 5 & 20 & SafetyGridSearch & - & 0.498 & 0.024 \\ \hline
 6 & 20 & SafetyIntelligent & 5 & 0.527 & 0.018 \\ \hline
@@ -95,7 +98,7 @@ for a better mcts iteration.
 2 & 1 & 10 & 0.9 & 0.401 & 0.026 \\ \hline
 3 & 1 & 3 & 1 & 0.416 & 0.014\\ \hline
 4 & 1 & 5 & 1 & 0.402 & 0.030 \\ \hline
-5 & 1 & 7 & 1 & \textbf{0.422} & 0.033 \\ \hline
+\textbf{5} & \textbf{1} & \textbf{7} & \textbf{1} & \textbf{0.422} & \textbf{0.033} \\ \hline
 6 & 1 & 10 & 1 & 0.412 & 0.025 \\ \hline
 7 & 1 & 15 & 1 & 0.394 & 0.014\\ \hline
 8 & 1 & 20 & 1 & 0.395 & 0.025 \\ \hline
@@ -136,7 +139,7 @@ For the evolutionary algorithm we had a set up with different parameters.
 5 & 5 & 6 & 13 & 4 & yes & 5 & 0.451 & 0.041 \\ \hline
 6 & 5 & 6 & 14 & 3 & no & - & 0.471 & 0.018 \\ \hline
 7 & 5 & 6 & 14 & 5 & no & - & 0.461 & 0.025 \\ \hline
-8 & 5 & 6 & 14 & 5 & yes & 2 & \textbf{0.479} & 0.021 \\ \hline
+\textbf{8} & \textbf{5} & \textbf{6} & \textbf{14} & \textbf{5} & \textbf{yes} & \textbf{2} & \textbf{0.479} & 0.021 \\ \hline
 9 & 5 & 6 & 14 & 5 & yes & 4 & 0.463 & 0.027 \\ \hline
 10 & 5 & 6 & 14 & 5 & yes & 6 & 0.449 & 0.041 \\ \hline
 11 & 5 & 6 & 14 & 7 & no & - & 0.474 & 0.028 \\ \hline
@@ -160,11 +163,16 @@ For the evolutionary algorithm we had a set up with different parameters.
 
 
 
-
-
-
-
 \subsection{Evaluation of all approaches} 
+
+Finally we compare the best parameter setups of the three approaches. We defined the best as the agent with the highest average winning rate.
+The selected agents are printed bold at each of the result tables.
+For a complete comparison there are also the average score and the played time steps evaluated.
+The highest winning rate is reached by the heuristic controller (cf.~\cref{all_result}).
+But for the highest score we can see that the \ac{MCTS} approaches reaches more points than the others.
+For that we can suppose, that the \ac{HR} is playing tighter than the other. This is supported by the least played time steps as well.
+Playing tight leads to an earlier win. But there are some games where we could first of all collect points and increase the score and
+win at the end.
 
 
 \begin{table}[H]
@@ -177,35 +185,40 @@ For the evolutionary algorithm we had a set up with different parameters.
 \multicolumn{1}{p{1.5cm}}{\centering Std \\ Score} &
 \multicolumn{1}{p{1.5cm}}{\centering Avg \\ timesteps	} & 
 \multicolumn{1}{p{1.5cm}}{\centering Std \\ timesteps} \\ \hline
-HR & \textbf{0.532} & 0.027 & 173.7 & 69.39 & \textbf{703.13} & \textbf{19} \\ \hline
-MCTS & 0.422 & 0.033 & \textbf{222.92} & 63.3 & 1033.01 & 41.2 \\ \hline
-EA & 0.479 & \textbf{0.021} & 168.82 & \textbf{42.2} & 827.96 & 42.61 \\ \hline
+HR & \textbf{0.532} & 0.027 & 173.7 & 69.39 & \textbf{703.13} & \textbf{19.00} \\ \hline
+MCTS & 0.422 & 0.033 & \textbf{222.92} & 63.30 & 1033.01 & 41.20 \\ \hline
+EA & 0.479 & \textbf{0.021} & 168.82 & \textbf{42.20} & 827.96 & 42.61 \\ \hline
 \end{tabular}
-\label{ea_result}
+\label{all_result}
 \caption{results of all algorithms}
 \end{table}
 
+By looking at the boxsplit of the winning rate (cf.~\cref{all_result})
 
-\begin{figure}[H]
+
+
+\begin{figure}
+\begin{minipage}{.5\textwidth}
 \centering
-\includegraphics[scale=0.5]{images/eval_all_wins.pdf}
+\includegraphics[scale=0.3]{images/eval_all_wins.pdf}
 \caption{boxplot of wins}
-\label{fig:eval_evo}
-\end{figure}
-
-
-\begin{figure}[H]
+\label{fig:eval_all_wins}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
 \centering
-\includegraphics[scale=0.5]{images/eval_all_score.pdf}
+\includegraphics[scale=0.3]{images/eval_all_score.pdf}
 \caption{boxplot of score}
-\label{fig:eval_evo}
+\label{fig:eval_all_score}
+\end{minipage}
 \end{figure}
+
+
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{images/eval_all_timesteps.pdf}
+\includegraphics[scale=0.3]{images/eval_all_timesteps.pdf}
 \caption{boxplot of timesteps}
-\label{fig:eval_evo}
+\label{fig:eval_all_timesteps}
 \end{figure}
 

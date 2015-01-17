@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  17 JAN 2015 14:43
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  17 JAN 2015 15:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -815,30 +815,6 @@ LaTeX Warning: Label `fig:eval_evo' multiply defined.
 
 LaTeX Warning: Label `fig:eval_evo@cref' multiply defined.
 
-
-LaTeX Warning: Label `ea_result' multiply defined.
-
-
-LaTeX Warning: Label `ea_result@cref' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo@cref' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo@cref' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo' multiply defined.
-
-
-LaTeX Warning: Label `fig:eval_evo@cref' multiply defined.
-
 )
 \openout1 = `report.aux'.
 
@@ -1068,81 +1044,91 @@ LaTeX Warning: Marginpar on page 12 moved.
 
 LaTeX Warning: Marginpar on page 12 moved.
 
-<images/eval_heur.pdf, id=317, 587.19376pt x 442.65375pt>
+[12] <images/eval_heur.pdf, id=329, 587.19376pt x 442.65375pt>
 File: images/eval_heur.pdf Graphic file (type pdf)
 
 <use images/eval_heur.pdf>
-Package pdftex.def Info: images/eval_heur.pdf used on input line 64.
+Package pdftex.def Info: images/eval_heur.pdf used on input line 67.
 (pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
- [12]
-Underfull \vbox (badness 2302) has occurred while \output is active []
-
- [13 <./images/eval_heur.pdf>] <images/eval_mcts.pdf, id=371, 587.19376pt x 442
-.65375pt>
+ [13 <./images/eval_heur.pdf>]
+<images/eval_mcts.pdf, id=371, 587.19376pt x 442.65375pt>
 File: images/eval_mcts.pdf Graphic file (type pdf)
 
 <use images/eval_mcts.pdf>
-Package pdftex.def Info: images/eval_mcts.pdf used on input line 110.
+Package pdftex.def Info: images/eval_mcts.pdf used on input line 113.
 (pdftex.def)             Requested size: 352.31897pt x 265.59428pt.
 
-Overfull \hbox (5.19543pt too wide) in paragraph at lines 110--111
+Overfull \hbox (5.19543pt too wide) in paragraph at lines 113--114
  [][] 
  []
 
-[14 <./images/eval_mcts.pdf>]
-<images/eval_evolutionary.pdf, id=418, 587.19376pt x 442.65375pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [15 <./images/eval_mcts.pdf>]
+<images/eval_evolutionary.pdf, id=423, 587.19376pt x 442.65375pt>
 File: images/eval_evolutionary.pdf Graphic file (type pdf)
 
 <use images/eval_evolutionary.pdf>
-Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 155.
+Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 158.
 (pdftex.def)             Requested size: 352.31897pt x 265.59428pt.
 
-Overfull \hbox (5.19543pt too wide) in paragraph at lines 155--156
+Overfull \hbox (5.19543pt too wide) in paragraph at lines 158--159
  [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15]
-Overfull \hbox (3.87234pt too wide) in paragraph at lines 173--173
+ [16]
+Overfull \hbox (3.87234pt too wide) in paragraph at lines 181--181
  []|\OT1/ptm/m/n/9 (-20) approach| 
  []
 
-<images/eval_all_wins.pdf, id=427, 587.19376pt x 442.65375pt>
+<images/eval_all_wins.pdf, id=435, 587.19376pt x 442.65375pt>
 File: images/eval_all_wins.pdf Graphic file (type pdf)
 
 <use images/eval_all_wins.pdf>
-Package pdftex.def Info: images/eval_all_wins.pdf used on input line 191.
-(pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
+Package pdftex.def Info: images/eval_all_wins.pdf used on input line 203.
+(pdftex.def)             Requested size: 176.15948pt x 132.79713pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \hbox (2.59772pt too wide) in paragraph at lines 203--204
+ [][] 
+ []
 
- [16 <./images/eval_evolutionary.pdf>]
-<images/eval_all_score.pdf, id=468, 587.19376pt x 442.65375pt>
+<images/eval_all_score.pdf, id=436, 587.19376pt x 442.65375pt>
 File: images/eval_all_score.pdf Graphic file (type pdf)
 
 <use images/eval_all_score.pdf>
-Package pdftex.def Info: images/eval_all_score.pdf used on input line 199.
-(pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
+Package pdftex.def Info: images/eval_all_score.pdf used on input line 209.
+(pdftex.def)             Requested size: 176.15948pt x 132.79713pt.
 
-<images/eval_all_timesteps.pdf, id=469, 587.19376pt x 442.65375pt>
+Overfull \hbox (2.59772pt too wide) in paragraph at lines 209--210
+ [][] 
+ []
+
+[17 <./images/eval_evolutionary.pdf>]
+<images/eval_all_timesteps.pdf, id=477, 587.19376pt x 442.65375pt>
 File: images/eval_all_timesteps.pdf Graphic file (type pdf)
 
 <use images/eval_all_timesteps.pdf>
-Package pdftex.def Info: images/eval_all_timesteps.pdf used on input line 207.
-(pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
-
-Underfull \vbox (badness 6348) has occurred while \output is active []
-
- [17 <./images/eval_all_wins.pdf> <./images/eval_all_score.pdf
+Package pdftex.def Info: images/eval_all_timesteps.pdf used on input line 220.
+(pdftex.def)             Requested size: 176.15948pt x 132.79713pt.
+) (./06_conclusion.tex) [18 <./images/eval_all_wins.pdf> <./images/eval_all_sco
+re.pdf
 
 pdfTeX warning: pdflatex (file ./images/eval_all_score.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
->]) (./06_conclusion.tex) [18 <./images/eval_all_timesteps.pdf>]
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 88.
+> <./images/eval_all_timesteps.pdf
 
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
+pdfTeX warning: pdflatex (file ./images/eval_all_timesteps.pdf): PDF inclusion:
+ multiple pdfs with page group included in a single page
+>]
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 88.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10> not available
@@ -1172,11 +1158,11 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 105.
  ) 
 Here is how much of TeX's memory you used:
- 21503 strings out of 493304
- 378429 string characters out of 6139871
+ 21521 strings out of 493304
+ 378779 string characters out of 6139871
  513694 words of memory out of 5000000
- 24249 multiletter control sequences out of 15000+600000
- 35887 words of font info for 177 fonts, out of 8000000 for 9000
+ 24265 multiletter control sequences out of 15000+600000
+ 36006 words of font info for 179 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
  63i,10n,92p,954b,880s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -1191,10 +1177,10 @@ s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (19 pages, 318623 bytes).
+Output written on report.pdf (19 pages, 320475 bytes).
 PDF statistics:
- 667 PDF objects out of 1000 (max. 8388607)
- 394 compressed objects within 4 object streams
- 122 named destinations out of 1000 (max. 500000)
+ 669 PDF objects out of 1000 (max. 8388607)
+ 396 compressed objects within 4 object streams
+ 121 named destinations out of 1000 (max. 500000)
  25699 words of extra memory for PDF output out of 29859 (max. 10000000)
 
