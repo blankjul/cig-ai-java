@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  17 JAN 2015 15:09
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.14)  17 JAN 2015 21:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1020,38 +1020,35 @@ Overfull \hbox (7.19936pt too wide) in paragraph at lines 86--87
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [8 <./images/classes.png (PNG copy)>] [9]
-<images/crossover.pdf, id=279, 299.79146pt x 170.84969pt>
+<images/crossover.pdf, id=280, 299.79146pt x 170.84969pt>
 File: images/crossover.pdf Graphic file (type pdf)
 
 <use images/crossover.pdf>
-Package pdftex.def Info: images/crossover.pdf used on input line 188.
+Package pdftex.def Info: images/crossover.pdf used on input line 187.
 (pdftex.def)             Requested size: 179.87625pt x 102.51059pt.
 
-<images/sliding_window.pdf, id=280, 484.54187pt x 224.42944pt>
+<images/sliding_window.pdf, id=281, 484.54187pt x 224.42944pt>
 File: images/sliding_window.pdf Graphic file (type pdf)
 
 <use images/sliding_window.pdf>
-Package pdftex.def Info: images/sliding_window.pdf used on input line 204.
+Package pdftex.def Info: images/sliding_window.pdf used on input line 203.
 (pdftex.def)             Requested size: 290.72736pt x 134.65869pt.
-
-Underfull \vbox (badness 4699) has occurred while \output is active []
-
- [10 <./images/crossover.pdf>]) (./05_study.tex [11 <./images/sliding_window.pd
-f>]
+ [10 <./images/crossover.pdf>]) (./05_study.tex
+[11 <./images/sliding_window.pdf>]
 
 LaTeX Warning: Marginpar on page 12 moved.
 
 
 LaTeX Warning: Marginpar on page 12 moved.
 
-[12] <images/eval_heur.pdf, id=329, 587.19376pt x 442.65375pt>
+[12] <images/eval_heur.pdf, id=331, 587.19376pt x 442.65375pt>
 File: images/eval_heur.pdf Graphic file (type pdf)
 
 <use images/eval_heur.pdf>
 Package pdftex.def Info: images/eval_heur.pdf used on input line 67.
 (pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
  [13 <./images/eval_heur.pdf>]
-<images/eval_mcts.pdf, id=371, 587.19376pt x 442.65375pt>
+<images/eval_mcts.pdf, id=373, 587.19376pt x 442.65375pt>
 File: images/eval_mcts.pdf Graphic file (type pdf)
 
 <use images/eval_mcts.pdf>
@@ -1069,7 +1066,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [15 <./images/eval_mcts.pdf>]
-<images/eval_evolutionary.pdf, id=423, 587.19376pt x 442.65375pt>
+<images/eval_evolutionary.pdf, id=425, 587.19376pt x 442.65375pt>
 File: images/eval_evolutionary.pdf Graphic file (type pdf)
 
 <use images/eval_evolutionary.pdf>
@@ -1088,7 +1085,7 @@ Overfull \hbox (3.87234pt too wide) in paragraph at lines 181--181
  []|\OT1/ptm/m/n/9 (-20) approach| 
  []
 
-<images/eval_all_wins.pdf, id=435, 587.19376pt x 442.65375pt>
+<images/eval_all_wins.pdf, id=437, 587.19376pt x 442.65375pt>
 File: images/eval_all_wins.pdf Graphic file (type pdf)
 
 <use images/eval_all_wins.pdf>
@@ -1099,7 +1096,7 @@ Overfull \hbox (2.59772pt too wide) in paragraph at lines 203--204
  [][] 
  []
 
-<images/eval_all_score.pdf, id=436, 587.19376pt x 442.65375pt>
+<images/eval_all_score.pdf, id=438, 587.19376pt x 442.65375pt>
 File: images/eval_all_score.pdf Graphic file (type pdf)
 
 <use images/eval_all_score.pdf>
@@ -1111,7 +1108,7 @@ Overfull \hbox (2.59772pt too wide) in paragraph at lines 209--210
  []
 
 [17 <./images/eval_evolutionary.pdf>]
-<images/eval_all_timesteps.pdf, id=477, 587.19376pt x 442.65375pt>
+<images/eval_all_timesteps.pdf, id=479, 587.19376pt x 442.65375pt>
 File: images/eval_all_timesteps.pdf Graphic file (type pdf)
 
 <use images/eval_all_timesteps.pdf>
@@ -1158,8 +1155,8 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 105.
  ) 
 Here is how much of TeX's memory you used:
- 21521 strings out of 493304
- 378779 string characters out of 6139871
+ 21523 strings out of 493304
+ 378821 string characters out of 6139871
  513694 words of memory out of 5000000
  24265 multiletter control sequences out of 15000+600000
  36006 words of font info for 179 fonts, out of 8000000 for 9000
@@ -1177,10 +1174,10 @@ s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (19 pages, 320475 bytes).
+Output written on report.pdf (19 pages, 321912 bytes).
 PDF statistics:
- 669 PDF objects out of 1000 (max. 8388607)
- 396 compressed objects within 4 object streams
- 121 named destinations out of 1000 (max. 500000)
+ 671 PDF objects out of 1000 (max. 8388607)
+ 398 compressed objects within 4 object streams
+ 123 named destinations out of 1000 (max. 500000)
  25699 words of extra memory for PDF output out of 29859 (max. 10000000)
 
