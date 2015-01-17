@@ -1,12 +1,1 @@
 emergence
-emergence.agents
-emergence.heuristics
-emergence.nodes
-emergence.safety
-emergence.strategy
-emergence.strategy.astar
-emergence.strategy.evolution
-emergence.strategy.mcts
-emergence.targets
-emergence.util
-emergence.util.pair
