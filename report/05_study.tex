@@ -62,6 +62,7 @@ garbage collector.
 \caption{results of the \ac{HR} algorithms}
 \label{tbl:heur}
 \end{table}
+\vspace{-2cm}
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{images/eval_heur.pdf}
@@ -83,8 +84,10 @@ that collides with the target could be the reason for the higher variance of the
 
 \subsection{MCTS} 
 We also tried to combine several approaches for example using the heuristic explorer 
-for a better mcts iteration. 
+for a better \ac{mcts} iteration. 
 
+
+\begin{minipage}{1\textwidth}
 \begin{table}[H]
 \center
 \begin{tabular}{*9c}  \hline
@@ -107,19 +110,21 @@ for a better mcts iteration.
 \label{mcts_result}
 \caption{\ac{MCTS} result}
 \end{table}
-
+\vspace{-2cm}
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{images/eval_mcts.pdf}
 \caption{boxplot of the \ac{MCTS} algorithm}
 \label{fig:eval_evo}
 \end{figure}
+\end{minipage}
 
 
 \subsection{Evolutionary Algorithm} 
 
 For the evolutionary algorithm we had a set up with different parameters.
 
+\begin{minipage}{1\textwidth}
 \begin{table}[H]
 \center
 \begin{tabular}{*9c}  \hline
@@ -150,16 +155,14 @@ For the evolutionary algorithm we had a set up with different parameters.
 \label{ea_result}
 \caption{results of the \ac{EA} algorithms}
 \end{table}
-
-
-
+\vspace{-2cm}
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{images/eval_evolutionary.pdf}
 \caption{boxplot of the \ac{EA} algorithms}
 \label{fig:eval_evo}
 \end{figure}
-
+\end{minipage}
 
 
 

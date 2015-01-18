@@ -1,24 +1,24 @@
 [18.01.15]	paper
  	-abstract			(zusammen)
-[done]	-introduction			(julian)
+	-introduction			(julian)
 	-Literatue Review		(freddy)
-[skipped]	3.3.3 Pheromone			(julian) Ist nicht notwendig. wir verwenden das nichtmal ;)
+	3.3.3 Pheromone			(julian) Ist nicht notwendig. wir verwenden das nichtmal ;)
 [done]	-MCTS fertig machen		(freddy)
-[done]	4.2Heuristic based		(julian)
+	4.2Heuristic based		(julian)
 	4.3 implementierung MCTS	(freddy) (MCTSAgent, rollinghorizon, openloop, node auswahl->meist besuchte)
-[done]	4.4 Evolutionary		(julian) erledigt.
-[skipped] .5 Improvements and com.	(julian) (MCTSHeuristicAgent EvolutionaryHeuristicAgent) unsicher ob sinnvoll.
+	4.4 Evolutionary		(julian) erledigt.
+	4.5 Improvements and com.	(julian) (MCTSHeuristicAgent EvolutionaryHeuristicAgent) unsicher ob sinnvoll.
 [done]	4.6 GameDetection		(freddy)
 	5 Experimental
 [done]	5.1 Test Aufbau (Titel!)	(freddy)
 		-difficulties (*1)	()
 	5.2 Among each approch
 		-only wins for comp.
-[done]		-boxplot (julian)
+		-boxplot
 	5.3 general
-[done]		-wins+score+timesteps
-[done]		-boxplot (julian)
-[started]	6 Conclusion			(zusammen)
+		-wins+score+timesteps
+		-boxplot
+	6 Conclusion			(zusammen)
 
 
 [19.01.15] Abschlusspräsentation

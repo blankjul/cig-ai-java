@@ -115,17 +115,18 @@ Our tree policy iterates trough the tree, starting at the root node. When a node
  	UCT = \frac{c.Q}{c.V + ep * r} + \sqrt{\frac{\ln (n.V+1)}{c.V}}
 \end{equation} 
 
-to chose the children node. Where \textit{n} is the node and \textit{c} the actual children. \textit{Q} is the reward of a node and \textit{V} the number of visits, more precise the number of times the tree policy had chosen this node. The exploitation term is computetd by dividing the reward of the child trough the number of vistis aand a random factor to avoid divisions with zero. This term will be big at the beginning of the search because \textit{c.V} is ?klein.
-When the childs number of visits are ?klein in comparison to the others the second term (exploration) will grow. We tried out some other varaints and factors but this solution has the best results. It is very coles to the original UCT formua (see sction 3).   
+to chose the children node. Where \textit{n} is the node and \textit{c} the actual children. \textit{Q} is the reward of a node and \textit{V} the number of visits, more precise the number of times the tree policy had chosen this node. The exploitation term is computetd by dividing the reward of the child by the number of vistis and a random factor to avoid divisions by zero. This term is big for nodes whose reward is high on average.
+When the childs number of visits are small in comparison to the others, the second term (exploration) will be big. We tried out some other varaints and factors but this solution has the best results. It is very close to the original UCT formua (see section 3).   
 
-			double exploitation = child.Q
-					/ (child.visited + epsilon * r.nextDouble());
-			double exploration = Math.sqrt(Math.log(n.visited + 1)
-					/ (child.visited));
+\subsubsection{default policy \& backpropagation}
 
-	 * The tree policy iterates trough the tree, starting at the node n, until
-	 * one node is not fully expanded. When a node is not fully expanded, it
-	 * returns a random unexpected children of this node.
+The default policy tries to figure out how good the given node from the tree policy is. To do that, a simulation with the correspond state observation and random actions is done. It is repeated until the hypotethical level of the simulated node reaches the before defined maximum (maximal depth of the tree). At the beginning, when the tree is small, more simulations are executed. Later, when we have already grown our tree, only a few simulations are executed. We chose this approach because at the begnning we have no information about the node and its neighbourhood so we have to compute more simulations....
+When the simuation is finished a reward is generated from the last state observation by the delta heuristic which is descibed later. The win, loss and score were considered.
+The backpropagation iterates from the node which was expanded by the tree policy to the root, guided by the father references of every node. To every visited node the reward is added and weigthed with a before specified value.
+
+\subsubsection{rolling horizon}
+
+The implementation of a rolling horion working on it......
 
 \begin{itemize}
   \item tree policy
