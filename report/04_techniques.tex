@@ -104,40 +104,44 @@ new position. Since we know from the Environment class which objects are blockin
 for a smarter iteration.
 
 
-\subsection{MCTS Tree} 
+\subsection{MCTS} 
 
-The theory of \ac{MCTS} treesearch is described in \cref{sec:back}. The standard approach was modified to fit our problem. The whole \ac{MCTS} algorithm is computed in the class \textit{MCTSStrategy} which is used by the \textit{MCTSAgent} and the \textit{MCTSHeuristicAgent}.
+The theory of \ac{MCTS} is described in section \ref{sec:back}. The standard approach was modified to fit our problem. The whole \ac{MCTS} algorithm is computed in the class \textit{MCTSStrategy} which is used by the \textit{MCTSAgent} and the \textit{MCTSHeuristicAgent}.
 
-\subsubsection{tree policy}
-Our tree policy iterates trough the tree, starting at the root node. When a node is not fully expanded, a randomly chosen children node is generated. We tried out some other ways to chose the children, but random selection worked best. If we reach a fully expanded node the tree policy uses a modified \ac{UCT} formula
+\subsubsection{Tree Policy}
+Our \textit{tree policy} iterates trough the tree, starting at the root node. When a node is not fully expanded, a randomly chosen children node is generated. We tried out some other ways to chose the children, but random selection worked best. If we reach a fully expanded node the tree policy uses a modified \ac{UCT} formula
 
 \begin{equation}
  	UCT = \frac{c.Q}{c.V + ep * r} + \sqrt{\frac{\ln (n.V+1)}{c.V}}
 \end{equation} 
 
-to chose the children node. Where \textit{n} is the node and \textit{c} the actual children. \textit{Q} is the reward of a node and \textit{V} the number of visits, more precise the number of times the tree policy had chosen this node. The exploitation term is computetd by dividing the reward of the child by the number of visits and a random factor to avoid divisions by zero. This term is big for nodes whose reward is high on average.
-When the children number of visits are small in comparison to the others, the second term (exploration) will be big. We tried out some other variants and factors but this solution has the best results. It is very close to the original \ac{UCT} formula (see \cref{sec:back}).   
+to chose the children node. Where \textit{n} is the node and \textit{c} the actual children. \textit{Q} is the reward of a node and \textit{V} the number of visits, more precise the number of times the \textit{tree policy} had chosen this node. The exploitation term is computetd by dividing the reward of the child by the number of vistis and a random factor to avoid divisions by zero. This term is big for nodes whose reward is high on average.
+When the childs number of visits are small in comparison to the others, the second term (exploration) will be big. We tried out some other variants and factors but this solution has the best results. It is very close to the original \ac{UCT} formua in section \ref{sec:back}.
 
-\subsubsection{default policy \& backpropagation}
+\subsubsection{Default Policy \& Backpropagation}
 
-The default policy tries to figure out how good the given node from the tree policy is. To do that, a simulation with the correspond state observation and random actions is done. It is repeated until the hypotethical level of the simulated node reaches the before defined maximum (maximal depth of the tree). At the beginning, when the tree is small, more simulations are executed. Later, when we have already grown our tree, only a few simulations are executed. We chose this approach because at the beginning we have no information about the node and its neighbourhood so we have to compute more simulations....
-When the simulation is finished a reward is generated from the last state observation by the delta heuristic which is described later. The win, loss and score were considered.
-The backpropagation iterates from the node which was expanded by the tree policy to the root, guided by the father references of every node. To every visited node the reward is added and weighted with a before specified value.
+The default policy tries to figure out how good the given node from the tree policy is. To do that, a simulation with the correspond state observation and random actions is done. It is repeated until the hypotethical level of the simulated node reaches the before defined maximum (maximal depth of the tree). At the beginning, when the tree is small, more simulations are executed. Later, when we have already grown our tree, only a few simulations are executed.
 
-\subsubsection{rolling horizon}
+\todo{not sure if this is right: We chose this approach because at the begnning we have no information about the node and its neighbourhood so we have to compute more simulations to get a better overview. At the end, when the tree is bulid-up for the most part, only a few simulations are needed because we already know whether this is most likely a good or abad node.}
+
+When the simuation is finished a reward is generated from the last state observation by the delta heuristic which is described later. The win, loss and score were considered.
+The backpropagation iterates from the node which was expanded by the tree policy to the root, guided by the father references of every node. To every visited node the reward is added and weigthed with a before specified value.
+
+\subsubsection{Rolling Horizon}
 
 The approach of a rolling horizon was modified and applied to our problem. The goal of this rolling horizon technique was to save computing power. 
-When the act method from the\textit{MCTSAgent} or \textit{MCTSHeuristicAgent} is called a new \textit{MCTSStrategy} (search tree) is constructed or the \textit{rolling horizon} is executed. The new search tree contains only the root node an has to be built-up normally, this costs a lot of computing power and time. The \textit{rolling horizon} does not build a whole new tree, it uses the information from the previous call of the act method (from the last gametick). 
+When the act method from the\textit{MCTSAgent} or \textit{MCTSHeuristicAgent} is called a new \textit{MCTSStrategy} (search tree) is constructed or the rolling horizon is executed. The new search tree contains only the root node an has to be built-up normally, this costs a lot of computing power and time. The rolling horizon does not build a whole new tree, it uses the information from the previous call of the act method (from the last gametick). 
 One subtree of the previous root node will be the new search tree, it is chosen by checking the last action which was executed and take the corresponding child as the new root node.
 After that the levels of the nodes are updated and the tree is built-up normally. It saves some computing power and the according tree is larger than the normal one which yields to more checked actions and better results.  
 
 \subsubsection{openloop}
 
-We used the \textit{openloop} approach, this means that the actual state observation is not stored in a \textit{MCTSNode}. Every node contains only some values like the number of visits, father, children, reward ect. 
+We used the open loop approach, in difference to the closedloop approach, the state observation is not stored in the actual node. We only store a sequence of actions in every node which leads from the actual state observation (which represents the root node) to the appropriate node. The tree policy does not need the state observation to compute the \ac{UCT} value. 
+Before the default policy is able to generate a random path, the state observation of the expanded node has to be generated. All actions in the path of the node are applied to the actual state observation (from the root node) which yields to a state observation which represents the expanded node. After that, the random path is simulated and the backpropagation updates the reward values.
 
-\subsubsection{acting}
+\subsubsection{act choosig -> most visited node}
 
-When no more time is available the \ac{MCTS} algorithm stops and the agent calls the act method from \textit{MCTSStrategy} to chose the action which will be executed given the \ac{MCTS} search tree. The child node from the root which was \textbf{most visited} is taken, some other approaches which take the node with the highest reward tend to poor results. The \textit{MostVisitedNodeComparator} used to compare the number of visits. When there are more nodes with equal (and highest) number of visits the heuristic value is used to select a node. With no heuristic given, a random node from the list of most visited nodes is selected. The depending action is executed by the agent. 
+When no more time is available the \ac{MCTS} algorithm stops and the agent calls the act method from \textit{MCTSStrategy} to chose the action which will be executed given the \ac{MCTS} search tree. The child node from the root which was most visited is taken, some other approaches which take the node with the highest reward tend to poor results. The \textit{MostVisitedNodeComparator} used to compare the number of visits. When there are more nodes with equal (and highest) number of visits the heuristic value is used to select a node. With no heuristic given, a random node from the listof most visited nodes is selected. The depending action is executed by the agent. 
 
 \subsection{Evolutionary algorithm} 
 

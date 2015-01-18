@@ -58,4 +58,10 @@ R.~Rojas, \emph{Neural Networks: A Systematic Introduction}.\hskip 1em plus
   0.5em minus 0.4em\relax New York, NY, USA: Springer-Verlag New York, Inc.,
   1996.
 
+\bibitem{schaul2013pyvgdl}
+T.~Schaul, ``A video game description language for model-based or interactive
+  learning,'' in \emph{Proceedings of the IEEE Conference on Computational
+  Intelligence in Games}.\hskip 1em plus 0.5em minus 0.4em\relax Niagara Falls:
+  IEEE Press, 2013.
+
 \end{thebibliography}
