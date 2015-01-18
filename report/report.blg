@@ -15,44 +15,44 @@ Database file #2: literature.bib
 ** Sorting version - not for normal IEEE work.
 
 Done.
-You've used 6 entries,
+You've used 7 entries,
             4498 wiz_defined-function locations,
-            1322 strings with 16883 characters,
-and the built_in function-call counts, 3926 in all, are:
-= -- 320
-> -- 139
+            1328 strings with 17078 characters,
+and the built_in function-call counts, 4458 in all, are:
+= -- 364
+> -- 146
 < -- 7
-+ -- 67
-- -- 42
-* -- 209
-:= -- 654
-add.period$ -- 12
-call.type$ -- 6
-change.case$ -- 38
++ -- 71
+- -- 44
+* -- 231
+:= -- 741
+add.period$ -- 15
+call.type$ -- 7
+change.case$ -- 42
 chr.to.int$ -- 12
-cite$ -- 6
-duplicate$ -- 248
-empty$ -- 316
-format.name$ -- 45
-if$ -- 833
+cite$ -- 7
+duplicate$ -- 292
+empty$ -- 378
+format.name$ -- 47
+if$ -- 953
 int.to.chr$ -- 0
-int.to.str$ -- 6
-missing$ -- 55
-newline$ -- 43
-num.names$ -- 12
-pop$ -- 173
+int.to.str$ -- 7
+missing$ -- 63
+newline$ -- 46
+num.names$ -- 14
+pop$ -- 196
 preamble$ -- 1
-purify$ -- 33
+purify$ -- 36
 quote$ -- 2
-skip$ -- 269
+skip$ -- 309
 stack$ -- 0
-substring$ -- 65
-swap$ -- 162
+substring$ -- 72
+swap$ -- 182
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 6
-type$ -- 46
+type$ -- 57
 warning$ -- 0
-while$ -- 15
-width$ -- 7
-write$ -- 74
+while$ -- 17
+width$ -- 8
+write$ -- 82

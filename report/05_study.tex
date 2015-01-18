@@ -83,8 +83,12 @@ that collides with the target could be the reason for the higher variance of the
 
 
 \subsection{MCTS} 
-We also tried to combine several approaches for example using the heuristic explorer 
-for a better \ac{MCTS} iteration. 
+
+For the test of the \ac{MCTS} algorithm we modified three different parameter. First of all we try to figure out
+if the rolling horizon idea makes sense. After that we changed the gamma variable that is used
+as a \textit{discounting factor}. Since there we no further improvement the discounting was disabled by setting it to 1.
+As a third and very important variable we experimented with the maximal tree depth. Due to the fact that we are using an open loop approach this determines 
+the size of the tree with recommended actions.
 
 
 \begin{minipage}{1\textwidth}
@@ -107,8 +111,8 @@ for a better \ac{MCTS} iteration.
 8 & 1 & 20 & 1 & 0.395 & 0.025 \\ \hline
 9 & 1 & 25 & 1 & 0.384 & 0.026 \\ \hline
 \end{tabular}
-\label{mcts_result}
 \caption{\ac{MCTS} result}
+\label{mcts_result}
 \end{table}
 \vspace{-2cm}
 \begin{figure}[H]
@@ -119,12 +123,37 @@ for a better \ac{MCTS} iteration.
 \end{figure}
 \end{minipage}
 
+We reached the best result by using an agent with rolling horizon, a maximal tree depth of 7 
+and no discounted reward (cf.~\cref{mcts_result}). 
+A higher maximal tree depth sticks together with a depth first search. Therefore the winning rate
+becomes lower at some value. If the tree is to small (e.g. hight of one) it's really a breadth-first search.
+
+We also tried to combine several approaches for example using the heuristic explorer 
+for a better \ac{MCTS} iteration. But that idea is difficult to implement because this
+it's a trade off of exploration, exploitation and heuristic search needed. Since that is
+not easy to handle a first naive ideas brought worse results, we got not manage it to evaluate 
+this combination of two approaches.
+It might be one future work to try and implement that.
+
+
 
 \subsection{Evolutionary Algorithm} 
 
-For the evolutionary algorithm we had a set up with different parameters.
+For the \ac{EA} algorithm exists many parameters that could be modified. To find a
+good setup we created an evolutionary algorithm over that parameter of the \ac{EA}
+algorithm. This meta-evolution uses the winning rate as a score function and
+varies the different parameters. Since we need more computational power to
+get really good result we were not able to use that idea. Instead we defined
+the different agents (cf.~\cref{ea_result}).
 
-\begin{minipage}{1\textwidth}
+As a first parameter we modified the \textit{SafetyIterations} which ensure that the agent do not
+choose an action that causes death.
+Furthermore the path length of each individual and the size of the pool were changed.
+Since not all candidates are shifted to the next generation we introduced a variable
+that manages that quantity. At least we evaluated if our dynamic path length what
+ensures the achievement of a specific generation makes sense.
+
+
 \begin{table}[H]
 \center
 \begin{tabular}{*9c}  \hline
@@ -152,17 +181,26 @@ For the evolutionary algorithm we had a set up with different parameters.
 13 & 5 & 8 & 14 & 5 & no & - & 0.453 & 0.029 \\ \hline
 14 & 8 & 6 & 14 & 5 & no & - & 0.477 & 0.022 \\ \hline
 \end{tabular}
-\label{ea_result}
 \caption{results of the \ac{EA} algorithms}
+\label{ea_result}
 \end{table}
-\vspace{-2cm}
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{images/eval_evolutionary.pdf}
 \caption{boxplot of the \ac{EA} algorithms}
 \label{fig:eval_evo}
 \end{figure}
-\end{minipage}
+
+As you can see (cf.~\cref{fig:eval_evo}) the \ac{EA} approach has a higher
+interquartile range than the others.
+We assume this is caused by the idea of \acp{EA} that the randomness is very important.
+In average we reached the best result with the parameters of \textit{ID} 8 (cf.~\cref{ea_result}). 
+Since another agent 14 with no dynamic path length reached also a very good result this idea might
+not help for winning the games. This is assured by the best one that only has a min generation value 
+of 2 what should normally for all agents be the case. Otherwise it's only a random approach.
+
 
 
 
