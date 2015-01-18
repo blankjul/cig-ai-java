@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  18 JAN 2015 15:05
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  18 JAN 2015 18:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1057,17 +1057,7 @@ Package pdftex.def Info: images/eval_heur.pdf used on input line 68.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [13]
-Package acronym Info: Label `acro:mcts' newly defined as it shall be overridden
-
-although it is yet undefined on input line 87.
-
-
-Package acronym Warning: Acronym `mcts' is not defined on input line 87.
-
-
-Package acronym Warning: Acronym `mcts' is not defined on input line 87.
-
-<images/eval_mcts.pdf, id=350, 587.19376pt x 442.65375pt>
+<images/eval_mcts.pdf, id=351, 587.19376pt x 442.65375pt>
 File: images/eval_mcts.pdf Graphic file (type pdf)
 
 <use images/eval_mcts.pdf>
@@ -1183,10 +1173,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 106.
  ) 
 Here is how much of TeX's memory you used:
- 21538 strings out of 493304
- 378820 string characters out of 6139871
+ 21530 strings out of 493304
+ 378730 string characters out of 6139871
  513694 words of memory out of 5000000
- 24269 multiletter control sequences out of 15000+600000
+ 24262 multiletter control sequences out of 15000+600000
  36609 words of font info for 185 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
  63i,12n,92p,954b,880s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1202,10 +1192,10 @@ s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (19 pages, 323514 bytes).
+Output written on report.pdf (19 pages, 323373 bytes).
 PDF statistics:
  682 PDF objects out of 1000 (max. 8388607)
  408 compressed objects within 5 object streams
- 125 named destinations out of 1000 (max. 500000)
+ 124 named destinations out of 1000 (max. 500000)
  25699 words of extra memory for PDF output out of 29859 (max. 10000000)
 
