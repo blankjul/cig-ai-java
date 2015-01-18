@@ -10,8 +10,7 @@ for example staying alive.
 
 We implemented two different Stay Alive Agents that has the aim just to act safe and hopefully randomly win the game.
 Even if there is the possibility to simulation an action, there is all the time an uncertainty. All objects of the games in our competition
-could - but has not - to act randomly. If we are using the \textit{advance} function that allows us to simulate one step that just
-one possible state of the future. This implies even if we are not dying at our simulation we could die at the real game.
+could - but has not - to act randomly. If we are using the \textit{advance} function that allows us to simulate one step, the result is just one possible state of the future. This implies even if we are not dying at our simulation we could die at the real game.
 
 One approach is to simulate the next action $n$ times. If the agent does not die for this simulations the next action should be safe.
 The problem is to set a good value for $n$. If the value is to large not all the possible actions could be tested. Otherwise 
@@ -37,11 +36,11 @@ From the resulting safe action set there could be randomly choosen the final act
 
 
 Suppose there is a game situation like in~\cref{fig:safe} the action \textit{RIGHT} is definitely unsafe what 
-should after an amount of $n$-action be clear.
+should be clear after an amount of $n$-action.
 
 Another idea is to analyse the grid around the agent. Assume that each enemy could only move one field at the grid
 at one game step there is a $5x5$ grid that needs to be analyzed. If an enemy at this grid exists one action is
-maybe unsafe. If not the enemy won't die for sure.
+maybe unsafe. If not the avatar will not die for sure.
 
 
 
@@ -130,7 +129,7 @@ The backpropagation iterates from the node which was expanded by the tree policy
 \subsubsection{Rolling Horizon}
 
 The approach of a rolling horizon was modified and applied to our problem. The goal of this rolling horizon technique was to save computing power. 
-When the act method from the\textit{MCTSAgent} or \textit{MCTSHeuristicAgent} is called a new \textit{MCTSStrategy} (search tree) is constructed or the rolling horizon is executed. The new search tree contains only the root node an has to be built-up normally, this costs a lot of computing power and time. The rolling horizon does not build a whole new tree, it uses the information from the previous call of the act method (from the last gametick). 
+When the act method from the \textit{MCTSAgent} or \textit{MCTSHeuristicAgent} is called a new \textit{MCTSStrategy} (search tree) is constructed or rolling horizon is executed. The new search tree contains only the root node an has to be built-up normally, this costs a lot of computing power and time. The rolling horizon does not build a whole new tree, it uses the information from the previous call of the act method (from the last gametick). 
 One subtree of the previous root node will be the new search tree, it is chosen by checking the last action which was executed and take the corresponding child as the new root node.
 After that the levels of the nodes are updated and the tree is built-up normally. It saves some computing power and the according tree is larger than the normal one which yields to more checked actions and better results.  
 

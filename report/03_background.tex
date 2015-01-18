@@ -3,7 +3,7 @@
 \section{Background} 
 \label{sec:back}
 
-In this project we were forced to investigate different ideas at three different research areas: heuristic based search, reinforcement learning and nature inspired algorithm. 
+In this project we were forced to investigate different ideas at three different research areas: heuristic based search, \ac{RL} and nature inspired algorithm. 
 Of course there is an overlap between these approaches. All of them try to find the next best step for the agent by iterating through a search tree. This is build in base of all possible game steps that could done by the agent.
 One naive approach of iterating through the whole search tree is not possible cause of the time limitation.
 Generally this leads to find the trade-off between iterating similar to a breadth-first or depth-first search.
@@ -65,13 +65,13 @@ A* contains two sets of nodes, the openlist and the closedlist. In every step of
 
 \subsection{Reinforcement learning} 
  
-\ac{RL} is a field in Machine learning which is a section of Artificial Intelligence. \ac{RL} methods are mostly used by agents in an environment called \ac{MDP}. \ac{MDP} is a mathematical description of decision processes. They have different states S and some actions A which are available in the actual state. Every timestep the agent chooses an action $a$ and the process switches from state $s_a$ to $s_n$. The probability to go over form a state S to another state S' by any action A can be described as
+\ac{RL} is a field in Machine learning which is a section of Artificial Intelligence. \ac{RL} methods are mostly used by agents in an environment called \ac{MDP}. \ac{MDP} is a mathematical description of decision processes. They have different states S and some actions A which are available in the actual state. Every timestep the agent choses an action $a$ and the process switches from state $s_a$ to $s_n$. The probability to go over form a state S to another state S' by any action A can be described as
 
 \begin{equation}
 	G: S*S*A \rightarrow [0,1] 
 \end{equation}
 
-and the reward given to the agent can be described by this:
+and the reward given to the agent can be described by this formula:
 
 \begin{equation}
 	R: S*S*A \rightarrow \mathbb{R}
@@ -93,8 +93,8 @@ shows its corresponding reward.
 
 
 In differ to other learn methods and approaches like the (semi)supervised learning, RL algorithms never use information which they do not figured out themselves, so no correct samples were given to the algorithm. The only information is the reward given to the agent and some additional information like heuristic values, depending of the specific algorithm. 
-A big problem problem in \ac{RL} is the conflict between exploration of new and unvisited areas of the solution room and exploitation which is the improvement of already found solutions.
-...
+A big problem in \ac{RL} is the conflict between exploration of new and unvisited areas of the solution room and exploitation which is the improvement of already found solutions.
+
 \subsubsection{Monte Carlo Tree Search} 
 
 \ac{MCTS} is a class of \ac{RL} algorithms. It is the most important concept in this paper. \ac{MCTS} needs a tree of nodes which represent the different states, the edges represent the actions used by the agent to get to this node. The \ac{MCTS} algorithm traverses to this tree and expands it. To find the global optimum a good balancing ratio between exploration and exploitation is required. 
@@ -107,16 +107,16 @@ In the selection the algorithm starts at the root node and traverses down the tr
 \begin{equation}
 	UCT = \overline{X}_j + 2 * C * \sqrt{\frac{2 \ln n}{n_j}}
 \end{equation}
-$\overline{X}_j$ is the average reward of this node so the left part of the formula is the exploitation part. The right part generates the value for exploration, where $C$ is a constant (often $\sqrt{2}$), $n$ is the number of times the parent node has been visited and $n_j$ is the number of times the actual node was visited.This formula has shown to provide good resultsand it is part of a lot of \ac{MCTS} algorithms.
+$\overline{X}_j$ is the average reward of this node so the left part of the formula is the exploitation part. The right part generates the value for exploration, where $C$ is a constant (often $\sqrt{2}$), $n$ is the number of times the parent node has been visited and $n_j$ is the number of times the actual node was visited.This formula has shown to provide good results and it is part of a lot of \ac{MCTS} algorithms.
 After the selection of a node one randomly chosen child is generated, this is called the expansion.
-The third step is the simulation in which we want to know how good the extended node is. To do that, we generate randomly chosen children from the expanded node. When we reach our simualtion depth we compute the reward of the last simulated node.
+The third step is the simulation in which we want to know how good the extended node is. To do that, we generate children from the expanded node depending on randomly chosen actions. When we reach our simualtion depth we compute the reward of the last simulated node.
 In the last step, the backpropagation, we start at the expanded node and iterate to the root, guided by the father references. In every node we visit the reward of the simulation will be charged with the actual reward of the node.
-The first two steps are guided by the so called Tree Policy, the simulation by the Default Policy.
+The first two steps are guided by the so called tree policy, the simulation by the default policy.
 \todo{maybe more detailed -> but the chapter will be very large}
 
 \subsection{Nature inspired} 
 The nature is solving problems by applying different approaches instinctively. Computer scientists used that observed knowledge from the
-nature to write \ac{NI} algorithms that has a similar procedure. Our brain could solve problems that could not be solved by an algorithm until now. Funnily this is often the truth for games for example poker.
+nature to write \ac{NI} algorithms which have a similar procedure. Our brain could solve problems that could not be solved by an algorithm until now. Funnily this is often the truth for games for example poker.
 
 \subsubsection{Neural nets} 
 Many researcher try to explore the process of the human brain. Neural networks tries to model the nervous system and to adapt all the processes~\cite{nn_intro}. The neurons are modeled as \ac{TLU} that consists of several input values $x_1$ to $x_n$ and one output value $y$~\cite{ci_kruse}. 
