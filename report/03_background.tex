@@ -99,20 +99,19 @@ A big problem problem in \ac{RL} is the conflict between exploration of new and 
 
 \ac{MCTS} is a class of \ac{RL} algorithms. It is the most important concept in this paper. \ac{MCTS} needs a tree of nodes which represent the different states, the edges represent the actions used by the agent to get to this node. The \ac{MCTS} algorithm traverses to this tree and expands it. To find the global optimum a good balancing ratio between exploration and exploitation is required. 
 
-\todo{[maybe picture from his paper and pseudocode, wird vielleicht zu viel...]}
-
-
 The general \ac{MCTS} algorithm has four steps, selection, expansion, simulation and backpropagation.
-In the selection the algorithm starts at the root node and traverses down the tree. Goal of this step is to select a node to expand (to generate a child node). Depending on the number of children of every node there are several different paths we can chose. Often the $Upper Confidence Bound for Trees$, (UCT) is used to balance the ratio between expolitation and exploration:
+In the selection the algorithm starts at the root node and traverses down the tree. Goal of this step is to select a node to expand (to generate a child node). Depending on the number of children of every node there are several different paths we can chose. Often the \ac{UCT} is used to balance the ratio between exploitation and exploration:
+
 \begin{equation}
 	UCT = \overline{X}_j + 2 * C * \sqrt{\frac{2 \ln n}{n_j}}
 \end{equation}
-$\overline{X}_j$ is the average reward of this node so the left part of the formula is the exploitation part. The right part generates the value for exploration, where $C$ is a constant (often $\sqrt{2}$), $n$ is the number of times the parent node has been visited and $n_j$ is the number of times the actual node was visited.This formula has shown to provide good resultsand it is part of a lot of \ac{MCTS} algorithms.
+
+$\overline{X}_j$ is the average reward of this node so the left part of the formula is the exploitation part. The right part generates the value for exploration, where $C$ is a constant (often $\sqrt{2}$), $n$ is the number of times the parent node has been visited and $n_j$ is the number of times the actual node was visited.This formula has shown to provide good results and it is part of a lot of \ac{MCTS} algorithms.
 After the selection of a node one randomly chosen child is generated, this is called the expansion.
-The third step is the simulation in which we want to know how good the extended node is. To do that, we generate randomly chosen children from the expanded node. When we reach our simualtion depth we compute the reward of the last simulated node.
+The third step is the simulation in which we want to know how good the extended node is. To do that, we generate randomly chosen children from the expanded node. When we reach our simulation depth we compute the reward of the last simulated node.
 In the last step, the backpropagation, we start at the expanded node and iterate to the root, guided by the father references. In every node we visit the reward of the simulation will be charged with the actual reward of the node.
 The first two steps are guided by the so called Tree Policy, the simulation by the Default Policy.
-\todo{maybe more detailed -> but the chapter will be very large}
+
 
 \subsection{Nature inspired} 
 The nature is solving problems by applying different approaches instinctively. Computer scientists used that observed knowledge from the
