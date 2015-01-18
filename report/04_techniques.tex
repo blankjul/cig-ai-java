@@ -126,36 +126,18 @@ The backpropagation iterates from the node which was expanded by the tree policy
 
 \subsubsection{rolling horizon}
 
-The implementation of a rolling horion working on it......
+The approach of a rolling horizon was modified and applied to our problem. The goal of this rolling horizon technique was to save computing power. 
+When the act method from the\textit{MCTSAgent} or \textit{MCTSHeuristicAgent} is called a new \textit{MCTSStrategy} (search tree) is constructed or the \textit{rolling horizon} is executed. The new search tree contains only the root node an has to be built-up normally, this costs a lot of computing power and time. The \textit{rolling horizon} does not build a whole new tree, it uses the information from the previous call of the act method (from the last gametick). 
+One subtree of the previous root node will be the new search tree, it is chosen by checking the last action which was executed and take the corresponding child as the new root node.
+After that the levels of the nodes are updated and the tree is built-up normally. It saves some computing power and the according tree is larger than the normal one which yields to more checked actions and better results.  
 
-\begin{itemize}
-  \item tree policy
-  \item default policy
-  \item act choosig -> most visited node
-\end{itemize}
+\subsubsection{openloop}
 
+We used the \textit{openloop} approach, this means that the actual state observation is not stored in a \textit{MCTSNode}. Every node contains only some values like the number of visits, father, children, reward ect. 
 
+\subsubsection{act choosig -> most visited node}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+When no more time is available the \ac{MCTS} algorithm stops and the agent calls the act method from \textit{MCTSStrategy} to chose the action which will be executed given the \ac{MCTS} search tree. The child node from the root which was most visited is taken, some other approaches which take the node with the highest reward tend to poor results. The \textit{MostVisitedNodeComparator} used to compare the number of visits. When there are more nodes with equal (and highest) number of visits the heuristic value is used to select a node. With no heuristic given, a random node from the listof most visited nodes is selected. The depending action is executed by the agent. 
 
 \subsection{Evolutionary algorithm} 
 
