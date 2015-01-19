@@ -1,21 +1,20 @@
 \section{Conclusions and Future Work} 
 \label{sec:conc}
 
-This paper presents a comparison of several approach to play general video games. We selected for each research area (\ac{HR}, \ac{RL}, \ac{NI})
+This paper presents a comparison of several approaches to play general video games. We selected for each research area (\ac{HR}, \ac{RL}, \ac{NI})
 one algorithm and implemented that. 
 
 
-For the evaluation we forced to look at the data for example average wins, score and time steps.
+For the evaluation we have to look at the data for example average wins, score and time steps.
 We ignored the in-game behaviour of our agents completely and only looked at the statistics. 
 Furthermore we were limited by time and computational power which restricts the iterations of our experiment. 
-To get more significant results experimental setup with more than 1000 iterations would stand for an higher validity.
-The \ac{HR} approach has the best results (depending on the number of wins) and was better than the \ac{NI} and \ac{MCTS}. This might have serveral reasons. Firstly our implementation of \ac{MCTS} and \ac{NI} is maybe not very effective or we did not find the optimal parameters to fit our problem. We can not make statements about the accuracy of the approaches (\acs{HR}, \acs{RL}, \acs{NI}) using our conttrollers as quality criterion.
+To get more significant results, a experimental setup with more than 1000 iterations (like 3000 in the cpomparison between the best agents) have to be set up.
+Some future work could be to set this setup up and to test the algorithms with more computing power.  
+The \ac{HR} approach has the best results (depending on the number of wins) and was better than the \ac{NI} and \ac{MCTS}. This might have serveral reasons. Firstly our implementation of \ac{MCTS} and \ac{NI} is maybe not very effective or we did not find the optimal parameters to fit our problem. The parameter problem, which depends on the lack of computing power, could be solved with a more powerful machine and a loop over a set of possible parameter-combinations.
+Another reason why the \ac{HR} agent wins is that often there are only very few winning-sprites in the game which makes it hard for \ac{MCTS} and \ac{NI} to get a reward and win the game. These games are easy for the heuristic controller. The average score of the \ac{MCTS} controller is higher because the \ac{HR} controller wins very fast without collecting some extra points. 
+We can not make general statements about the accuracy of the approaches (\acs{HR}, \acs{RL}, \acs{NI}) using our controllers as quality criterion, but we can say that all of them are useful for \ac{GVGP}.
 For futue work the implementation of other controllers and methods (e.g. Neuronal Nets, Pheromone) to compare them with the the actual ones would be an idea. Furthermore a test with unknown games would be good, to compare the agents and the methods on completely unknown games.
-
--combine approaches 
--parameter systematisch druchgehen -> keine powwer
--heuristic ist besser .> EA und MCTS finden nix wenn es nur wenig sieg sprites gibt
--
+Another idea for future work is to combine the best properties of the three agents and and create a combined agent.
 
 \todo{
 Explain the main contributions of this work: what are the most important findings. Finally, explain how could this work be extended. What would be the next steps?

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.14)  19 JAN 2015 11:52
-=======
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  19 JAN 2015 11:49
->>>>>>> 65e34899f646da922460fc95721275a14f1a67c5
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.9)  19 JAN 2015 15:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1128,11 +1124,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 235--253
  []
 
 ) (./06_conclusion.tex
-<<<<<<< HEAD
-Underfull \vbox (badness 1168) has occurred while \output is active []
-=======
 Underfull \vbox (badness 10000) has occurred while \output is active []
->>>>>>> 65e34899f646da922460fc95721275a14f1a67c5
 
  [18 <./images/eval_all_wins.pdf> <./images/eval_all_score.pdf
 
@@ -1175,7 +1167,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
  ) 
 Here is how much of TeX's memory you used:
  21547 strings out of 493304
- 378302 string characters out of 6139871
+ 378302 string characters out of 6139872
  507694 words of memory out of 5000000
  24257 multiletter control sequences out of 15000+600000
  37643 words of font info for 201 fonts, out of 8000000 for 9000
@@ -1193,17 +1185,10 @@ s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-<<<<<<< HEAD
-Output written on report.pdf (20 pages, 329393 bytes).
+Output written on report.pdf (20 pages, 330680 bytes).
 PDF statistics:
- 714 PDF objects out of 1000 (max. 8388607)
- 442 compressed objects within 5 object streams
-=======
-Output written on report.pdf (20 pages, 328603 bytes).
-PDF statistics:
- 707 PDF objects out of 1000 (max. 8388607)
- 434 compressed objects within 5 object streams
->>>>>>> 65e34899f646da922460fc95721275a14f1a67c5
+ 721 PDF objects out of 1000 (max. 8388607)
+ 448 compressed objects within 5 object streams
  122 named destinations out of 1000 (max. 500000)
  25699 words of extra memory for PDF output out of 29859 (max. 10000000)
 
