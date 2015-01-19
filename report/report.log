@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  19 JAN 2015 11:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  19 JAN 2015 11:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1091,21 +1091,24 @@ Overfull \hbox (3.87234pt too wide) in paragraph at lines 215--215
  []
 
 [17 <./images/eval_evolutionary.pdf>]
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 232.
+
 <images/eval_all_wins.pdf, id=507, 587.19376pt x 442.65375pt>
 File: images/eval_all_wins.pdf Graphic file (type pdf)
 
 <use images/eval_all_wins.pdf>
-Package pdftex.def Info: images/eval_all_wins.pdf used on input line 238.
-(pdftex.def)             Requested size: 234.87334pt x 177.05835pt.
+Package pdftex.def Info: images/eval_all_wins.pdf used on input line 237.
+(pdftex.def)             Requested size: 176.15948pt x 132.79713pt.
 
 <images/eval_all_score.pdf, id=508, 587.19376pt x 442.65375pt>
 File: images/eval_all_score.pdf Graphic file (type pdf)
 
 <use images/eval_all_score.pdf>
-Package pdftex.def Info: images/eval_all_score.pdf used on input line 245.
-(pdftex.def)             Requested size: 234.87334pt x 177.05835pt.
+Package pdftex.def Info: images/eval_all_score.pdf used on input line 243.
+(pdftex.def)             Requested size: 176.15948pt x 132.79713pt.
 
-Overfull \hbox (92.60956pt too wide) in paragraph at lines 245--246
+Overfull \hbox (33.8957pt too wide) in paragraph at lines 243--244
  [][] 
  []
 
@@ -1113,15 +1116,17 @@ Overfull \hbox (92.60956pt too wide) in paragraph at lines 245--246
 File: images/eval_all_timesteps.pdf Graphic file (type pdf)
 
 <use images/eval_all_timesteps.pdf>
-Package pdftex.def Info: images/eval_all_timesteps.pdf used on input line 251.
+Package pdftex.def Info: images/eval_all_timesteps.pdf used on input line 249.
 (pdftex.def)             Requested size: 205.52089pt x 154.93112pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 235--255
+Underfull \hbox (badness 10000) in paragraph at lines 235--253
 []$[]$$[]$
  []
 
-) (./06_conclusion.tex [18 <./images/eval_all_wins.pdf> <./images/eval_all_scor
-e.pdf
+) (./06_conclusion.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18 <./images/eval_all_wins.pdf> <./images/eval_all_score.pdf
 
 pdfTeX warning: pdflatex (file ./images/eval_all_score.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
@@ -1129,10 +1134,7 @@ tiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./images/eval_all_timesteps.pdf): PDF inclusion:
  multiple pdfs with page group included in a single page
->]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 17.
-) [19]
+>]) [19]
 LaTeX Font Info:    Try loading font information for OT1+phv on input line 92.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
@@ -1164,10 +1166,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
  ) 
 Here is how much of TeX's memory you used:
- 21541 strings out of 493304
- 378155 string characters out of 6139871
+ 21547 strings out of 493304
+ 378302 string characters out of 6139871
  507694 words of memory out of 5000000
- 24252 multiletter control sequences out of 15000+600000
+ 24257 multiletter control sequences out of 15000+600000
  37643 words of font info for 201 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
  63i,12n,92p,954b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1183,10 +1185,10 @@ s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (20 pages, 327945 bytes).
+Output written on report.pdf (20 pages, 328603 bytes).
 PDF statistics:
- 705 PDF objects out of 1000 (max. 8388607)
- 433 compressed objects within 5 object streams
- 121 named destinations out of 1000 (max. 500000)
+ 707 PDF objects out of 1000 (max. 8388607)
+ 434 compressed objects within 5 object streams
+ 122 named destinations out of 1000 (max. 500000)
  25699 words of extra memory for PDF output out of 29859 (max. 10000000)
 
