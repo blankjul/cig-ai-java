@@ -51,7 +51,7 @@ One step lookahead is a very simple tree search algorithm which follows the gree
 After that the algorithm terminates and we pick the node with the best heuristic value. This algorithm is a special greedy approach that
 is limited by the first level at the search tree.
 
-\subsubsection{AStar}
+\subsubsection{A*}
 
 The A* tree search algorithm is a modification of the dijkstra algorithm and also belongs to the class of greedy algorithms. The Algorithm finds the shortest path between two nodes. In difference to normal greedy algorithms A* is a optimal algorithm, it finds a solution when a solution exists (in this case the shortest path). The algorithm uses a heuristic to estimate the shortest path. The value f(x) of a node N is the sum of its heuristic value h(x) and the costs from the start-node to N g(x).
 
@@ -59,9 +59,7 @@ The A* tree search algorithm is a modification of the dijkstra algorithm and als
 f(x)=h(x)+g(x)
 \end{equation}
 
-\todo{any picture?}
-
-A* contains two sets of nodes, the openlist and the closedlist. In every step of the algorithm the Node N with the lowest f(x) value in the openlist is put on the closedlist and all its connected nodes, which are not in the closedlist, are put in the openlist (with reference to their fahter N). If a connected node is already in the closedlist but the new generated value f'(x) is lower than f(x) then f(x) will be replaced by f'(x) and the new father-reference is N. The openlist contains all the nodes to which the path is already known and which can be checked in the next step, the closedlist contains every visited and checked node. When the actual node is the goal-node, the algorithm terminates. To generate the path, the algorithm goes back from the goal-node to the start node (guided by the father-references). 
+A* contains two sets of nodes, the openlist and the closedlist. In every step of the algorithm the Node N with the lowest f(x) value in the openlist is put on the closedlist and all its connected nodes, which are not in the closedlist, are put in the openlist (with reference to their father N). If a connected node is already in the closedlist but the new generated value f'(x) is lower than f(x) then f(x) will be replaced by f'(x) and the new father-reference is N. The openlist contains all the nodes to which the path is already known and which can be checked in the next step, the closedlist contains every visited and checked node. When the actual node is the goal-node, the algorithm terminates. To generate the path, the algorithm goes back from the goal-node to the start node (guided by the father-references). 
 
 \subsection{Reinforcement learning} 
  
@@ -99,11 +97,8 @@ A big problem in \ac{RL} is the conflict between exploration of new and unvisite
 
 \ac{MCTS} is a class of \ac{RL} algorithms. It is the most important concept in this paper. \ac{MCTS} needs a tree of nodes which represent the different states, the edges represent the actions used by the agent to get to this node. The \ac{MCTS} algorithm traverses to this tree and expands it. To find the global optimum a good balancing ratio between exploration and exploitation is required. 
 
-\todo{[maybe picture from his paper and pseudocode, wird vielleicht zu viel...]}
-
-
 The general \ac{MCTS} algorithm has four steps, selection, expansion, simulation and backpropagation.
-In the selection the algorithm starts at the root node and traverses down the tree. Goal of this step is to select a node to expand (to generate a child node). Depending on the number of children of every node there are several different paths we can chose. Often the $Upper Confidence Bound for Trees$, (UCT) is used to balance the ratio between expolitation and exploration:
+In the selection the algorithm starts at the root node and traverses down the tree. Goal of this step is to select a node to expand (to generate a child node). Depending on the number of children of every node there are several different paths we can chose. Often the $Upper Confidence Bound for Trees$, (UCT) is used to balance the ratio between exploitation and exploration:
 \begin{equation}
 	UCT = \overline{X}_j + 2 * C * \sqrt{\frac{2 \ln n}{n_j}}
 \end{equation}
@@ -112,7 +107,7 @@ After the selection of a node one randomly chosen child is generated, this is ca
 The third step is the simulation in which we want to know how good the extended node is. To do that, we generate children from the expanded node depending on randomly chosen actions. When we reach our simualtion depth we compute the reward of the last simulated node.
 In the last step, the backpropagation, we start at the expanded node and iterate to the root, guided by the father references. In every node we visit the reward of the simulation will be charged with the actual reward of the node.
 The first two steps are guided by the so called tree policy, the simulation by the default policy.
-\todo{maybe more detailed -> but the chapter will be very large}
+
 
 \subsection{Nature inspired} 
 The nature is solving problems by applying different approaches instinctively. Computer scientists used that observed knowledge from the

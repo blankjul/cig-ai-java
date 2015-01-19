@@ -13,46 +13,48 @@ Database file #2: literature.bib
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 ** Sorting version - not for normal IEEE work.
+Warning--empty booktitle in panorama
 
 Done.
-You've used 7 entries,
+You've used 8 entries,
             4498 wiz_defined-function locations,
-            1328 strings with 17078 characters,
-and the built_in function-call counts, 4458 in all, are:
-= -- 364
-> -- 146
+            1332 strings with 17176 characters,
+and the built_in function-call counts, 4945 in all, are:
+= -- 402
+> -- 153
 < -- 7
-+ -- 71
-- -- 44
-* -- 231
-:= -- 741
-add.period$ -- 15
-call.type$ -- 7
-change.case$ -- 42
++ -- 75
+- -- 46
+* -- 249
+:= -- 819
+add.period$ -- 18
+call.type$ -- 8
+change.case$ -- 46
 chr.to.int$ -- 12
-cite$ -- 7
-duplicate$ -- 292
-empty$ -- 378
-format.name$ -- 47
-if$ -- 953
+cite$ -- 9
+duplicate$ -- 332
+empty$ -- 435
+format.name$ -- 49
+if$ -- 1061
 int.to.chr$ -- 0
-int.to.str$ -- 7
-missing$ -- 63
-newline$ -- 46
-num.names$ -- 14
-pop$ -- 196
+int.to.str$ -- 8
+missing$ -- 70
+newline$ -- 49
+num.names$ -- 16
+pop$ -- 221
 preamble$ -- 1
-purify$ -- 36
+purify$ -- 39
 quote$ -- 2
-skip$ -- 309
+skip$ -- 347
 stack$ -- 0
-substring$ -- 72
-swap$ -- 182
+substring$ -- 79
+swap$ -- 197
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 6
-type$ -- 57
-warning$ -- 0
-while$ -- 17
-width$ -- 8
-write$ -- 82
+type$ -- 68
+warning$ -- 1
+while$ -- 19
+width$ -- 9
+write$ -- 89
+(There was 1 warning)

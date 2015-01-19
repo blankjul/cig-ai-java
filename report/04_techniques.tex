@@ -43,8 +43,6 @@ at one game step there is a $5x5$ grid that needs to be analyzed. If an enemy at
 maybe unsafe. If not the avatar will not die for sure.
 
 
-
-
 At the~\cref{fig:safe_grid} you can see the action that could be excluded without doing any simulation at the game.
 The possible next fields (excluded the current position if agent does nothing) are marked green. The possible positions
 of the enemy are red. The action RIGHT is by using the grid search unsafe. 
@@ -89,14 +87,14 @@ information about all fields at the grid and how often the agent visited each on
 
 
 When the explorer find the winning or scoring objects a heuristic is initialized. We used a heuristic with that 
-calculates the distance to one target by using the manhatten distance. To reach this target we use an astar 
+calculates the distance to one target by using the manhatten distance. To reach this target we use an A* 
 algorithm with three modifications.
 
-Every game step the astar algorithm is executed from scratch even if we found the target in the last iteration.
+Every game step the A* algorithm is executed from scratch even if we found the target in the last iteration.
 We use an safety approach for the first action to ensure the next action we maybe choose is safe. For that we
-use the principle of the stay alive agent. The astar algorithm needs to hold all the states in memory.
+use the principle of the stay alive agent. The A* algorithm needs to hold all the states in memory.
 This leads to a very fast growing open list with a lot of states. We introduce a \textit{maxStates} variable. 
-Whenever the open list of the astar algorithm is larger than this variable the list is cut in a half.
+Whenever the open list of the A* algorithm is larger than this variable the list is cut in a half.
 Additionally we use for our simulations the simulator and use the knowledge base. Normally all children of
 a state are added to the open list. We only add all the children to the list of that we assume we will get a 
 new position. Since we know from the Environment class which objects are blocking, we could use that information
