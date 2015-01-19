@@ -1,21 +1,21 @@
 [18.01.15]	paper
- 	-abstract			(zusammen)
+[done] 	-abstract			(zusammen)
 [done]	-introduction			(julian)
-	-Literatue Review		(freddy)
+[review]	-Literatue Review		(freddy)
 [skipped]	3.3.3 Pheromone			(julian) Ist nicht notwendig. wir verwenden das nichtmal ;)
 [done]	-MCTS fertig machen		(freddy)
 [done]	4.2Heuristic based		(julian)
-	4.3 implementierung MCTS	(freddy) (MCTSAgent, rollinghorizon, openloop, node auswahl->meist besuchte)
+[done]	4.3 implementierung MCTS	(freddy) (MCTSAgent, rollinghorizon, openloop, node auswahl->meist besuchte)
 [done]	4.4 Evolutionary		(julian) erledigt.
 [skipped] .5 Improvements and com.	(julian) (MCTSHeuristicAgent EvolutionaryHeuristicAgent) unsicher ob sinnvoll.
 [done]	4.6 GameDetection		(freddy)
 	5 Experimental
 [done]	5.1 Test Aufbau (Titel!)	(freddy)
-		-difficulties (*1)	()
-	5.2 Among each approch
-		-only wins for comp.
+[done]    	-difficulties (*1)	()
+[done]     5.2 Among each approch
+[done]		-only wins for comp.
 [done]		-boxplot (julian)
-	5.3 general
+[done]	5.3 general
 [done]		-wins+score+timesteps
 [done]		-boxplot (julian)
 [started]	6 Conclusion			(zusammen)
@@ -28,7 +28,9 @@
 [16.01.15] Code Review
 [done]	-documentation (javadoc)	(freddy)
 [done]	-simulieren (Heuristic Agent)	(freddy)	min einmal beim besten gridsearch + intelligence
-[done]	-simulieren (MCTS Agent)	(freddy)	priorität (gamma = 0.9, oder besten, Heuristic weglassen, meistens Maxdepth variieren)
+[done]	-simulieren (MCTS Agent)	(freddy)	priorität (gamma = 0.9, oder besten,
+[done] Heuristic weglassen, meistens Maxdepth variieren)
+
 
 [18.01.15] final draft
 [done]	-englische Menschen suchen	(zusammen)
@@ -37,7 +39,5 @@
 [20.01.15] finale Abgabe
 
 
-
-(*1) zeit limitierendenr faktor, nicht die Tiefe des baumes
 
 
