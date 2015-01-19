@@ -3,3 +3,6 @@
 bin
 bin1/
 classes/
+report/report.aux
+report/report.pdf
+report/report.synctex.gz
