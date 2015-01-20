@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.9)  19 JAN 2015 15:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  20 JAN 2015 10:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1014,10 +1014,10 @@ Package pdftex.def Info: images/safe_grid.pdf used on input line 30.
 <images/classes.png, id=236, 708.6475pt x 495.8525pt>
 File: images/classes.png Graphic file (type png)
  <use images/classes.png>
-Package pdftex.def Info: images/classes.png used on input line 83.
+Package pdftex.def Info: images/classes.png used on input line 82.
 (pdftex.def)             Requested size: 354.32289pt x 247.92564pt.
 
-Overfull \hbox (7.19936pt too wide) in paragraph at lines 83--84
+Overfull \hbox (7.19936pt too wide) in paragraph at lines 82--83
  [][] 
  []
 
@@ -1027,7 +1027,7 @@ pdfTeX warning: pdflatex (file ./images/safe_grid.pdf): PDF inclusion: multiple
  pdfs with page group included in a single page
 >]
 Package acronym Info: Label `acro:UCT' newly defined as it shall be overridden
-although it is yet undefined on input line 108.
+although it is yet undefined on input line 107.
  [9 <./images/classes.png (PNG copy)>]
 Underfull \vbox (badness 1102) has occurred while \output is active []
 
@@ -1036,105 +1036,83 @@ Underfull \vbox (badness 1102) has occurred while \output is active []
 File: images/crossover.pdf Graphic file (type pdf)
 
 <use images/crossover.pdf>
-Package pdftex.def Info: images/crossover.pdf used on input line 164.
+Package pdftex.def Info: images/crossover.pdf used on input line 163.
 (pdftex.def)             Requested size: 179.87625pt x 102.51059pt.
 
 <images/sliding_window.pdf, id=311, 484.54187pt x 224.42944pt>
 File: images/sliding_window.pdf Graphic file (type pdf)
 
 <use images/sliding_window.pdf>
-Package pdftex.def Info: images/sliding_window.pdf used on input line 180.
+Package pdftex.def Info: images/sliding_window.pdf used on input line 179.
 (pdftex.def)             Requested size: 290.72736pt x 134.65869pt.
  [11 <./images/crossover.pdf>]) (./05_study.tex
-[12 <./images/sliding_window.pdf>]
-<images/eval_heur.pdf, id=347, 587.19376pt x 442.65375pt>
+[12 <./images/sliding_window.pdf>] [13]
+<images/eval_heur.pdf, id=357, 587.19376pt x 442.65375pt>
 File: images/eval_heur.pdf Graphic file (type pdf)
 
 <use images/eval_heur.pdf>
-Package pdftex.def Info: images/eval_heur.pdf used on input line 61.
+Package pdftex.def Info: images/eval_heur.pdf used on input line 70.
 (pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
- [13]
-Underfull \vbox (badness 2302) has occurred while \output is active []
-
- [14 <./images/eval_heur.pdf>] <images/eval_mcts.pdf, id=398, 587.19376pt x 442
-.65375pt>
+ [14 <./images/eval_heur.pdf>]
+<images/eval_mcts.pdf, id=401, 587.19376pt x 442.65375pt>
 File: images/eval_mcts.pdf Graphic file (type pdf)
 
 <use images/eval_mcts.pdf>
-Package pdftex.def Info: images/eval_mcts.pdf used on input line 113.
+Package pdftex.def Info: images/eval_mcts.pdf used on input line 122.
 (pdftex.def)             Requested size: 352.31897pt x 265.59428pt.
 
-Overfull \hbox (5.19543pt too wide) in paragraph at lines 113--114
+Overfull \hbox (5.19543pt too wide) in paragraph at lines 122--123
  [][] 
  []
 
-
-Overfull \hbox (15.0pt too wide) in paragraph at lines 87--118
-[]$[]$ 
- []
-
-[15 <./images/eval_mcts.pdf>]
-<images/eval_evolutionary.pdf, id=450, 587.19376pt x 442.65375pt>
+[15] [16 <./images/eval_mcts.pdf>]
+<images/eval_evolutionary.pdf, id=457, 587.19376pt x 442.65375pt>
 File: images/eval_evolutionary.pdf Graphic file (type pdf)
 
 <use images/eval_evolutionary.pdf>
-Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 184.
-(pdftex.def)             Requested size: 352.31897pt x 265.59428pt.
+Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 193.
+(pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
 
-Overfull \hbox (5.19543pt too wide) in paragraph at lines 184--185
- [][] 
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[16]
-Overfull \hbox (3.87234pt too wide) in paragraph at lines 215--215
+ [17]
+Overfull \hbox (3.87234pt too wide) in paragraph at lines 224--224
  []|\OT1/ptm/m/n/9 (-20) approach| 
  []
 
-[17 <./images/eval_evolutionary.pdf>]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 232.
-
-<images/eval_all_wins.pdf, id=507, 587.19376pt x 442.65375pt>
+[18 <./images/eval_evolutionary.pdf>]
+<images/eval_all_wins.pdf, id=514, 587.19376pt x 442.65375pt>
 File: images/eval_all_wins.pdf Graphic file (type pdf)
 
 <use images/eval_all_wins.pdf>
-Package pdftex.def Info: images/eval_all_wins.pdf used on input line 237.
-(pdftex.def)             Requested size: 176.15948pt x 132.79713pt.
+Package pdftex.def Info: images/eval_all_wins.pdf used on input line 247.
+(pdftex.def)             Requested size: 264.23474pt x 199.19234pt.
 
-<images/eval_all_score.pdf, id=508, 587.19376pt x 442.65375pt>
+<images/eval_all_score.pdf, id=523, 587.19376pt x 442.65375pt>
 File: images/eval_all_score.pdf Graphic file (type pdf)
 
 <use images/eval_all_score.pdf>
-Package pdftex.def Info: images/eval_all_score.pdf used on input line 243.
-(pdftex.def)             Requested size: 176.15948pt x 132.79713pt.
+Package pdftex.def Info: images/eval_all_score.pdf used on input line 266.
+(pdftex.def)             Requested size: 264.23474pt x 199.19234pt.
 
-Overfull \hbox (33.8957pt too wide) in paragraph at lines 243--244
- [][] 
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<images/eval_all_timesteps.pdf, id=509, 587.19376pt x 442.65375pt>
+ [19 <./images/eval_all_wins.pdf>]
+<images/eval_all_timesteps.pdf, id=570, 587.19376pt x 442.65375pt>
 File: images/eval_all_timesteps.pdf Graphic file (type pdf)
 
 <use images/eval_all_timesteps.pdf>
-Package pdftex.def Info: images/eval_all_timesteps.pdf used on input line 249.
-(pdftex.def)             Requested size: 205.52089pt x 154.93112pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 235--253
-[]$[]$$[]$
- []
-
-) (./06_conclusion.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [18 <./images/eval_all_wins.pdf> <./images/eval_all_score.pdf
-
-pdfTeX warning: pdflatex (file ./images/eval_all_score.pdf): PDF inclusion: mul
-tiple pdfs with page group included in a single page
-> <./images/eval_all_timesteps.pdf
+Package pdftex.def Info: images/eval_all_timesteps.pdf used on input line 278.
+(pdftex.def)             Requested size: 264.23474pt x 199.19234pt.
+) (./06_conclusion.tex [20 <./images/eval_all_score.pdf> <./images/eval_all_tim
+esteps.pdf
 
 pdfTeX warning: pdflatex (file ./images/eval_all_timesteps.pdf): PDF inclusion:
  multiple pdfs with page group included in a single page
->]) [19]
+>]
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 21.
+) [21]
 LaTeX Font Info:    Try loading font information for OT1+phv on input line 92.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
@@ -1152,7 +1130,7 @@ Missing character: There is no Ä in font ptmr7t!
 Missing character: There is no ê in font ptmr7t!
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 117.
- [20]
+ [22]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 117.
  (./report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 117.
@@ -1166,13 +1144,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
  ) 
 Here is how much of TeX's memory you used:
- 21547 strings out of 493304
- 378302 string characters out of 6139872
- 507694 words of memory out of 5000000
- 24257 multiletter control sequences out of 15000+600000
+ 21545 strings out of 493304
+ 378203 string characters out of 6139871
+ 506694 words of memory out of 5000000
+ 24252 multiletter control sequences out of 15000+600000
  37643 words of font info for 201 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
- 63i,12n,92p,954b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,10n,92p,954b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1185,10 +1163,10 @@ s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (20 pages, 330680 bytes).
+Output written on report.pdf (22 pages, 333995 bytes).
 PDF statistics:
- 721 PDF objects out of 1000 (max. 8388607)
- 448 compressed objects within 5 object streams
- 122 named destinations out of 1000 (max. 500000)
+ 745 PDF objects out of 1000 (max. 8388607)
+ 470 compressed objects within 5 object streams
+ 125 named destinations out of 1000 (max. 500000)
  25699 words of extra memory for PDF output out of 29859 (max. 10000000)
 

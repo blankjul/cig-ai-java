@@ -2,7 +2,15 @@
 \section{Experimental Study} 
 \label{sec:exp}
 
-To test how well the implemented algorithms work we executed the games a lot of times. We have the 20 games from the trainings- and validationset to test the algorithms. We had no acces to the origial test set. First of all we want to compare the 3 different controllers with each other but the several different parameters we can change in the controllers are also interesting.
+The approaches are not easy to compare at all. As a fair guideline each approach should have the same knowledge of the future e.g. the same look-ahead depth.
+But since the approaches uses completely different strategies this is not possible. For example our \ac{EA} algorithm could have a
+dynamic path length what means the look-ahead depth is changing over time. This idea does not make sense for the \ac{MCTS} approach because there it needs
+to be fixed. Otherwise we have different \textit{Evaluation State Functions} because our \ac{HR} approach only looks for the distance to an object. By contrast 
+the other approaches tries to figure out if this chain of action is gaining points or not.
+Because of that problem we decided to compare each approach themselves with different parameter and evaluate after that the best candidate of each algorithm.
+We are fixing for all the algorithm the time limitation which is in our opinion enough a fair comparison.
+
+To test how well the implemented algorithms work we executed the games a lot of times. We have the 20 games from the trainings- and validation set to test the algorithms. We had no access to the original test set. First of all we want to compare the 3 different controllers with each other but the several different parameters we can change in the controllers are also interesting.
 To test a agent we ran 1000 Games, one game 50 times and one single level 10 times. The following machine was used to run all of the simulations:
 
 \begin{table}
@@ -36,7 +44,7 @@ by the A* algorithm. Moreover if it is to large to many states are saved and we 
 garbage collector.
 
 
-\begin{table}[htbp]
+\begin{table}
 \center
 \begin{tabular}{*9c}  \hline
 \multicolumn{1}{p{1cm}}{\centering ID} & 
@@ -55,8 +63,9 @@ garbage collector.
 \caption{results of the \ac{HR} algorithms}
 \label{tbl:heur}
 \end{table}
-\vspace{-2cm}
-\begin{figure}[H]
+
+
+\begin{figure}
 \centering
 \includegraphics[scale=0.5]{images/eval_heur.pdf}
 \caption{boxplot of the heuristic based algorithms}
@@ -84,8 +93,7 @@ As a third and very important variable we experimented with the maximal tree dep
 the size of the tree with recommended actions.
 
 
-\begin{minipage}{1\textwidth}
-\begin{table}[H]
+\begin{table}
 \center
 \begin{tabular}{*9c}  \hline
 \multicolumn{1}{p{1cm}}{\centering ID} & 
@@ -107,14 +115,15 @@ the size of the tree with recommended actions.
 \caption{\ac{MCTS} result}
 \label{mcts_result}
 \end{table}
-\vspace{-2cm}
-\begin{figure}[H]
+
+
+\begin{figure}
 \centering
 \includegraphics[scale=0.6]{images/eval_mcts.pdf}
 \caption{boxplot of the \ac{MCTS} algorithm}
 \label{fig:eval_evo}
 \end{figure}
-\end{minipage}
+
 
 We reached the best result by using an agent with rolling horizon, a maximal tree depth of 7 
 and no discounted reward (cf.~\cref{mcts_result}). 
@@ -181,11 +190,12 @@ ensures the achievement of a specific generation makes sense.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.6]{images/eval_evolutionary.pdf}
+\includegraphics[scale=0.5]{images/eval_evolutionary.pdf}
 \caption{boxplot of the \ac{EA} algorithms}
 \label{fig:eval_evo}
 \end{figure}
 
+\vspace{-0.5cm}
 As you can see (cf.~\cref{fig:eval_evo}) the \ac{EA} approach has a higher
 interquartile range than the others.
 We assume this is caused by the idea of \acp{EA} that the randomness is very important.
@@ -199,14 +209,13 @@ of 2 what should normally for all agents be the case. Otherwise it's only a rand
 
 \subsection{Evaluation of all approaches} 
 
-Finally we compare the best parameter setups of the three approaches. We defined the best as the agent with the highest average winning rate.
+
+Finally we compare the best parameter setups of the three approaches. 
+For that we increased our experiment to 30 iterations which means 3000 games, each game
+with 150 runs and each single level 30 times.
+We defined the best as the agent with the highest average winning rate.
 The selected agents are printed bold at each of the result tables.
 For a complete comparison there are also the average score and the played time steps evaluated.
-The highest winning rate is reached by the heuristic controller (cf.~\cref{tbl:all_result}).
-But for the highest score we can see that the \ac{MCTS} approaches reaches more points than the others.
-For that we can suppose, that the \ac{HR} is playing tighter than the other. This is supported by the least played time steps as well.
-Playing tight leads to an earlier win. But there are some games where we could first of all collect points and increase the score and
-win at the end.
 
 
 \begin{table}[H]
@@ -227,27 +236,52 @@ EA & 0.470 & \textbf{0.026} & 178.33 & \textbf{51.85} & 818.72 & 38.47 \\ \hline
 \label{tbl:all_result}
 \end{table}
 
-By looking at the boxplot of the winning rate (cf.~\cref{fig:eval_all_wins})
+The highest winning rate is reached by the heuristic controller (cf.~\cref{tbl:all_result}).
+But for the highest score we can see that the \ac{MCTS} approaches reaches more points than the others.
+For that we can suppose, that the \ac{HR} is playing tighter than the other. This is supported by the least played time steps as well.
+Playing tight leads to an earlier win. But there are some games where we could first of all collect points and increase the score and
+win at the end.
 
-\todo{adjust the pictures}
-
-\begin{figure}
-\begin{minipage}{7cm}
+\begin{figure}[H]
 \centering
-\includegraphics[scale=0.3]{images/eval_all_wins.pdf}
+\includegraphics[scale=0.45]{images/eval_all_wins.pdf}
 \caption{boxplot of wins}
-\label{fig:eval_all_wins}
-\end{minipage}%
-\begin{minipage}{5cm}
+\label{box_eval_all_wins}
+\end{figure}
+
+By looking at the boxplot of the winning rate (cf.~\cref{box_eval_all_wins}) the winner of all agents is without any doubt
+the \ac{HR} agent. In the best run he won 60 percent of all the games which is a very good rate.
+The mean is of course lower than this value but still better than the other approaches.
+The \ac{MCTS} and the \ac{EA} agent have both quite the same rates with similar quartile values.
+
+In the overall evaluation we also have a look at the score (cf.~\cref{fig:eval_all_score}). There we can see a surprise since the \ac{HR} agent
+has as an average value the lowest score at all. This might be because if he finds the target to win the game 
+he will directly try to find it.
+By contrast the \ac{MCTS} agent will look for the best action that has a score or a win as a consequence.
+You can also see three outliers of the \ac{EA} that are caused by the randomness of that approach.
+
+
+\begin{figure}[H]
 \centering
-\includegraphics[scale=0.3]{images/eval_all_score.pdf}
+\includegraphics[scale=0.45]{images/eval_all_score.pdf}
 \caption{boxplot of score}
 \label{fig:eval_all_score}
-\end{minipage}
-\begin{minipage}{1\textwidth}
+\end{figure}
+
+At least we have a look at the elapsed time in each game (cf.~\cref{fig:eval_all_timesteps}). The \ac{HR} approach plays very tight what has less timesteps as a consequence.
+Besides the \ac{MCTS} agent needs the most timesteps but as we evaluated before with quite the same winning rate in comparison to the \ac{EA}.
+This time is also used to increase the score.
+
+
+\begin{figure}[H]
 \centering
-\includegraphics[scale=0.35]{images/eval_all_timesteps.pdf}
+\includegraphics[scale=0.45]{images/eval_all_timesteps.pdf}
 \caption{boxplot of timesteps}
 \label{fig:eval_all_timesteps}
-\end{minipage}
 \end{figure}
+
+
+The Evaluation of the winning rate, score and elapsed timesteps showed that each approach has a different strategy and trade off.
+playing tight could resolve in only try to win and not collecting a lot of points where it would be possible.
+
+

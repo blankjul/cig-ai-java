@@ -48,11 +48,10 @@ The possible next fields (excluded the current position if agent does nothing) a
 of the enemy are red. The action RIGHT is by using the grid search unsafe. 
 At first glance it looks faster and better to only look at the grid, but there might be some problems for unknown games:
 
-\begin{itemize}
-  \item One problem is to classify the game objects at the grid. The grid search is only good if we know that this objects represents an enemy. Otherwise
-  we also classify walls as unsafe.
-  \item Not every enemy could move to all directions. have a look at the figure 
-\end{itemize}
+One problem is to classify the game objects at the grid. The grid search is only good if we know that this objects represents an enemy. Otherwise we also classify walls as unsafe.
+Furthermore not every enemy could move to all directions but as a agent we would need a special observer to know that.
+Staying alive is just a basic strategy which is extended with some other approaches.
+
 
 
 
