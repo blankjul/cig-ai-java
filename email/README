@@ -1,0 +1,12 @@
+In this folder we added different files:
+
+- The whole source code of the implementation of our three approaches.
+For the delivery we merged all the agents into one big project. There some ideas that were
+failing are not existing anymore. But thereby it's non duplicate code that uses inheritance
+and so on... (src.zip)
+
+- API documentation of the code (doc.zip)
+
+- the report (report.pdf)
+
+- our presenation, at least the final draft (presentation.pdf)
