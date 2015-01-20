@@ -35,8 +35,6 @@ public class JEasyFrame extends JFrame {
         super(title);
         this.comp = comp;
         
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height/2-this.getSize().height/2);
         
         getContentPane().add(BorderLayout.CENTER, comp);
         pack();
