@@ -28,11 +28,25 @@
 
 % Fred
 
-\section[Agenda]{}
 \begin{frame}
-\frametitle{Inhalt}
-\tableofcontents
+\frametitle{Agenda}
+\begin{itemize}
+\item Agents
+\begin{itemize}
+\item Stay Alive Agent
+\item Heuristic Agent (HR)
+\item MCTS Agent (RL)
+\item EA Agent (NI)
+\end{itemize}
+\item Experiment Result
+\item Development Process
+\item Main Problems \& Difficulties
+\item Conclusion
+\item Future Work
+\end{itemize}
 \end{frame}
+
+
 
 
 % Julian
@@ -75,19 +89,12 @@ Stay Alive by using
 \item Target is found by using an Explorer that is searching for
 the point of interests
 
-\item An Environment class builds up the knowledge base and safes
+\item An \textit{Environment} class builds up the knowledge base and safes
 blocking, loosing, scoring and winning objects
 
-\item A* Algorithm is used to reached the good classified objects
+\item A* algorithm is used to reached the good classified objects
 
 \end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.3]{../report/images/onestep_lookahead.pdf}
-\caption{Search tree for the greedy approach}
-\label{fig:onestep}
-\end{figure}
 
 \end{frame}
 
@@ -108,15 +115,15 @@ dist(u,v) = |x_{1} - x_{2}| + |y_{1} - y_{2}|
 
 
 
-
+\section{MCTS Agent}
 
 % Fred
 \begin{frame}
-\frametitle{MCTS I}
+\frametitle{MCTS}
 
 \begin{figure}
 \includegraphics[scale=0.35]{img/mcts_structure.png}
-\caption{Monte Carlo Tree Search}
+\caption{Monte Carlo Tree Search [2]}
 \label{fig:mcts_struc}
 \end{figure}
 
@@ -133,7 +140,7 @@ dist(u,v) = |x_{1} - x_{2}| + |y_{1} - y_{2}|
  \item tree policy
  \begin{itemize}
  	\item modified \textit{Upper Confidence Bounds for Trees}:
- 	\begin{equation}
+ 	\begin{equation*}
  		UCT = \frac{Q_c}{V_c + \epsilon \cdot r} + \sqrt{\frac{\ln{(V_n +1)}}{V_c}}
  	\end{equation}
  	\item random node is expanded
@@ -157,7 +164,7 @@ dist(u,v) = |x_{1} - x_{2}| + |y_{1} - y_{2}|
 \begin{itemize}
 \item open loop approach
  	\begin{itemize}
- 		\item algorithm works on sequence of actions (no state observation is saved!)
+ 		\item algorithm works on a sequence of actions (no state observation is saved!)
  		\item simulation: path from root to expanded node has to be simulated
  	\end{itemize}
  	\item rolling horizon
@@ -170,14 +177,15 @@ dist(u,v) = |x_{1} - x_{2}| + |y_{1} - y_{2}|
 \end{frame}
 
 
+
+\section{NI Agent}
+
 % Julian
 \begin{frame}
 \frametitle{EA}
 
-
-
 \begin{algorithm}[H]
-\caption{Pseudocode of an evolutionary algorithm }
+\caption{pseudocode of an evolutionary algorithm [3]}
 \begin{algorithmic}[1]
 
 \STATE \emph{Initialize} Population with random candidate solutions;
@@ -189,9 +197,7 @@ dist(u,v) = |x_{1} - x_{2}| + |y_{1} - y_{2}|
 \STATE \emph{Evaluate} new candidates
 \STATE \emph{Select} individuals for the next generation
 \ENDWHILE
-
 \end{algorithmic}
-
 \label{alg:seq}
 \end{algorithm}
 
@@ -246,6 +252,7 @@ is calculated by using the function
 \end{frame}
 
 
+
 % Julian
 \begin{frame}
 \frametitle{Experiment Result}
@@ -269,7 +276,7 @@ is calculated by using the function
 
 
 \begin{frame}
-\frametitle{Experint Result II}
+\frametitle{Experiment Result II}
 \begin{table}
 \center
 \begin{tabular}{c|c|c|c|c|c|c|c|c|}  \hline
@@ -293,12 +300,23 @@ EA & 0.470 & \textbf{0.026} & 178.33 & \textbf{51.85} & 818.72 & 38.47 \\ \hline
 
 
 \begin{frame}
-\frametitle{Experiment Result III}
+\frametitle{Experiment Result III - boxplot wins}
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.45]{../report/images/eval_all_wins.pdf}
 \caption{boxplot of wins}
 \label{box_eval_all_wins}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Experiment Result IV - boxplot score}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{../report/images/eval_all_score.pdf}
+\caption{boxplot of score}
+\label{box_eval_all_score}
 \end{figure}
 \end{frame}
 
@@ -319,6 +337,9 @@ EA & 0.470 & \textbf{0.026} & 178.33 & \textbf{51.85} & 818.72 & 38.47 \\ \hline
 \end{itemize}
 \end{frame}
 
+
+
+
 \begin{frame}
 \frametitle{Main Problems \& Difficulties}
 \begin{itemize}
@@ -326,14 +347,12 @@ EA & 0.470 & \textbf{0.026} & 178.33 & \textbf{51.85} & 818.72 & 38.47 \\ \hline
 	\item computing power
 	\begin{itemize}
 		\item differences between machines $\Rightarrow$ large variation in the results
-		\item not all paramteters could have been tested
+		\item not all parameters could have been tested
 	\end{itemize}
-	\item difference between advance method and "real" gamesteps (safety iterations)
 	\item surprised of the winner (heuristic approach)
 \end{itemize}
 \end{frame}
 
-\section{Conclusion \& Future Work}
 
 \begin{frame}
 \frametitle{Conclusion}
@@ -343,7 +362,7 @@ EA & 0.470 & \textbf{0.026} & 178.33 & \textbf{51.85} & 818.72 & 38.47 \\ \hline
 		\item MCTS controller performed best (score)
 		\item Reasons
 		\begin{itemize}
-			\item implementations of MCTS and EA not effective
+			\item implementations of MCTS and EA not effective enough
 			\item games with very few winning-sprites
 		\end{itemize}
 		\item can not make general statements about the accuracy of the three approaches  (HR, MCTS, NI)
