@@ -8,6 +8,7 @@
 \usepackage{pdfpages}
 \usepackage{mathtools}
 \usepackage{algorithm}
+\usepackage{algorithmic}
 \usepackage{caption}
 
 
@@ -139,6 +140,27 @@ dist(u,v) = |x_{1} - x_{2}| + |y_{1} - y_{2}|
 % Julian
 \begin{frame}
 \frametitle{EA}
+
+
+
+\begin{algorithm}[H]
+\caption{Pseudocode of an evolutionary algorithm }
+\begin{algorithmic}[1]
+
+\STATE \emph{Initialize} Population with random candidate solutions;
+\STATE \emph{Evaluate} each candidate;
+\WHILE{Termination condition not satisfied} 
+\STATE \emph{Select} parents 
+\STATE \emph{Recombine} pairs of parents
+\STATE \emph{Mutate} the resulting offspring
+\STATE \emph{Evaluate} new candidates
+\STATE \emph{Select} individuals for the next generation
+\ENDWHILE
+
+\end{algorithmic}
+
+\label{alg:seq}
+\end{algorithm}
 
 
 \end{frame}
