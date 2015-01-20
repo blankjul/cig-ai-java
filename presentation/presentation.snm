@@ -1,2 +1,8 @@
-\beamer@slide {fig:crossover}{12}
-\beamer@slide {fig:sliding_window}{13}
+\beamer@slide {fig:safe}{3}
+\beamer@slide {fig:safe_grid}{3}
+\beamer@slide {fig:onestep}{4}
+\beamer@slide {fig:manhatten}{5}
+\beamer@slide {fig:crossover}{11}
+\beamer@slide {fig:sliding_window}{12}
+\beamer@slide {tbl:all_result}{14}
+\beamer@slide {box_eval_all_wins}{15}
