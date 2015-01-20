@@ -6,6 +6,9 @@
 \usepackage{float}
 \usepackage{url}
 \usepackage{pdfpages}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{caption}
 
 
 \title{Computational Intelligence in Games}
@@ -91,24 +94,72 @@
 % Julian
 \begin{frame}
 \frametitle{EA}
-\begin{itemize}
- \item Dummy
-\end{itemize}
+
+
+\begin{algorithm}
+\caption{Evolutionary Algorithm~\cite{evo}}
+\label{alg:evo}
+\begin{algorithmic}
+\State \emph{Initialize} Population with random candidate solutions;
+\State \emph{Evaluate} each candidate;
+\While{Termination condition not satisfied} 
+\State \emph{Select} parents;
+\State \emph{Recombine} pairs of parents;
+\State \emph{Mutate} the resulting offspring;
+\State \emph{Evaluate} new candidates;
+\State \emph{Select} individuals for the next generation;
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+
 \end{frame}
+
+
+
 
 
 \begin{frame}
 \frametitle{EA Agent I}
-\begin{itemize}
- \item Dummy
-\end{itemize}
+
+DeltaScoreEvaluation function 
+\begin{equation*}
+s = \sum_{t=0}^n (H(s_t) - H(s_{t-1}))
+\end{equation*}
+
+is calculated by using the function
+
+\begin{equation*}
+    H(s_i, s_{i-1}) = 
+\begin{dcases}
+    10, & \text{if isWinner}  \\
+    -10, & \text{if isLooser}  \\
+    score(s_i) - score(s_{i-1}), & \text{otherwise.}
+\end{dcases}
+\end{equation*}
 \end{frame}
+
+
 
 \begin{frame}
 \frametitle{EA Agent II}
-\begin{itemize}
- \item Dummy
-\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{../report/images/crossover.pdf}
+\caption{Crossover of an individual}
+\label{fig:crossover}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{EA Agent III}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{../report/images/sliding_window.pdf}
+\caption{Sliding Window}
+\label{fig:sliding_window}
+\end{figure}
 \end{frame}
 
 
