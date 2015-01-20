@@ -146,16 +146,16 @@ public class HeuristicAgent extends AbstractPlayer {
 	 *            Graphics device to draw to.
 	 */
 	public void draw(Graphics2D g) {
-
-		if (astar != null) {
-			// astar.getAstar().paint(g);
-			if (bestTarget != null) {
-				g.setColor(Color.GREEN);
-				Vector2d v = bestTarget.getPosition(stateObs);
-				g.fillRect((int) v.x, (int) v.y, 10, 10);
-			}
-
+		
+		try {
+			g.setColor(Color.GREEN);
+			Vector2d v = bestTarget.getPosition(stateObs);
+			g.fillRect((int) v.x, (int) v.y, 10, 10);
+		} catch(Exception e) {
+			
 		}
+		
+	
 
 	}
 

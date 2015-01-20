@@ -2,8 +2,10 @@ package tools;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
@@ -32,6 +34,10 @@ public class JEasyFrame extends JFrame {
     public JEasyFrame(Component comp, String title) {
         super(title);
         this.comp = comp;
+        
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height/2-this.getSize().height/2);
+        
         getContentPane().add(BorderLayout.CENTER, comp);
         pack();
         this.setVisible(true);

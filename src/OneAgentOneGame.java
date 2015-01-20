@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 
 /**
  * Executes one agent in one game
@@ -14,19 +16,26 @@ public class OneAgentOneGame {
 	 */
 	public static void main(String[] args) {
 
-		String controller = "emergence.Agent";
+		//String controller = "emergence.Agent";
 		// String controller = "emergence.agents.StayAliveAgent";
 		// String controller = "emergence.agents.EvolutionaryAgent";
 		// String controller = "emergence.agents.MCTSHeuristicAgent";
-		//String controller = "emergence.agents.HeuristicAgent";
+		String controller = "emergence.agents.HeuristicAgent";
 		// String controller = "emergence.agents.EvolutionaryAgent";
 		// String controller = "emergence.agents.EvolutionaryHeuristicAgent";
 
-		/** game to be played */
+		/*
 		String gameStr = "butterflies";
-		/** level to be played */
 		int levelIdx = 2;
-
+		*/
+		
+		
+		/** game to be played */
+		String gameStr = args[0];
+		/** level to be played */
+		int levelIdx = Integer.valueOf(args[1]);
+		
+		
 		// "aliens", "boulderdash", "butterflies", "chase", "frogs",
 		// "missilecommand", "portals", "sokoban", "survivezombies", "zelda",
 		// "camelRace", "digdug", "firestorms", "infection", "firecaster",
@@ -40,6 +49,7 @@ public class OneAgentOneGame {
 		String level1 = gamesPath + gameStr + "_lvl" + levelIdx + ".txt";
 
 		Exec.execute(controller, game, level1, "", true, false);
+		System.exit(0);
 
 	}
 }
