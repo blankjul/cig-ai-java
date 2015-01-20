@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  20 JAN 2015 12:11
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.9)  20 JAN 2015 15:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -937,41 +937,42 @@ Package caption Info: End \AtBeginDocument code.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logo.jpg>]
-LaTeX Font Info:    Try loading font information for U+msa on input line 39.
+(./presentation.toc)
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+LaTeX Font Warning: Font shape `OT1/cmss/bx/n' in size <4> not available
+(Font)              size <5> substituted on input line 35.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
+(Font)              size <5> substituted on input line 35.
+
+[2
+
+ <./logo.jpg>]
+LaTeX Font Info:    Try loading font information for U+msa on input line 66.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 39.
+LaTeX Font Info:    Try loading font information for U+msb on input line 66.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-
-LaTeX Font Warning: Font shape `OT1/cmss/bx/n' in size <4> not available
-(Font)              size <5> substituted on input line 39.
-
-
-LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 39.
-
-[2
-
- <./logo.jpg>] <../report/images/safe.pdf, id=78, 140.525pt x 140.525pt>
+<../report/images/safe.pdf, id=85, 140.525pt x 140.525pt>
 File: ../report/images/safe.pdf Graphic file (type pdf)
 
 <use ../report/images/safe.pdf>
-Package pdftex.def Info: ../report/images/safe.pdf used on input line 70.
+Package pdftex.def Info: ../report/images/safe.pdf used on input line 66.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
 
-<../report/images/safe_grid.pdf, id=79, 140.525pt x 140.525pt>
+<../report/images/safe_grid.pdf, id=86, 140.525pt x 140.525pt>
 File: ../report/images/safe_grid.pdf Graphic file (type pdf)
 
 <use ../report/images/safe_grid.pdf>
-Package pdftex.def Info: ../report/images/safe_grid.pdf used on input line 70.
+Package pdftex.def Info: ../report/images/safe_grid.pdf used on input line 66.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
 
-Overfull \vbox (8.06636pt too high) detected at line 70
+Overfull \vbox (8.06636pt too high) detected at line 66
  []
 
 [3
@@ -980,53 +981,59 @@ Overfull \vbox (8.06636pt too high) detected at line 70
 
 pdfTeX warning: pdflatex (file ../report/images/safe_grid.pdf): PDF inclusion: 
 multiple pdfs with page group included in a single page
->] <../report/images/onestep_lookahead.pdf, id=153, 422.16197pt x 192.8425pt>
+>] <../report/images/onestep_lookahead.pdf, id=161, 422.16197pt x 192.8425pt>
 File: ../report/images/onestep_lookahead.pdf Graphic file (type pdf)
 
 <use ../report/images/onestep_lookahead.pdf>
 Package pdftex.def Info: ../report/images/onestep_lookahead.pdf used on input l
-ine 96.
+ine 92.
 (pdftex.def)             Requested size: 126.64957pt x 57.85318pt.
  [4
 
  <../report/images/onestep_lookahead.pdf>] <../report/images/manhatten.pdf, id=
-183, 346.89601pt x 347.03058pt>
+191, 346.89601pt x 347.03058pt>
 File: ../report/images/manhatten.pdf Graphic file (type pdf)
 
 <use ../report/images/manhatten.pdf>
-Package pdftex.def Info: ../report/images/manhatten.pdf used on input line 111.
+Package pdftex.def Info: ../report/images/manhatten.pdf used on input line 107.
 
 (pdftex.def)             Requested size: 104.0696pt x 104.10997pt.
  [5
 
  <../report/images/manhatten.pdf>]
-[6
+<img/mcts_structure.png, id=234, 522.45187pt x 231.86626pt>
+File: img/mcts_structure.png Graphic file (type png)
 
-] [7
+<use img/mcts_structure.png>
+Package pdftex.def Info: img/mcts_structure.png used on input line 128.
+(pdftex.def)             Requested size: 182.86089pt x 81.15439pt.
+ [6
+
+ <./img/mcts_structure.png>] [7
 
 ] [8
 
 ] [9
 
-] [10
-
 ]
-<../report/images/crossover.pdf, id=362, 299.79146pt x 170.84969pt>
+[10
+
+] <../report/images/crossover.pdf, id=373, 299.79146pt x 170.84969pt>
 File: ../report/images/crossover.pdf Graphic file (type pdf)
 
 <use ../report/images/crossover.pdf>
-Package pdftex.def Info: ../report/images/crossover.pdf used on input line 202.
+Package pdftex.def Info: ../report/images/crossover.pdf used on input line 235.
 
 (pdftex.def)             Requested size: 179.87625pt x 102.51059pt.
  [11
 
  <../report/images/crossover.pdf>]
-<../report/images/sliding_window.pdf, id=399, 484.54187pt x 224.42944pt>
+<../report/images/sliding_window.pdf, id=410, 484.54187pt x 224.42944pt>
 File: ../report/images/sliding_window.pdf Graphic file (type pdf)
 
 <use ../report/images/sliding_window.pdf>
 Package pdftex.def Info: ../report/images/sliding_window.pdf used on input line
- 213.
+ 246.
 (pdftex.def)             Requested size: 290.72736pt x 134.65869pt.
  [12
 
@@ -1040,28 +1047,28 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.258 \end{frame}
+l.291 \end{frame}
                  
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Overfull \hbox (3.47975pt too wide) in paragraph at lines 258--258
+Overfull \hbox (3.47975pt too wide) in paragraph at lines 291--291
  []\OT1/cmss/m/n/10.95 Approach| 
  []
 
 [14
 
-] <../report/images/eval_all_wins.pdf, id=490, 587.19376pt x 442.65375pt>
+] <../report/images/eval_all_wins.pdf, id=501, 587.19376pt x 442.65375pt>
 File: ../report/images/eval_all_wins.pdf Graphic file (type pdf)
 
 <use ../report/images/eval_all_wins.pdf>
 Package pdftex.def Info: ../report/images/eval_all_wins.pdf used on input line 
-270.
+303.
 (pdftex.def)             Requested size: 264.23474pt x 199.19234pt.
 
-Overfull \vbox (37.30937pt too high) detected at line 270
+Overfull \vbox (37.30937pt too high) detected at line 303
  []
 
 [15
@@ -1074,6 +1081,8 @@ Overfull \vbox (37.30937pt too high) detected at line 270
 
 ] [19
 
+] [20
+
 ]
 \tf@nav=\write6
 \openout6 = `presentation.nav'.
@@ -1084,29 +1093,29 @@ Overfull \vbox (37.30937pt too high) detected at line 270
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 309.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 309.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 380.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 380.
 
 (./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 309.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 309.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 380.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 380.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: B03E8D67403DD98F6D4FC7F7CDDE8551;62.
 
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 309.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 380.
  ) 
 Here is how much of TeX's memory you used:
- 18143 strings out of 493304
- 333573 string characters out of 6139871
- 420760 words of memory out of 5000000
- 21126 multiletter control sequences out of 15000+600000
- 13616 words of font info for 50 fonts, out of 8000000 for 9000
+ 18241 strings out of 493304
+ 336035 string characters out of 6139872
+ 420811 words of memory out of 5000000
+ 21214 multiletter control sequences out of 15000+600000
+ 15971 words of font info for 59 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 49i,16n,53p,401b,636s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,16n,55p,401b,637s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texl
@@ -1116,11 +1125,12 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/share/texlive/texmf-dist
 ts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmsy8.pfb>
-Output written on presentation.pdf (19 pages, 327987 bytes).
+msfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy8.pfb>
+Output written on presentation.pdf (20 pages, 373193 bytes).
 PDF statistics:
- 702 PDF objects out of 1000 (max. 8388607)
- 589 compressed objects within 6 object streams
- 47 named destinations out of 1000 (max. 500000)
- 113 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 743 PDF objects out of 1000 (max. 8388607)
+ 626 compressed objects within 7 object streams
+ 52 named destinations out of 1000 (max. 500000)
+ 126 words of extra memory for PDF output out of 10000 (max. 10000000)
 

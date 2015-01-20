@@ -2,6 +2,7 @@
 \beamer@slide {fig:safe_grid}{3}
 \beamer@slide {fig:onestep}{4}
 \beamer@slide {fig:manhatten}{5}
+\beamer@slide {fig:mcts_struc}{6}
 \beamer@slide {alg:seq}{9}
 \beamer@slide {fig:crossover}{11}
 \beamer@slide {fig:sliding_window}{12}
