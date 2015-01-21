@@ -10,8 +10,8 @@ the other approaches tries to figure out if this chain of action is gaining poin
 Because of that problem we decided to compare each approach themselves with different parameter and evaluate after that the best candidate of each algorithm.
 We are fixing for all the algorithm the time limitation which is in our opinion enough a fair comparison.
 
-To test how well the implemented algorithms work we executed the games a lot of times. We have the 20 games from the trainings- and validation set to test the algorithms. We had no access to the original test set. First of all we want to compare the 3 different controllers with each other but the several different parameters we can change in the controllers are also interesting.
-To test a agent we ran 1000 Games, one game 50 times and one single level 10 times. The following machine was used to run all of the simulations:
+To test how well the implemented algorithms work, we executed the games multiple times. We have the 20 games from the trainings- and validation set to test the algorithms. We have no access to the original test set. First of all we want to compare the 3 different controllers with each other, but the several different parameters we can change in the controllers are of significance as well.
+To test an agent we ran 1000 Games; one game 50 times and one single level 10 times. The following machine was used to run all of the simulations:
 
 \begin{table}
 \center
@@ -25,22 +25,22 @@ To test a agent we ran 1000 Games, one game 50 times and one single level 10 tim
 \end{table}
 
 
-Only this machine was used because with the same agent and parameters we achieved on different machines very different results. The computational power from the CPU was decisive for our choice. The reason of the different results is that the agent every game tick only has 40 ms to return an action. The results from a powerful CPU were better and more stable (the derivation was lower) than the results from an worse CPU. To evaluate the results we stored them in csv files and generated tables.
+Only this machine was used, because with the same agent and parameters we achieved very different results on different machines. The computational power from the CPU was decisive for our choice. The reason for the different results is that the agent every gametick, only has 40 ms to return an action. The results from a powerful CPU were better and more stable (the derivation was lower) than the results from a worse CPU. To evaluate the results, we stored them in csv files and generated tables.
 
-For every evaluation is first of all a table with all there parameter settings. Additionally there are the average winning rate and the standard deviation listed.
+For every evaluation there is a table with all the parameter settings. Additionally there are the average winning rate and the standard deviation listed.
 All the results are also visualized by boxplots. There you can see the minimum and maximum average wins overall iterations. Furthermore the blue rectangle shows 
 the qartile values. The red line in the middle is the median and the blue dot is the mean (average wins).
-Do not mix quartiles with the standard deviation that is something completely different.
-In the following sections each of the approaches is evaluated. 
+It should be taken into account that quartiles and the standard derivation are completely different things and should not be confused.
+In the following sections each of the approaches will be evaluated.
 
 
 \subsection{Heuristic based Algorithm} 
 
-The heuristic based algorithm has several parameter that changes the behaviour of the agent (cf.~\cref{tbl:heur}).
-Firstly we just changed the maximal states field that provides a limit for saved states at
-the A* algorithm. As you can see the average winning rate increases by changing to a higher maximal states limit up to 20.
-But if the variable is set to 25 we had a worse result. This might be that if this value is to low the target is not found 
-by the A* algorithm. Moreover if it is to large to many states are saved and we get trouble with the memory or the
+The heuristic based algorithm has several parameters that change the behaviour of the agent (cf.~\cref{tbl:heur}).
+Firstly we changed the maximal states field that provides a limit for saved states at
+the A* algorithm. It can be seen that the average winning rate increases by changing to a higher maximal states limit of 20.
+However, setting the variable to 25 lead to worse results. It might be that if this value is to low, the target is not found 
+by the A* algorithm. Moreover if it is too large, to many states are saved and we encounter troubles with the memory or the
 garbage collector.
 
 
@@ -72,13 +72,12 @@ garbage collector.
 \label{fig:eval_heur}
 \end{figure}
 
-After that we tried to change the safety strategy to the grid and the intelligent search. Both results
-are worse than the SafetyAdvance Strategy. Since the SafeGridSearch highly depends on the Explorer and the
-classification of the object this might be the cause.
-With the SafetyIntelligent we got no further improvement but it is nearly good as the SafetyAdvance approach.
+Afterwards we tried to change the safety strategy to the grid and the intelligent search. Both results
+are worse than the SafetyAdvance Strategy. This could result from the high dependence of the SafeGridSearch on the Explorer and the classification.
+With the SafetyIntelligent we got no further improvement but it proved nearly as good as the SafetyAdvance approach.
 
-The boxplot (cf.~\cref{fig:eval_heur}) visualizes the quartiles. The best parameter setup has also the largest
-quartile range. When you look at the table also the largest standard deviation (which doesn't have to be the same).
+The boxplot (cf.~\cref{fig:eval_heur}) visualizes the quartiles. The best parameter setup also has the largest
+quartile range. When looking at the table it also has the largest standard deviation (which do not have to be the same).
 If the target is not found the agent is staying alive. The risk of a longer search to reach a simulation state
 that collides with the target could be the reason for the higher variance of the results.
 
@@ -86,10 +85,10 @@ that collides with the target could be the reason for the higher variance of the
 
 \subsection{MCTS} 
 
-For the test of the \ac{MCTS} algorithm we modified three different parameter. First of all we try to figure out
+For the test of the \ac{MCTS} algorithm we modified three different parameters. First of all we tried to figure out
 if the rolling horizon idea makes sense. After that we changed the gamma variable that is used
-as a \textit{discounting factor}. Since there we no further improvement the discounting was disabled by setting it to 1.
-As a third and very important variable we experimented with the maximal tree depth. Due to the fact that we are using an open loop approach this determines 
+as a \textit{discounting factor}. Since there were no further improvements, the discounting was disabled by setting it to 1.
+As a third and very important variable we experimented with the maximal tree depth. Due to the fact that we used an open loop approach this determines 
 the size of the tree with recommended actions.
 
 
@@ -125,27 +124,26 @@ the size of the tree with recommended actions.
 \end{figure}
 
 
-We reached the best result by using an agent with rolling horizon, a maximal tree depth of 7 
+We achieved the best result by using an agent with rolling horizon, a maximal tree depth of 7 
 and no discounted reward (cf.~\cref{mcts_result}). 
 A higher maximal tree depth sticks together with a depth first search. Therefore the winning rate
-becomes lower at some value. If the tree is to small (e.g. hight of one) it's really a breadth-first search.
+becomes lower at some value. If the tree is too small (e.g. hight of one), it really is a breadth-first search.
 
-We also tried to combine several approaches for example using the heuristic explorer 
+We also tried to combine several approaches such as using the heuristic explorer 
 for a better \ac{MCTS} iteration. But that idea is difficult to implement because this
-it's a trade off of exploration, exploitation and heuristic search needed. Since that is
-not easy to handle a first naive ideas brought worse results, we got not manage it to evaluate 
-this combination of two approaches.
-It might be one future work to try and implement that.
+it is a trade off of exploration, exploitation and heuristic search needed. Since that is
+not as easy to handle, a first naive ideas brought worse results; we were not able to evaluate the combination of these two approaches.
+It might be a future work to try and implement these.
 
 
 
 \subsection{Evolutionary Algorithm} 
 
-For the \ac{EA} algorithm exists many parameters that could be modified. To find a
-good setup we created an evolutionary algorithm over that parameter of the \ac{EA}
+For the \ac{EA} algorithm many parameters exists that can be modified. In order to find a
+good setup, we created an evolutionary algorithm over that parameter of the \ac{EA}
 algorithm. This meta-evolution uses the winning rate as a score function and
 varies the different parameters. Since we need more computational power to
-get really good result we were not able to use that idea. Instead we defined
+achieve really good results, we were not able to use that idea. Instead we defined
 the different agents (cf.~\cref{ea_result}).
 
 As a first parameter we modified the \textit{SafetyIterations} which ensure that the agent do not
@@ -196,13 +194,13 @@ ensures the achievement of a specific generation makes sense.
 \end{figure}
 
 \vspace{-0.5cm}
-As you can see (cf.~\cref{fig:eval_evo}) the \ac{EA} approach has a higher
+As you can see (cf.~\cref{fig:eval_evo}), the \ac{EA} approach has a higher
 interquartile range than the others.
-We assume this is caused by the idea of \acp{EA} that the randomness is very important.
-In average we reached the best result with the parameters of \textit{ID} 8 (cf.~\cref{ea_result}). 
-Since another agent 14 with no dynamic path length reached also a very good result this idea might
+We assume that this is caused by the idea of \acp{EA} concerning the high importance of randomness.
+We generally reached the best results with the parameters of \textit{ID} 8 (cf.~\cref{ea_result}). 
+Since another agent 14 with no dynamic path length reached a very good result as well, this idea might
 not help for winning the games. This is assured by the best one that only has a min generation value 
-of 2 what should normally for all agents be the case. Otherwise it's only a random approach.
+of 2, a value that should normally be the case for all agents. Otherwise it is only a random approach.
 
 
 
@@ -210,12 +208,12 @@ of 2 what should normally for all agents be the case. Otherwise it's only a rand
 \subsection{Evaluation of all approaches} 
 
 
-Finally we compare the best parameter setups of the three approaches. 
+Finally we will compare the best parameter setups of the three approaches. 
 For that we increased our experiment to 30 iterations which means 3000 games, each game
 with 150 runs and each single level 30 times.
 We defined the best as the agent with the highest average winning rate.
 The selected agents are printed bold at each of the result tables.
-For a complete comparison there are also the average score and the played time steps evaluated.
+For a complete comparison, the average score and the played time steps are evaluated.
 
 
 \begin{table}[H]
@@ -238,8 +236,8 @@ EA & 0.470 & \textbf{0.026} & 178.33 & \textbf{51.85} & 818.72 & 38.47 \\ \hline
 
 The highest winning rate is reached by the heuristic controller (cf.~\cref{tbl:all_result}).
 But for the highest score we can see that the \ac{MCTS} approaches reaches more points than the others.
-For that we can suppose, that the \ac{HR} is playing tighter than the other. This is supported by the least played time steps as well.
-Playing tight leads to an earlier win. But there are some games where we could first of all collect points and increase the score and
+We suppose that the \ac{HR} is playing tighter than the other. This is supported by the least played time steps as well.
+Playing tight leads to an earlier win. But there are some games where we could first of all collect points, increase the score and
 win at the end.
 
 \begin{figure}[H]

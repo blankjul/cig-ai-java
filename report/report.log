@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.31)  20 JAN 2015 15:43
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.9)  21 JAN 2015 01:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -936,9 +936,15 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (./01_introduction.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 5.
+
+
+LaTeX Warning: Citation `gartner' on page 1 undefined on input line 5.
+
 Package acronym Info: Label `acro:AI' newly defined as it shall be overridden
 although it is yet undefined on input line 6.
- [1
+[1
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
@@ -948,28 +954,45 @@ although it is yet undefined on input line 4.
 Package acronym Info: Label `acro:GVGP' newly defined as it shall be overridden
 
 although it is yet undefined on input line 4.
+
+
+LaTeX Warning: Citation `BatesCongdon2013' on page 2 undefined on input line 4.
+
+
+
+LaTeX Warning: Citation `schaul2013pyvgdl' on page 2 undefined on input line 5.
+
+
 Package acronym Info: Label `acro:GVGL' newly defined as it shall be overridden
 
 although it is yet undefined on input line 5.
+
+LaTeX Warning: Citation `panorama' on page 2 undefined on input line 7.
+
 Package acronym Info: Label `acro:MCTS' newly defined as it shall be overridden
 
 although it is yet undefined on input line 8.
+
+LaTeX Warning: Citation `BrowneMCTSurvey' on page 2 undefined on input line 8.
+
 Package acronym Info: Label `acro:RL' newly defined as it shall be overridden
 although it is yet undefined on input line 8.
 ) (./03_background.tex
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 13.
 Package acronym Info: Label `acro:HR' newly defined as it shall be overridden
 although it is yet undefined on input line 15.
- [2]
-<images/manhatten.pdf, id=81, 346.89601pt x 347.03058pt>
+
+
+LaTeX Warning: Citation `distance_metrics' on page 2 undefined on input line 16
+.
+
+[2] <images/manhatten.pdf, id=67, 346.89601pt x 347.03058pt>
 File: images/manhatten.pdf Graphic file (type pdf)
 
 <use images/manhatten.pdf>
 Package pdftex.def Info: images/manhatten.pdf used on input line 28.
 (pdftex.def)             Requested size: 104.0696pt x 104.10997pt.
 
-<images/onestep_lookahead.pdf, id=83, 422.16197pt x 192.8425pt>
+<images/onestep_lookahead.pdf, id=69, 422.16197pt x 192.8425pt>
 File: images/onestep_lookahead.pdf Graphic file (type pdf)
 
 <use images/onestep_lookahead.pdf>
@@ -982,39 +1005,63 @@ although it is yet undefined on input line 66.
 Package acronym Info: Label `acro:NI' newly defined as it shall be overridden
 although it is yet undefined on input line 114.
  [5]
+
+LaTeX Warning: Citation `nn_intro' on page 6 undefined on input line 117.
+
 Package acronym Info: Label `acro:TLU' newly defined as it shall be overridden
 although it is yet undefined on input line 117.
- <images/tlu.pdf, id=158, 310.72922pt x 118.6289pt>
-File: images/tlu.pdf Graphic file (type pdf)
 
-<use images/tlu.pdf>
+LaTeX Warning: Citation `ci_kruse' on page 6 undefined on input line 117.
+
+<images/tlu.pdf, id=138, 310.72922pt x 118.6289pt>
+File: images/tlu.pdf Graphic file (type pdf)
+ <use images/tlu.pdf>
 Package pdftex.def Info: images/tlu.pdf used on input line 122.
 (pdftex.def)             Requested size: 155.36423pt x 59.3143pt.
+
+
+LaTeX Warning: Citation `ci_kruse' on page 6 undefined on input line 123.
+
+
+LaTeX Warning: Citation `ci_kruse' on page 6 undefined on input line 123.
+
+
+LaTeX Warning: Citation `ci_kruse' on page 6 undefined on input line 140.
+
 Package acronym Info: Label `acro:EA' newly defined as it shall be overridden
 although it is yet undefined on input line 144.
+
+LaTeX Warning: Citation `evo' on page 6 undefined on input line 144.
+
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 152.
+put line 151.
+
+LaTeX Warning: Citation `evo' on page 6 undefined on input line 151.
+
+
+LaTeX Warning: Citation `evo' on page 6 undefined on input line 151.
+
 ) (./04_techniques.tex [6 <./images/tlu.pdf>]
-<images/safe.pdf, id=214, 140.525pt x 140.525pt>
+<images/safe.pdf, id=180, 140.525pt x 140.525pt>
 File: images/safe.pdf Graphic file (type pdf)
  <use images/safe.pdf>
-Package pdftex.def Info: images/safe.pdf used on input line 24.
+Package pdftex.def Info: images/safe.pdf used on input line 23.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
 
-<images/safe_grid.pdf, id=215, 140.525pt x 140.525pt>
+<images/safe_grid.pdf, id=181, 140.525pt x 140.525pt>
 File: images/safe_grid.pdf Graphic file (type pdf)
 
 <use images/safe_grid.pdf>
-Package pdftex.def Info: images/safe_grid.pdf used on input line 30.
+Package pdftex.def Info: images/safe_grid.pdf used on input line 29.
 (pdftex.def)             Requested size: 112.42014pt x 112.42014pt.
  [7]
-<images/classes.png, id=237, 708.6475pt x 495.8525pt>
+<images/classes.png, id=203, 708.6475pt x 495.8525pt>
 File: images/classes.png Graphic file (type png)
  <use images/classes.png>
-Package pdftex.def Info: images/classes.png used on input line 82.
+Package pdftex.def Info: images/classes.png used on input line 77.
 (pdftex.def)             Requested size: 354.32289pt x 247.92564pt.
 
-Overfull \hbox (7.19936pt too wide) in paragraph at lines 82--83
+Overfull \hbox (7.19936pt too wide) in paragraph at lines 77--78
  [][] 
  []
 
@@ -1024,82 +1071,82 @@ pdfTeX warning: pdflatex (file ./images/safe_grid.pdf): PDF inclusion: multiple
  pdfs with page group included in a single page
 >]
 Package acronym Info: Label `acro:UCT' newly defined as it shall be overridden
-although it is yet undefined on input line 107.
- [9 <./images/classes.png (PNG copy)>]
-Underfull \vbox (badness 1102) has occurred while \output is active []
+although it is yet undefined on input line 101.
 
- [10]
-<images/crossover.pdf, id=311, 299.79146pt x 170.84969pt>
+Underfull \vbox (badness 1043) has occurred while \output is active []
+
+ [9 <./images/classes.png (PNG copy)>] [10]
+<images/crossover.pdf, id=276, 299.79146pt x 170.84969pt>
 File: images/crossover.pdf Graphic file (type pdf)
 
 <use images/crossover.pdf>
-Package pdftex.def Info: images/crossover.pdf used on input line 163.
+Package pdftex.def Info: images/crossover.pdf used on input line 156.
 (pdftex.def)             Requested size: 179.87625pt x 102.51059pt.
 
-<images/sliding_window.pdf, id=312, 484.54187pt x 224.42944pt>
+<images/sliding_window.pdf, id=277, 484.54187pt x 224.42944pt>
 File: images/sliding_window.pdf Graphic file (type pdf)
 
 <use images/sliding_window.pdf>
-Package pdftex.def Info: images/sliding_window.pdf used on input line 179.
+Package pdftex.def Info: images/sliding_window.pdf used on input line 171.
 (pdftex.def)             Requested size: 290.72736pt x 134.65869pt.
  [11 <./images/crossover.pdf>]) (./05_study.tex
 [12 <./images/sliding_window.pdf>] [13]
-<images/eval_heur.pdf, id=358, 587.19376pt x 442.65375pt>
+<images/eval_heur.pdf, id=324, 587.19376pt x 442.65375pt>
 File: images/eval_heur.pdf Graphic file (type pdf)
 
 <use images/eval_heur.pdf>
 Package pdftex.def Info: images/eval_heur.pdf used on input line 70.
 (pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
- [14 <./images/eval_heur.pdf>]
-<images/eval_mcts.pdf, id=402, 587.19376pt x 442.65375pt>
+ [14]
+<images/eval_mcts.pdf, id=337, 587.19376pt x 442.65375pt>
 File: images/eval_mcts.pdf Graphic file (type pdf)
 
 <use images/eval_mcts.pdf>
-Package pdftex.def Info: images/eval_mcts.pdf used on input line 122.
+Package pdftex.def Info: images/eval_mcts.pdf used on input line 121.
 (pdftex.def)             Requested size: 352.31897pt x 265.59428pt.
 
-Overfull \hbox (5.19543pt too wide) in paragraph at lines 122--123
+Overfull \hbox (5.19543pt too wide) in paragraph at lines 121--122
  [][] 
  []
 
-[15] [16 <./images/eval_mcts.pdf>]
-<images/eval_evolutionary.pdf, id=458, 587.19376pt x 442.65375pt>
+[15 <./images/eval_heur.pdf>] [16 <./images/eval_mcts.pdf>]
+<images/eval_evolutionary.pdf, id=426, 587.19376pt x 442.65375pt>
 File: images/eval_evolutionary.pdf Graphic file (type pdf)
 
 <use images/eval_evolutionary.pdf>
-Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 193.
+Package pdftex.def Info: images/eval_evolutionary.pdf used on input line 191.
 (pdftex.def)             Requested size: 293.59616pt x 221.32632pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [17]
-Overfull \hbox (3.87234pt too wide) in paragraph at lines 224--224
+Overfull \hbox (3.87234pt too wide) in paragraph at lines 222--222
  []|\OT1/ptm/m/n/9 (-20) approach| 
  []
 
 [18 <./images/eval_evolutionary.pdf>]
-<images/eval_all_wins.pdf, id=515, 587.19376pt x 442.65375pt>
+<images/eval_all_wins.pdf, id=480, 587.19376pt x 442.65375pt>
 File: images/eval_all_wins.pdf Graphic file (type pdf)
 
 <use images/eval_all_wins.pdf>
-Package pdftex.def Info: images/eval_all_wins.pdf used on input line 247.
+Package pdftex.def Info: images/eval_all_wins.pdf used on input line 245.
 (pdftex.def)             Requested size: 264.23474pt x 199.19234pt.
 
-<images/eval_all_score.pdf, id=524, 587.19376pt x 442.65375pt>
+<images/eval_all_score.pdf, id=489, 587.19376pt x 442.65375pt>
 File: images/eval_all_score.pdf Graphic file (type pdf)
 
 <use images/eval_all_score.pdf>
-Package pdftex.def Info: images/eval_all_score.pdf used on input line 266.
+Package pdftex.def Info: images/eval_all_score.pdf used on input line 264.
 (pdftex.def)             Requested size: 264.23474pt x 199.19234pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [19 <./images/eval_all_wins.pdf>]
-<images/eval_all_timesteps.pdf, id=571, 587.19376pt x 442.65375pt>
+<images/eval_all_timesteps.pdf, id=537, 587.19376pt x 442.65375pt>
 File: images/eval_all_timesteps.pdf Graphic file (type pdf)
 
 <use images/eval_all_timesteps.pdf>
-Package pdftex.def Info: images/eval_all_timesteps.pdf used on input line 278.
+Package pdftex.def Info: images/eval_all_timesteps.pdf used on input line 276.
 (pdftex.def)             Requested size: 264.23474pt x 199.19234pt.
 ) (./06_conclusion.tex [20 <./images/eval_all_score.pdf> <./images/eval_all_tim
 esteps.pdf
@@ -1118,11 +1165,7 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-(./report.bbl
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no  in font ptmr7t!
-)
+(./report.bbl)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 117.
  [22]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 117.
@@ -1138,13 +1181,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
  ) 
 Here is how much of TeX's memory you used:
- 21476 strings out of 493304
- 376701 string characters out of 6139871
- 506694 words of memory out of 5000000
- 24184 multiletter control sequences out of 15000+600000
- 37643 words of font info for 201 fonts, out of 8000000 for 9000
+ 21425 strings out of 493304
+ 376087 string characters out of 6139872
+ 505693 words of memory out of 5000000
+ 24168 multiletter control sequences out of 15000+600000
+ 36213 words of font info for 183 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
- 63i,10n,92p,954b,545s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,10n,92p,958b,513s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1157,10 +1200,10 @@ s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (22 pages, 333495 bytes).
+Output written on report.pdf (22 pages, 330146 bytes).
 PDF statistics:
- 745 PDF objects out of 1000 (max. 8388607)
- 470 compressed objects within 5 object streams
- 124 named destinations out of 1000 (max. 500000)
+ 706 PDF objects out of 1000 (max. 8388607)
+ 446 compressed objects within 5 object streams
+ 115 named destinations out of 1000 (max. 500000)
  25699 words of extra memory for PDF output out of 29859 (max. 10000000)
 
