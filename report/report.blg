@@ -1,57 +1,60 @@
 This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
-I couldn't open style file IEEEtranS.bst
----line 262 of file report.aux
- : \bibstyle{IEEEtranS
- :                    }
-I'm skipping whatever remains of this command
-I couldn't open database file IEEEabrv.bib
----line 263 of file report.aux
- : \bibdata{IEEEabrv
- :                  ,literature}
-I'm skipping whatever remains of this command
-I found no database files---while reading file report.aux
-I found no style file---while reading file report.aux
+The style file: IEEEtranS.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: IEEEabrv.bib
+Database file #2: literature.bib
+-- IEEEtranS.bst version 1.13 (2008/09/30) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+** Sorting version - not for normal IEEE work.
+Warning--empty booktitle in panorama
+
+Done.
 You've used 9 entries,
-            0 wiz_defined-function locations,
-            96 strings with 631 characters,
-and the built_in function-call counts, 0 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 0
-:= -- 0
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
-chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 0
-format.name$ -- 0
-if$ -- 0
+            4498 wiz_defined-function locations,
+            1337 strings with 17428 characters,
+and the built_in function-call counts, 5860 in all, are:
+= -- 478
+> -- 209
+< -- 8
++ -- 102
+- -- 64
+* -- 305
+:= -- 960
+add.period$ -- 20
+call.type$ -- 9
+change.case$ -- 58
+chr.to.int$ -- 12
+cite$ -- 10
+duplicate$ -- 387
+empty$ -- 490
+format.name$ -- 68
+if$ -- 1255
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 0
-num.names$ -- 0
-pop$ -- 0
-preamble$ -- 0
-purify$ -- 0
-quote$ -- 0
-skip$ -- 0
+int.to.str$ -- 9
+missing$ -- 84
+newline$ -- 52
+num.names$ -- 18
+pop$ -- 267
+preamble$ -- 1
+purify$ -- 50
+quote$ -- 2
+skip$ -- 403
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 85
+swap$ -- 235
+text.length$ -- 4
 text.prefix$ -- 0
-top$ -- 0
-type$ -- 0
-warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 0
-(There were 4 error messages)
+top$ -- 6
+type$ -- 79
+warning$ -- 1
+while$ -- 21
+width$ -- 10
+write$ -- 98
+(There was 1 warning)
